@@ -12,7 +12,9 @@ calls to their own tool handlers. Their code is not copied.
 **lightcraft** (port 7980, `LIGHTCRAFT_CONTROL_PORT`) and **designcraft** (port 7981,
 `DESIGNCRAFT_CONTROL_PORT`) are `:native :port` modules. hive-artcraft serves them from
 `resources/hive_artcraft/catalogs/<app>.edn`. `dev/extract_<app>.clj` derives each catalog from a
-reference clone: `clojure -M:dev -m extract-lightcraft [root]`. It uses the shared parser in
+reference clone: `clojure -M:dev -m extract-lightcraft [root]`. **pdfcraft** (`:control-file`, catalog
+from `clojure -M:dev -m extract-pdfcraft [root]`) and **studio**, ArtCraft itself (`:none`, catalog-only,
+from `clojure -M:dev -m extract-studio [root]`) are native too. It uses the shared parser in
 `dev/artcraft_extract.clj`, which is ported from hive-vectorcraft and also reads DesignCraft's
 `noundo` arm. `:reference-revision` is the clone's HEAD sha.
 
@@ -92,8 +94,8 @@ module and the reason.
 | shape | apps | behaviour |
 |---|---|---|
 | `:port` | vectorcraft, lightcraft, designcraft, filmcraft, effectcraft (photocraft adds a token) | **live**: `<app> --control PORT`, one JSON line `{id, method:"engine.execute", params:{command, params}}` per request, over loopback (`hive-artcraft.transport.socket`) |
-| `:control-file` | pdfcraft | `--control <FILE>`: random port plus a token handshake, `ui.*` methods only. **Contract slot**: catalog and doctor work; `call`/`control` refuse with `:artcraft/unsupported-shape` until a control-file transport lands (or a `:transport` is injected) |
-| `:none` | ArtCraft Studio (Tauri IPC) | catalog only; `call`/`control` refuse |
+| `:control-file` | pdfcraft | **live** once `:apps {"pdfcraft" {:control-file "~/.pdfcraft-control.json"}}` is set: `pdfcraft --control <FILE>` listens on a random loopback port and writes `{port, token}` to FILE. Each request re-reads the file (it must be a regular file you own, mode 600, not a symlink, under 64 KiB), sends JSON-RPC `auth {token}` first, then one `ui.*` request (`hive-artcraft.transport.control-file`). `call` maps `engine_command` to `ui.command {id}`, and `control` sends catalogued `ui.*` methods (`ui.commands`, `ui.inspect`, `ui.state`...). The token is never logged or returned: it prints as `#<redacted>`. Without `:control-file`, calls refuse with `:artcraft/no-transport` |
+| `:none` | studio (ArtCraft, Tauri IPC) | catalog only (its `#[tauri::command]` fns); doctor reports `:status :no-control-surface` with a remedy; `call`/`control` refuse with `:artcraft/unsupported-shape` |
 
 `doctor` always reports the app's shape, its resolved port and its source (`:config`, `:env` or
 `:default`), whether a transport is ready, and the remedy.

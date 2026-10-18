@@ -1,0 +1,17 @@
+{"pdfcraft"
+ {:app "pdfcraft",
+  :shape :control-file,
+  :catalog {:engine 201, :control 17},
+  :port nil,
+  :transport :absent,
+  :hint
+  "Start `pdfcraft --control ~/.pdfcraft-control.json` (random port + token, ui.* methods) and set :apps {\"pdfcraft\" {:control-file \"~/.pdfcraft-control.json\"}}. The file must be yours, mode 600 and not a symlink."},
+ "studio"
+ {:app "studio",
+  :shape :none,
+  :catalog {:engine 67, :control 0},
+  :port nil,
+  :transport :absent,
+  :hint
+  "ArtCraft Studio has no external control surface (its commands are in-process IPC); it is catalog-only. Drive it through its own UI, or ask upstream for an automation surface.",
+  :status :no-control-surface}}

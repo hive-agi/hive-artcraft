@@ -1,14 +1,17 @@
 (ns hive-artcraft.service
   "Native-app commands (catalog/doctor/call/control) driven by the app module's data:
    its catalog resource and its transport shape. :port is live through an injected or socket
-   ControlTransport; :control-file and :none are contract slots that refuse with the remedy."
+   ControlTransport; :control-file is live through the control-file transport once
+   :apps {\"<id>\" {:control-file PATH}} is configured (calls become ui.command {id});
+   :none has no external control surface and refuses with the remedy."
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
             [malli.core :as m]
             [hive-artcraft.schema :as schema]
             [hive-artcraft.core :as core]
             [hive-artcraft.port :as port]
-            [hive-artcraft.transport.socket :as socket]))
+            [hive-artcraft.transport.socket :as socket]
+            [hive-artcraft.transport.control-file :as control-file]))
 
 (defn load-catalog
   "Read a native app's catalog resource from the classpath and validate it."
@@ -31,17 +34,26 @@
   (case (:app/transport module)
     :port (str "Start `" (:app/id module) " --control " (or (:port port-res) (:app/default-port module))
                "` and set :apps {\"" (:app/id module) "\" {:control-port N}} or " (:app/port-env module) ".")
-    :control-file (str (:app/label module) " uses `--control <FILE>` (random port + token handshake, ui.* methods);"
-                       " the control-file transport is not implemented yet, so calls refuse. Catalog works.")
-    :none (str (:app/label module) " has no external control surface; it is catalog-only.")))
+    :control-file (str "Start `" (:app/id module) " --control ~/." (:app/id module) "-control.json` (random port + token,"
+                       " ui.* methods) and set :apps {\"" (:app/id module) "\" {:control-file \"~/." (:app/id module)
+                       "-control.json\"}}. The file must be yours, mode 600 and not a symlink.")
+    :none (str (:app/label module) " has no external control surface (its commands are in-process IPC);"
+               " it is catalog-only. Drive it through its own UI, or ask upstream for an automation surface.")))
 
 (defn resolve-transport
-  "Injected :transport wins; a :port app gets a loopback socket on its resolved port; other shapes get nil."
+  "Injected :transport wins; a :port app gets a loopback socket on its resolved port; a :control-file
+   app with a configured :control-file gets the control-file transport; anything else gets nil."
   [module app-cfg port-res]
   (or (:transport app-cfg)
-      (when (and (= :port (:app/transport module)) port-res)
-        (socket/socket-transport (cond-> {:port (:port port-res)}
-                                   (:control-host app-cfg) (assoc :host (:control-host app-cfg)))))))
+      (case (:app/transport module)
+        :port (when port-res
+                (socket/socket-transport (cond-> {:port (:port port-res)}
+                                           (:control-host app-cfg) (assoc :host (:control-host app-cfg)))))
+        :control-file (when (:control-file app-cfg)
+                        (control-file/control-file-transport
+                         (cond-> {:control-file (:control-file app-cfg)}
+                           (:control-host app-cfg) (assoc :host (:control-host app-cfg)))))
+        nil)))
 
 (defn catalog
   "Describe the app's pinned vocabulary; query selects engine, mcp, control or one exact command id."
@@ -56,33 +68,56 @@
     (core/lookup entries (:app/id module) query)))
 
 (defn doctor
-  "Report catalog size, transport shape, whether a transport is live, and the remedy."
+  "Report catalog size, transport shape, whether a transport is live, and the remedy. A :control-file
+   transport also reports whether its file is readable and trusted (never the token)."
   [module entries transport port-res]
-  {:ok {:app (:app/id module)
-        :shape (:app/transport module)
-        :catalog {:engine (count (:engine entries)) :control (count (:control entries))}
-        :port port-res
-        :transport (if transport :ready :absent)
-        :hint (if transport "Transport ready; calls go to the running app." (shape-remedy module port-res))}})
+  (let [file (when (= :control-file (:app/transport module)) (get-in transport [:config :control-file]))
+        probe (when file (control-file/read-control-file file))]
+    {:ok (cond-> {:app (:app/id module)
+                  :shape (:app/transport module)
+                  :catalog {:engine (count (:engine entries)) :control (count (:control entries))}
+                  :port port-res
+                  :transport (if transport :ready :absent)
+                  :hint (cond (:error probe) (get-in probe [:error :hint])
+                              transport "Transport ready; calls go to the running app."
+                              :else (shape-remedy module port-res))}
+           (= :none (:app/transport module)) (assoc :status :no-control-surface)
+           file (assoc :control-file {:path file
+                                      :status (if (:error probe) (get-in probe [:error :kind]) :trusted)
+                                      :port (get-in probe [:ok :port])}))}))
 
 (defn- send!
   [module transport built port-res]
   (cond
     (:error built) built
-    (not= :port (:app/transport module))
-    (if transport
-      (core/response-line (:app/id module) (port/send-request transport (:ok built)))
-      (core/refusal :artcraft/unsupported-shape (shape-remedy module port-res)))
+    (= :none (:app/transport module))
+    (core/refusal :artcraft/unsupported-shape (shape-remedy module port-res))
     (nil? transport) (core/refusal :artcraft/no-transport (shape-remedy module port-res))
     :else (try (core/response-line (:app/id module) (port/send-request transport (:ok built)))
                (catch Exception e
                  (core/refusal :artcraft/transport-failed
                                (str "Check that " (:app/id module) " is running with --control: " (ex-message e)))))))
 
+(defn ui-command-request
+  "A :control-file app has no engine.execute: an engine command becomes ui.command {id}
+   (non-empty params ride along as {params})."
+  [built]
+  (if (:error built)
+    built
+    (let [{:keys [id params]} (:ok built)
+          command (:command params)
+          extra (:params params)]
+      {:ok {:id id :method "ui.command"
+            :params (cond-> {:id command} (seq extra) (assoc :params extra))}})))
+
 (defn call
-  "Validate an engine command against the catalog, then send it through the app's transport."
+  "Validate an engine command against the catalog, then send it through the app's transport.
+   :control-file apps receive it as ui.command {id}."
   [module entries transport port-res command params request-id]
-  (send! module transport (core/request entries (:app/id module) command params request-id) port-res))
+  (let [built (core/request entries (:app/id module) command params request-id)]
+    (send! module transport
+           (if (= :control-file (:app/transport module)) (ui-command-request built) built)
+           port-res)))
 
 (defn control
   "Validate a catalogued control method, then send it through the app's transport."
@@ -94,5 +129,6 @@
 (m/=> resolve-transport [:=> [:cat schema/AppModule :map [:maybe schema/PortResolution]] :any])
 (m/=> catalog [:=> [:cat schema/AppModule schema/Catalog [:maybe :string]] (schema/envelope :any)])
 (m/=> doctor [:=> [:cat schema/AppModule schema/Catalog :any [:maybe schema/PortResolution]] (schema/envelope :map)])
+(m/=> ui-command-request [:=> [:cat (schema/envelope schema/Request)] (schema/envelope schema/Request)])
 (m/=> call [:=> [:cat schema/AppModule schema/Catalog :any [:maybe schema/PortResolution] :any :any :any] (schema/envelope :any)])
 (m/=> control [:=> [:cat schema/AppModule schema/Catalog :any [:maybe schema/PortResolution] :any :any :any] (schema/envelope :any)])

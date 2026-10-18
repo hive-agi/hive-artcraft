@@ -1,2 +1,9 @@
 {:fixture {:ok ["lightcraft" "pdfcraft"]},
- :shipped {:ok ["photocraft" "vectorcraft" "lightcraft" "designcraft"]}}
+ :shipped
+ {:ok
+  ["photocraft"
+   "vectorcraft"
+   "lightcraft"
+   "designcraft"
+   "pdfcraft"
+   "studio"]}}

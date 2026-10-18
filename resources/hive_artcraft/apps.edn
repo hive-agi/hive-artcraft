@@ -50,4 +50,24 @@
   ;; Derived by dev/extract_designcraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/designcraft.edn"
   :app/upstream "https://github.com/storytold/designcraft"}
+
+ {:app/id "pdfcraft"
+  :app/label "PdfCraft"
+  :app/summary "Acrobat-style PDF reader/editor. Native: `pdfcraft --control <FILE>` (random port + token, ui.* methods); call runs ui.command {id}."
+  :app/kind :native
+  :app/transport :control-file
+  ;; Live once configured: :apps {"pdfcraft" {:control-file "~/.pdfcraft-control.json"}}. The token is
+  ;; read from that file per request and never logged or returned.
+  ;; Derived by dev/extract_pdfcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/pdfcraft.edn"
+  :app/upstream "https://github.com/storytold/pdfcraft"}
+
+ {:app/id "studio"
+  :app/label "ArtCraft Studio"
+  :app/summary "AI image/video/3D studio (Tauri). Catalog-only: its #[tauri::command] fns are in-process webview IPC, with no external control surface."
+  :app/kind :native
+  :app/transport :none
+  ;; Derived by dev/extract_studio.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/studio.edn"
+  :app/upstream "https://github.com/storytold/artcraft"}
 ]

@@ -1,0 +1,8 @@
+{:empty
+ {:ok false,
+  :error "the app sent a reply with neither result nor error"},
+ :error {:ok false, :error "no document (-32000)"},
+ :not-map
+ {:ok false, :error "the app sent a reply that is not a JSON object"},
+ :null {:ok true, :result nil},
+ :result {:ok true, :result {:ok true}}}

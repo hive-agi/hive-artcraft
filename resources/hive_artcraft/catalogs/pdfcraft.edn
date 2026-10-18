@@ -1,0 +1,2248 @@
+{:reference-revision "a8cd797a917b1007544575c7280c9a0ce6a17e8f",
+ :engine
+ [{:id "file.open",
+   :label "Open…",
+   :needs "Nothing",
+   :icon "folder-open",
+   :in-text true,
+   :menu "File",
+   :shortcut "Some(Shortcut::cmd(\"O\"))"}
+  {:id "file.open_recent",
+   :label "Open Recent",
+   :needs "Nothing",
+   :icon "clock",
+   :in-text true,
+   :menu "File"}
+  {:id "file.clear_recent",
+   :label "Clear Recent Files",
+   :needs "Nothing",
+   :icon "trash-2",
+   :in-text true}
+  {:id "file.pin_folder",
+   :label "Pin folder to Home…",
+   :needs "Nothing",
+   :icon "folder-plus",
+   :in-text true,
+   :menu "File"}
+  {:id "create.blank",
+   :label "New blank PDF",
+   :needs "Nothing",
+   :icon "file-plus-2",
+   :in-text true,
+   :menu "File"}
+  {:id "measure.distance",
+   :label "Measure distance",
+   :needs "Annotate",
+   :icon "ruler",
+   :in-text true}
+  {:id "measure.perimeter",
+   :label "Measure perimeter",
+   :needs "Annotate",
+   :icon "ruler",
+   :in-text true}
+  {:id "measure.area",
+   :label "Measure area",
+   :needs "Annotate",
+   :icon "ruler",
+   :in-text true}
+  {:id "measure.scale",
+   :label "Set measurement scale",
+   :needs "Annotate",
+   :icon "ruler",
+   :in-text true}
+  {:id "measure.info",
+   :label "Measurement information",
+   :needs "Document",
+   :icon "ruler",
+   :in-text true}
+  {:id "measure.snap",
+   :label "Measurement snapping",
+   :needs "Document",
+   :icon "ruler",
+   :in-text true}
+  {:id "measure.export",
+   :label "Export measurements as CSV",
+   :needs "Document",
+   :icon "file-output",
+   :in-text true}
+  {:id "page.copy",
+   :label "Copy pages",
+   :needs "Document",
+   :icon "copy",
+   :in-text true}
+  {:id "page.cut",
+   :label "Cut pages",
+   :needs "Assembly",
+   :icon "scissors",
+   :in-text true}
+  {:id "page.paste",
+   :label "Paste pages",
+   :needs "Assembly",
+   :icon "clipboard-paste",
+   :in-text true}
+  {:id "create.file",
+   :label "Create PDF from file…",
+   :needs "Nothing",
+   :icon "file-input",
+   :in-text true,
+   :menu "File"}
+  {:id "create.multiple",
+   :label "Create PDF from multiple files…",
+   :needs "Nothing",
+   :icon "files",
+   :in-text true,
+   :menu "File"}
+  {:id "create.multiple_separate",
+   :label "Create separate PDFs…",
+   :needs "Nothing",
+   :icon "files",
+   :in-text true,
+   :menu "File"}
+  {:id "create.images",
+   :label "Create PDF from images…",
+   :needs "Nothing",
+   :icon "image",
+   :in-text true,
+   :menu "File"}
+  {:id "create.clipboard",
+   :label "Create PDF from clipboard",
+   :needs "Nothing",
+   :icon "copy-plus",
+   :in-text true,
+   :menu "File"}
+  {:id "page.combine",
+   :label "Combine files…",
+   :needs "Nothing",
+   :icon "files",
+   :in-text true,
+   :menu "File"}
+  {:id "file.save",
+   :label "Save",
+   :needs "Document",
+   :icon "save",
+   :in-text true,
+   :menu "File",
+   :shortcut "Some(Shortcut::cmd(\"S\"))"}
+  {:id "file.save_as",
+   :label "Save as…",
+   :needs "Document",
+   :icon "save",
+   :in-text true,
+   :menu "File",
+   :shortcut "Some(Shortcut::cmd_shift(\"S\"))"}
+  {:id "file.close",
+   :label "Close file",
+   :needs "Document",
+   :icon "x",
+   :in-text true,
+   :menu "File",
+   :shortcut "Some(Shortcut::cmd(\"W\"))"}
+  {:id "file.close_all",
+   :label "Close all",
+   :needs "Document",
+   :icon "x",
+   :in-text true,
+   :menu "File",
+   :shortcut "Some(Shortcut::cmd_shift(\"W\"))"}
+  {:id "file.revert",
+   :label "Revert",
+   :needs "Undo",
+   :icon "rotate-ccw",
+   :in-text true,
+   :menu "File"}
+  {:id "print.dialog",
+   :label "Print…",
+   :needs "Document",
+   :icon "printer",
+   :in-text true,
+   :menu "File",
+   :shortcut "Some(Shortcut::cmd(\"P\"))"}
+  {:id "file.properties",
+   :label "Document properties…",
+   :needs "Document",
+   :icon "info",
+   :in-text true,
+   :menu "File",
+   :shortcut "Some(Shortcut::cmd(\"D\"))"}
+  {:id "file.word_count",
+   :label "Word count…",
+   :needs "Copying",
+   :icon "hash",
+   :in-text true,
+   :menu "File"}
+  {:id "edit.undo",
+   :label "Undo",
+   :needs "Undo",
+   :icon "undo-2",
+   :in-text false,
+   :menu "Edit",
+   :shortcut "Some(Shortcut::cmd(\"Z\"))"}
+  {:id "edit.redo",
+   :label "Redo",
+   :needs "Redo",
+   :icon "redo-2",
+   :in-text false,
+   :menu "Edit",
+   :shortcut "Some(Shortcut::cmd_shift(\"Z\"))"}
+  {:id "edit.find",
+   :label "Find…",
+   :needs "Document",
+   :icon "search",
+   :in-text true,
+   :menu "Edit",
+   :shortcut "Some(Shortcut::cmd(\"F\"))"}
+  {:id "edit.advanced_search",
+   :label "Advanced search…",
+   :needs "Document",
+   :icon "search",
+   :in-text true,
+   :menu "Edit",
+   :shortcut "Some(Shortcut::cmd_shift(\"F\"))"}
+  {:id "view.palette",
+   :label "Find tools and commands…",
+   :needs "Nothing",
+   :icon "search",
+   :in-text true,
+   :menu "View",
+   :shortcut "Some(Shortcut::cmd(\"K\"))"}
+  {:id "view.layout.single",
+   :label "Single page",
+   :needs "Document",
+   :icon "file-text",
+   :in-text true}
+  {:id "view.layout.two_up",
+   :label "Two-page view",
+   :needs "Document",
+   :icon "columns-2",
+   :in-text true}
+  {:id "view.continuous",
+   :label "Continuous scrolling",
+   :needs "Document",
+   :icon "arrow-up-down",
+   :in-text true}
+  {:id "view.layout.cover",
+   :label "Show cover page in two-page view",
+   :needs "TwoPageView",
+   :icon "bookmark",
+   :in-text true}
+  {:id "view.fit_width_scrolling",
+   :label "Fit to width scrolling",
+   :needs "Document",
+   :icon "arrow-left-right",
+   :in-text true}
+  {:id "view.fit_one_page",
+   :label "Fit one full page",
+   :needs "Document",
+   :icon "maximize-2",
+   :in-text true}
+  {:id "view.fit_visible",
+   :label "Fit visible",
+   :needs "Document",
+   :icon "scan",
+   :in-text true,
+   :shortcut "Some(Shortcut::cmd(\"3\"))"}
+  {:id "view.marquee_zoom",
+   :label "Marquee zoom",
+   :needs "Document",
+   :icon "zoom-in",
+   :in-text true,
+   :menu "View"}
+  {:id "edit.copy",
+   :label "Copy",
+   :needs "Copying",
+   :icon "copy",
+   :in-text true,
+   :menu "Edit"}
+  {:id "edit.column_select",
+   :label "Column select",
+   :needs "Document",
+   :icon "text-select",
+   :in-text true,
+   :menu "Edit"}
+  {:id "edit.snapshot",
+   :label "Take a snapshot",
+   :needs "Copying",
+   :icon "camera",
+   :in-text true,
+   :menu "Edit"}
+  {:id "view.full_screen",
+   :label "Full screen mode",
+   :needs "Document",
+   :icon "maximize",
+   :in-text true,
+   :menu "View",
+   :shortcut "Some(Shortcut::cmd(\"L\"))"}
+  {:id "view.read_mode",
+   :label "Read mode",
+   :needs "Document",
+   :icon "book-open",
+   :in-text true,
+   :menu "View",
+   :shortcut
+   "Some(Shortcut { command: true, shift: false, mac_ctrl: true, key: \"H\" })"}
+  {:id "view.next_tab",
+   :label "Next tab",
+   :needs "Nothing",
+   :icon "chevron-right",
+   :in-text true,
+   :menu "View",
+   :shortcut
+   "Some(Shortcut { command: false, shift: false, mac_ctrl: true, key: \"Tab\" })"}
+  {:id "view.previous_tab",
+   :label "Previous tab",
+   :needs "Nothing",
+   :icon "chevron-left",
+   :in-text true,
+   :menu "View",
+   :shortcut
+   "Some(Shortcut { command: false, shift: true, mac_ctrl: true, key: \"Tab\" })"}
+  {:id "view.previous_view",
+   :label "Previous view",
+   :needs "Document",
+   :icon "chevron-left",
+   :in-text true,
+   :shortcut "Some(Shortcut::cmd(\"[\"))"}
+  {:id "view.next_view",
+   :label "Next view",
+   :needs "Document",
+   :icon "chevron-right",
+   :in-text true,
+   :shortcut "Some(Shortcut::cmd(\"]\"))"}
+  {:id "view.focus_page_input",
+   :label "Go to page…",
+   :needs "Document",
+   :icon "text-cursor-input",
+   :in-text true,
+   :menu "View",
+   :shortcut "Some(Shortcut::cmd_shift(\"N\"))"}
+  {:id "ui.dock.reset",
+   :label "Reset panel layout",
+   :needs "Nothing",
+   :icon "settings",
+   :in-text true,
+   :menu "View"}
+  {:id "view.theme",
+   :label "Switch light / dark theme",
+   :needs "Nothing",
+   :icon "moon",
+   :in-text true}
+  {:id "view.theme.system",
+   :label "Use system setting",
+   :needs "Nothing",
+   :icon "settings",
+   :in-text true}
+  {:id "view.theme.light",
+   :label "Light gray",
+   :needs "Nothing",
+   :icon "sun",
+   :in-text true}
+  {:id "view.theme.dark",
+   :label "Dark gray",
+   :needs "Nothing",
+   :icon "moon",
+   :in-text true}
+  {:id "comment.list",
+   :label "Comments panel",
+   :needs "Document",
+   :icon "message-square-text",
+   :in-text true,
+   :menu "View"}
+  {:id "comment.note",
+   :label "Add a sticky note",
+   :needs "Annotate",
+   :icon "sticky-note",
+   :in-text true}
+  {:id "comment.freetext",
+   :label "Add a text box",
+   :needs "Annotate",
+   :icon "type",
+   :in-text true}
+  {:id "comment.highlight",
+   :label "Highlight text",
+   :needs "Annotate",
+   :icon "highlighter",
+   :in-text true}
+  {:id "comment.underline",
+   :label "Underline text",
+   :needs "Annotate",
+   :icon "underline",
+   :in-text true}
+  {:id "comment.strikeout",
+   :label "Strikethrough text",
+   :needs "Annotate",
+   :icon "strikethrough",
+   :in-text true}
+  {:id "comment.squiggly",
+   :label "Squiggly underline text",
+   :needs "Annotate",
+   :icon "spline",
+   :in-text true}
+  {:id "comment.ink",
+   :label "Draw freehand",
+   :needs "Annotate",
+   :icon "pencil",
+   :in-text true}
+  {:id "comment.line",
+   :label "Draw a line",
+   :needs "Annotate",
+   :icon "minus",
+   :in-text true}
+  {:id "comment.arrow",
+   :label "Draw an arrow",
+   :needs "Annotate",
+   :icon "move-right",
+   :in-text true}
+  {:id "comment.square",
+   :label "Draw a rectangle",
+   :needs "Annotate",
+   :icon "square",
+   :in-text true}
+  {:id "comment.circle",
+   :label "Draw an oval",
+   :needs "Annotate",
+   :icon "circle",
+   :in-text true}
+  {:id "comment.polygon",
+   :label "Draw a polygon",
+   :needs "Annotate",
+   :icon "pentagon",
+   :in-text true}
+  {:id "comment.polyline",
+   :label "Draw connected lines",
+   :needs "Annotate",
+   :icon "spline",
+   :in-text true}
+  {:id "comment.cloud",
+   :label "Draw a cloud",
+   :needs "Annotate",
+   :icon "cloud",
+   :in-text true}
+  {:id "comment.callout",
+   :label "Add a callout",
+   :needs "Annotate",
+   :icon "message-square-quote",
+   :in-text true}
+  {:id "comment.caret",
+   :label "Insert text",
+   :needs "Annotate",
+   :icon "text-cursor-input",
+   :in-text true}
+  {:id "comment.replace",
+   :label "Replace text",
+   :needs "Annotate",
+   :icon "replace",
+   :in-text true}
+  {:id "comment.attach",
+   :label "Attach a file",
+   :needs "Annotate",
+   :icon "paperclip",
+   :in-text true}
+  {:id "comment.eraser",
+   :label "Erase drawings",
+   :needs "Annotate",
+   :icon "eraser",
+   :in-text true}
+  {:id "form.fields",
+   :label "Form fields panel",
+   :needs "Document",
+   :icon "list",
+   :in-text true,
+   :menu "View"}
+  {:id "form.clear",
+   :label "Clear form",
+   :needs "FillForms",
+   :icon "eraser",
+   :in-text true,
+   :menu "Edit"}
+  {:id "comment.flatten",
+   :label "Flatten comments",
+   :needs "HasComments",
+   :icon "layers",
+   :in-text true}
+  {:id "comment.import",
+   :label "Import comments…",
+   :needs "Modification",
+   :icon "file-input",
+   :in-text true}
+  {:id "comment.stamp",
+   :label "Add a stamp",
+   :needs "Annotate",
+   :icon "stamp",
+   :in-text true}
+  {:id "comment.export",
+   :label "Export all comments to data file…",
+   :needs "HasComments",
+   :icon "file-output",
+   :in-text true}
+  {:id "comment.hide_all",
+   :label "Hide all comments",
+   :needs "Document",
+   :icon "eye-off",
+   :in-text true}
+  {:id "comment.summarize",
+   :label "Summarize comments",
+   :needs "HasComments",
+   :icon "file-text",
+   :in-text true}
+  {:id "form.import_data",
+   :label "Import form data…",
+   :needs "HasFields",
+   :icon "file-input",
+   :in-text true}
+  {:id "form.export_data",
+   :label "Export form data…",
+   :needs "HasFields",
+   :icon "file-output",
+   :in-text true}
+  {:id "standards.pdfa",
+   :label "PDF/A…",
+   :needs "Document",
+   :icon "file-check",
+   :in-text true}
+  {:id "actions.wizard",
+   :label "Action Wizard…",
+   :needs "Nothing",
+   :icon "list-checks",
+   :in-text true}
+  {:id "actions.distribution",
+   :label "Prepare for distribution…",
+   :needs "Nothing",
+   :icon "send",
+   :in-text true}
+  {:id "actions.optimize_scans",
+   :label "Optimize scanned documents…",
+   :needs "Nothing",
+   :icon "scan-text",
+   :in-text true}
+  {:id "doc.compare",
+   :label "Compare files…",
+   :needs "Document",
+   :icon "git-compare",
+   :in-text true}
+  {:id "form.detect",
+   :label "Detect form fields",
+   :needs "Modification",
+   :icon "scan",
+   :in-text true}
+  {:id "form.merge_data",
+   :label "Merge data files into spreadsheet…",
+   :needs "Nothing",
+   :icon "file-spreadsheet",
+   :in-text true}
+  {:id "form.flatten",
+   :label "Flatten form fields",
+   :needs "HasFields",
+   :icon "layers",
+   :in-text true}
+  {:id "form.prepare",
+   :label "Prepare a form",
+   :needs "Modification",
+   :icon "text-cursor-input",
+   :in-text true}
+  {:id "form.tab_order.row",
+   :label "Tab order: by rows",
+   :needs "HasFields",
+   :icon "rows-3",
+   :in-text true}
+  {:id "form.tab_order.column",
+   :label "Tab order: by columns",
+   :needs "HasFields",
+   :icon "columns-3",
+   :in-text true}
+  {:id "form.tab_order.structure",
+   :label "Tab order: by document structure",
+   :needs "HasFields",
+   :icon "list",
+   :in-text true}
+  {:id "edit.text",
+   :label "Add text",
+   :needs "Modification",
+   :icon "type",
+   :in-text true}
+  {:id "edit.edit_text",
+   :label "Edit text & images",
+   :needs "Modification",
+   :icon "text-cursor-input",
+   :in-text true}
+  {:id "edit.link",
+   :label "Add or edit links",
+   :needs "Modification",
+   :icon "link-2",
+   :in-text true}
+  {:id "edit.links_from_urls",
+   :label "Create links from URLs",
+   :needs "Modification",
+   :icon "link-2",
+   :in-text true}
+  {:id "edit.remove_links",
+   :label "Remove all links",
+   :needs "Modification",
+   :icon "trash-2",
+   :in-text true}
+  {:id "edit.bates",
+   :label "Add Bates numbering…",
+   :needs "Modification",
+   :icon "hash",
+   :in-text true}
+  {:id "edit.image",
+   :label "Add image…",
+   :needs "Modification",
+   :icon "image-plus",
+   :in-text true}
+  {:id "redact.mark",
+   :label "Redact text and images",
+   :needs "Modification",
+   :icon "rectangle-horizontal",
+   :in-text true}
+  {:id "redact.pages",
+   :label "Redact pages…",
+   :needs "Modification",
+   :icon "file-x",
+   :in-text true}
+  {:id "redact.search",
+   :label "Find text and redact…",
+   :needs "Modification",
+   :icon "file-search",
+   :in-text true}
+  {:id "redact.properties",
+   :label "Redaction properties…",
+   :needs "Document",
+   :icon "settings-2",
+   :in-text true}
+  {:id "redact.apply",
+   :label "Apply redactions…",
+   :needs "HasRedactions",
+   :icon "check",
+   :in-text true}
+  {:id "redact.clear",
+   :label "Clear redaction marks",
+   :needs "HasRedactions",
+   :icon "eraser",
+   :in-text true}
+  {:id "protect.remove_hidden",
+   :label "Remove hidden information…",
+   :needs "Modification",
+   :icon "eye-off",
+   :in-text true}
+  {:id "redact.sanitize",
+   :label "Sanitize document…",
+   :needs "Modification",
+   :icon "sparkles",
+   :in-text true}
+  {:id "form.field.properties",
+   :label "Field properties…",
+   :needs "HasFields",
+   :icon "settings-2",
+   :in-text true}
+  {:id "form.add.text",
+   :label "Add a text field",
+   :needs "Modification",
+   :icon "text-cursor-input",
+   :in-text true}
+  {:id "form.add.checkbox",
+   :label "Add a checkbox",
+   :needs "Modification",
+   :icon "check-circle-2",
+   :in-text true}
+  {:id "form.add.radio",
+   :label "Add a radio button",
+   :needs "Modification",
+   :icon "circle",
+   :in-text true}
+  {:id "form.add.combo",
+   :label "Add a drop-down list",
+   :needs "Modification",
+   :icon "chevron-down",
+   :in-text true}
+  {:id "form.add.list",
+   :label "Add a list box",
+   :needs "Modification",
+   :icon "list",
+   :in-text true}
+  {:id "form.add.button",
+   :label "Add a button",
+   :needs "Modification",
+   :icon "square",
+   :in-text true}
+  {:id "form.add.image",
+   :label "Add an image field",
+   :needs "Modification",
+   :icon "image",
+   :in-text true}
+  {:id "form.add.date",
+   :label "Add a date field",
+   :needs "Modification",
+   :icon "clock-3",
+   :in-text true}
+  {:id "form.add.signature",
+   :label "Add a digital signature field",
+   :needs "Modification",
+   :icon "signature",
+   :in-text true}
+  {:id "sign.digital",
+   :label "Digitally sign",
+   :needs "Document",
+   :icon "signature",
+   :in-text true}
+  {:id "sign.certify",
+   :label "Certify (visible signature)",
+   :needs "Document",
+   :icon "badge-check",
+   :in-text true}
+  {:id "sign.certify_invisible",
+   :label "Certify (invisible signature)",
+   :needs "Document",
+   :icon "badge-check",
+   :in-text true}
+  {:id "sign.validate",
+   :label "Validate all signatures",
+   :needs "Document",
+   :icon "badge-check",
+   :in-text true}
+  {:id "sign.panel",
+   :label "Signatures panel",
+   :needs "Document",
+   :icon "signature",
+   :in-text true,
+   :menu "View"}
+  {:id "sign.fill.text",
+   :label "Fill & Sign: add text",
+   :needs "Annotate",
+   :icon "type",
+   :in-text true}
+  {:id "sign.fill.check",
+   :label "Fill & Sign: checkmark",
+   :needs "Annotate",
+   :icon "check",
+   :in-text true}
+  {:id "sign.fill.cross",
+   :label "Fill & Sign: cross",
+   :needs "Annotate",
+   :icon "x",
+   :in-text true}
+  {:id "sign.fill.dot",
+   :label "Fill & Sign: dot",
+   :needs "Annotate",
+   :icon "circle-dot",
+   :in-text true}
+  {:id "sign.fill.line",
+   :label "Fill & Sign: line",
+   :needs "Annotate",
+   :icon "minus",
+   :in-text true}
+  {:id "sign.fill.date",
+   :label "Fill & Sign: date",
+   :needs "Annotate",
+   :icon "clock-3",
+   :in-text true}
+  {:id "sign.fill.signature",
+   :label "Fill & Sign: sign",
+   :needs "Annotate",
+   :icon "signature",
+   :in-text true}
+  {:id "sign.fill.initials",
+   :label "Fill & Sign: initials",
+   :needs "Annotate",
+   :icon "signature",
+   :in-text true}
+  {:id "sign.fill.signature.change",
+   :label "Fill & Sign: change signature",
+   :needs "Nothing",
+   :icon "signature",
+   :in-text true}
+  {:id "sign.fill.signature.remove",
+   :label "Fill & Sign: remove saved signature",
+   :needs "Nothing",
+   :icon "x",
+   :in-text true}
+  {:id "sign.fill.initials.remove",
+   :label "Fill & Sign: remove saved initials",
+   :needs "Nothing",
+   :icon "x",
+   :in-text true}
+  {:id "sign.fill.initials.change",
+   :label "Fill & Sign: change initials",
+   :needs "Nothing",
+   :icon "signature",
+   :in-text true}
+  {:id "export.image",
+   :label "Export to image…",
+   :needs "Copying",
+   :icon "image",
+   :in-text true,
+   :menu "File"}
+  {:id "optimize.reduce",
+   :label "Reduce file size…",
+   :needs "Document",
+   :icon "file-down",
+   :in-text true,
+   :menu "File"}
+  {:id "optimize.advanced",
+   :label "Optimize PDF…",
+   :needs "Document",
+   :icon "settings-2",
+   :in-text true,
+   :menu "File"}
+  {:id "export.text",
+   :label "Export to text…",
+   :needs "Copying",
+   :icon "type",
+   :in-text true,
+   :menu "File"}
+  {:id "export.docx",
+   :label "Export to Word…",
+   :needs "Copying",
+   :icon "file-text",
+   :in-text true,
+   :menu "File"}
+  {:id "export.pptx",
+   :label "Export to PowerPoint…",
+   :needs "Copying",
+   :icon "presentation",
+   :in-text true,
+   :menu "File"}
+  {:id "export.html",
+   :label "Export to HTML…",
+   :needs "Copying",
+   :icon "file-symlink",
+   :in-text true,
+   :menu "File"}
+  {:id "export.rtf",
+   :label "Export to RTF…",
+   :needs "Copying",
+   :icon "file-text",
+   :in-text true,
+   :menu "File"}
+  {:id "app.preferences",
+   :label "Preferences…",
+   :needs "Nothing",
+   :icon "settings",
+   :in-text true,
+   :menu "Edit",
+   :shortcut "Some(Shortcut::cmd(\",\"))"}
+  {:id "tools.js_console",
+   :label "JavaScript console…",
+   :needs "Document",
+   :icon "square-terminal",
+   :in-text true,
+   :shortcut "Some(Shortcut::cmd(\"J\"))"}
+  {:id "tools.document_js",
+   :label "Document JavaScripts…",
+   :needs "Modification",
+   :icon "file-code",
+   :in-text true}
+  {:id "ocr.recognize",
+   :label "Recognize text…",
+   :needs "Modification",
+   :icon "scan-text",
+   :in-text true}
+  {:id "ocr.enhance_camera",
+   :label "Enhance camera image",
+   :needs "Modification",
+   :icon "camera",
+   :in-text true}
+  {:id "ocr.recognize_batch",
+   :label "Recognize text in multiple files…",
+   :needs "Nothing",
+   :icon "files",
+   :in-text true}
+  {:id "a11y.check",
+   :label "Check for accessibility…",
+   :needs "Document",
+   :icon "accessibility",
+   :in-text true}
+  {:id "a11y.find_untagged",
+   :label "Find untagged content",
+   :needs "Document",
+   :icon "search",
+   :in-text true}
+  {:id "a11y.autotag",
+   :label "Automatically tag PDF",
+   :needs "Document",
+   :icon "tag",
+   :in-text true}
+  {:id "a11y.report",
+   :label "Open accessibility report",
+   :needs "Document",
+   :icon "file-text",
+   :in-text true}
+  {:id "a11y.reading_options",
+   :label "Change reading options…",
+   :needs "Document",
+   :icon "book-open",
+   :in-text true}
+  {:id "a11y.alt_text",
+   :label "Add alternate text…",
+   :needs "Modification",
+   :icon "image",
+   :in-text true}
+  {:id "a11y.autotag_fields",
+   :label "Tag form fields",
+   :needs "Modification",
+   :icon "tag",
+   :in-text true}
+  {:id "a11y.tags",
+   :label "Tags panel",
+   :needs "Document",
+   :icon "tag",
+   :in-text true}
+  {:id "export.all_images",
+   :label "Export all images…",
+   :needs "Copying",
+   :icon "image",
+   :in-text true,
+   :menu "File"}
+  {:id "edit.header_footer",
+   :label "Add header & footer…",
+   :needs "Modification",
+   :icon "heading",
+   :in-text true}
+  {:id "edit.header_footer.update",
+   :label "Update header & footer…",
+   :needs "Marks(crate::MarkKind::HeaderFooter)",
+   :icon "heading",
+   :in-text true}
+  {:id "edit.header_footer.remove",
+   :label "Remove header & footer",
+   :needs "Marks(crate::MarkKind::HeaderFooter)",
+   :icon "heading",
+   :in-text true}
+  {:id "edit.watermark",
+   :label "Add watermark…",
+   :needs "Modification",
+   :icon "stamp",
+   :in-text true}
+  {:id "edit.watermark.update",
+   :label "Update watermark…",
+   :needs "Marks(crate::MarkKind::Watermark)",
+   :icon "stamp",
+   :in-text true}
+  {:id "edit.watermark.remove",
+   :label "Remove watermark",
+   :needs "Marks(crate::MarkKind::Watermark)",
+   :icon "stamp",
+   :in-text true}
+  {:id "edit.background",
+   :label "Add background…",
+   :needs "Modification",
+   :icon "palette",
+   :in-text true}
+  {:id "edit.background.update",
+   :label "Update background…",
+   :needs "Marks(crate::MarkKind::Background)",
+   :icon "palette",
+   :in-text true}
+  {:id "edit.background.remove",
+   :label "Remove background",
+   :needs "Marks(crate::MarkKind::Background)",
+   :icon "palette",
+   :in-text true}
+  {:id "protect.password",
+   :label "Protect using password…",
+   :needs "Security",
+   :icon "lock",
+   :in-text true,
+   :menu "File"}
+  {:id "protect.remove",
+   :label "Remove security",
+   :needs "ProtectedSecurity",
+   :icon "lock-open",
+   :in-text true,
+   :menu "File"}
+  {:id "protect.unlock",
+   :label "Enter permissions password…",
+   :needs "Unlock",
+   :icon "lock-open",
+   :in-text true}
+  {:id "protect.properties",
+   :label "Security properties…",
+   :needs "Document",
+   :icon "shield-check",
+   :in-text true,
+   :menu "File"}
+  {:id "page.organize",
+   :label "Organize pages",
+   :needs "Document",
+   :icon "layout-grid",
+   :in-text true,
+   :menu "Pages"}
+  {:id "bookmark.add",
+   :label "New bookmark",
+   :needs "Assembly",
+   :icon "bookmark-plus",
+   :in-text true,
+   :menu "Pages",
+   :shortcut "Some(Shortcut::cmd(\"B\"))"}
+  {:id "bookmark.from_structure",
+   :label "New bookmarks from structure",
+   :needs "Assembly",
+   :icon "list",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.rotate",
+   :label "Rotate pages clockwise",
+   :needs "Assembly",
+   :icon "rotate-cw",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.rotate_ccw",
+   :label "Rotate pages counterclockwise",
+   :needs "Assembly",
+   :icon "rotate-ccw",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.delete",
+   :label "Delete pages",
+   :needs "Assembly",
+   :icon "trash-2",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.insert_blank",
+   :label "Insert blank page",
+   :needs "Assembly",
+   :icon "file-plus",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.rotate_dialog",
+   :label "Rotate pages…",
+   :needs "Assembly",
+   :icon "rotate-cw",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.duplicate",
+   :label "Duplicate pages",
+   :needs "Assembly",
+   :icon "copy-plus",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.reverse",
+   :label "Reverse pages",
+   :needs "Assembly",
+   :icon "arrow-up-down",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.crop",
+   :label "Crop pages",
+   :needs "Assembly",
+   :icon "crop",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.boxes",
+   :label "Set page boxes…",
+   :needs "Assembly",
+   :icon "square-dashed-mouse-pointer",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.insert",
+   :label "Insert pages from file…",
+   :needs "Assembly",
+   :icon "file-input",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.replace",
+   :label "Replace pages…",
+   :needs "Assembly",
+   :icon "replace",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.extract",
+   :label "Extract pages…",
+   :needs "Assembly",
+   :icon "file-output",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.split",
+   :label "Split document…",
+   :needs "Assembly",
+   :icon "scissors",
+   :in-text true,
+   :menu "Pages"}
+  {:id "page.number",
+   :label "Number pages…",
+   :needs "Assembly",
+   :icon "hash",
+   :in-text true,
+   :menu "Pages"}
+  {:id "help.shortcuts",
+   :label "Keyboard shortcuts",
+   :needs "Nothing",
+   :icon "circle-help",
+   :in-text true,
+   :menu "Help"}
+  {:id "help.discord",
+   :label "Join the ArtCraft Discord",
+   :needs "Nothing",
+   :icon "messages-square",
+   :in-text true,
+   :menu "Help"}
+  {:id "help.app_page",
+   :label "PdfCraft web page",
+   :needs "Nothing",
+   :icon "globe",
+   :in-text true,
+   :menu "Help"}
+  {:id "help.github",
+   :label "PdfCraft on GitHub",
+   :needs "Nothing",
+   :icon "code-xml",
+   :in-text true,
+   :menu "Help"}
+  {:id "help.website",
+   :label "ArtCraft website",
+   :needs "Nothing",
+   :icon "external-link",
+   :in-text true,
+   :menu "Help"}
+  {:id "help.check_updates",
+   :label "Check for updates…",
+   :needs "Nothing",
+   :icon "cloud",
+   :in-text true,
+   :menu "Help"}
+  {:id "help.about",
+   :label "About PdfCraft",
+   :needs "Nothing",
+   :icon "info",
+   :in-text true,
+   :menu "Help"}],
+ :mcp
+ [{:name "doc_batch",
+   :title "Process files and folders",
+   :description
+   "Run convert, ocr and/or optimize over files and folders, one file at a time. recursive defaults to false. Preserve paths relative to each selected folder inside out_dir; duplicate inputs run once. Skip unsupported files, links and the output subtree. Existing outputs receive numbered names and are never replaced. Continue after per-file errors unless stop_on_error is true. Return completed/failed/skipped counts and per-file results. Discovery is bounded to 10000 entries and 64 folder levels. Convert must be first; each step can appear once. OCR uses installed models. Optimize uses Reduce File Size settings, optionally overriding target ppi (threshold 1.5 times ppi) and JPEG quality; a larger candidate keeps the original bytes. Sources and open documents are unchanged.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_open",
+   :title "Open a PDF",
+   :description
+   "Open a PDF file and return its document id, page count and whether it can be edited.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "file.open"}
+  {:name "doc_list",
+   :title "List open documents",
+   :description
+   "List the open documents with their ids, page counts and unsaved state.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_info",
+   :title "Inspect a document",
+   :description
+   "Metadata, page sizes and labels, bookmarks, annotations, form fields, links, layers, page transitions and display times, attachments, fonts, security and repair notes.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "file.properties"}
+  {:name "doc_close",
+   :title "Close a document",
+   :description
+   "Close a document. Fails if it has unsaved changes unless discard_changes is true.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs",
+   :command "file.close"}
+  {:name "doc_set_info",
+   :title "Set document metadata",
+   :description
+   "Set a document information entry such as Title, Author, Subject or Keywords, or a custom property under any other name (no spaces, delimiters, / or #; at most 127 bytes; doc_info lists them under custom); an empty value removes it. When the file has XMP metadata, the matching XMP property (dc:title, dc:creator, dc:description, pdf:Keywords, xmp:CreatorTool, pdf:Producer) is changed too, so viewers that read XMP first show the new value. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "page_render",
+   :title "Render a page",
+   :description
+   "Render one page to a PNG image (default 96 dpi, at most 600).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "object_list",
+   :title "List editable objects",
+   :description
+   "List existing paragraphs, Image/Form artwork and added content once, with source kind/index references, displayed rectangles and document generation. Indexes change when content changes; use generation in object_move to reject stale references.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "object_move",
+   :title "Move objects together",
+   :description
+   "Atomically translate 1–1000 mixed references from object_list by [dx, dy] in displayed points (right/down). Preserves glyph codes, fonts, image data and relative spacing; success is one undo step. Clipping and vertical text are refused. A bad/stale reference refuses the entire move.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "text_word_count",
+   :title "Word count",
+   :description
+   "Count Unicode words and characters on selected pages (default all), with totals and per-page counts. Table/code exclusions use PDF structure tags, not visual guesses; unclassified text is retained. Image exclusion removes Figure-tagged and invisible/OCR text. Does not run OCR. Copy permission is required. Fails rather than returning a partial total when a page cannot be read.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "file.word_count"}
+  {:name "text_extract",
+   :title "Extract text",
+   :description
+   "Extract the text of some or all pages, in reading order. With rect, only the text inside that rectangle on each page, as Column select takes it: one row per visual line, side-by-side pieces (table cells) separated by a tab.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.column_select"}
+  {:name "text_find",
+   :title "Find text",
+   :description
+   "Find a phrase (case-insensitive, whitespace-normalised) and return matches in page order with page and line rectangles in points (origin top-left). Reads growing batches, looking one match past the limit for a continuation. Failed pages do not discard readable matches: warnings contains up to 100 {page, error, error_truncated} entries (errors capped at 1024 UTF-8 bytes), warning_count counts failed pages, and warnings_truncated reports a capped list. complete is false after a page failure or when more matches exist; next is present only for a match-limit continuation.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.find"}
+  {:name "page_rotate",
+   :title "Rotate pages",
+   :description
+   "Rotate pages by a multiple of 90 degrees (positive is clockwise): the listed pages (default all), filtered like Acrobat's Rotate Pages by subset (all, even, odd page numbers) and orientation (all, landscape, portrait). Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.rotate"}
+  {:name "page_enhance_camera",
+   :title "Enhance camera image",
+   :description
+   "Straighten a photographed document (Scan & OCR ▸ Enhance ▸ Camera image): the part of the page inside the four corners (x1, y1, … x4, y4 in top-left-origin points, any order, a convex quadrilateral; when omitted, the document's edges are found automatically, or an error says they could not be) is warped to an upright rectangle that replaces what the page shows, at the page picture's own resolution (at most 600 dpi). mode is how it looks: original, colour (default), greyscale or bw (black and white, stored losslessly). level (0–100, default 0) then cleans the photo up: even lighting so the paper turns white (casts, shadows, dark edges), more contrast, and from 60 no isolated specks; colour ink stays colour. For bw the level is the threshold (higher keeps fainter strokes black). The page's comments, links and bookmarks stay. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "ocr.enhance_camera"}
+  {:name "page_delete",
+   :title "Delete pages",
+   :description "Delete pages. Undoable until saved.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs",
+   :command "page.delete"}
+  {:name "page_move",
+   :title "Move pages",
+   :description
+   "Move pages so the first of them lands at position `to` (1-based, counted before the move). Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "page_reverse",
+   :title "Reverse pages",
+   :description
+   "Reverse the order of pages among the positions they occupy: the listed pages (at least two), or the whole document when pages is omitted. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.reverse"}
+  {:name "page_insert_blank",
+   :title "Insert a blank page",
+   :description
+   "Insert a blank page so it becomes page `at`. Size defaults to the neighbouring page. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.insert_blank"}
+  {:name "page_insert_file",
+   :title "Insert pages from a file",
+   :description
+   "Insert pages of another PDF so the first becomes page `at`. Its bookmarks come along, collapsed under one bookmark named after the file, placed among the document's bookmarks where the pages went. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.insert"}
+  {:name "page_extract",
+   :title "Extract pages",
+   :description
+   "Copy pages into a new PDF (links, bookmarks, fields and layers that belong to them come along). separate: true writes each page as its own file into out_dir; delete: true removes the pages from this document afterwards (undoable).",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.extract"}
+  {:name "doc_combine",
+   :title "Combine files",
+   :description
+   "Combine files, in order, into one PDF (bookmarks are kept under one entry per file). Images (PNG, JPEG, TIFF, GIF, BMP, JPEG 2000) and .txt files are made into PDFs first. pages optionally chooses each file's pages, in step with paths: a range such as \"1-3, 6\" or null for all pages. passwords, also in step with paths, opens encrypted files (the open password, or the permissions password where a file's security doesn't allow copying pages; null for none). The result is not encrypted. Passwords are never echoed back. groups, also in step with paths, splits a file around others: entries with the same number (they must name the same path) are one file, copied once, so it keeps one bookmark at its first page, its links and its form fields; null for a file of its own. A group uses its first entry's password. When two files' forms name the same field, field_conflicts says what happens: \"rename\" (the default) keeps the fields separate by renaming the later one (Text1 becomes Text1-1) and the result lists renamed_fields as [[old, new], …] — scripts that refer to the old name are not rewritten; \"merge\" makes them one field, as before.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.combine"}
+  {:name "doc_create_multiple",
+   :title "Create PDF from multiple files",
+   :description
+   "Convert several files (PDFs, PNG/JPEG/JPEG 2000/TIFF/GIF/BMP images, .txt files) to PDF in one run. mode \"combine\" (default) joins them, in order, into one PDF with a bookmark per file; pages optionally chooses each file's pages, in step with paths (a range such as \"1-3, 6\" or null). mode \"separate\" writes one PDF per file into out_dir (files that are already PDFs are skipped; existing files are never overwritten) and reports each file's result.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "create.multiple"}
+  {:name "doc_split",
+   :title "Split a document",
+   :description
+   "Split into several files written to out_dir: every N pages, before given pages, at top-level bookmarks (bookmarks: true; files named after them, repeated titles get -2, -3), or by file size (max_mb). Files are <name>-partK.pdf.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.split"}
+  {:name "bookmark_add",
+   :title "Add a bookmark",
+   :description
+   "Add a bookmark that goes to a page, under a parent bookmark (or at the top level), at a position. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "bookmark_rename",
+   :title "Rename a bookmark",
+   :description "Change a bookmark's title. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "bookmark_delete",
+   :title "Delete a bookmark",
+   :description
+   "Delete a bookmark and the bookmarks under it. Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "bookmark_move",
+   :title "Move a bookmark",
+   :description
+   "Move a bookmark (with its children) under another parent, or within its level. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "bookmark_set_page",
+   :title "Set a bookmark's page",
+   :description "Point a bookmark at another page. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "page_number",
+   :title "Number pages",
+   :description
+   "Label a range of pages (e.g. i, ii, iii for front matter, or A-1, A-2 for an appendix). Later pages keep their labels. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "form_fields",
+   :title "List form fields",
+   :description
+   "Every interactive form field: name, type (text, checkbox, radio, combo, list, button, signature), value, options, page, rect (top-left-origin points) and rotation (0, 90, 180 or 270 degrees counterclockwise), read-only and required flags.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "form_reset",
+   :title "Clear form",
+   :description
+   "Reset fields to their default values: all of them, or only those listed. Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "stamp_custom",
+   :title "Add a custom stamp",
+   :description
+   "Stamp a picture: a PDF page (file_page, default 1) or an image file, centred at at [x, y] (points from the top-left of the displayed page) at its natural size, at most 200 pt. name labels it (default: the file name). Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "comment.stamp"}
+  {:name "form_set_image",
+   :title "Set an image field's picture",
+   :description
+   "Show an image file (PNG, JPEG, TIFF, GIF or BMP) in an image field or button, scaled to fit and centred (what clicking an image field does). On an XFA form the picture is kept in its data too (base64, as Designer saves it) and the form shows it from there. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "form_tab_order",
+   :title "Set the tab order",
+   :description
+   "Set the tab order of pages (default all): row (top to bottom, left to right), column, structure, or annotations (unspecified). Or order tabs manually: `field` with `move` earlier|later moves that field one place on its page. Returns the resulting order of fields. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_export_data",
+   :title "Export comments or form data",
+   :description
+   "Write comments and/or form data to path; the extension picks the format: .xfdf or .fdf (comments and/or fields), .xml, .csv or .txt (form data). For an XFA form, .xml is its data alone (rooted at the form's root data node, as Acrobat exports it) and .xdp an XML Data Package holding the whole datasets. what: all (default), comments, fields.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_import_data",
+   :title "Import comments or form data",
+   :description
+   "Import comments and/or field values from an XFDF, FDF, XML, CSV or tab-delimited text file (detected from its content). Comments with the same name are replaced; values go through the form's formats and validation. For an XFA form, an XDP, datasets or data XML file replaces the form's data: a laid-out form is laid out again from it (rows included) and its calculations run. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "form_delete_field",
+   :title "Delete a field",
+   :description "Delete a form field and all its widgets. Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "redact_clear",
+   :title "Remove redaction marks",
+   :description
+   "Remove every redaction mark without applying it. Undoable.",
+   :read-only true,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "printers",
+   :title "List printers",
+   :description
+   "The printers the system's print spooler knows (CUPS on macOS and Linux), with the default marked.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "printer_options",
+   :title "List printer options",
+   :description
+   "A printer driver's own job options (CUPS: from its PPD), such as the paper tray, paper type or finishing: key, label, group, default and choices. Pass chosen values to doc_print as options. Empty on Windows, where the driver's preferences window holds them.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "content_list",
+   :title "List added content",
+   :description
+   "Text and images added with page_add_text/page_add_image (or Edit a PDF ▸ Add content), per page with a 1-based index, rect (points from the top-left of the page), and text style.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.text"}
+  {:name "content_update",
+   :title "Edit added content",
+   :description
+   "Move/resize (rect), retype (text) or restyle (font, size, bold, italic, color, align) an added item (page, index from content_list). Images: rotate (degrees, multiple of 90, counter-clockwise), flip_h / flip_v (toggle), crop [left, bottom, right, top] as fractions trimmed, image (a file that replaces the picture). Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "content_delete",
+   :title "Delete added content",
+   :description
+   "Delete an added item (page, index from content_list). Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "link_list",
+   :title "List links",
+   :description
+   "Every link: page, 1-based index (for link_edit/link_delete), rect (points from the top-left of the page), and where it goes (url or to_page).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "link_open",
+   :title "Open a linked PDF",
+   :description
+   "Follow a local GoToR link in PdfCraft: open the referenced PDF as a new document, respecting --root. page and index use link_list numbering. Named destinations are reported but not applied. Absolute file specifications require allow_absolute: true after reviewing the target; relative links need no opt-in.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "link_add",
+   :title "Add a link",
+   :description
+   "Add a link over rect on page that opens url or goes to to_page. Appearance: visible (rectangle), color, width 1-3, highlight none/invert/outline/inset. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.link"}
+  {:name "link_edit",
+   :title "Edit a link",
+   :description
+   "Change a link's rect, destination (url or to_page) or appearance. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "link_delete",
+   :title "Delete a link",
+   :description
+   "Delete one link (page, index from link_list). Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "links_from_urls",
+   :title "Create links from URLs",
+   :description
+   "Find web addresses (http://, https://, www.) in the text of every page and make them clickable links. Returns the URLs. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.links_from_urls"}
+  {:name "links_remove",
+   :title "Remove all links",
+   :description
+   "Remove every link in the document (or on the given pages). Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.remove_links"}
+  {:name "measure_distance",
+   :title "Measure distance",
+   :description
+   "Add an undoable two-point distance annotation using the scale of the first point's viewport.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "measure.distance"}
+  {:name "measure_perimeter",
+   :title "Measure perimeter",
+   :description
+   "Add an undoable connected-line length annotation. To include a closing edge, repeat the first point at the end.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "measure.perimeter"}
+  {:name "measure_area",
+   :title "Measure area",
+   :description
+   "Add an undoable area annotation from a simple polygon. The last edge closes automatically.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "measure.area"}
+  {:name "measure_info",
+   :title "Read a measurement",
+   :description
+   "Calculate a live distance, perimeter or area, deltas, angle and scale without adding an annotation. Incomplete paths are allowed.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "measure.info"}
+  {:name "measure_list",
+   :title "List measurements",
+   :description
+   "Saved measurement annotations with calculated values, scale and vertices in display coordinates. Measurements with unsupported imported formats (compound or fractional units, non-rectilinear scales) or invalid geometry are listed under unsupported with a reason.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "measure_scale",
+   :title "Set or read a measurement scale",
+   :description
+   "Read the scale at a point, or add a rectangular viewport using units_per_point or two calibration points and their real-world distance. Existing measurements retain their original scales. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "measure.scale"}
+  {:name "measure_snap",
+   :title "Snap a measurement vertex",
+   :description
+   "Snap a point to vector paths, endpoints, midpoints or intersections. Coordinates and tolerance are in display points. Bounded extraction reports truncated geometry.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "measure.snap"}
+  {:name "measure_export",
+   :title "Export measurements as CSV",
+   :description
+   "Atomically write saved measurement values, labels, authors and scale ratios as spreadsheet-safe CSV. Returns how many unsupported measurements were left out.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "measure.export"}
+  {:name "comment_list",
+   :title "List comments",
+   :description
+   "Every comment (annotation other than links, form widgets and pop-ups) with its page, index, id, type, author, text, date, rectangle, colour, review status and replies.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "comment_reply",
+   :title "Reply to a comment",
+   :description "Add a reply to a comment's thread. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "comment_set_status",
+   :title "Set a comment's status",
+   :description
+   "Set a comment's review status (Acrobat: Set status), recorded as a status reply. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "sign_list",
+   :title "List and validate signatures",
+   :description
+   "Every signature field with its validation: status (valid, unknown = intact but the signer isn't trusted, invalid, unsigned), signer and certificate, date, reason, location, certification level, page and rect, the revision it covers and changes made after signing (none, allowed, disallowed), with Acrobat-style explanations.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "sign_id_create",
+   :title "Create a digital ID",
+   :description
+   "Create a self-signed digital ID and save it as a password-protected .p12 file (Acrobat: Configure a new digital ID ▸ Create a new digital ID ▸ Save to file). Default key: 2048-bit RSA, valid 5 years.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "sign_windows_ids",
+   :title "List Windows store digital IDs",
+   :description
+   "Windows: signing identities in the Current User Personal certificate store (certificate details and the windows: reference sign_document takes). Private keys remain in CNG; Windows may ask permission to use them. `unusable` lists the store's other certificates with why they can't sign (no private key, an unsupported key type, a key CNG can't open).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "sign.digital"}
+  {:name "sign_keychain_ids",
+   :title "List Keychain digital IDs",
+   :description
+   "macOS: the signing identities in the user's keychains (certificate details and the keychain: reference sign_document takes). The private keys stay in the Keychain, which may ask the user to allow their use.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "sign.digital"}
+  {:name "sign_document",
+   :title "Sign a document",
+   :description
+   "Sign with a digital ID (a .p12/.pfx path, or on macOS a Keychain identity: \"keychain:<common name or fingerprint>\" from sign_keychain_ids, or on Windows a store identity: \"windows:<common name or fingerprint>\" from sign_windows_ids) and save the signed file to `out` (signing always saves, as in Acrobat; the document then shows the signed file). Sign an existing empty signature field (`field`), or a new one on `page` at `rect` (omit rect for an invisible signature). certify: no_changes, form_fill or comments makes a certification signature. graphic shows a picture where the signer's name would be large (Acrobat: Configure Signature Appearance): {\"image\": path} (PNG or JPEG), {\"text\": name} (typed in the Fill & Sign script font) or {\"strokes\": [[[x, y], …], …]} (y up, the drawing pad 1 wide); it needs a visible signature. appearance chooses what a visible signature shows (default: name, date and labels; reason, location and distinguished_name are off unless turned on). labels gives the words of its labels, e.g. in another language (default English: \"Digitally signed by\", \"DN: \", \"Reason: \", \"Location: \", \"Date: \"; include the separator); each must be in Western European characters (Windows-1252), the only ones the signature's font draws, or the call is refused naming the label and character. PAdES B-B, SHA-256 (SHA-384 for P-384 keys).",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "sign.digital"}
+  {:name "sign_trust",
+   :title "Trust certificates",
+   :description
+   "Add certificates (.cer/.crt/.pem/.der, or the certificates in a .p12 with `password`) to the trusted certificates used to validate signatures, or clear the list (clear: true). Every open document is revalidated. Returns the trusted list.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "comment_mark",
+   :title "Mark a comment with a checkmark",
+   :description
+   "Mark or unmark a comment with a checkmark (Acrobat: Mark with checkmark), recorded as a private reply. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "comment_lock",
+   :title "Lock a comment",
+   :description
+   "Lock or unlock a comment (Properties ▸ Locked). Locked comments can't be moved, resized, restyled or deleted; their text stays editable. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "comments_hide",
+   :title "Hide all comments",
+   :description
+   "Hide or show every comment on the page (fields and links still draw). A view setting: the file doesn't change.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "comment.hide_all"}
+  {:name "view_reading_colors",
+   :title "Set reading colours",
+   :description
+   "Set the document's reading colours (Acrobat's Replace Document Colors, in the Reading Options): solid text and line-art paints are remapped for readability and the page clears to the background colour in page_render. A view setting: the file doesn't change. mode is one of: off, black-on-white, white-on-black, yellow-on-black, green-on-black, or custom (which takes text and background as #RRGGBB). only_black maps only near-black paints (default false) and line_art also maps line-art paints (default true); both override the mode's preset. A flag that differs from the mode's preset default makes the returned mode read custom, because the resulting params no longer match any preset. Returns the resulting setting.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.reading_options"}
+  {:name "comments_summarize",
+   :title "Summarize comments",
+   :description
+   "Make a PDF summarising every comment (number, author, type, date, text, replies), sorted by page, author, date or type.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "comment.summarize"}
+  {:name "comment_edit",
+   :title "Edit a comment",
+   :description
+   "Change a comment's text, colour, opacity, line width, font size (text box/typewriter/callout), fill (rectangle/oval/polygon; \"none\" removes it), rectangle (rectangle/oval/text box/stamp) or position (`move` [dx, dy] in points). Stamps keep their original appearance when resized. One undo step.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "comment_image_preview",
+   :title "Preview image signature layers",
+   :description
+   "Return a PNG of the page without the selected image signature/initials (layer=background, default), or its embedded image with alpha (layer=image). Includes the displayed rectangle, document rotation, image_rotation (how far clockwise the image is shown turned) and annotation opacity. Cache these layers for live placement/resizing; commit once with comment_edit. Does not change the document or undo history.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "comment_delete",
+   :title "Delete a comment",
+   :description
+   "Delete a comment with its pop-up and replies. Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs",
+   :command "protect.password"}
+  {:name "doc_unprotect",
+   :title "Remove security",
+   :description
+   "Remove password security (the document must have been opened with its permissions password, or have none). Applied by the next doc_save. Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs",
+   :command "protect.remove"}
+  {:name "page_replace",
+   :title "Replace pages",
+   :description
+   "Replace the content of pages with pages of another PDF (same count). Links, comments, form fields and bookmarks on the original pages stay, as in Acrobat. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.replace"}
+  {:name "page_duplicate",
+   :title "Duplicate pages",
+   :description
+   "Insert copies of pages so the first copy becomes page `at`, or after the last of them when `at` is left out (fonts and images are shared, not copied). Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "page.duplicate"}
+  {:name "doc_watermark",
+   :title "Add watermark",
+   :description
+   "Add a watermark to pages: text, or a picture from `file` (an image, or page `file_page` of a PDF) at `scale` of the page (default 0.5); rotated (degrees counter-clockwise, default 45), semi-transparent (opacity 0–1, default 0.5), text fitted to the page unless font_size is given, on top unless behind: true; moved from the page centre by `offset_x` (right) and `offset_y` (up) points (default 0). replace: true swaps out existing ones. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.watermark"}
+  {:name "doc_background",
+   :title "Add background",
+   :description
+   "Fill page backgrounds with a colour, or a picture from `file` (an image, or page `file_page` of a PDF) fitted at `scale` (default 1), behind the content. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.background"}
+  {:name "doc_remove_marks",
+   :title "Remove header & footer, watermark or background",
+   :description
+   "Remove every header and footer, watermark or background PdfCraft (or a compatible tool) added. Undoable.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_export_images",
+   :title "Export pages as images",
+   :description
+   "Write pages as PNG, JPEG or TIFF files (`<name>_page_<n>.png|jpg|tif`) into a folder, at a resolution (default 150 dpi). JPEG and TIFF are flattened onto white paper. A page too large for the renderer at that resolution is drawn at the most it allows, listed in `lower_dpi` ({page, dpi}). Includes unsaved edits.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "export.image"}
+  {:name "accessibility_autotag_preview",
+   :title "Preview automatic tags",
+   :description
+   "Propose paragraph and heading tags for visible text blocks on one page. Returns page bounds, tentative roles and reasons. Does not change the PDF or claim accessibility compliance. Images, tables, lists, annotations and existing structure require separate review.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_autotag_apply",
+   :title "Automatically tag text-only PDF",
+   :description
+   "Write marked content, a Document structure element, paragraph tags and a parent tree for every text object in an untagged, text-only PDF. Refuses graphics, images, annotations, forms, existing tags and malformed streams before changing anything. Review all resulting roles; this does not certify accessibility. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_autotag_form_fields",
+   :title "Tag form fields",
+   :description
+   "Write `/Form` tags, widget structure-parent keys, and a parent tree for all page widgets in an untagged AcroForm. Existing tag trees are refused for review. Text, figures, links, and other content are not tagged.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.autotag_fields"}
+  {:name "accessibility_check",
+   :title "Check for accessibility",
+   :description
+   "Run the Accessibility Checker's full check (32 rules in 7 categories: document, page_content, forms, alternate_text, tables, lists, headings). Each rule is passed, failed (with findings and pages), manual (needs a person) or skipped. Findings on locatable figures, annotations and form widgets include bbox_user_space in PDF coordinates. Colour contrast is off unless all is true; rules (ids such as tagged-pdf, figures-alt-text) or categories narrow the check; pages limit the page rules.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.check"}
+  {:name "accessibility_find_untagged",
+   :title "Find untagged content",
+   :description
+   "Find untagged painted page content, annotations, and form widgets. This focused check does not modify the PDF or claim that its other accessibility rules pass.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.find_untagged"}
+  {:name "accessibility_report",
+   :title "Accessibility report",
+   :description
+   "Run the full check and write the accessibility report (HTML) to path; returns the results too. Takes the same options as accessibility_check.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.report"}
+  {:name "accessibility_review_record",
+   :title "Accessibility review record",
+   :description
+   "Compare the same accessibility rules on two open versions of a PDF and write a JSON record to path. Includes document SHA-256 hashes, before/after rule statuses and finding counts, changed rules, and rules still needing review. Does not change either PDF or claim accessibility compliance. Open the original and edited copies as separate documents.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_review_save",
+   :title "Save accessibility review decisions",
+   :description
+   "Write a local JSON sidecar for an open PDF with rule-level human review decisions. The sidecar records the PDF SHA-256; replacing one tied to different bytes requires replace: true. Does not change the PDF or assert compliance.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_review_load",
+   :title "Open accessibility review decisions",
+   :description
+   "Read a local review sidecar only when its recorded SHA-256 matches the open PDF. Returns the decisions without changing the PDF.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_review_html",
+   :title "Accessibility review summary",
+   :description
+   "Compare two open versions of a PDF and write a self-contained HTML summary of the same evidence as accessibility_review_record: document hashes, outcome counts, rule changes, and rules still requiring review. Does not change either PDF or claim accessibility compliance.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_fix",
+   :title "Fix an accessibility problem",
+   :description
+   "Apply the checker's automatic fix for a rule: primary-language (value: the language, e.g. en-US), title (value: the title; default the current title or file name; also shows it in the title bar) or tab-order (every page tabs in structure order). Returns the rule's new status. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_figures",
+   :title "List figures",
+   :description
+   "The tagged figures (Figure elements, through the role map) in document order: figure number, page, alternate text and where the figure is drawn (top-left-origin points).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.alt_text"}
+  {:name "accessibility_set_alt",
+   :title "Set alternate text",
+   :description
+   "Set a figure's alternate text (alt; empty or omitted clears it), or mark it decorative (decorative: true: its content becomes an artifact and the figure leaves the tags). figure is a number from accessibility_figures. Returns the figures. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.alt_text"}
+  {:name "accessibility_tags",
+   :title "List structure tags",
+   :description
+   "List reachable indirect structure tags in document order with PDF object number, generation, nearest indirect parent, depth, page, type, title, actual text, alternate text and language, one page at a time: count is how many tags match, next the offset of the following page (null at the end). types, pages and max_depth keep only some tags. Inline tag dictionaries have no stable object reference and are not listed.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.tags"}
+  {:name "accessibility_tag_content",
+   :title "List tag content",
+   :description
+   "List the marked-content references directly owned by one reachable indirect structure tag, including page, MCID and extracted text.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "a11y.tags"}
+  {:name "accessibility_set_tag_property",
+   :title "Edit tag property",
+   :description
+   "Set or clear one property of a reachable indirect structure tag. Use object and generation from accessibility_tags. Properties: type, title, actual_text, alternate_text, language. Empty or omitted value clears text properties; type requires a nonempty PDF name. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_mark_tag_artifact",
+   :title "Mark tag content as artifact",
+   :description
+   "Mark a reachable leaf structure tag's direct marked content as an artifact and remove the tag from the reading structure. Use object and generation from accessibility_tags. Tags with child structure elements, no direct marked content, or content not found on its page are rejected. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "accessibility_move_tag",
+   :title "Move structure tag",
+   :description
+   "Move a reachable indirect structure tag before or after a direct sibling in their parent's /K array, changing tagged reading order without changing page appearance. Use object and generation values from accessibility_tags. Rejects distinct parents, duplicate references and positions that are already current. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "form_merge_data",
+   :title "Merge data files into spreadsheet",
+   :description
+   "Collect the field values of form data files (FDF, XFDF) or filled-in PDF forms into one CSV file at path: a column per field name, a row per file. Returns the row and column counts.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "form.merge_data"}
+  {:name "js_run",
+   :title "Run JavaScript",
+   :description
+   "Run Acrobat JavaScript in the document, as the JavaScript console does (or as push button `field`'s Mouse Up script when field is given; on a laid-out XFA form, `field` runs that button's XFA click script instead, JavaScript or FormCalc, which can add and remove rows and show or hide subforms). The form object model is available: this/getField, event, app, util, console, display, color, and the document-level scripts. Field changes and resetForm are applied as one undoable step; returns the script's alerts, console output, requests (print, page, url, submit) and error.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "tools.js_console"}
+  {:name "js_document_scripts",
+   :title "Document JavaScripts",
+   :description
+   "List the document-level JavaScripts (name and source), which define functions field scripts use.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "tools.document_js"}
+  {:name "js_set_document_script",
+   :title "Edit a document JavaScript",
+   :description
+   "Add or replace the document-level JavaScript `name` with `script`, or delete it (script omitted). Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "tools.document_js"}
+  {:name "form_set_script",
+   :title "Set a field's JavaScript",
+   :description
+   "Field Properties ▸ Run custom script: set field's JavaScript for event keystroke, format, validate or calculate (the field's actions; calculated fields join the calculation order) or mouse_up (a button's action). Omit script to remove it. The scripts use Acrobat's object model (event.value, event.rc, getField, util.printf, …) and run when the field changes. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "form.prepare"}
+  {:name "doc_export_office",
+   :title "Export to Word, PowerPoint, HTML or RTF",
+   :description
+   "Export a PDF ▸ Word (.docx), PowerPoint (.pptx, one slide per page), HTML (.html, one file with images inline) or RTF (.rtf), chosen by path's extension: text, headings, bold and italic. Word uses borderless inferred tables and positioned editable shapes on pages with artwork, rotated or large text; each source page retains its size. Font matching and vector graphics remain limited.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "export.docx"}
+  {:name "pdfa_verify",
+   :title "Verify PDF/A",
+   :description
+   "Standards ▸ Verify PDF/A compliance: the PDF/A-2b or 3b rules the document breaks (ISO 19005 clause, message, page, whether Save as PDF/A can fix it), plus what it declares.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "standards.pdfa"}
+  {:name "print_readiness",
+   :title "Print readiness",
+   :description
+   "Verification only. Reports effective image resolution where each image is drawn (not against the page size), page boxes and bleed past the trim, output intents, fonts that are not embedded, and the PDF/A-2b structural result. Does not modify the document, embed fonts, invent a press profile, or check PDF/X.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "pdfa_convert",
+   :title "Save as PDF/A",
+   :description
+   "Standards ▸ Save as PDF/A: fix what can be fixed for PDF/A-2b or 3b (XMP identification and metadata, an sRGB output intent, forbidden actions and JavaScript, annotation print flags, image interpolation, encryption). Returns what was fixed and what remains (e.g. fonts that aren't embedded). Undoable; save the document to keep it.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "standards.pdfa"}
+  {:name "action_list",
+   :title "List actions",
+   :description
+   "Action Wizard: the built-in actions (name, description, steps) and every step an action can use (id, label, whether it takes a text argument).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "actions.wizard"}
+  {:name "action_run",
+   :title "Run an action",
+   :description
+   "Action Wizard: run a built-in action (action: its name) or a list of steps ([{step, arg}], ids from action_list) on each PDF in paths, writing the results into folder under the same names. Returns each file's step log or error.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "actions.wizard"}
+  {:name "doc_compare",
+   :title "Compare files",
+   :description
+   "Compare the text of two open documents: other is the older version, doc the newer. Returns counts and each change (replaced, inserted, deleted) with the old and new text, pages (1-based) and rectangles (points, origin bottom-left).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "doc.compare"}
+  {:name "doc_compare_report",
+   :title "Compare report",
+   :description
+   "Write the compare summary report (a PDF listing every change) to path.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "doc.compare"}
+  {:name "doc_compare_mark",
+   :title "Mark differences as comments",
+   :description
+   "Add the differences from other (older) to doc (newer) as comments in doc: highlights over replaced (blue) and inserted (green) text, notes where text was deleted (red), authored Compare. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "doc.compare"}
+  {:name "form_detect_fields",
+   :title "Detect form fields",
+   :description
+   "Prepare a form ▸ automatic field detection: find the blanks a printed form asks to be filled (underscore runs, lines, empty boxes, rows of comb boxes, small squares for check boxes; on scanned pages read from the pixels) and name each field from its label. With add (default true) the fields are created as one undoable step; otherwise they are only proposed. Returns page (1-based), kind, name and rect (points, origin bottom-left); a row of comb boxes is one text field with comb set to its number of cells, created with the comb flag and that character limit.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "form.detect"}
+  {:name "form_actions",
+   :title "Field actions",
+   :description
+   "Field Properties ▸ Actions: the field's action for each trigger (mouse_up, mouse_down, mouse_enter, mouse_exit, on_focus, on_blur).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "form.prepare"}
+  {:name "form_set_actions",
+   :title "Set field actions",
+   :description
+   "Field Properties ▸ Actions: replace the field's actions. Each item: trigger (mouse_up, mouse_down, mouse_enter, mouse_exit, on_focus, on_blur) and one of javascript (source), url, reset (field names; [] for all), menu (Print, NextPage, PrevPage, FirstPage, LastPage), page (1-based), show / hide (field names), submit (URL). Triggers not listed lose their action. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "form.prepare"}
+  {:name "js_enabled",
+   :title "JavaScript on or off",
+   :description
+   "Preferences ▸ JavaScript ▸ Enable Acrobat JavaScript: set it with `enabled`, or read it. With JavaScript off, field scripts other than Acrobat's AF calls don't run.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "ocr_recognize",
+   :title "Recognize text (OCR)",
+   :description
+   "Scan & OCR ▸ Recognize text: render pages, read the words in them and add them as invisible text over the page image, so scanned pages become searchable and selectable (a searchable image; the image is not changed). Pages that already have text are skipped unless skip_text_pages is false; then pictures on those pages are read too, and recognised words that the page's own text already has (an earlier OCR layer included) are left out and counted as already_on_page. Returns each page's recognised text, word count or why it was skipped. Needs the OCR models (ocr_status). Undoable as one step.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "ocr.recognize"}
+  {:name "ocr_recognize_files",
+   :title "Recognize text in multiple files",
+   :description
+   "Scan & OCR ▸ Recognize text ▸ In multiple files: read every page of each PDF in paths and write the searchable result into folder under the same name (pages that already have text are left alone unless skip_text_pages is false, as in ocr_recognize). Returns, per file, the output path, word count and skipped pages, or the error.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "ocr.recognize_batch"}
+  {:name "ocr_status",
+   :title "OCR status",
+   :description
+   "Whether text recognition is available (its models are installed: release packages include them; a source build fetches them with `cargo xtask models`; PDFCRAFT_MODELS overrides), where it looks for them, and the languages it reads.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "ocr.recognize"}
+  {:name "doc_export_all_images",
+   :title "Export all images",
+   :description
+   "Write the images that pages use into a folder (`<name>_Page_<n>_Image_<k>.jpg|png`, n zero-padded to the page count's digits), each once: JPEG images unchanged, others as PNG with their soft mask as alpha. min_size skips images with fewer pixels on their shorter side. Images that can't be decoded yet (JPEG 2000, JBIG2, CCITT, separations) are listed under skipped. Includes unsaved edits.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "export.all_images"}
+  {:name "doc_export_text",
+   :title "Export text",
+   :description
+   "Write the reading-order text of pages to a .txt file (pages separated by form feeds).",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "export.text"}
+  {:name "fill_sign_date_format",
+   :title "Date format for Fill & Sign",
+   :description
+   "Preferences ▸ Date format: the pattern Fill & Sign dates use (default m/d/yyyy). Set it with `format` (Acrobat date codes yyyy yy mmmm mmm mm m dddd ddd dd d, other runs of y, m or d are refused; H h M s t are time letters and need \\ before them; \\ shows the next character as is), or read it. `language` sets the language of month and weekday names (a code from `languages`, or `auto` to follow the app's interface language; English headless). Returns the format, the language, today in them, `unwritable` (characters of today's date that Fill & Sign can't write into a PDF yet, Western European only; fill_sign_add refuses such a date), the ready-made presets and the languages.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_reduce",
+   :title "Reduce file size",
+   :description
+   "Write a smaller copy of the document to `path` with Acrobat's Reduce File Size choices: images above 225 ppi downsampled to 150 ppi and JPEG-compressed (medium quality), thumbnails dropped, identical fonts and images merged, unused objects dropped, compressed object streams. If the copy wouldn't be smaller, nothing is written and `written` is false. The open document is unchanged.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "optimize.reduce"}
+  {:name "doc_initial_view",
+   :title "Initial view",
+   :description
+   "Read or change how the document opens (Document Properties ▸ Initial View) and its reading options: navigation (page, bookmarks, pages, attachments, layers), layout (default, single, continuous, two_up, two_up_continuous, two_up_cover, two_up_continuous_cover), magnification (default, actual, fit_page, fit_width, fit_height, fit_visible, or a percentage), page, window options (fit_window, center_window, full_screen, display_title), interface options (hide_menubar, hide_toolbar, hide_window_ui), language and binding (left, right). Only the given ones change; returns the result. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_audit_space",
+   :title "Audit space usage",
+   :description
+   "How many bytes each kind of content takes and its share of the file (PDF Optimizer ▸ Audit space usage): images, content streams, fonts, forms, comments, structure, bookmarks, … and document overhead.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "optimize.advanced"}
+  {:name "text_lines",
+   :title "List text lines",
+   :description
+   "The lines of existing text on a page (Edit a PDF ▸ Edit text): number, text, box (top-left-origin points), font and size. Use the number with text_edit.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "image_hit",
+   :title "Hit test page artwork",
+   :description
+   "List image/Form numbers whose placement and all clipping paths contain point [x,y] in top-left-origin points. Bezier curves, even-odd/nonzero fill and holes are respected. Read only.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "page_images",
+   :title "List page images",
+   :description
+   "The raster images and grouped Form artwork a page draws (Edit a PDF): number, full placement rect and visible_rect after page/path clipping (top-left-origin points; null if fully hidden), kind (image/form), pixel size ([0,0] for forms) and resource name. Forms include nested graphics and are edited as a whole. Numbers count forms and images together in drawing order, so a page with forms numbers its images differently than before forms were listed: always take numbers from a fresh page_images call.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "image_edit",
+   :title "Edit an image",
+   :description
+   "Change one of a page's images (number from page_images): action move (rect: new full placement box in top-left-origin points, based on page_images.rect), crop (rect: the part to keep, top-left-origin points; the pixels stay in place and page_images.visible_rect shows the result; a later move carries the crop along), rotate (quarters clockwise, default 1), flip_horizontal, flip_vertical, replace (path: an image file, drawn in the same place) or delete. Undoable. The selected image crop transforms with its pixels, isolating shared path scopes while retaining neighboring painting. Text-outline clips return a clear error. Rotation/flip use the visible centre. Form artwork supports move/resize/rotate/flip/delete as a group; replace and image_save only support raster images.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "image_save",
+   :title "Save image as",
+   :description
+   "Write one of a page's raster images (number from page_images; forms are refused) to path: JPEG images unchanged, others as PNG (the extension is added when missing).",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "text_font_files",
+   :title "List installed document fonts",
+   :description
+   "Discover openly licensed, embeddable TrueType/OpenType files on request. Optional directories (at most 16) restrict the scan; with --root, only that root is scanned by default and supplied folders must stay inside it. The scan skips symlinks, collections and invalid/licence-restricted fonts, with depth, entry and byte budgets. Select a returned path with text_font_import.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "text_font_import",
+   :title "Load document font",
+   :description
+   "Load an explicitly selected, openly licensed full TrueType/OpenType face into a page. The program's family, embedding permissions and licence declaration are validated. Completes source subsets of the same face without replacing existing glyphs. Returns a font resource usable with text_edit.font_resource. Undoable; respects root confinement. No system-interface fallback is exported.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "text_fonts",
+   :title "List document fonts",
+   :description
+   "List validated embedded source faces and approved full preview faces for a page. Full registered resources can be selected by text_edit.font_resource; preview_only faces are not PDF resource names.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "text_paragraphs",
+   :title "List paragraphs",
+   :description
+   "The paragraphs on a page (adjacent source runs grouped into aligned visual rows, including mixed fonts, sizes and colours): number, text, editor_text (visual rows separated by newlines), rows and source line numbers, box (top-left-origin points), font and size. Use the number with text_edit's paragraph.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "text_edit_layout",
+   :title "Measure text draft",
+   :description
+   "Measure a paragraph draft using the same PDF rewrite as Apply, without changing the document. Returns source_rect, draft_rect (top-left-origin points), overflow, and the embedded sfnt source faces available to the inline editor. Text defaults to the unchanged paragraph. Optional size, width, font_resource and disjoint UTF-8 ranges preview formatting changes.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "text_edit",
+   :title "Edit text",
+   :description
+   "Replace the text of one paragraph (paragraph, from text_paragraphs: rewrapped to the paragraph's width with its line spacing) or one line (line, from text_lines) in place, keeping position, size and colour. For a mixed-style region, editor_text supplies visual row breaks; surviving text keeps its source-run styles and inserted text inherits the surrounding run. For a paragraph, also change its formatting: font (helvetica, times, courier) with bold/italic, size (points), color (#rrggbb), align (left, center, right, justify), underline, line_spacing (× size), char_spacing (points) and scale (horizontal, percent), or move it (dx, dy in points; up is +dy) and rewrap it to a new width (points); text may then be omitted. Its own font is reused when it can show every character and no font/weight change is requested; otherwise it uses a standard font matching the source style or, for Japanese and other text no standard font can show (Cyrillic, Greek), real Mincho/Gothic fallback outlines matching the requested/source family and available weight, from a face that has every character (the result shows the font used). Missing Japanese weights use Regular, not synthetic bold; the small web build has only Gothic Regular. Paragraph bold may be set without font to keep the source family. Text that no available font can show is refused. Undoable.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.edit_text"}
+  {:name "doc_revisions",
+   :title "List revisions",
+   :description
+   "List the document's saved revisions (oldest first): each incremental update is one. Returns revision number, where it ends in the file and its size, and which signatures sign exactly that revision.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_open_revision",
+   :title "Open a revision",
+   :description
+   "Open saved revision `revision` (1 = the oldest) of a document as a new, unsaved document, to see the file as it was then.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_optimize",
+   :title "Optimize PDF",
+   :description
+   "Write an optimized copy to `path` (Acrobat's PDF Optimizer). preset: standard (default; Reduce File Size's choices) or mobile (images to 96 ppi above 144, JPEG high quality); the options below change it. merge_fragments (default true) first puts a page picture drawn as many stacked image strips (as some PDF printers write it) back together into one image, so it can be resampled (merged_images, fragments_merged). color / gray: { downsample, ppi, above_ppi, compression: jpeg|zip|retain, quality 1–100 } (defaults: downsample to 150 ppi above 225, JPEG 60). Images are measured where pages draw them and replaced only when smaller. discard_*: thumbnails (default true), alternate_images (true), tags, print_settings; flate_unencoded (true); remove_invalid_links and remove_unreferenced_dests (true); images and forms the pages list but never draw are always dropped (unused_xobjects). discard: Remove Hidden Information categories (metadata, attachments, comments, form-fields, hidden-text, hidden-layers, bookmarks, links-actions-scripts, private-data). Signed documents are refused. The open document is unchanged.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "optimize.advanced"}
+  {:name "doc_flatten",
+   :title "Flatten",
+   :description
+   "Merge comment and/or form field appearances into the page content, so they print and display everywhere but can no longer be edited. Flattening the fields of an XFA form also takes the XFA out (its template, data and scripts), so Adobe's viewers show the baked pages rather than laying the form out again. Undoable until saved.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "edit_undo",
+   :title "Undo",
+   :description "Undo the last edit of a document.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.undo"}
+  {:name "edit_redo",
+   :title "Redo",
+   :description "Redo the last undone edit of a document.",
+   :read-only false,
+   :destructive false,
+   :source "crates/automation/src/tools.rs",
+   :command "edit.redo"}
+  {:name "command_list",
+   :title "List commands",
+   :description
+   "Every registered PdfCraft command with its menu, shortcut, whether it is enabled now, and the tool that automates it.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "command_run",
+   :title "Run a command",
+   :description
+   "Run a registry command through its headless tool. Pass that tool's arguments in params (see command_list). Unknown params are ignored with warnings; path confinement still applies.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "command_batch",
+   :title "Run several commands",
+   :description
+   "Run steps in order (at most 1000). Returns completed/failed counts and per-step ok/result/error; stop_on_error defaults to true.",
+   :read-only false,
+   :destructive true,
+   :source "crates/automation/src/tools.rs"}
+  {:name "doc_inspect",
+   :title "Inspect open documents",
+   :description
+   "With doc, return doc_info; otherwise return information for every open document (empty documents array when none are open).",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}
+  {:name "render_preview",
+   :title "Render a preview",
+   :description
+   "Render a PNG bounded by max_side (default 1024), without changing or saving the document. Page defaults to 1; doc may be omitted when exactly one document is open.",
+   :read-only true,
+   :destructive false,
+   :source "crates/automation/src/tools.rs"}],
+ :control
+ ["ui.click"
+  "ui.command"
+  "ui.commands"
+  "ui.dock"
+  "ui.dock.reset"
+  "ui.drag"
+  "ui.focus"
+  "ui.inspect"
+  "ui.key"
+  "ui.move"
+  "ui.open"
+  "ui.quit"
+  "ui.resize"
+  "ui.screenshot"
+  "ui.set"
+  "ui.state"
+  "ui.type"]}

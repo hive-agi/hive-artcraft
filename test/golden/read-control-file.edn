@@ -1,0 +1,8 @@
+{:bad-json {:error :artcraft/control-file-refused},
+ :bad-port {:error :artcraft/control-file-refused},
+ :good {:port 4242, :token "<redacted>"},
+ :huge {:error :artcraft/control-file-refused},
+ :missing {:error :artcraft/control-file-missing},
+ :no-token {:error :artcraft/control-file-refused},
+ :open {:error :artcraft/control-file-refused},
+ :symlink {:error :artcraft/control-file-refused}}

@@ -6,7 +6,7 @@
    :port nil,
    :transport :absent,
    :hint
-   "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works."}},
+   "Start `pdfcraft --control ~/.pdfcraft-control.json` (random port + token, ui.* methods) and set :apps {\"pdfcraft\" {:control-file \"~/.pdfcraft-control.json\"}}. The file must be yours, mode 600 and not a symlink."}},
  :none
  {:ok
   {:app "studio",
@@ -15,7 +15,8 @@
    :port nil,
    :transport :absent,
    :hint
-   "ArtCraft Studio has no external control surface; it is catalog-only."}},
+   "ArtCraft Studio has no external control surface (its commands are in-process IPC); it is catalog-only. Drive it through its own UI, or ask upstream for an automation surface.",
+   :status :no-control-surface}},
  :port-absent
  {:ok
   {:app "lightcraft",

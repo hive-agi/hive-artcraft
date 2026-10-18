@@ -143,7 +143,7 @@
 (deftest apps-lists-mounts-and-natives
   (let [instance (running)
         rows (read-text ((handler instance) {"command" "apps"}))
-        shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft"]]
+        shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio"]]
     (is (= shipped (mapv :app rows)))
     (is (every? #(= :mounted (:status %)) rows))
     (is (= {"photocraft" "hive.photocraft" "vectorcraft" "hive.vectorcraft"}
@@ -190,7 +190,8 @@
     (is (= ["vectorcraft" "lightcraft" "pdfcraft" "studio"] (mapv :app rows)))
     (is (= [:port :port :control-file :none] (mapv :shape rows)))
     (is (= :port (:shape (read-text (h {"app" "lightcraft" "command" "doctor"})))))
-    (is (re-find #"control-file transport is not implemented" (text (h {"app" "pdfcraft" "command" "doctor"}))))
+    (is (re-find #"--control ~/.pdfcraft-control.json" (text (h {"app" "pdfcraft" "command" "doctor"}))))
+    (is (re-find #"no-transport" (text (h {"app" "pdfcraft" "command" "call" "engine_command" "shape.rectangle"}))))
     (is (re-find #"unsupported-shape" (text (h {"app" "studio" "command" "call" "engine_command" "shape.rectangle"}))))
     (is (= :ok (:status (protocol/health instance))))))
 

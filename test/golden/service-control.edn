@@ -1,8 +1,8 @@
 {:control-file
  {:error
-  {:kind :artcraft/unsupported-shape,
+  {:kind :artcraft/no-transport,
    :hint
-   "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works."}},
+   "Start `pdfcraft --control ~/.pdfcraft-control.json` (random port + token, ui.* methods) and set :apps {\"pdfcraft\" {:control-file \"~/.pdfcraft-control.json\"}}. The file must be yours, mode 600 and not a symlink."}},
  :unknown
  {:error
   {:kind :artcraft/unknown-method,

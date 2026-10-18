@@ -1,0 +1,272 @@
+{:reference-revision "7a2935cf9e3922e90e4ed5f3556b1cb107013148",
+ :engine
+ [{:id "check_sora_session_command",
+   :label "Check sora session",
+   :source
+   "crates/desktop/artcraft/src/services/sora/commands/check_sora_session_command.rs"}
+  {:id "download_directory_reveal_command",
+   :label "Download directory reveal",
+   :source
+   "crates/desktop/artcraft/src/core/commands/download/download_directory_reveal_command.rs"}
+  {:id "download_media_file_command",
+   :label "Download media file",
+   :source
+   "crates/desktop/artcraft/src/core/commands/download/download_media_file_command.rs"}
+  {:id "download_url_command",
+   :label "Download url",
+   :source
+   "crates/desktop/artcraft/src/core/commands/download/download_url_command.rs"}
+  {:id "enqueue_edit_image_command",
+   :label "Enqueue edit image",
+   :source
+   "crates/desktop/artcraft/src/core/commands/deprecated/image_edit/enqueue_edit_image_command.rs"}
+  {:id "enqueue_image_bg_removal_command",
+   :label "Enqueue image bg removal",
+   :source
+   "crates/desktop/artcraft/src/core/commands/enqueue/image_bg_removal/enqueue_image_bg_removal_command.rs"}
+  {:id "enqueue_image_inpaint_command",
+   :label "Enqueue image inpaint",
+   :source
+   "crates/desktop/artcraft/src/core/commands/deprecated/image_inpaint/enqueue_image_inpaint_command.rs"}
+  {:id "enqueue_image_to_3d_object_command",
+   :label "Enqueue image to 3d object",
+   :source
+   "crates/desktop/artcraft/src/core/commands/enqueue/image_to_object/enqueue_image_to_3d_object_command.rs"}
+  {:id "enqueue_image_to_gaussian_command",
+   :label "Enqueue image to gaussian",
+   :source
+   "crates/desktop/artcraft/src/core/commands/enqueue/image_to_gaussian/enqueue_image_to_gaussian_command.rs"}
+  {:id "enqueue_text_to_image_command",
+   :label "Enqueue text to image",
+   :source
+   "crates/desktop/artcraft/src/core/commands/deprecated/text_to_image/enqueue_text_to_image_command.rs"}
+  {:id "estimate_audio_cost_command",
+   :label "Estimate audio cost",
+   :source
+   "crates/desktop/artcraft/src/core/commands/cost_estimate/estimate_audio_cost_command.rs"}
+  {:id "estimate_image_cost_command",
+   :label "Estimate image cost",
+   :source
+   "crates/desktop/artcraft/src/core/commands/cost_estimate/estimate_image_cost_command.rs"}
+  {:id "estimate_mesh_cost_command",
+   :label "Estimate mesh cost",
+   :source
+   "crates/desktop/artcraft/src/core/commands/cost_estimate/estimate_mesh_cost_command.rs"}
+  {:id "estimate_splat_cost_command",
+   :label "Estimate splat cost",
+   :source
+   "crates/desktop/artcraft/src/core/commands/cost_estimate/estimate_splat_cost_command.rs"}
+  {:id "estimate_video_cost_command",
+   :label "Estimate video cost",
+   :source
+   "crates/desktop/artcraft/src/core/commands/cost_estimate/estimate_video_cost_command.rs"}
+  {:id "flip_image",
+   :label "Flip image",
+   :source "crates/desktop/artcraft/src/core/commands/flip_image.rs"}
+  {:id "generate_audio_command",
+   :label "Generate audio",
+   :source
+   "crates/desktop/artcraft/src/core/commands/generate/generate_audio_command.rs"}
+  {:id "generate_image_command",
+   :label "Generate image",
+   :source
+   "crates/desktop/artcraft/src/core/commands/generate/generate_image/generate_image_command.rs"}
+  {:id "generate_mesh_command",
+   :label "Generate mesh",
+   :source
+   "crates/desktop/artcraft/src/core/commands/generate/generate_mesh_command.rs"}
+  {:id "generate_splat_command",
+   :label "Generate splat",
+   :source
+   "crates/desktop/artcraft/src/core/commands/generate/generate_splat_command.rs"}
+  {:id "generate_video_command",
+   :label "Generate video",
+   :source
+   "crates/desktop/artcraft/src/core/commands/generate/generate_video/generate_video_command.rs"}
+  {:id "get_app_info_command",
+   :label "Get app info",
+   :source
+   "crates/desktop/artcraft/src/core/commands/get_app_info_command.rs"}
+  {:id "get_app_preferences_command",
+   :label "Get app preferences",
+   :source
+   "crates/desktop/artcraft/src/core/commands/app_preferences/get_app_preferences_command.rs"}
+  {:id "get_download_path_command",
+   :label "Get download path",
+   :source
+   "crates/desktop/artcraft/src/core/commands/download/get_download_path_command.rs"}
+  {:id "get_provider_order_command",
+   :label "Get provider order",
+   :source
+   "crates/desktop/artcraft/src/core/commands/providers/deprecated/get_provider_order_command.rs"}
+  {:id "get_task_queue_command",
+   :label "Get task queue",
+   :source
+   "crates/desktop/artcraft/src/core/commands/task_queue/get_task_queue_command.rs"}
+  {:id "grok_clear_credentials_command",
+   :label "Grok clear credentials",
+   :source
+   "crates/desktop/artcraft/src/services/grok/commands/grok_clear_credentials_command.rs"}
+  {:id "grok_get_credential_info_command",
+   :label "Grok get credential info",
+   :source
+   "crates/desktop/artcraft/src/services/grok/commands/grok_get_credential_info_command.rs"}
+  {:id "grok_open_login_command",
+   :label "Grok open login",
+   :source
+   "crates/desktop/artcraft/src/services/grok/commands/grok_open_login_command.rs"}
+  {:id "list_image_models_command",
+   :label "List image models",
+   :source
+   "crates/desktop/artcraft/src/core/commands/generate/models/image/list_image_models_command.rs"}
+  {:id "list_video_models_command",
+   :label "List video models",
+   :source
+   "crates/desktop/artcraft/src/core/commands/generate/models/video/list_video_models_command.rs"}
+  {:id "load_without_cors_command",
+   :label "Load without cors",
+   :source
+   "crates/desktop/artcraft/src/core/commands/load_without_cors_command.rs"}
+  {:id "mark_task_as_dismissed_command",
+   :label "Mark task as dismissed",
+   :source
+   "crates/desktop/artcraft/src/core/commands/task_queue/mark_task_as_dismissed_command.rs"}
+  {:id "media_file_delete_command",
+   :label "Media file delete",
+   :source
+   "crates/desktop/artcraft/src/core/commands/media_files/media_file_delete_command.rs"}
+  {:id "midjourney_clear_credentials_command",
+   :label "Midjourney clear credentials",
+   :source
+   "crates/desktop/artcraft/src/services/midjourney/commands/midjourney_clear_credentials_command.rs"}
+  {:id "midjourney_get_credential_info_command",
+   :label "Midjourney get credential info",
+   :source
+   "crates/desktop/artcraft/src/services/midjourney/commands/midjourney_get_credential_info_command.rs"}
+  {:id "midjourney_open_login_command",
+   :label "Midjourney open login",
+   :source
+   "crates/desktop/artcraft/src/services/midjourney/commands/midjourney_open_login_command.rs"}
+  {:id "open_sora_login_command",
+   :label "Open sora login",
+   :source
+   "crates/desktop/artcraft/src/services/sora/commands/open_sora_login_command.rs"}
+  {:id "platform_info_command",
+   :label "Platform info",
+   :source
+   "crates/desktop/artcraft/src/core/commands/platform_info_command.rs"}
+  {:id "provider_clear_command",
+   :label "Provider clear",
+   :source
+   "crates/desktop/artcraft/src/core/commands/providers/provider_clear_command.rs"}
+  {:id "provider_list_command",
+   :label "Provider list",
+   :source
+   "crates/desktop/artcraft/src/core/commands/providers/provider_list_command.rs"}
+  {:id "provider_set_api_key_command",
+   :label "Provider set api key",
+   :source
+   "crates/desktop/artcraft/src/core/commands/providers/provider_set_api_key_command.rs"}
+  {:id "reset_artcraft_command",
+   :label "Reset artcraft",
+   :source
+   "crates/desktop/artcraft/src/core/commands/app_state/reset_artcraft_command.rs"}
+  {:id "set_provider_order_command",
+   :label "Set provider order",
+   :source
+   "crates/desktop/artcraft/src/core/commands/providers/deprecated/set_provider_order_command.rs"}
+  {:id "sora_get_credential_info_command",
+   :label "Sora get credential info",
+   :source
+   "crates/desktop/artcraft/src/services/sora/commands/sora_get_credential_info_command.rs"}
+  {:id "sora_logout_command",
+   :label "Sora logout",
+   :source
+   "crates/desktop/artcraft/src/services/sora/commands/sora_logout_command.rs"}
+  {:id "storyteller_cancel_login_challenge_command",
+   :label "Storyteller cancel login challenge",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_cancel_login_challenge_command.rs"}
+  {:id "storyteller_create_login_challenge_command",
+   :label "Storyteller create login challenge",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_create_login_challenge_command.rs"}
+  {:id "storyteller_get_credits_command",
+   :label "Storyteller get credits",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_get_credits_command.rs"}
+  {:id "storyteller_get_login_session_command",
+   :label "Storyteller get login session",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_get_login_session_command.rs"}
+  {:id "storyteller_get_subscription_command",
+   :label "Storyteller get subscription",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_get_subscription_command.rs"}
+  {:id "storyteller_open_credits_purchase_command",
+   :label "Storyteller open credits purchase",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/stripe_checkout/storyteller_open_credits_purchase_command.rs"}
+  {:id "storyteller_open_customer_portal_cancel_plan_command",
+   :label "Storyteller open customer portal cancel plan",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/stripe_customer_portal/storyteller_open_customer_portal_cancel_plan_command.rs"}
+  {:id "storyteller_open_customer_portal_manage_plan_command",
+   :label "Storyteller open customer portal manage plan",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/stripe_customer_portal/storyteller_open_customer_portal_manage_plan_command.rs"}
+  {:id "storyteller_open_customer_portal_switch_plan_command",
+   :label "Storyteller open customer portal switch plan",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/stripe_customer_portal/storyteller_open_customer_portal_switch_plan_command.rs"}
+  {:id
+   "storyteller_open_customer_portal_update_payment_method_command",
+   :label "Storyteller open customer portal update payment method",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/stripe_customer_portal/storyteller_open_customer_portal_update_payment_method_command.rs"}
+  {:id "storyteller_open_subscription_purchase_command",
+   :label "Storyteller open subscription purchase",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/stripe_checkout/storyteller_open_subscription_purchase_command.rs"}
+  {:id "storyteller_password_login_command",
+   :label "Storyteller password login",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_password_login_command.rs"}
+  {:id "storyteller_password_signup_command",
+   :label "Storyteller password signup",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_password_signup_command.rs"}
+  {:id "storyteller_poll_login_challenge_command",
+   :label "Storyteller poll login challenge",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_poll_login_challenge_command.rs"}
+  {:id "storyteller_purge_credentials_command",
+   :label "Storyteller purge credentials",
+   :source
+   "crates/desktop/artcraft/src/services/storyteller/commands/storyteller_purge_credentials_command.rs"}
+  {:id "tasks_nuke_all_command",
+   :label "Tasks nuke all",
+   :source
+   "crates/desktop/artcraft/src/core/commands/task_queue/tasks_nuke_all_command.rs"}
+  {:id "update_app_preferences_command",
+   :label "Update app preferences",
+   :source
+   "crates/desktop/artcraft/src/core/commands/app_preferences/update_app_preference_command.rs"}
+  {:id "worldlabs_clear_credentials_command",
+   :label "Worldlabs clear credentials",
+   :source
+   "crates/desktop/artcraft/src/services/worldlabs/commands/worldlabs_clear_credentials_command.rs"}
+  {:id "worldlabs_get_credential_info_command",
+   :label "Worldlabs get credential info",
+   :source
+   "crates/desktop/artcraft/src/services/worldlabs/commands/worldlabs_get_credential_info_command.rs"}
+  {:id "worldlabs_open_login_command",
+   :label "Worldlabs open login",
+   :source
+   "crates/desktop/artcraft/src/services/worldlabs/commands/worldlabs_open_login_command.rs"}
+  {:id "worldlabs_receive_bearer_command",
+   :label "Worldlabs receive bearer",
+   :source
+   "crates/desktop/artcraft/src/services/worldlabs/commands/worldlabs_receive_bearer_command.rs"}],
+ :control [],
+ :mcp []}

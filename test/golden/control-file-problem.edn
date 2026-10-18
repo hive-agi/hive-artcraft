@@ -1,0 +1,8 @@
+{:group-readable
+ "other users have access to it (mode rw-r-----; the app writes it rw-------)",
+ :mine nil,
+ :other-owner
+ "owned by another user (root; you are me), who may be the one listening for your commands",
+ :read-only nil,
+ :world
+ "other users have access to it (mode rw-rw-rw-; the app writes it rw-------)"}

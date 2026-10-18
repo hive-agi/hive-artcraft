@@ -1,0 +1,6 @@
+{:command
+ {:jsonrpc "2.0",
+  :id 2,
+  :method "ui.command",
+  :params {:id "file.save"}},
+ :state {:jsonrpc "2.0", :id "s", :method "ui.state", :params {}}}

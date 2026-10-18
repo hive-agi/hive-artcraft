@@ -1,0 +1,10 @@
+{:file
+ {:host "127.0.0.1",
+  :connect-ms 2000,
+  :timeout-ms 40000,
+  :control-file "~/.pdfcraft-control.json"},
+ :host
+ {:host "localhost",
+  :connect-ms 2000,
+  :timeout-ms 40000,
+  :control-file "/x"}}

@@ -1,0 +1,7 @@
+{:bare {:ok {:id 3, :method "ui.command", :params {:id "file.save"}}},
+ :refused {:error {:kind :artcraft/unknown-command, :hint "x"}},
+ :with-params
+ {:ok
+  {:id 4,
+   :method "ui.command",
+   :params {:id "page.rotate", :params {:angle 90}}}}}
