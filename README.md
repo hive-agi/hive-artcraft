@@ -1,9 +1,47 @@
 # hive-artcraft
 
-One hive addon, `hive.artcraft`, with **one tool, `artcraft`**, for every ArtCraft "Crafting App"
+![hive · artcraft: eight Crafting Apps under one verb, drawn live in VectorCraft through artcraft](docs/img/showcase.png)
+
+One hive addon, `hive.artcraft`, with **one verb, `artcraft`**, for every ArtCraft "Crafting App"
 (PhotoCraft, VectorCraft, LightCraft, DesignCraft, FilmCraft, EffectCraft, PdfCraft, ArtCraft Studio).
-Each app is a **module**: a piece of data in a registry list. The tool's `app` argument is an enum
-built from the apps that mounted.
+Each app is a **module**: a piece of data in a registry list. The `app` argument is an enum built
+from the apps that mounted.
+
+The image above is not a mock-up. It was drawn in a running VectorCraft, entirely through
+`artcraft call` (`file.new`, `shape.polygon`, `text.create`, `paint.setFill`), and exported with
+`artcraft control app.export`.
+
+## Showcase: driving a live app
+
+Start the app with its control channel, hot-inject the addon, and drive it from any MCP client
+that is already connected:
+
+```text
+vectorcraft --control 7990                       # a real GUI window
+hot inject  path=<checkout>/hive-artcraft        # no hive-mcp restart
+
+code command="artcraft call"    app=vectorcraft engine_command=file.new        params={"name":"artcraft-e2e","width":400,"height":300}
+code command="artcraft call"    app=vectorcraft engine_command=shape.rectangle params={"x":40,"y":40,"width":180,"height":120,"radius":16}
+code command="artcraft call"    app=vectorcraft engine_command=paint.setFill   params={"color":"#e8553e","ids":[2]}
+code command="artcraft call"    app=vectorcraft engine_command=shape.ellipse   params={"x":200,"y":110,"width":150,"height":150}
+code command="artcraft control" app=vectorcraft method=ui.screenshot
+code command="artcraft control" app=vectorcraft method=app.export params={"path":"…/artcraft-e2e.png","format":"png"}
+```
+
+| the window, driven over `artcraft` | the exported PNG |
+|---|---|
+| ![VectorCraft window with the shapes drawn through artcraft](docs/img/vectorcraft-driven.png) | ![the 400×300 export](docs/img/vectorcraft-export.png) |
+
+## How it plugs into hive
+
+![client to hive-mcp code tool to hive.artcraft to the three transport shapes](docs/img/architecture.svg)
+
+`artcraft` is not a top-level MCP tool. `initialize!` contributes it as a subdomain of the host
+`code` tool through `hive-addon.registry.commands/contribute!`, and `shutdown!` retracts it.
+hive-mcp re-reads that registry on every call, so a client that connected before the addon was
+injected can still call `code command="artcraft <verb>"`. A new top-level tool would stay
+invisible to that client until it reconnected. The addon is meant to be hot-injected when a
+creative app is in use, not loaded at hive-mcp startup.
 
 This release mounts **photocraft** and **vectorcraft**. It depends on the published
 `io.github.hive-agi/hive-photocraft` and `io.github.hive-agi/hive-vectorcraft` (0.1.1) and forwards
@@ -20,23 +58,28 @@ from `clojure -M:dev -m extract-studio [root]`) are native too. It uses the shar
 
 ## Using it
 
+Every call goes through the host `code` tool:
+
 ```json
-{"command":"apps"}
-{"app":"vectorcraft","command":"catalog"}
-{"app":"vectorcraft","command":"catalog","query":"control"}
-{"app":"vectorcraft","command":"doctor"}
-{"app":"vectorcraft","command":"call","engine_command":"shape.rectangle","params":{"x":0,"y":0,"w":10,"h":10}}
-{"app":"photocraft","command":"control","method":"ui.inspect"}
+{"command":"artcraft apps"}
+{"command":"artcraft catalog","app":"vectorcraft"}
+{"command":"artcraft catalog","app":"vectorcraft","query":"control"}
+{"command":"artcraft doctor","app":"vectorcraft"}
+{"command":"artcraft call","app":"vectorcraft","engine_command":"shape.rectangle","params":{"x":0,"y":0,"width":10,"height":10}}
+{"command":"artcraft control","app":"photocraft","method":"ui.inspect"}
 ```
 
 | arg | meaning |
 |---|---|
-| `app` | mounted app id (`command=apps` lists them) |
-| `command` | `apps` \| `catalog` \| `doctor` \| `call` \| `control` |
+| `app` | mounted app id (`command="artcraft apps"` lists them) |
+| `command` | `artcraft apps` \| `artcraft catalog` \| `artcraft doctor` \| `artcraft call` \| `artcraft control` |
 | `query` | catalog section (`engine`, `mcp`, `control`) or one exact command id |
 | `engine_command`, `method`, `params`, `id` | passed through to the app |
 
-`app=vectorcraft command=catalog` returns exactly what hive-vectorcraft's own `vectorcraft` tool
+`params` may also arrive as JSON text. A client that still holds the `code` schema from before
+`artcraft` was contributed sends it that way, and it is decoded when it parses to a JSON object.
+
+`artcraft catalog app=vectorcraft` returns exactly what hive-vectorcraft's own `vectorcraft` tool
 returns (519 engine commands, 25 MCP tools, 24 control methods at revision 65c5953). A test checks this.
 
 ### Configuration

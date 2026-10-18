@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" font-family="Source Sans 3, Helvetica, Arial, sans-serif">
+  <rect width="900" height="430" fill="#141821"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa4b8"/>
+    </marker>
+  </defs>
+
+  <rect x="30" y="40" width="190" height="70" rx="10" fill="#1f2430" stroke="#3a4152"/>
+  <text x="125" y="70" fill="#ffffff" font-size="17" text-anchor="middle">MCP client</text>
+  <text x="125" y="92" fill="#9aa4b8" font-size="13" text-anchor="middle">Claude Code, lings</text>
+
+  <rect x="290" y="30" width="320" height="90" rx="10" fill="#1f2430" stroke="#f2c14e"/>
+  <text x="450" y="60" fill="#f2c14e" font-size="17" text-anchor="middle">hive-mcp · host tool `code`</text>
+  <text x="450" y="84" fill="#ffffff" font-size="14" text-anchor="middle">command="artcraft &lt;verb&gt;" app=&lt;id&gt;</text>
+  <text x="450" y="104" fill="#9aa4b8" font-size="12" text-anchor="middle">registry.commands, re-read on every call</text>
+  <line x1="220" y1="75" x2="286" y2="75" stroke="#9aa4b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="290" y="160" width="320" height="76" rx="10" fill="#1f2430" stroke="#3a4152"/>
+  <text x="450" y="188" fill="#ffffff" font-size="17" text-anchor="middle">hive.artcraft (IAddon, hot-injected)</text>
+  <text x="450" y="212" fill="#9aa4b8" font-size="13" text-anchor="middle">apps · catalog · doctor · call · control</text>
+  <line x1="450" y1="120" x2="450" y2="156" stroke="#9aa4b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="462" y="143" fill="#6b7488" font-size="12">contribute! "code"</text>
+
+  <g font-size="13" text-anchor="middle">
+    <rect x="40" y="290" width="250" height="110" rx="10" fill="#1f2430" stroke="#3d7ef0"/>
+    <text x="165" y="316" fill="#ffffff" font-size="15">:port (JSON lines, loopback)</text>
+    <text x="165" y="340" fill="#9aa4b8">PhotoCraft · VectorCraft (mounted)</text>
+    <text x="165" y="360" fill="#9aa4b8">LightCraft · DesignCraft</text>
+    <text x="165" y="380" fill="#9aa4b8">FilmCraft · EffectCraft</text>
+
+    <rect x="325" y="290" width="250" height="110" rx="10" fill="#1f2430" stroke="#14a38b"/>
+    <text x="450" y="316" fill="#ffffff" font-size="15">:control-file (port + token)</text>
+    <text x="450" y="340" fill="#9aa4b8">PdfCraft</text>
+    <text x="450" y="360" fill="#9aa4b8">token handshake, ui.* methods</text>
+    <text x="450" y="380" fill="#9aa4b8">token never logged or returned</text>
+
+    <rect x="610" y="290" width="250" height="110" rx="10" fill="#1f2430" stroke="#f2c14e"/>
+    <text x="735" y="316" fill="#ffffff" font-size="15">:none (catalog only)</text>
+    <text x="735" y="340" fill="#9aa4b8">ArtCraft Studio</text>
+    <text x="735" y="360" fill="#9aa4b8">Tauri IPC, no external surface</text>
+    <text x="735" y="380" fill="#9aa4b8">call/control refuse with a remedy</text>
+  </g>
+  <line x1="400" y1="236" x2="200" y2="286" stroke="#9aa4b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="236" x2="450" y2="286" stroke="#9aa4b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="500" y1="236" x2="700" y2="286" stroke="#9aa4b8" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>

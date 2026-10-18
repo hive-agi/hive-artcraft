@@ -21,12 +21,12 @@
   {"filmcraft" {:port 9876 :env "FILMCRAFT_CONTROL_PORT"
                 :revision "6c3948a36c80e4996d924766ba7157eec4fca85e"
                 :counts {:engine 181 :mcp 17 :control 23 :unexpanded 466}
-                :clone "/home/klein/PP/hive/clones-ref/filmcraft" :extract film/extract
+                :clone "../clones-ref/filmcraft" :extract film/extract
                 :wrappers #{"align_cmd!" "arrange_cmd!" "label_cmd!" "spec()"}}
    "effectcraft" {:port 9877 :env "EFFECTCRAFT_CONTROL_PORT"
                   :revision "ef74d82902ba486891b02afa87e42963cc9b84cc"
                   :counts {:engine 652 :mcp 36 :control 24 :unexpanded 82}
-                  :clone "/home/klein/PP/hive/clones-ref/effectcraft" :extract effect/extract
+                  :clone "../clones-ref/effectcraft" :extract effect/extract
                   :wrappers #{"style_cmd!" "view_cmd!" "fe!" "res!"}}})
 
 (defn module [id] (get-in (registry/load-registry) [:ok :by-id id]))

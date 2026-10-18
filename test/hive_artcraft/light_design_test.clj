@@ -17,11 +17,11 @@
   {"lightcraft" {:port 7980 :env "LIGHTCRAFT_CONTROL_PORT"
                  :revision "fb7ac08b9ae43956f99436437ea5f549a07e3ce1"
                  :counts {:engine 370 :mcp 28 :control 27}
-                 :clone "/home/klein/PP/hive/clones-ref/lightcraft"}
+                 :clone "../clones-ref/lightcraft"}
    "designcraft" {:port 7981 :env "DESIGNCRAFT_CONTROL_PORT"
                   :revision "ecd7e5d063eb12fa5e61fe61c9b8a77bb3c9110a"
                   :counts {:engine 519 :mcp 26 :control 29}
-                  :clone "/home/klein/PP/hive/clones-ref/designcraft"}})
+                  :clone "../clones-ref/designcraft"}})
 
 (defn module [id] (get-in (registry/load-registry) [:ok :by-id id]))
 

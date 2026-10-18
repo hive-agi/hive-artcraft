@@ -1,7 +1,7 @@
 (ns extract-pdfcraft
   "Derive resources/hive_artcraft/catalogs/pdfcraft.edn from a PdfCraft checkout.
    Run from this repository: clojure -M:dev -m extract-pdfcraft [root]
-   Default root: /home/klein/PP/hive/clones-ref/pdfcraft. PdfCraft has no `cmd!` registry and no
+   Default root: ../clones-ref/pdfcraft. PdfCraft has no `cmd!` registry and no
    docs/control-protocol.md, so it needs its own parsers:
    - engine:  `c(id, label, menu, shortcut, needs, icon)` / `ct(...)` rows of
               `pub const COMMANDS` in crates/engine/src/commands.rs (ct = shortcut yields to text fields)
@@ -14,7 +14,7 @@
             [clojure.string :as str]
             [artcraft-extract :as x]))
 
-(def default-root "/home/klein/PP/hive/clones-ref/pdfcraft")
+(def default-root "../clones-ref/pdfcraft")
 
 (defn- ident-char? [ch] (or (Character/isLetterOrDigit (char ch)) (= \_ ch)))
 

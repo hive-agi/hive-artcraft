@@ -1,7 +1,7 @@
 (ns extract-studio
   "Derive resources/hive_artcraft/catalogs/studio.edn (ArtCraft Studio) from an ArtCraft checkout.
    Run from this repository: clojure -M:dev -m extract-studio [root]
-   Default root: /home/klein/PP/hive/clones-ref/artcraft. The catalog lists the #[tauri::command]
+   Default root: ../clones-ref/artcraft. The catalog lists the #[tauri::command]
    fn names under crates/: webview IPC handlers, NOT an external surface. They document the app's
    vocabulary; nothing outside the process can call them. Pure reads; never builds or runs the app."
   (:require [clojure.java.io :as io]
@@ -9,7 +9,7 @@
             [clojure.string :as str]
             [artcraft-extract :as x]))
 
-(def default-root "/home/klein/PP/hive/clones-ref/artcraft")
+(def default-root "../clones-ref/artcraft")
 
 (def command-fn
   "#[tauri::command] (optionally with args), any further attributes, then the fn header."
