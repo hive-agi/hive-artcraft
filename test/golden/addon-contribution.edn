@@ -1,0 +1,7 @@
+{:fixture
+ {"artcraft"
+  {:app-enum ["lightcraft" "pdfcraft"],
+   :verbs (:apps :call :catalog :control :doctor)}},
+ :unmounted
+ {"artcraft"
+  {:app-enum [], :verbs (:apps :call :catalog :control :doctor)}}}

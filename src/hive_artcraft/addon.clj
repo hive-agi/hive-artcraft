@@ -8,7 +8,8 @@
             [hive-artcraft.schema :as schema]
             [hive-artcraft.registry :as registry]
             [hive-artcraft.mount :as mount]
-            [hive-artcraft.service :as service]))
+            [hive-artcraft.service :as service]
+            [hive-addon.registry.commands :as cmds]))
 
 (def commands
   "The closed command vocabulary of the `artcraft` tool."
@@ -104,6 +105,28 @@
                               "id" {:type ["integer" "string"] :description "Nonnegative integer or string request id."}}}
    :handler (fn [args] (dispatch mounted order args))})
 
+(def host-tool
+  "The host tool `artcraft` is contributed into: `code command=\"artcraft <verb>\" app=...`."
+  "code")
+
+(defn contribution
+  "The `artcraft` subdomain for the host tool: one verb per command, each routed through
+   dispatch against whatever is mounted in STATE at call time. Params (with the `app` enum)
+   come from the same descriptor `tool` builds."
+  [state]
+  (let [{:keys [description inputSchema]} (tool {} (vec (:order @state)))]
+    {"artcraft"
+     {:description description
+      :params (dissoc (:properties inputSchema) "command")
+      :handler (into {}
+                     (map (fn [verb]
+                            [(keyword verb)
+                             (fn [args]
+                               (let [{:keys [mounted order]} @state]
+                                 (dispatch (or mounted {}) (or order [])
+                                           (assoc (dissoc (stringify-args args) "command") "command" verb))))]))
+                     commands)}}))
+
 (defn mount-all
   "Mount every registry app against the merged addon config."
   [reg config getenv]
@@ -122,12 +145,14 @@
         (do (reset! state {}) {:success? false :errors [(get-in reg [:error :hint])]})
         (let [order (registry/app-ids (:ok reg))]
           (reset! state {:order order :mounted (mount-all (:ok reg) config (or (:getenv configuration) env))})
-          {:success? true :errors [] :metadata {:tools ["artcraft"] :apps order}}))))
+          (cmds/contribute! host-tool "hive.artcraft" (contribution state))
+          {:success? true :errors [] :metadata {:commands {host-tool ["artcraft"]} :apps order}}))))
   (shutdown! [_]
+    (cmds/retract! host-tool "hive.artcraft")
     (doseq [[_ app] (:mounted @state)] (mount/unmount! (:ok app)))
     (reset! state {})
     nil)
-  (tools [_] (if-let [order (:order @state)] [(tool (:mounted @state) order)] []))
+  (tools [_] [])
   (schema-extensions [_] {})
   (excluded-tools [_] #{})
   (hooks [_] {})
@@ -140,6 +165,8 @@
   "Host manifest entry point. Config: {:apps {\"<app>\" AppConfig}}; :registry and :getenv are test seams."
   [config]
   (->ArtcraftAddon (atom {}) (or config {})))
+
+(m/=> contribution [:=> [:cat :any] [:map-of :string [:map [:description :string] [:params :map] [:handler [:map-of :keyword ifn?]]]]])
 
 (m/=> stringify-args [:=> [:cat [:maybe :map]] [:map-of :string :any]])
 (m/=> mount-app [:=> [:cat schema/AppModule :map ifn?] :map])

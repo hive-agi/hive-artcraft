@@ -79,7 +79,8 @@
 (defn running [config]
   (doto (addon/addon-ctor (assoc config :getenv (constantly nil))) (protocol/initialize! {})))
 
-(defn handler [instance] (:handler (first (protocol/tools instance))))
+(defn handler [instance]
+  (fn [args] (let [{:keys [mounted order]} @(:state instance)] (addon/dispatch (or mounted {}) (or order []) args))))
 (defn read-text [result] (edn/read-string (-> result :content first :text)))
 
 ;; ---------------------------------------------------------------- trifectas (new public fns)

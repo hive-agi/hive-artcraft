@@ -12,7 +12,8 @@
             [hive-artcraft.transport.socket :as socket]
             [hive-artcraft.fixtures :as fx]
             [hive-vectorcraft.addon :as vectorcraft]
-            [hive-photocraft.addon :as photocraft]))
+            [hive-photocraft.addon :as photocraft]
+            [hive-addon.registry.commands :as cmds]))
 
 (def vc-module (get-in (registry/load-registry) [:ok :by-id "vectorcraft"]))
 (def pc-module (get-in (registry/load-registry) [:ok :by-id "photocraft"]))
@@ -26,7 +27,8 @@
   ([] (running {}))
   ([config] (doto (addon/addon-ctor (assoc config :getenv fx/no-env)) (protocol/initialize! {}))))
 
-(defn handler [instance] (:handler (first (protocol/tools instance))))
+(defn handler [instance]
+  (fn [args] (let [{:keys [mounted order]} @(:state instance)] (addon/dispatch (or mounted {}) (or order []) args))))
 
 ;; ---------------------------------------------------------------- mount ns
 
@@ -131,6 +133,19 @@
    :pred #(and (= "artcraft" (:name %)) (fn? (:handler %))) :num-tests 10
    :mutations [["drop-handler" (fn [_ _] {:name "artcraft" :inputSchema {}})]]})
 
+(deftrifecta contribution-contract addon/contribution
+  {:golden-path "test/golden/addon-contribution.edn"
+   :cases {:fixture [(atom {:mounted fixture-mounted :order ["lightcraft" "pdfcraft"]})]
+           :unmounted [(atom {})]}
+   :apply? true
+   :xf (fn [c] (into {} (map (fn [[k spec]] [k {:app-enum (get-in spec [:params "app" :enum])
+                                                :verbs (sort (keys (:handler spec)))}]))
+                     c))
+   :gen (gen/return [(atom {:mounted fixture-mounted :order ["lightcraft"]})])
+   :pred #(= #{:apps :catalog :doctor :call :control} (set (keys (get-in % ["artcraft" :handler]))))
+   :num-tests 10
+   :mutations [["no-verbs" (fn [_] {"artcraft" {:description "" :params {} :handler {}}})]]})
+
 (deftrifecta addon-ctor-contract addon/addon-ctor
   {:golden-path "test/golden/addon-ctor.edn"
    :cases {:default [{}] :nil [nil]}
@@ -148,9 +163,25 @@
     (is (every? #(= :mounted (:status %)) rows))
     (is (= {"photocraft" "hive.photocraft" "vectorcraft" "hive.vectorcraft"}
            (into {} (comp (filter :delegate) (map (juxt :app :delegate))) rows)))
-    (is (= shipped (get-in (first (protocol/tools instance)) [:inputSchema :properties "app" :enum])))
-    (is (= 1 (count (protocol/tools instance))))
+    (is (= [] (protocol/tools instance)) "artcraft is a contributed subdomain, not a top-level tool")
     (protocol/shutdown! instance)))
+
+(deftest artcraft-is-contributed-into-code
+  (let [instance (running)
+        spec (get (cmds/get-commands addon/host-tool) "artcraft")
+        verbs (:handler spec)]
+    (is (= "code" addon/host-tool))
+    (is (= "hive.artcraft" (:addon spec)))
+    (is (= #{:apps :catalog :doctor :call :control} (set (keys verbs))))
+    (is (= ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"]
+           (get-in spec [:params "app" :enum])))
+    (is (not (contains? (:params spec) "command")))
+    (is (= (mapv :app (read-text ((:apps verbs) {:command "artcraft apps"})))
+           (mapv :app (read-text ((handler instance) {"command" "apps"})))))
+    (is (= {:engine 519 :mcp 25 :control 24}
+           (select-keys (read-text ((:catalog verbs) {:command "artcraft catalog" :app "vectorcraft"})) [:engine :mcp :control])))
+    (protocol/shutdown! instance)
+    (is (nil? (get (cmds/get-commands addon/host-tool) "artcraft")) "shutdown! retracts the contribution")))
 
 (deftest vectorcraft-catalog-matches-hive-vectorcraft
   (let [instance (running)
