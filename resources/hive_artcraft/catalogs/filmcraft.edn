@@ -1,0 +1,975 @@
+{:reference-revision "6c3948a36c80e4996d924766ba7157eec4fca85e",
+ :engine
+ [{:id "clip.audioGain",
+   :label "Audio Gain…",
+   :params
+   "{\"clips\":[id]?,\"mode\":\"set|adjust|normalizeMax|normalizeAll\"?,\"db\":f64,\"relative\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.audioPeak",
+   :label "Audio Clip Peak Amplitude",
+   :params "{\"clips\":[id]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.enable",
+   :label "Enable",
+   :params "{\"clips\":[id]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.frameHold",
+   :label "Add Frame Hold",
+   :params "{\"clips\":[id]?,\"time\":ticks?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.group",
+   :label "Group",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.link",
+   :label "Link",
+   :params "{\"clips\":[id]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.nest",
+   :label "Nest…",
+   :params "{\"name\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.rename",
+   :label "Rename…",
+   :params "{\"clip\":id?,\"item\":id?,\"name\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.revealInProject",
+   :label "Reveal in Project",
+   :params "{\"clip\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.scaleToFrameSize",
+   :label "Scale to Frame Size",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.speedDuration",
+   :label "Speed/Duration…",
+   :params
+   "{\"clips\":[id]?,\"speed\":percent=100,\"reverse\":bool,\"ripple\":bool,\"interpolation\":\"frameSampling|frameBlending|opticalFlow\"?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "clip.ungroup",
+   :label "Ungroup",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "command.list",
+   :label "List Commands",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.clear",
+   :label "Clear",
+   :params "{\"clips\":[id]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.copy",
+   :label "Copy",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.cut",
+   :label "Cut",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.deselectAll",
+   :label "Deselect All",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.duplicate",
+   :label "Duplicate",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.label",
+   :label "Label",
+   :params "{\"label\":\"Violet|Iris|…\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.paste",
+   :label "Paste",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.pasteInsert",
+   :label "Paste Insert",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.redo",
+   :label "Redo",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.rippleDelete",
+   :label "Ripple Delete",
+   :params "{\"clips\":[id]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.rippleDeleteHead",
+   :label "Ripple Delete Head Frame",
+   :params "{\"clips\":[id]?,\"clip\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.selectAll",
+   :label "Select All",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "edit.undo",
+   :label "Undo",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.addKeyframe",
+   :label "Add/Remove Keyframe",
+   :params
+   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mask\":n?,\"time\":ticks?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.apply",
+   :label "Apply Effect",
+   :params
+   "{\"clips\":[id]?,\"effect\":\"gaussian_blur|Gaussian Blur|…\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.deleteKeyframe",
+   :label "Delete Keyframe",
+   :params
+   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mediaTime\":ticks}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.list",
+   :label "List Effects",
+   :params
+   "{\"kind\":\"Video\"|\"Audio\"|\"VideoTransition\"|\"AudioTransition\"?,\"folder\":\"Video Transitions/Wipe\"?,\"detail\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.moveKeyframe",
+   :label "Move Keyframe",
+   :params
+   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mediaTime\":ticks,\"to\":ticks,\"value\":any?,\"merge\":bool?,\"begin\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.moveKeyframes",
+   :label "Move Keyframes",
+   :params
+   "{\"keyframes\":[{\"clip\":id,\"effect\":index,\"param\":str,\"mask\":n?,\"time\":mediaTicks}],\"delta\":timelineTicks}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.remove",
+   :label "Remove Effect",
+   :params "{\"clip\":id,\"index\":n}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.reset",
+   :label "Reset Effect",
+   :params "{\"clip\":id,\"index\":n}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.resetParam",
+   :label "Reset Parameter",
+   :params "{\"clip\":id,\"effect\":str|index,\"param\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.setInterpolation",
+   :label "Keyframe Interpolation",
+   :params
+   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mediaTime\":ticks,\"interpolation\":\"linear|bezier|autoBezier|continuousBezier|hold|easeIn|easeOut\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.setKeyframe",
+   :label "Edit Keyframe",
+   :params
+   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mediaTime\":ticks,\"value\":any?,\"inInfluence\":0..1?,\"outInfluence\":0..1?,\"merge\":bool?,\"begin\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.setParam",
+   :label "Set Effect Parameter",
+   :params
+   "{\"clip\":id,\"effect\":\"motion\"|index,\"param\":str,\"mask\":n?,\"value\":num|[x,y]|\"#rrggbb\"|bool|path|\"option name\" (a choice takes its index or its name),\"time\":ticks? (where the keyframe goes when the parameter is animated, kept there even outside the clip; default: the playhead, pinned to the clip; a parameter that is not animated gets a new static value whatever the time),\"keyframe\":bool? (true: write a keyframe at `time` and animate the parameter),\"merge\":bool|key?,\"begin\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.toggleAnimation",
+   :label "Toggle Animation",
+   :params
+   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mask\":n?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "effects.toggleEnabled",
+   :label "Toggle Effect",
+   :params "{\"clip\":id,\"index\":n}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.autoSaveNow",
+   :label "Auto Save Now",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.autoSaveStatus",
+   :label "Auto Save Status",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.discardRecovery",
+   :label "Discard Unsaved Changes",
+   :params "{\"id\":str?,\"all\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportAaf",
+   :label "AAF…",
+   :params
+   "{\"path\":str,\"sequence\":id?,\"mixdownVideo\":bool?,\"mixdownFormat\":\"mov|mxf\"?,\"breakoutToMono\":bool?,\"audio\":\"embedded|separate|linked\"?,\"audioFormat\":\"wav|aiff|mxf\"?,\"sampleRate\":int?,\"bitDepth\":\"16|24\"?,\"trimAudio\":bool?,\"handles\":frames?,\"renderAudioEffects\":bool?,\"smallSectors\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportEdl",
+   :label "EDL…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportFcp7Xml",
+   :label "Final Cut Pro XML…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportFcpxml",
+   :label "FCPXML…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportInterchange",
+   :label "Export Interchange",
+   :params
+   "{\"format\":\"edl|xml|fcpxml|otio|aaf|omf\"=xml,\"path\":str,\"sequence\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportMedia",
+   :label "Media…",
+   :params
+   "{\"path\":str,\"preset\":str?,\"settings\":ExportSettings?,\"format\":\"h264|hevc|prores|dnxhr|apv|mjpeg|mxf-op1a|mxf-opatom|png|tiff|bmp|jpg|tga|dpx|exr|gif|wav|aiff|aac|flac\"?,\"audioCodec\":\"auto|aac|pcm|flac\"?,\"flacLevel\":0..8=5,\"width\":u32?,\"height\":u32?,\"fps\":f64?,\"bitrateKbps\":u32?,\"bitrateMode\":\"cbr|vbr1Pass|vbr2Pass|crf\"?,\"crf\":0..51=23,\"hardwareEncoding\":\"off|auto\"?,\"scale\":f32=1,\"audio\":bool=true,\"quality\":0..100,\"burnCaptions\":bool=false,\"alpha\":bool=false,\"exrCompression\":\"none|rle|zips|zip\"?,\"captionSidecar\":\"srt|vtt\"?,\"loudnessLufs\":f64?,\"proresProfile\":\"proxy|lt|standard|hq|4444|4444xq\"?,\"dnxProfile\":\"lb|sq|hq|hqx\"?,\"apvProfile\":\"422-10|422-12|444-10|444-12\"?,\"mxfVideoCodec\":\"dnxhr|proRes|h264\"?,\"sequence\":id?,\"range\":\"entire|inOut|workArea|custom\"?,\"startSeconds\":f64?,\"endSeconds\":f64?,\"wait\":bool=false}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportOmf",
+   :label "OMF…",
+   :params
+   "{\"path\":str,\"sequence\":id?,\"title\":str?,\"audio\":\"embedded|separate\"?,\"audioFormat\":\"wav|aiff\"?,\"sampleRate\":int?,\"bitDepth\":\"16|24\"?,\"trimAudio\":bool?,\"handles\":frames?,\"renderAudioEffects\":bool?,\"breakoutToMono\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.exportOtio",
+   :label "OpenTimelineIO…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.import",
+   :label "Import…",
+   :params
+   "{\"paths\":[str],\"bin\":binId?,\"imageSequence\":bool?,\"replace\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.importAaf",
+   :label "Import AAF…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.importDemoFootage",
+   :label "Demo Footage",
+   :params
+   "{\"scene\":\"OceanSunset|Aurora|CityNight|Dunes|Plasma|Forest\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.listAutoSaves",
+   :label "Browse Auto-Saves",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newAdjustmentLayer",
+   :label "Adjustment Layer…",
+   :params "{\"seconds\":f64=5}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newBarsAndTone",
+   :label "Bars and Tone…",
+   :params "{\"seconds\":f64=10}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newBin",
+   :label "Bin",
+   :params "{\"name\":str,\"parent\":binId?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newBlackVideo",
+   :label "Black Video…",
+   :params "{\"seconds\":f64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newColorMatte",
+   :label "Color Matte…",
+   :params "{\"color\":\"#rrggbb\",\"seconds\":f64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newCountingLeader",
+   :label "Universal Counting Leader…",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newProject",
+   :label "Project…",
+   :params "{\"name\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newSequence",
+   :label "Sequence…",
+   :params
+   "{\"name\":str,\"width\":u32=1920,\"height\":u32=1080,\"fps\":f64=23.976,\"sampleRate\":u32=48000,\"video\":n=3,\"audio\":n=3,\"mix\":\"Stereo|Mono|5.1|Adaptive\"?,\"trackType\":\"Standard|Mono|5.1|Adaptive\"?,\"fromItem\":itemId?,\"fromItems\":[itemId]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.newTransparentVideo",
+   :label "Transparent Video…",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.open",
+   :label "Open Project…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.openDemoProject",
+   :label "Demo Project",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.recover",
+   :label "Recover Unsaved Changes…",
+   :params "{\"id\":str?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.recoveryList",
+   :label "List Recoverable Sessions",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.revert",
+   :label "Revert",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.save",
+   :label "Save",
+   :params "{\"path\":str?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.saveAs",
+   :label "Save As…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "file.saveCopy",
+   :label "Save a Copy…",
+   :params "{\"path\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "history.list",
+   :label "List History",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "jobs.cancel",
+   :label "Cancel Job",
+   :params "{\"job\":id}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "jobs.list",
+   :label "List Jobs",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.add",
+   :label "Add Marker",
+   :params
+   "{\"target\":\"program|source\",\"time\":ticks?,\"name\":str?,\"comment\":str?,\"color\":label?,\"durationFrames\":i64?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.clearAll",
+   :label "Clear Markers",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.clearCurrent",
+   :label "Clear Selected Marker",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.clearIn",
+   :label "Clear In",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.clearInOut",
+   :label "Clear In and Out",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.clearOut",
+   :label "Clear Out",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.edit",
+   :label "Edit Marker…",
+   :params
+   "{\"target\":\"program|source\",\"marker\":id,\"name\":str?,\"comment\":str?,\"color\":label?,\"durationFrames\":i64?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.exportCsv",
+   :label "Export Markers as CSV…",
+   :params "{\"path\":str} (all markers in the active sequence)",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.goNext",
+   :label "Go to Next Marker",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.goPrev",
+   :label "Go to Previous Marker",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.goToIn",
+   :label "Go to In",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.goToOut",
+   :label "Go to Out",
+   :params "{\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.markClip",
+   :label "Mark Clip",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.markIn",
+   :label "Mark In",
+   :params
+   "{\"time\":ticks?,\"frame\":i64?,\"seconds\":f64?,\"timecode\":str?,\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.markOut",
+   :label "Mark Out",
+   :params
+   "{\"time\":ticks?,\"frame\":i64?,\"seconds\":f64?,\"timecode\":str?,\"target\":\"program|source\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "markers.markSelection",
+   :label "Mark Selection",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "perf.stats",
+   :label "Performance Statistics",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.end",
+   :label "Go to Sequence End",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.nextEdit",
+   :label "Go to Next Edit Point",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.prevEdit",
+   :label "Go to Previous Edit Point",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.set",
+   :label "Set Playhead",
+   :params
+   "{\"time\":ticks|\"frame\":i64|\"seconds\":f64|\"timecode\":str}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.start",
+   :label "Go to Sequence Start",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.step",
+   :label "Step Frames",
+   :params "{\"frames\":i64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.stepBack",
+   :label "Step Back One Frame",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.stepBack5",
+   :label "Step Back Five Frames",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.stepForward",
+   :label "Step Forward One Frame",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "playhead.stepForward5",
+   :label "Step Forward Five Frames",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "prefs.get",
+   :label "Get Preferences",
+   :params "{\"key\":str?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "prefs.reset",
+   :label "Reset Preferences",
+   :params "{\"category\":str?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "prefs.set",
+   :label "Set Preferences",
+   :params "{\"key\":str,\"value\":any}|{\"values\":{key:value}}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "project.delete",
+   :label "Clear",
+   :params "{\"items\":[id]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "project.inspect",
+   :label "Inspect Project",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "project.matteColor",
+   :label "Color Matte Color…",
+   :params "{\"item\":id?,\"color\":\"#rrggbb\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "project.moveToBin",
+   :label "Move to Bin",
+   :params "{\"items\":[id|binId]?,\"bin\":binId|null}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "project.select",
+   :label "Select Project Items",
+   :params "{\"items\":[id]}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "project.setMarks",
+   :label "Set Source In/Out",
+   :params "{\"item\":id,\"in\":ticks?|null,\"out\":ticks?|null}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.addEdit",
+   :label "Add Edit",
+   :params "{\"time\":ticks?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.addEditAllTracks",
+   :label "Add Edit to All Tracks",
+   :params "{\"time\":ticks?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.addTracks",
+   :label "Add Tracks…",
+   :params
+   "{\"video\":n=1,\"audio\":n=0,\"submix\":n=0,\"videoAfter\":\"first\"|\"V2\"|n?,\"audioAfter\":\"first\"|\"A2\"|n?,\"submixAfter\":\"first\"|\"S1\"|n?,\"audioType\":\"standard|5.1|adaptive|mono\"?,\"submixType\":\"stereo|5.1|adaptive|mono\"?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.applyAudioTransition",
+   :label "Apply Audio Transition",
+   :params
+   "{\"clip\":id?,\"effect\":\"constant_power|Constant Power|…\"?,\"frames\":i64?,\"edge\":\"in\"|\"out\"?,\"params\":{param:value}?,\"reverse\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.applyVideoTransition",
+   :label "Apply Video Transition",
+   :params
+   "{\"clip\":id?,\"effect\":\"cross_dissolve|Cross Dissolve|…\"?,\"frames\":i64?,\"edge\":\"in\"|\"out\"?,\"params\":{param:value}?,\"reverse\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.close",
+   :label "Close Sequence",
+   :params "{\"item\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.closeGap",
+   :label "Close Gap",
+   :params "{\"track\":\"V1\"|id?,\"time\":ticks?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.closeOthers",
+   :label "Close Other Timeline Panels",
+   :params "{\"item\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.deleteRenderFiles",
+   :label "Delete Render Files",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.deleteRenderFilesInToOut",
+   :label "Delete Render Files In to Out",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.deleteTrack",
+   :label "Delete Track",
+   :params "{\"track\":\"V3\"|id}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.extract",
+   :label "Extract",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.inspect",
+   :label "Inspect Sequence",
+   :params "{\"item\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.lift",
+   :label "Lift",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.linkedSelection",
+   :label "Linked Selection",
+   :params "{\"on\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.matchFrame",
+   :label "Match Frame",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.moveTab",
+   :label "Move Sequence Tab",
+   :params "{\"item\":id?,\"index\":int}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.nestSequences",
+   :label
+   "Insert and overwrite sequences as nests or individual clips",
+   :params "{\"on\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.open",
+   :label "Open in Timeline",
+   :params "{\"item\":id}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.removeTransition",
+   :label "Clear Transition",
+   :params "{\"transitions\":[id]?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.renderAudio",
+   :label "Render Audio",
+   :params "{\"wait\":bool=false}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.renderBar",
+   :label "Render Bar",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.renderEffectsInToOut",
+   :label "Render Effects In to Out",
+   :params "{\"wait\":bool=false}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.renderInToOut",
+   :label "Render In to Out",
+   :params "{\"wait\":bool=false}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.renderSelection",
+   :label "Render Selection",
+   :params "{\"wait\":bool=false}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.revealInProject",
+   :label "Reveal Sequence in Project",
+   :params "{\"item\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.setTransition",
+   :label "Edit Transition Settings",
+   :params
+   "{\"transition\":id,\"params\":{param:value}?,\"reverse\":bool?,\"reset\":bool?,\"duration\":ticks?|\"frames\":n?,\"align\":\"center\"|\"start\"|\"end\"?|\"start\":ticks?,\"merge\":bool?,\"begin\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.settings",
+   :label "Sequence Settings…",
+   :params
+   "{\"width\":u32?,\"height\":u32?,\"fps\":f64?,\"name\":str?,\"sampleRate\":u32?,\"mix\":\"Stereo|Mono|5.1|Adaptive\"?,\"dropFrame\":bool?,\"maxRenderQuality\":bool?,\"workingSpace\":\"rec709\"|\"rec2100-pq\"|\"rec2100-hlg\"?,\"wideGamut\":bool?,\"autoToneMap\":bool?,\"scaleMotion\":bool=false}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.snap",
+   :label "Snap in Timeline",
+   :params "{\"on\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "source.close",
+   :label "Close",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "source.closeAll",
+   :label "Close All",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "source.insert",
+   :label "Insert",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "source.inspect",
+   :label "Inspect Source Monitor",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "source.open",
+   :label "Open in Source Monitor",
+   :params "{\"item\":id?,\"clip\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "source.overwrite",
+   :label "Overwrite",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "source.setPlayhead",
+   :label "Set Source Playhead",
+   :params "{\"time\":ticks|\"frame\":i64|\"seconds\":f64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "state.inspect",
+   :label "Inspect Editor State",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.move",
+   :label "Move Clips",
+   :params
+   "{\"moves\":[{\"clip\":id,\"track\":id|\"V2\"|\"new\" (after the last of its kind),\"time\":ticks}],\"insert\":bool,\"linked\":bool?,\"copy\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.place",
+   :label "Place Clip",
+   :params
+   "{\"item\":id|\"items\":[id] (back to back, one undo step),\"track\":\"V1\"|id|\"A1\" (sound only)|\"new\" (a video track after the last)?,\"audioTrack\":\"A1\"|id|\"new\"?,\"time\":ticks|\"frame\":i64|\"seconds\":f64,\"insert\":bool,\"sourceIn\":ticks?,\"duration\":ticks?,\"video\":bool=true,\"audio\":bool=true}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.rateStretch",
+   :label "Rate Stretch",
+   :params "{\"clip\":id,\"edge\":\"in|out\",\"delta\":ticks}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.razor",
+   :label "Razor",
+   :params "{\"time\":ticks,\"track\":\"V1\"|id?,\"clip\":id?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.roll",
+   :label "Rolling Edit",
+   :params
+   "{\"left\":id,\"right\":id,\"delta\":ticks|\"deltaFrames\":i64,\"followLinks\"?:bool}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.select",
+   :label "Select Clips",
+   :params
+   "{\"clips\":[id],\"transitions\":[id]?,\"add\":bool,\"toggle\":bool,\"linked\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.selectGap",
+   :label "Select Gap",
+   :params
+   "{\"track\":\"V1\"|id,\"time\":ticks|\"frame\":n|\"seconds\":f}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.setTargeting",
+   :label "Track Targeting",
+   :params
+   "{\"track\":\"V1\"|id,\"targeted\":bool?,\"sourcePatch\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.setTrack",
+   :label "Track Settings",
+   :params
+   "{\"track\":\"V1\"|id,\"locked\":bool?,\"syncLock\":bool?,\"enabled\":bool?,\"muted\":bool?,\"solo\":bool?,\"name\":str?,\"volumeDb\":f64?,\"pan\":f64?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.slide",
+   :label "Slide",
+   :params "{\"clip\":id,\"delta\":ticks|\"deltaFrames\":i64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.slip",
+   :label "Slip",
+   :params "{\"clip\":id,\"delta\":ticks|\"deltaFrames\":i64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "timeline.trim",
+   :label "Trim Edit",
+   :params
+   "{\"clip\":id,\"edge\":\"in|out\",\"mode\":\"regular|ripple\",\"delta\":ticks|\"deltaFrames\":i64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.applyDefaultTransition",
+   :label "Apply Default Transitions to Selection",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.backward",
+   :label "Trim Backward",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.backwardMany",
+   :label "Trim Backward Many",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.cancelDynamic",
+   :label "Cancel Dynamic Trim",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.clear",
+   :label "Clear Edit Point Selection",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.edit",
+   :label "Trim Edit",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.extendToPlayhead",
+   :label "Extend Selected Edit to Playhead",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.forward",
+   :label "Trim Forward",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.forwardMany",
+   :label "Trim Forward Many",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.monitor",
+   :label "Trim Monitor State",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.next",
+   :label "Trim Next Edit to Playhead",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.nudge",
+   :label "Trim by Frames",
+   :params "{\"frames\":i64}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.playAround",
+   :label "Play Around Edit",
+   :params "{\"clock\":seconds,\"loop\":bool=true,\"toggle\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.previous",
+   :label "Trim Previous Edit to Playhead",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.rippleNext",
+   :label "Ripple Trim Next Edit to Playhead",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.ripplePrevious",
+   :label "Ripple Trim Previous Edit to Playhead",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.selectEditPoint",
+   :label "Select Edit Point",
+   :params
+   "{\"clip\":id,\"edge\":\"in|out\",\"kind\":\"trim|ripple|roll\",\"add\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.selectNearest",
+   :label "Select Nearest Edit Point",
+   :params "{\"kind\":\"rippleIn|rippleOut|roll|trimIn|trimOut\"}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.shuttle",
+   :label "Dynamic Trim (Shuttle)",
+   :params
+   "{\"direction\":\"forward|reverse\",\"slow\":bool?,\"clock\":seconds}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.shuttleStop",
+   :label "Dynamic Trim Stop",
+   :params "{\"clock\":seconds?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "trim.toggleType",
+   :label "Toggle Trim Type",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}],
+ :unexpanded
+ [{:macro "spec()", :count 20, :source "crates/engine/src/captions.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/captions.rs"}
+  {:macro "label_cmd!",
+   :count 16,
+   :source "crates/engine/src/clip_ops.rs"}
+  {:macro "spec()", :count 29, :source "crates/engine/src/clip_ops.rs"}
+  {:macro "spec()", :count 9, :source "crates/engine/src/color.rs"}
+  {:macro "query()", :count 6, :source "crates/engine/src/color.rs"}
+  {:macro "CommandSpec {}",
+   :count 2,
+   :source "crates/engine/src/commands.rs"}
+  {:macro "spec()",
+   :count 9,
+   :source "crates/engine/src/essential_sound.rs"}
+  {:macro "spec()",
+   :count 19,
+   :source "crates/engine/src/export_tools.rs"}
+  {:macro "spec()",
+   :count 13,
+   :source "crates/engine/src/graphic_templates.rs"}
+  {:macro "query()",
+   :count 4,
+   :source "crates/engine/src/graphic_templates.rs"}
+  {:macro "align_cmd!",
+   :count 18,
+   :source "crates/engine/src/graphics.rs"}
+  {:macro "arrange_cmd!",
+   :count 4,
+   :source "crates/engine/src/graphics.rs"}
+  {:macro "spec()", :count 25, :source "crates/engine/src/graphics.rs"}
+  {:macro "query()", :count 2, :source "crates/engine/src/graphics.rs"}
+  {:macro "tt!", :count 16, :source "crates/engine/src/keyboard.rs"}
+  {:macro "spec()", :count 66, :source "crates/engine/src/keyboard.rs"}
+  {:macro "spec()", :count 10, :source "crates/engine/src/masks.rs"}
+  {:macro "CommandSpec {}",
+   :count 2,
+   :source "crates/engine/src/masks.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/media_browser.rs"}
+  {:macro "spec()", :count 25, :source "crates/engine/src/mixer.rs"}
+  {:macro "camera_keys!",
+   :count 1,
+   :source "crates/engine/src/multicam.rs"}
+  {:macro "spec()", :count 20, :source "crates/engine/src/multicam.rs"}
+  {:macro "CommandSpec {}",
+   :count 4,
+   :source "crates/engine/src/multicam.rs"}
+  {:macro "spec()", :count 7, :source "crates/engine/src/narration.rs"}
+  {:macro "CommandSpec {}",
+   :count 3,
+   :source "crates/engine/src/panels.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/paste_media.rs"}
+  {:macro "spec()", :count 7, :source "crates/engine/src/presets.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/project_manager.rs"}
+  {:macro "spec()",
+   :count 21,
+   :source "crates/engine/src/project_tools.rs"}
+  {:macro "query()",
+   :count 8,
+   :source "crates/engine/src/project_tools.rs"}
+  {:macro "CommandSpec {}",
+   :count 7,
+   :source "crates/engine/src/proxies.rs"}
+  {:macro "CommandSpec {}",
+   :count 10,
+   :source "crates/engine/src/relink.rs"}
+  {:macro "CommandSpec {}",
+   :count 4,
+   :source "crates/engine/src/remix.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/scene_detect.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/scopes.rs"}
+  {:macro "spec()",
+   :count 6,
+   :source "crates/engine/src/sequence_extras.rs"}
+  {:macro "spec()",
+   :count 25,
+   :source "crates/engine/src/sequence_tools.rs"}
+  {:macro "query()",
+   :count 1,
+   :source "crates/engine/src/sequence_tools.rs"}
+  {:macro "spec()", :count 7, :source "crates/engine/src/settings.rs"}
+  {:macro "sc!", :count 16, :source "crates/engine/src/shortcuts.rs"}
+  {:macro "spec()",
+   :count 14,
+   :source "crates/engine/src/transcript.rs"}
+  {:macro "spec()",
+   :count 4,
+   :source "crates/engine/src/voiceover.rs"}],
+ :mcp
+ [{:name "command_list",
+   :description
+   "List every command (id, label, menu path, shortcut, parameter doc, enabled now). Menus, shortcuts, panels and timeline gestures all map to these ids.",
+   :source "crates/automation/src/server.rs",
+   :title "List commands"}
+  {:name "command_run",
+   :description
+   "Run a command by id with JSON params, e.g. {\"id\":\"timeline.razor\",\"params\":{\"seconds\":3.5}} or {\"id\":\"effects.apply\",\"params\":{\"effect\":\"Gaussian Blur\"}}. Undoable edits land in History.",
+   :source "crates/automation/src/server.rs",
+   :title "Run a command"}
+  {:name "command_batch",
+   :description
+   "Run several commands in order: {steps: [{id, params?}], stop_on_error?: true}. Returns {completed, failed, results: [{ok, result | error}]}; each edit is its own undo step.",
+   :source "crates/automation/src/server.rs",
+   :title "Run several commands"}
+  {:name "doc_inspect",
+   :description
+   "The project as JSON: the tree (as project_inspect) plus the active sequence (as sequence_inspect; null when there is none).",
+   :source "crates/automation/src/server.rs",
+   :title "Inspect the document"}
+  {:name "render_preview",
+   :description
+   "The active sequence's frame at `seconds` (default: the playhead) as PNG, same as render_frame (bridge mode: Program monitor screenshot).",
+   :source "crates/automation/src/server.rs",
+   :title "Render a preview"}
+  {:name "project_inspect",
+   :description
+   "Project tree (bins and items with ids, types, durations), active sequence, source clip.",
+   :source "crates/automation/src/server.rs",
+   :title "Inspect the project tree"}
+  {:name "sequence_inspect",
+   :description
+   "The active sequence as JSON: settings, tracks, clips (ids, start/duration in ticks and frames, effects), transitions, markers, in/out, playhead, selection. 254016000000 ticks = 1 second.",
+   :source "crates/automation/src/server.rs",
+   :title "Inspect the active sequence"}
+  {:name "media_import",
+   :description
+   "Import media files by absolute path (MP4/MOV, WAV/MP3/FLAC/AIFF/Ogg, PNG/JPEG/…).",
+   :source "crates/automation/src/server.rs",
+   :title "Import media"}
+  {:name "render_frame",
+   :description
+   "Render the active sequence's frame (at `seconds` or the playhead) and return it as PNG.",
+   :source "crates/automation/src/server.rs",
+   :title "Render a frame"}
+  {:name "ui_inspect",
+   :description
+   "Live app: UI state (tool, workspace, panels, timeline zoom, playback, selection, fps).",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: UI state"}
+  {:name "ui_elements",
+   :description
+   "Live app: every on-screen interactive element with id, label and rect (points). Use ids with ui_click/ui_drag.",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: on-screen elements"}
+  {:name "ui_click",
+   :description
+   "Live app: click an element by id or at x,y (points). Supports right/middle button, double-click (count=2) and modifiers.",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: click"}
+  {:name "ui_drag",
+   :description
+   "Live app: press-drag-release from one point/element to another (move clips, trim edges, scrub, resize panels, drop project items onto tracks).",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: drag"}
+  {:name "ui_key",
+   :description
+   "Live app: press a key or shortcut (e.g. `Space`, `L`, `Cmd+K`, `Shift+Delete`, `Cmd+Z`).",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: press a key"}
+  {:name "ui_type",
+   :description "Live app: type text into the focused field.",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: type text"}
+  {:name "ui_screenshot",
+   :description
+   "Live app: screenshot of the window or one panel (PNG).",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: screenshot"}
+  {:name "ui_control",
+   :description
+   "Live app: call any control-channel method directly (ui.set, ui.scroll, ui.timeline.hit, ui.timeline.locate, ui.playback, ui.panel.show, ui.menu.list, …).",
+   :source "crates/automation/src/server.rs",
+   :title "Live app: control-channel call"}],
+ :control
+ ["app.quit"
+  "engine.commands"
+  "engine.execute"
+  "perf.stats"
+  "ui.click"
+  "ui.drag"
+  "ui.elements"
+  "ui.focus"
+  "ui.inspect"
+  "ui.key"
+  "ui.menu.invoke"
+  "ui.menu.list"
+  "ui.move"
+  "ui.panel.close"
+  "ui.panel.show"
+  "ui.playback"
+  "ui.resize"
+  "ui.screenshot"
+  "ui.scroll"
+  "ui.set"
+  "ui.timeline.hit"
+  "ui.timeline.locate"
+  "ui.type"]}

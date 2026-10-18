@@ -56,26 +56,37 @@
         nil)))
 
 (defn catalog
-  "Describe the app's pinned vocabulary; query selects engine, mcp, control or one exact command id."
+  "Describe the app's pinned vocabulary; query selects engine, mcp, control, unexpanded or one
+   exact command id. The overview counts unexpanded sites when the catalog declares any."
   [module entries query]
   (case query
     "engine" {:ok (:engine entries)}
     "mcp" {:ok (vec (:mcp entries))}
     "control" {:ok (:control entries)}
-    nil {:ok {:app (:app/id module) :revision (:reference-revision entries)
-              :engine (count (:engine entries)) :mcp (count (:mcp entries))
-              :control (count (:control entries))}}
+    "unexpanded" {:ok (vec (:unexpanded entries))}
+    nil {:ok (cond-> {:app (:app/id module) :revision (:reference-revision entries)
+                      :engine (count (:engine entries)) :mcp (count (:mcp entries))
+                      :control (count (:control entries))}
+               (contains? entries :unexpanded)
+               (assoc :unexpanded (reduce + (map :count (:unexpanded entries)))))}
     (core/lookup entries (:app/id module) query)))
 
 (defn doctor
-  "Report catalog size, transport shape, whether a transport is live, and the remedy. A :control-file
-   transport also reports whether its file is readable and trusted (never the token)."
+  "Report catalog size (and any unexpanded static-extraction gap), transport shape, whether a
+   transport is live, and the remedy. A :control-file transport also reports whether its file is
+   readable and trusted (never the token)."
   [module entries transport port-res]
   (let [file (when (= :control-file (:app/transport module)) (get-in transport [:config :control-file]))
         probe (when file (control-file/read-control-file file))]
     {:ok (cond-> {:app (:app/id module)
                   :shape (:app/transport module)
-                  :catalog {:engine (count (:engine entries)) :control (count (:control entries))}
+                  :catalog (cond-> {:engine (count (:engine entries)) :control (count (:control entries))}
+                             (contains? entries :unexpanded)
+                             (assoc :unexpanded (reduce + (map :count (:unexpanded entries)))
+                                    :unexpanded-hint (str "The static catalog does not expand "
+                                                          (count (:unexpanded entries))
+                                                          " macro/helper sites; query=unexpanded lists them, and the running"
+                                                          " app's engine.commands control method returns the full registry.")))
                   :port port-res
                   :transport (if transport :ready :absent)
                   :hint (cond (:error probe) (get-in probe [:error :hint])

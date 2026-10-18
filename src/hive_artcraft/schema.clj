@@ -48,10 +48,14 @@
   [:map [:id :string] [:label :string]])
 
 (def Catalog
-  "Native-app catalog resource: the vectorcraft-shaped extraction (engine commands + control methods)."
+  "Native-app catalog resource: the vectorcraft-shaped extraction (engine commands + control methods).
+   :unexpanded (optional) lists command-building sites a static extractor did not expand
+   (wrapper macros, helper fns), one {:macro :count :source} row per macro and file, so a
+   partial :engine list is never mistaken for the whole registry."
   [:map [:engine [:vector CatalogEntry]]
    [:control [:vector :string]]
    [:mcp {:optional true} [:vector :map]]
+   [:unexpanded {:optional true} [:vector [:map [:macro :string] [:count pos-int?] [:source :string]]]]
    [:reference-revision {:optional true} :string]])
 
 (def ErrorValue

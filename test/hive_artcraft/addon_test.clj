@@ -143,7 +143,7 @@
 (deftest apps-lists-mounts-and-natives
   (let [instance (running)
         rows (read-text ((handler instance) {"command" "apps"}))
-        shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio"]]
+        shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"]]
     (is (= shipped (mapv :app rows)))
     (is (every? #(= :mounted (:status %)) rows))
     (is (= {"photocraft" "hive.photocraft" "vectorcraft" "hive.vectorcraft"}

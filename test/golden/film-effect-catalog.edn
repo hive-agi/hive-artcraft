@@ -1,0 +1,14 @@
+{"effectcraft"
+ {:app "effectcraft",
+  :revision "ef74d82902ba486891b02afa87e42963cc9b84cc",
+  :engine 652,
+  :mcp 36,
+  :control 24,
+  :unexpanded 82},
+ "filmcraft"
+ {:app "filmcraft",
+  :revision "6c3948a36c80e4996d924766ba7157eec4fca85e",
+  :engine 181,
+  :mcp 17,
+  :control 23,
+  :unexpanded 466}}

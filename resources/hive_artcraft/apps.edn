@@ -70,4 +70,26 @@
   ;; Derived by dev/extract_studio.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/studio.edn"
   :app/upstream "https://github.com/storytold/artcraft"}
+
+ {:app/id "filmcraft"
+  :app/label "FilmCraft"
+  :app/summary "Nonlinear video editor (Premiere-style). Native: `filmcraft --control PORT`. The static catalog lists cmd!/query! commands; wrapper macros and spec() helpers are counted under :unexpanded."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 9876
+  :app/port-env "FILMCRAFT_CONTROL_PORT"
+  ;; Derived by dev/extract_filmcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/filmcraft.edn"
+  :app/upstream "https://github.com/storytold/filmcraft"}
+
+ {:app/id "effectcraft"
+  :app/label "EffectCraft"
+  :app/summary "Motion graphics and compositing (After Effects-style). Native: `effectcraft --control PORT`. The static catalog lists cmd!/query! commands; wrapper macros are counted under :unexpanded."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 9877
+  :app/port-env "EFFECTCRAFT_CONTROL_PORT"
+  ;; Derived by dev/extract_effectcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/effectcraft.edn"
+  :app/upstream "https://github.com/storytold/effectcraft"}
 ]
