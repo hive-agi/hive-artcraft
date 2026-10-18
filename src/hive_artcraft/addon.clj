@@ -9,7 +9,8 @@
             [hive-artcraft.registry :as registry]
             [hive-artcraft.mount :as mount]
             [hive-artcraft.service :as service]
-            [hive-addon.registry.commands :as cmds]))
+            [hive-addon.registry.commands :as cmds]
+            [clojure.data.json :as json]))
 
 (def commands
   "The closed command vocabulary of the `artcraft` tool."
@@ -18,9 +19,16 @@
 (defn- env [k] (System/getenv k))
 
 (defn stringify-args
-  "MCP args may arrive keyword- or string-keyed; delegates expect string keys."
+  "MCP args may arrive keyword- or string-keyed; delegates expect string keys. A client that
+   still holds the host tool's schema from before `artcraft` was contributed sends `params`
+   as JSON text, so a string that decodes to a JSON object becomes that map."
   [args]
-  (into {} (map (fn [[k v]] [(if (keyword? k) (name k) (str k)) v])) args))
+  (let [args (into {} (map (fn [[k v]] [(if (keyword? k) (name k) (str k)) v])) args)
+        p (get args "params")]
+    (if (string? p)
+      (let [decoded (try (json/read-str p) (catch Exception _ ::bad))]
+        (if (map? decoded) (assoc args "params" decoded) args))
+      args)))
 
 (defn mount-app
   "Bring one module up from its config: a :mount delegate or a :native catalog + transport."

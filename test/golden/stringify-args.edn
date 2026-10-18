@@ -1,3 +1,6 @@
-{:kw {"command" "apps", "app" "vectorcraft"},
+{:bad-json {"params" "{"},
+ :json-not-object {"params" "[1, 2]"},
+ :json-params {"command" "artcraft control", "params" {"x" 1}},
+ :kw {"command" "apps", "app" "vectorcraft"},
  :nil {},
  :str {"command" "apps"}}

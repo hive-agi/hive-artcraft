@@ -77,7 +77,10 @@
 
 (deftrifecta stringify-args-contract addon/stringify-args
   {:golden-path "test/golden/stringify-args.edn"
-   :cases {:kw {:command "apps" :app "vectorcraft"} :str {"command" "apps"} :nil nil}
+   :cases {:kw {:command "apps" :app "vectorcraft"} :str {"command" "apps"} :nil nil
+           :json-params {:command "artcraft control" :params "{\"x\": 1}"}
+           :json-not-object {:params "[1, 2]"}
+           :bad-json {:params "{"}}
    :gen (gen/map gen/keyword gen/small-integer) :pred #(every? string? (keys %)) :num-tests 30
    :mutations [["identity" identity]]})
 
