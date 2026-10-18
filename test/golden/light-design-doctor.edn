@@ -1,0 +1,14 @@
+{"designcraft"
+ {:app "designcraft",
+  :shape :port,
+  :catalog {:engine 519, :control 29},
+  :port {:port 7981, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."},
+ "lightcraft"
+ {:app "lightcraft",
+  :shape :port,
+  :catalog {:engine 370, :control 27},
+  :port {:port 7980, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."}}

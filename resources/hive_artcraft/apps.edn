@@ -28,4 +28,26 @@
   :app/mount {:ctor hive-vectorcraft.addon/addon-ctor
               :addon-id "hive.vectorcraft"}
   :app/upstream "https://github.com/vectorcraft/vectorcraft"}
+
+ {:app/id "lightcraft"
+  :app/label "LightCraft"
+  :app/summary "Non-destructive photo library and raw developer (Lightroom-style). Native: `lightcraft --control PORT`."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7980
+  :app/port-env "LIGHTCRAFT_CONTROL_PORT"
+  ;; Derived by dev/extract_lightcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/lightcraft.edn"
+  :app/upstream "https://github.com/storytold/lightcraft"}
+
+ {:app/id "designcraft"
+  :app/label "DesignCraft"
+  :app/summary "Page layout (InDesign-style). Native: `designcraft --control PORT`; upstream docs use 7979, which collides with VectorCraft."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7981
+  :app/port-env "DESIGNCRAFT_CONTROL_PORT"
+  ;; Derived by dev/extract_designcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/designcraft.edn"
+  :app/upstream "https://github.com/storytold/designcraft"}
 ]

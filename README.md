@@ -9,6 +9,13 @@ This release mounts **photocraft** and **vectorcraft**. It depends on the publis
 `io.github.hive-agi/hive-photocraft` and `io.github.hive-agi/hive-vectorcraft` (0.1.1) and forwards
 calls to their own tool handlers. Their code is not copied.
 
+**lightcraft** (port 7980, `LIGHTCRAFT_CONTROL_PORT`) and **designcraft** (port 7981,
+`DESIGNCRAFT_CONTROL_PORT`) are `:native :port` modules. hive-artcraft serves them from
+`resources/hive_artcraft/catalogs/<app>.edn`. `dev/extract_<app>.clj` derives each catalog from a
+reference clone: `clojure -M:dev -m extract-lightcraft [root]`. It uses the shared parser in
+`dev/artcraft_extract.clj`, which is ported from hive-vectorcraft and also reads DesignCraft's
+`noundo` arm. `:reference-revision` is the clone's HEAD sha.
+
 ## Using it
 
 ```json

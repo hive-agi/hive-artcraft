@@ -64,7 +64,7 @@
    :mutations [["env-ignored" (fn [m c _] (if-let [p (:control-port c)] {:port p :source :config}
                                               (when-let [p (:app/default-port m)] {:port p :source :default})))]]})
 
-(deftest shipped-registry-lists-both-mounts
+(deftest shipped-registry-lists-mounts-and-natives
   (let [{:keys [ok]} (registry/load-registry)]
-    (is (= ["photocraft" "vectorcraft"] (:order ok)))
-    (is (= [7878 7979] (map #(get-in ok [:by-id % :app/default-port]) (:order ok))))))
+    (is (= ["photocraft" "vectorcraft" "lightcraft" "designcraft"] (:order ok)))
+    (is (= [7878 7979 7980 7981] (map #(get-in ok [:by-id % :app/default-port]) (:order ok))))))

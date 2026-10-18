@@ -1,0 +1,2617 @@
+{:reference-revision "ecd7e5d063eb12fa5e61fe61c9b8a77bb3c9110a",
+ :engine
+ [{:id "anchor.create",
+   :label "New Hyperlink Destination…",
+   :params "{name} — a text anchor at the insertion point",
+   :source "crates/engine/src/cmd/xref.rs"}
+  {:id "anchor.list",
+   :label "Text Anchors",
+   :params "{} → [{id, name, story, pos, page}]",
+   :source "crates/engine/src/cmd/xref.rs"}
+  {:id "anchored.insert",
+   :label "Insert Anchored Object…",
+   :params
+   "{ids, story?, pos? (default: the text insertion point), position?: inline|aboveLine|custom, yOffset?, align?: left|center|right, spaceBefore?, spaceAfter?, xRelative? | yRelative?: anchor|textFrame|columnEdge|pageMargin|pageEdge, xOffset?, objectPoint? | refPoint?: 0..8, keepWithinColumn?} — moves the items into the text",
+   :source "crates/engine/src/cmd/anchored.rs"}
+  {:id "anchored.list",
+   :label "Anchored Objects",
+   :params "{story?} → [{story, index, pos, position, size}]",
+   :source "crates/engine/src/cmd/anchored.rs"}
+  {:id "anchored.options",
+   :label "Anchored Object Options…",
+   :params
+   "{story?, index? (default: the object at the insertion point), position?: inline|aboveLine|custom, yOffset?, align?: left|center|right, spaceBefore?, spaceAfter?, xRelative? | yRelative?: anchor|textFrame|columnEdge|pageMargin|pageEdge, xOffset?, objectPoint? | refPoint?: 0..8, keepWithinColumn?}",
+   :source "crates/engine/src/cmd/anchored.rs"}
+  {:id "anchored.release",
+   :label "Release",
+   :params
+   "{story?, index? (default: the object at the insertion point)} — puts the object back on the page where it is now and removes it from the text",
+   :source "crates/engine/src/cmd/anchored.rs"}
+  {:id "app.links",
+   :label "Community & Project Links",
+   :params
+   "{} → {discord, website, appPage, github, issues} (ArtCraft Discord, website, DesignCraft page and repository)",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "article.add",
+   :label "Add Selection to Article",
+   :params "{name, ids? (default: the selection)} — appended in order",
+   :source "crates/engine/src/cmd/articles.rs"}
+  {:id "article.delete",
+   :label "Delete Article",
+   :params "{name}",
+   :source "crates/engine/src/cmd/articles.rs"}
+  {:id "article.list",
+   :label "Articles",
+   :params "{} → [{name, items, export}]",
+   :source "crates/engine/src/cmd/articles.rs"}
+  {:id "article.new",
+   :label "New Article",
+   :params "{name?, ids? (default: the selection)} → {name}",
+   :source "crates/engine/src/cmd/articles.rs"}
+  {:id "article.options",
+   :label "Article Options",
+   :params
+   "{name, to?: new name, export?: bool, order?: [ids] (reorder)}",
+   :source "crates/engine/src/cmd/articles.rs"}
+  {:id "article.remove",
+   :label "Remove from Article",
+   :params "{name, ids}",
+   :source "crates/engine/src/cmd/articles.rs"}
+  {:id "book.add",
+   :label "Add Document",
+   :params "{path, at?: index}",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.close",
+   :label "Close Book",
+   :params "{}",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.exportPdf",
+   :label "Export Book to PDF…",
+   :params
+   "{path?} — every document in order as one PDF → {path, bytes, pages} (no path: {base64, …})",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.list",
+   :label "Book",
+   :params
+   "{} → {path, styleSource, documents: [{path, pages, firstPage}]}",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.new",
+   :label "New Book",
+   :params "{path} — an empty book file (.dcbook)",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.open",
+   :label "Open Book",
+   :params "{path} → {documents}",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.paginate",
+   :label "Update Numbering",
+   :params
+   "{} — each document starts numbering where the previous one ended, and takes its chapter number (automatic: one more than the previous document's; same as previous; or its own start) (files are saved) → {pages, chapters}",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.remove",
+   :label "Remove Document",
+   :params "{index}",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.styleSource",
+   :label "Style Source",
+   :params "{index}",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "book.syncStyles",
+   :label "Synchronize Book",
+   :params
+   "{} — paragraph and character styles and swatches of the style source go into every document (by name)",
+   :source "crates/engine/src/cmd/book.rs"}
+  {:id "bookmark.add",
+   :label "New Bookmark",
+   :params
+   "{name?, page? (1-based; default: current selection's page or 1)}",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "bookmark.delete",
+   :label "Delete Bookmark",
+   :params "{index}",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "bookmark.list",
+   :label "Bookmarks",
+   :params "{}",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "bookmark.rename",
+   :label "Rename Bookmark",
+   :params "{index, name}",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "button.clear",
+   :label "Convert to Object",
+   :params "{ids?}",
+   :source "crates/engine/src/cmd/buttons.rs"}
+  {:id "button.list",
+   :label "Buttons",
+   :params "{} → [{id, name, action}]",
+   :source "crates/engine/src/cmd/buttons.rs"}
+  {:id "button.set",
+   :label "Convert to Button",
+   :params
+   "{ids?, action: page|firstPage|lastPage|nextPage|previousPage|url|none, page?, url?} — the selected objects act on release in interactive PDF",
+   :source "crates/engine/src/cmd/buttons.rs"}
+  {:id "changes.accept",
+   :label "Accept Change",
+   :params "{story, start} — the change at that position",
+   :source "crates/engine/src/cmd/changes.rs"}
+  {:id "changes.acceptAll",
+   :label "Accept All Changes",
+   :params "{story?} — deleted text goes, added text stays",
+   :source "crates/engine/src/cmd/changes.rs"}
+  {:id "changes.list",
+   :label "Changes",
+   :params "{} → [{story, start, end, kind: inserted|deleted, text}]",
+   :source "crates/engine/src/cmd/changes.rs"}
+  {:id "changes.reject",
+   :label "Reject Change",
+   :params "{story, start} — the change at that position",
+   :source "crates/engine/src/cmd/changes.rs"}
+  {:id "changes.rejectAll",
+   :label "Reject All Changes",
+   :params "{story?} — added text goes, deleted text comes back",
+   :source "crates/engine/src/cmd/changes.rs"}
+  {:id "changes.track",
+   :label "Track Changes",
+   :params "{on?: bool (default: toggle)}",
+   :source "crates/engine/src/cmd/changes.rs"}
+  {:id "color.convert",
+   :label "Convert Color",
+   :params
+   "{color: {model: rgb, r, g, b} | {model: cmyk, c, m, y, k} | {model: gray, k}, to: rgb|cmyk|gray|lab} — through the working spaces",
+   :source "crates/engine/src/cmd/colorsettings.rs"}
+  {:id "color.extractTheme",
+   :label "Extract Color Theme",
+   :params
+   "{id?: selected image frame} → {from, colors: [up to five RGB hex colours]} — samples the source raster, ignoring transparent pixels; at most 16 million pixels",
+   :source "crates/engine/src/cmd/color_theme.rs"}
+  {:id "color.loadProfile",
+   :label "Load Profile…",
+   :params
+   "{path} — an ICC profile (.icc/.icm) to use as a working space or proof target",
+   :source "crates/engine/src/cmd/colorsettings.rs"}
+  {:id "color.sample",
+   :label "Sample Color (Eyedropper)",
+   :params
+   "{at: [x,y] (spread coords), spread?, target?: fill|stroke, ids?, matchFrom?: id} → {color: \"#rrggbb\", swatch, from: image id} — the Eyedropper on a placed image: the image's colour at the point (an unnamed colour) fills the selected text, else the selected objects. With no opaque image pixel there, `matchFrom` gives the object whose attributes apply instead (object.matchAttributes)",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "color.settings",
+   :label "Color Settings",
+   :params
+   "{rgb?: working RGB profile, cmyk?: working CMYK profile, intent?: perceptual|relative|saturation|absolute, bpc?: bool} → {rgb, cmyk, intent, bpc, profiles}",
+   :source "crates/engine/src/cmd/colorsettings.rs"}
+  {:id "condition.apply",
+   :label "Apply Condition",
+   :params
+   "{name, on?: bool (default true), only?: bool (remove the others)} — to the selected text; `name: null` with `only` removes all",
+   :source "crates/engine/src/cmd/conditions.rs"}
+  {:id "condition.delete",
+   :label "Delete Condition",
+   :params "{name} — the text it was applied to stays (shown)",
+   :source "crates/engine/src/cmd/conditions.rs"}
+  {:id "condition.list",
+   :label "Conditions",
+   :params "{} → [{name, color, visible}]",
+   :source "crates/engine/src/cmd/conditions.rs"}
+  {:id "condition.new",
+   :label "New Condition…",
+   :params "{name, color?: [r, g, b], visible?} → {name}",
+   :source "crates/engine/src/cmd/conditions.rs"}
+  {:id "condition.options",
+   :label "Condition Options…",
+   :params "{name, to?: new name, color?: [r, g, b], visible?: bool}",
+   :source "crates/engine/src/cmd/conditions.rs"}
+  {:id "conveyor.clear",
+   :label "Clear Conveyor",
+   :params "{}",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "conveyor.collect",
+   :label "Collect",
+   :params
+   "{ids? (default: the selection)} — each object onto the Content Collector conveyor → {count}",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "conveyor.list",
+   :label "Conveyor",
+   :params "{} → [name]",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "conveyor.place",
+   :label "Place",
+   :params
+   "{index? (0), spread?, x?, y?, keep?: bool (stay on the conveyor)} — the Content Placer: the collected object at x/y (top-left)",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "data.fields",
+   :label "Data Fields",
+   :params
+   "{csv? | rows? | path? | bytes? | base64?, name?, delimiter?, sheet?} → [{name, kind, uses}]; no params reads the linked source and does not attach one",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.merge",
+   :label "Create Merged Document…",
+   :params
+   "{csv? | rows? | path? | bytes? | base64?, name?, delimiter?, sheet?, records?, one?, range?, perPage?, arrange?, insets?, columnSpacing?, rowSpacing?, fitting?, center?, linkImages?, limit?, spread?: removed (passing it is an error)} → {records, pages, missingImages, oversetStories, warnings}",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.options",
+   :label "Data Merge Options",
+   :params
+   "{records?, one?, range?, perPage?, arrange?, insets?, columnSpacing?, rowSpacing?, fitting?, center?, linkImages?, limit?}",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.placeholder.add",
+   :label "Insert Field",
+   :params
+   "{field, role?: text|image|qr|hyperlink, story?, at?, end?, item?} → {id}",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.placeholder.remove",
+   :label "Remove Field",
+   :params "{id}",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.preview",
+   :label "Preview Record",
+   :params
+   "{record?: n} → fill the template with that record (session only)",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.preview.stop",
+   :label "Stop Preview",
+   :params "{} → restore the unfilled template",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.source.remove",
+   :label "Remove Data Source",
+   :params "{} → drop the source; placeholders stay",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.source.select",
+   :label "Select Data Source…",
+   :params
+   "{path | bytes|base64, name, delimiter?: comma|tab|semicolon, sheet?} → {fields, records, warnings}",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "data.source.update",
+   :label "Update Data Source",
+   :params "{} → re-read the linked file",
+   :source "crates/engine/src/cmd/datamerge/mod.rs"}
+  {:id "document.history",
+   :label "History",
+   :params "{}",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "document.inspect",
+   :label "Inspect Document",
+   :params
+   "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "document.list",
+   :label "List Documents",
+   :params "{}",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "document.preferences",
+   :label "Document Preferences",
+   :params
+   "{horizontalUnits?, verticalUnits?: points|picas|inches|millimeters|…, keyboardIncrement? (pt), kerningIncrement? (1/1000 em: Alt+Left/Right in text), baselineGrid?: {start, increment, relativeTo, color, viewThreshold}, grid?: {horizontal, vertical, subdivisions, color, inBack}, pasteboard?: [h, v], marginColor?, columnColor?, bleedColor?, slugColor?: [r, g, b], advancedType?: {superscriptSize, superscriptPosition, subscriptSize, subscriptPosition} (%), overprintBlack?, glyphFallback? (draw characters the font lacks from fallback fonts; off: as the font's missing-glyph box), rulerOrigin?: spread|page|spine (what rulers and X/Y measure from, with the zero point)} → those settings",
+   :source "crates/engine/src/cmd/prefs.rs"}
+  {:id "edit.cancelPreview",
+   :label "Cancel Preview",
+   :params
+   "{} — the document goes back to how it was before the preview",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clear",
+   :label "Clear",
+   :params "{ids?} — delete selected items (or the selected text)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.commitPreview",
+   :label "Commit Preview",
+   :params "{} — the open preview becomes one undo step",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.copy",
+   :label "Copy",
+   :params
+   "{} → {text} when text is selected (with formatting, footnotes, markers)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.cut",
+   :label "Cut",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.deselectAll",
+   :label "Deselect All",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.duplicate",
+   :label "Duplicate",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.paste",
+   :label "Paste",
+   :params
+   "{inPlace?: bool, spread?: index (0), text?: the system clipboard's text (pastes it unless it is what was copied here; with no insertion point it becomes a new text frame), at?: [x, y] (spread coords: the new text frame's centre)}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.pasteInPlace",
+   :label "Paste in Place",
+   :params "{spread?: index (0)}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.pasteInto",
+   :label "Paste Into",
+   :params
+   "{id?} — the copied objects become the content of the selected frame (or `id`), clipped by it",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.pasteSvg",
+   :label "Paste Vector Art",
+   :params
+   "{svg: markup (what Illustrator, VectorCraft or Figma put on the clipboard), spread?, at?: [x, y] (spread coords of the art's centre; default the first page's centre)} → {ids, warnings} — paths with their fills and strokes, groups as groups, text as outlines",
+   :source "crates/engine/src/cmd/paste_svg.rs"}
+  {:id "edit.pasteWithoutFormatting",
+   :label "Paste without Formatting",
+   :params
+   "{text?} — plain text at the insertion point, in the format there",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.preview",
+   :label "Preview Change",
+   :params
+   "{label, command, params?} — run `command` on the document as it was before the preview began, replacing the last preview; the first call opens a preview named `label` (the undo step's name)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.redo",
+   :label "Redo",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.selectAll",
+   :label "Select All",
+   :params
+   "{} — all items on the active spreads, or all text in the story",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.stepAndRepeat",
+   :label "Step and Repeat…",
+   :params
+   "{count?: 1..1000, dx?, dy?, rows?, columns?, ids?} — copies of the selection (or ids) offset by (dx, dy); with rows/columns, a grid of at most 1000 cells, and at most 1000 item copies including group contents → {created, ids: the copies}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "edit.transparencyBlendSpace",
+   :label "Transparency Blend Space",
+   :params
+   "{space: cmyk|rgb} — the colour space transparency is composited in for output",
+   :source "crates/engine/src/cmd/prefs.rs"}
+  {:id "edit.undo",
+   :label "Undo",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "endnote.delete",
+   :label "Delete Endnote",
+   :params "{story, id} — removes the reference and its text",
+   :source "crates/engine/src/cmd/endnotes.rs"}
+  {:id "endnote.edit",
+   :label "Edit Endnote",
+   :params "{story, id, text}",
+   :source "crates/engine/src/cmd/endnotes.rs"}
+  {:id "endnote.insert",
+   :label "Insert Endnote",
+   :params
+   "{text?} — a reference at the insertion point; the first one makes the endnote frame on a new last page → {story, id, frame}",
+   :source "crates/engine/src/cmd/endnotes.rs"}
+  {:id "endnote.list",
+   :label "Endnotes",
+   :params "{} → [{story, id, number, text}] in numbering order",
+   :source "crates/engine/src/cmd/endnotes.rs"}
+  {:id "endnote.options",
+   :label "Document Endnote Options…",
+   :params
+   "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|kanji, startAt?, prefix?, suffix?, heading?, headingStyle?, paraStyle?, separator?} → the options",
+   :source "crates/engine/src/cmd/endnotes.rs"}
+  {:id "file.activate",
+   :label "Activate Document",
+   :params "{index}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.clearRecent",
+   :label "Clear Recent Files",
+   :params "{} — empty File › Open Recent",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.close",
+   :label "Close",
+   :params "{index?}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.deletePreset",
+   :label "Delete Document Preset",
+   :params "{name} — a saved document preset",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.exportEpub",
+   :label "Export EPUB (Reflowable)…",
+   :params
+   "{path?, title?, author?, language?: \"en\", identifier?: str (dc:identifier; a stable urn:uuid by default), coverImage?: path (a PNG or JPEG as the cover), tocTitle?: str (the table of contents' title; from the language by default), cover?: bool (the first page as the cover image), embedFonts?: bool (package the stylesheet's fonts whose licence allows it, whole files), fixedLayout?: bool (pre-paginated: each page as an image with its text)} → {path, bytes, warnings} (no path: {base64, bytes, warnings}); warnings name images without alt text, exported as decorative, and fonts that could not be embedded",
+   :source "crates/engine/src/cmd/export.rs"}
+  {:id "file.exportFixedEpub",
+   :label "Export EPUB (Fixed Layout)…",
+   :params
+   "{path?, title?, author?, language?} — pre-paginated EPUB → {path, bytes} (no path: {base64, bytes})",
+   :source "crates/engine/src/cmd/export.rs"}
+  {:id "file.exportHtml",
+   :label "Export HTML…",
+   :params
+   "{path?, title?, language?} — one self-contained page (styles inline, images embedded), stories and graphics in reading order → {path, bytes, warnings} (no path: {text, bytes, warnings})",
+   :source "crates/engine/src/cmd/export.rs"}
+  {:id "file.exportIdml",
+   :label "Export IDML…",
+   :params
+   "{path?, embedImages?: true} — writes an IDML package to `path`, or returns {base64} without a path",
+   :source "crates/engine/src/cmd/interchange.rs"}
+  {:id "file.exportPdf",
+   :label "Export PDF…",
+   :params
+   "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), flatten?: high|medium|low|ppi (Transparency Flattener: spreads with transparency are rasterised), spreads?: bool, fullScreen?: bool, bookmarksPanel?: bool, pageLayout?: single|continuous|twoUp|twoUpCover|twoUpContinuous, view?: fitPage|fitWidth|actual, advanceSeconds?: number (interactive PDF), bleed?: bool (document bleed), marks?: bool | {crop?, bleed?, pageInfo?, weight?, offset?}, standard?: \"none\"|\"x4\"|\"a2b\", compressImages?: bool, tagged?: bool (structure tree: stories as paragraphs, figures with alt text), media?: bool (interactive: embed placed video and sound), title?, author?} → {path, bytes, pages, warnings} (no path: {base64, …})",
+   :source "crates/engine/src/cmd/export.rs"}
+  {:id "file.exportPptx",
+   :label "Export PowerPoint…",
+   :params
+   "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), lineBreaks?: keep|reflow (keep: DesignCraft's lines, spacing and leading; reflow: one box per frame, PowerPoint sets the lines), rasterize?: bool (default true: objects PowerPoint can't show — placed PDF/EPS, type on a path, some effects — go in as 300 ppi images), embedFonts?: bool (default true: the TrueType fonts whose licences allow it), title?, author?} — every page as a slide of editable shapes, pictures, text boxes and tables → {path, bytes, slides, warnings} (no path: {base64, …})",
+   :source "crates/engine/src/cmd/export.rs"}
+  {:id "file.exportText",
+   :label "Export Text…",
+   :params
+   "{path?, format?: \"txt\"|\"rtf\"|\"tagged\" (Tagged Text; default from the path, else txt), story?, frame?} — the story being edited or of the selected frame → {path, bytes} (no path: {text, bytes})",
+   :source "crates/engine/src/cmd/export.rs"}
+  {:id "file.exportXml",
+   :label "Export XML…",
+   :params
+   "{path?} — the tagged content in reading order → {path, bytes} (no path: {text})",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "file.importXml",
+   :label "Import XML…",
+   :params
+   "{path | text} — each element's content goes into the next text frame with that tag (child elements of mapped tags become paragraphs in their style) → {placed, unmatched}",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "file.new",
+   :label "Document…",
+   :params
+   "{preset?: \"Letter\"|\"A4\"|… or a saved preset (file.savePreset), intent?: print|web|mobile, units?: points|picas|millimeters|…, width?, height?, pages?, startPage?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, slug?: n | [top, bottom, inside, outside], title?, primaryTextFrame?: bool}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.newSample",
+   :label "Sample Document",
+   :params "{} — a multi-page magazine sample",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.open",
+   :label "Open…",
+   :params
+   "{path} — a DesignCraft or IDML file (recognised by its content, so the extension may be missing), or an InDesign .indd/.indt (recognised by its signature or extension, converted to IDML; its conversion warnings join `warnings`); the fonts in a `Document Fonts` folder beside it load first → {index, documentFonts: faces loaded, warnings: font files skipped, GREP styles whose pattern can't compile, Based on Parent links cleared and, for IDML and InDesign files, package parts missing}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.openBytes",
+   :label "Open Bytes",
+   :params
+   "{name, base64} — DesignCraft JSON, an IDML package or an InDesign .indd/.indt → {index, warnings}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.openIdml",
+   :label "Open IDML",
+   :params
+   "{path | base64, name?} — opens an IDML package, or an InDesign document or template (.indd, .indt: converted to IDML first; its conversion warnings join `warnings`), as a new document (linked images are read next to the file or from its Links/ folder; the fonts in a `Document Fonts` folder beside it load first) → {index, documentFonts, warnings: conversion warnings, package parts missing, font files skipped, GREP styles whose pattern can't compile}",
+   :source "crates/engine/src/cmd/interchange.rs"}
+  {:id "file.openRecent",
+   :label "Open Recent File",
+   :params
+   "{index} — reopen entry `index` of File › Open Recent (as file.open); a file that is gone is an error and stays listed",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.package",
+   :label "Package…",
+   :params
+   "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy (linking the files in Links/, nothing embedded), an optional PDF and a report → {dir, files, report}",
+   :source "crates/engine/src/cmd/package.rs"}
+  {:id "file.place",
+   :label "Place…",
+   :params
+   "{path?|base64?, name?, frame?: id (place into), spread?, x?, y?, width?: finite number > 0 (null: absent), height? (video/audio), pdfPage?: n (1-based, Image Import Options), pdfCrop?: crop|art|trim|bleed|media|contentVisible|contentAll (the box the graphic shows; `width` is the whole page's), loadCursor? (with no frame to fill and no x/y, an image loads into the place cursor, as File › Place), layoutPage?: n (IDML / .designcraft: that page's objects as a group), page?, rect?: [x0,y0,x1,y1] (text: a new frame there), autoflow? (threads one frame per page column from the first frame on, adding pages until the text fits), removeStyles?, styleMap?: {imported name: document style}, styleConflicts?: useExisting|redefine|autoRename, link? (keep the file linked in the Links panel; default: the linkTextFiles preference)} — places an image into `frame` when given; otherwise any explicit x/y/spread/width creates a new frame; otherwise uses the selected empty or graphic frame, or creates a new frame; text files (.txt, .docx, .rtf, .md) and Excel workbooks (.xlsx, as a table) go into the insertion point, the selected frame or a new frame on `page`/`rect`",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.presets",
+   :label "Document Presets",
+   :params
+   "{} → the built-in presets [{name, intent, width, height, units}], then the saved ones (with `saved: true`)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.print",
+   :label "Print…",
+   :params
+   "{printer?, copies?: 1, pages?: \"1-3,5\", spreads?, marks?, bleed?, dryRun?: bool (export and preview submission without printing)} → {printer, copies, pages, command, bytes}",
+   :source "crates/engine/src/cmd/print.rs"}
+  {:id "file.printBooklet",
+   :label "Print Booklet…",
+   :params
+   "{path?, type?: saddleStitch|twoUpConsecutive, spaceBetween? (pt)} — printer spreads as PDF (pages imposed in booklet order) → {path, bytes, sheets} (no path: {base64, …})",
+   :source "crates/engine/src/cmd/export.rs"}
+  {:id "file.printers",
+   :label "Printers",
+   :params "{} → {printers: [names], default}",
+   :source "crates/engine/src/cmd/print.rs"}
+  {:id "file.recentFiles",
+   :label "Recent Files",
+   :params
+   "{} → [{path, name, exists}] File › Open Recent, most recent first",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.recovery.list",
+   :label "Recovery Data",
+   :params
+   "{dir?} → [{uid, path, title, saved}] unsaved documents left by a crash (default: the session's recovery folder)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.recovery.open",
+   :label "Recover Documents",
+   :params
+   "{dir?} — reopen documents left in the recovery folder (unsaved)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.recovery.save",
+   :label "Save Recovery Data",
+   :params
+   "{dir?} — write every unsaved document to the recovery folder (the app does this on a timer)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.revert",
+   :label "Revert",
+   :params "{} — back to the last saved version (not undoable)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.save",
+   :label "Save",
+   :params
+   "{path?} — a `path` without the .designcraft extension gets it → {path: the file written, bytes}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.saveACopy",
+   :label "Save a Copy…",
+   :params
+   "{path} — writes the document without changing which file it is or its unsaved state; a path without the .designcraft extension gets it → {path: the file written, bytes}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.saveAs",
+   :label "Save As…",
+   :params
+   "{path} — a path without the .designcraft extension gets it → {path: the file written, bytes}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.savePreset",
+   :label "Save Document Preset",
+   :params
+   "{name, …the settings as file.new} — kept with the preferences; `file.new {preset: name}` uses it. A saved preset of that name is replaced; built-in names are refused",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.serialize",
+   :label "Serialize",
+   :params "{} → {base64, bytes} the .designcraft file",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "find.change",
+   :label "Change All",
+   :params
+   "{find, change, grep?, caseSensitive?, wholeWord?, scope?, story?, first?: bool (change only the first match), attrs?: {character attributes applied to changed text}} → {count}",
+   :source "crates/engine/src/cmd/find.rs"}
+  {:id "find.changeObjects",
+   :label "Change All (Object)",
+   :params
+   "{…the criteria of find.objects, change: {fill?, stroke?, strokeWeight?, opacity?}} → {changed}",
+   :source "crates/engine/src/cmd/find.rs"}
+  {:id "find.find",
+   :label "Find",
+   :params
+   "{find, grep?: bool, caseSensitive?: bool, wholeWord?: bool, scope?: document|story|selection, story?, change?|first?|attrs?: ignored (find.change takes them; one request serves all three Find/Change commands)} → matches [{story, start, end, text}]",
+   :source "crates/engine/src/cmd/find.rs"}
+  {:id "find.next",
+   :label "Find Next",
+   :params
+   "{find, grep?, caseSensitive?, wholeWord?, scope?: document|story|selection, story?, change?|first?|attrs?: ignored (find.change takes them; one request serves all three Find/Change commands)} — Selection starts at its original beginning; later calls advance within the scope",
+   :source "crates/engine/src/cmd/find.rs"}
+  {:id "find.objects",
+   :label "Find Object",
+   :params
+   "{fill?, stroke?: swatch, strokeWeight?, opacity? (0–1), kind?: text|graphic|shape|line|group, layer?, label?, select?: bool (default true)} → {ids} — Find/Change › Object, through the document",
+   :source "crates/engine/src/cmd/find.rs"}
+  {:id "flex.add",
+   :label "Add to Flex Layout",
+   :params
+   "{ids?} — the selected objects (top level, one spread) in a new Flex Layout container where they are; aligned objects get that direction, Auto size and Space Between, others a wrapping row of their width. One group or empty rectangle frame is converted instead (flex.convert) → {id}",
+   :source "crates/engine/src/cmd/flex.rs"}
+  {:id "flex.convert",
+   :label "Convert to Flex Layout",
+   :params
+   "{ids?} — a group (its objects) or a rectangle frame (with what is pasted into it) becomes a Flex Layout container → {id}",
+   :source "crates/engine/src/cmd/flex.rs"}
+  {:id "flex.remove",
+   :label "Remove Flex Layout",
+   :params
+   "{ids?} — the container goes; its objects stay where they are, grouped when there are several (a container with its own fill or stroke stays as a frame holding them) → {ids}",
+   :source "crates/engine/src/cmd/flex.rs"}
+  {:id "flex.reorder",
+   :label "Reorder in Flex Layout",
+   :params
+   "{id (an object in a container), to?: index | by?: ±n} — its place in the container's order → {index}",
+   :source "crates/engine/src/cmd/flex.rs"}
+  {:id "flex.set",
+   :label "Flex Layout Options",
+   :params
+   "{ids?, direction?: row|rowReverse|column|columnReverse, wrap?: bool, justify?: flexStart|center|flexEnd|spaceBetween|spaceAround|spaceEvenly, align?: start|center|end (across), cell?: 0..8 (the alignment grid, row by row from the top left: sets justification and alignment by direction), width?: auto|fixed|number, height?: auto|fixed|number, padding?: number|[top, left, bottom, right], gapH?, gapV?} → {changed}",
+   :source "crates/engine/src/cmd/flex.rs"}
+  {:id "font.list",
+   :label "Fonts in Document",
+   :params
+   "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing), matchStatus: exact|styleSubstitute|missing, resolvedFamily, resolvedStyle, replacementFamily, replacementStyle}] (missing first)",
+   :source "crates/engine/src/cmd/fonts.rs"}
+  {:id "font.replace",
+   :label "Find/Replace Font…",
+   :params
+   "{family, style?, toFamily, toStyle?, redefineStyles?: true} — replaces the font in text and (by default) in paragraph and character styles",
+   :source "crates/engine/src/cmd/fonts.rs"}
+  {:id "footnote.delete",
+   :label "Delete Footnote",
+   :params "{story, id} — deletes the reference (and so the footnote)",
+   :source "crates/engine/src/cmd/notes.rs"}
+  {:id "footnote.goToReference",
+   :label "Go to Footnote Reference",
+   :params
+   "{} — from footnote text, puts the caret after the footnote's reference",
+   :source "crates/engine/src/cmd/notes.rs"}
+  {:id "footnote.insert",
+   :label "Insert Footnote",
+   :params
+   "{text?} — a footnote reference at the insertion point; the caret moves into the new footnote's text",
+   :source "crates/engine/src/cmd/notes.rs"}
+  {:id "footnote.list",
+   :label "Footnotes",
+   :params
+   "{story?} → [{story, id, index, anchor, text}] in story order",
+   :source "crates/engine/src/cmd/notes.rs"}
+  {:id "footnote.options",
+   :label "Document Footnote Options…",
+   :params
+   "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|symbols|kanji, startAt?, restart?: never|page|spread|section, prefix?, suffix?, affixIn?: none|reference|text|both, refPosition?: superscript|subscript|normal|otSuperscript, refCharStyle?, paraStyle?, separator?, spaceBefore?, spaceBetween?, firstBaseline?: ascent|capHeight|leading|xHeight|emboxHeight|fixed, firstBaselineMin?, spanColumns?, rule?: {on, weight, color, tint, width, offset, leftIndent}} → the options (no params: just read them)",
+   :source "crates/engine/src/cmd/notes.rs"}
+  {:id "footnote.setText",
+   :label "Set Footnote Text",
+   :params "{story, id, text} — replaces the footnote's text",
+   :source "crates/engine/src/cmd/notes.rs"}
+  {:id "form.clear",
+   :label "Convert to Object",
+   :params "{ids?} — no longer a form field",
+   :source "crates/engine/src/cmd/buttons.rs"}
+  {:id "form.list",
+   :label "Form Fields",
+   :params "{} → [{id, kind, name, value, options}]",
+   :source "crates/engine/src/cmd/buttons.rs"}
+  {:id "form.set",
+   :label "Convert to Form Field",
+   :params
+   "{ids?, kind: textField|checkBox|comboBox|listBox|signature, name?, value?, options?: [string], multiline?, required?, fontSize?} — interactive PDF form fields",
+   :source "crates/engine/src/cmd/buttons.rs"}
+  {:id "frame.create",
+   :label "Create Frame",
+   :params
+   "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, starInset?: 0–100 (%), text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "frame.grid",
+   :label "Gridify",
+   :params
+   "{rect, cols, rows, gutter? (pt, 12), shape?, content?, spread?} — a grid of frames filling `rect` (frame tools: arrow keys while dragging)",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "gap.move",
+   :label "Move Gap",
+   :params
+   "{at: [x, y] (spread), delta?: pt | dx? | dy?: a drag (the part along the gap's axis counts), spread?} — Gap tool: the gap at `at` between objects (or an object and the page edge) moves by `delta`; the objects on both sides resize → {axis, changed}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "guide.add",
+   :label "New Guide",
+   :params
+   "{orientation: horizontal|vertical, position (spread coordinate), spread?, page? (index in the spread; default: the page under `at` or the position), at? (the other coordinate), spreadGuide?: bool, liquid?: bool (a liquid guide, as the Page tool draws from the rulers)} or {orientation: both, point: [x, y], spread?, page?, spreadGuide?: bool, liquid?: bool} → {page, index}; `both` adds a horizontal guide through y and a vertical guide through x as one undo step → {guides: [{page, index}, {page, index}]}",
+   :source "crates/engine/src/cmd/guides.rs"}
+  {:id "guide.delete",
+   :label "Delete Guide",
+   :params "{spread?, page, index}",
+   :source "crates/engine/src/cmd/guides.rs"}
+  {:id "guide.deleteAll",
+   :label "Delete All Guides on Spread",
+   :params "{spread?}",
+   :source "crates/engine/src/cmd/guides.rs"}
+  {:id "guide.liquid",
+   :label "Convert to Liquid Guide",
+   :params "{spread?, page, index, on?: bool (default true)}",
+   :source "crates/engine/src/cmd/liquid.rs"}
+  {:id "guide.list",
+   :label "Guides",
+   :params
+   "{spread?} → [{page, index, orientation, position, spread}]",
+   :source "crates/engine/src/cmd/guides.rs"}
+  {:id "guide.move",
+   :label "Move Guide",
+   :params "{spread?, page, index, position}",
+   :source "crates/engine/src/cmd/guides.rs"}
+  {:id "hyperlink.create",
+   :label "New Hyperlink…",
+   :params
+   "{url? | email? | page? (1-based), name?, ids?} — from the selected text, or the selected frames",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "hyperlink.delete",
+   :label "Delete Hyperlink",
+   :params "{id}",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "hyperlink.edit",
+   :label "Hyperlink Options…",
+   :params "{id, name?, url? | email? | page? (1-based)}",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "hyperlink.goToSource",
+   :label "Go To Source",
+   :params "{id} — selects the hyperlink's text or frame",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "hyperlink.list",
+   :label "Hyperlinks",
+   :params "{}",
+   :source "crates/engine/src/cmd/interactive.rs"}
+  {:id "hyphenation.addException",
+   :label "Add Hyphenation Exception",
+   :params
+   "{word: \"ex~am~ple\" (breaks only at ~) or a word with no ~ (never hyphenated)}",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "hyphenation.list",
+   :label "Hyphenation Exceptions",
+   :params "{} → [word]",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "hyphenation.removeException",
+   :label "Remove Hyphenation Exception",
+   :params "{word} (with or without ~)",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "index.addReference",
+   :label "New Page Reference…",
+   :params
+   "{topics?: [level 1..4] | topic?: \"Level 1 > Level 2\" (default: the selected text), sort?: [keys], range?: currentPage|toEndOfStory|suppressPageRange|nextParagraphs|see|seeAlso, paragraphs?: n, target?: topic for see/seeAlso} — a marker at the insertion point",
+   :source "crates/engine/src/cmd/index.rs"}
+  {:id "index.generate",
+   :label "Generate Index…",
+   :params
+   "{title?: \"Index\", sectionHeadings?: true, runIn?: false, page?: 1-based page for a new frame, rect?: [x0,y0,x1,y1]} — replaces the existing index → {story, entries}",
+   :source "crates/engine/src/cmd/index.rs"}
+  {:id "index.list",
+   :label "Index Page References",
+   :params "{} → [{story, pos, topics, range, page}]",
+   :source "crates/engine/src/cmd/index.rs"}
+  {:id "index.update",
+   :label "Update Index",
+   :params "{} — regenerate the existing index",
+   :source "crates/engine/src/cmd/index.rs"}
+  {:id "ink.list",
+   :label "Ink Manager",
+   :params
+   "{} → {allToProcess, inks: [{name, process: bool (printed as process), alias?}]} — the spot inks",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "ink.options",
+   :label "Ink Manager",
+   :params
+   "{allToProcess?: bool, ink?: spot swatch, toProcess?: bool, alias?: spot swatch | null} — output: spots to process, ink aliases",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "layer.activate",
+   :label "Set Active Layer",
+   :params "{id}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.delete",
+   :label "Delete Layer",
+   :params "{id}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.deleteUnused",
+   :label "Delete Unused Layers",
+   :params "{} — layers without objects (one layer always stays)",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.merge",
+   :label "Merge Layers",
+   :params
+   "{ids: [layer ids], into?: layer id (default: the first)} — their objects move to `into`, the other layers are deleted",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.move",
+   :label "Move Layer",
+   :params "{id, to: index (0 = top/frontmost)}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.new",
+   :label "New Layer…",
+   :params "{name?}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.others",
+   :label "Hide/Lock Others",
+   :params
+   "{id, hide?: bool, lock?: bool, show?: true (Show All Layers), unlock?: true (Unlock All Layers)} — Hide Others / Lock Others act on every layer but `id`",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.selectItems",
+   :label "Select All on Layer",
+   :params "{id}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layer.set",
+   :label "Layer Options…",
+   :params
+   "{id, name?, color?: [r,g,b] | layer colour name (\"Light Blue\", \"Red\", …), visible?, locked?, printable?, showGuides?, suppressWrapWhenHidden?} — names are unique and not empty",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.chapterNumbering",
+   :label "Document Chapter Numbering",
+   :params
+   "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|arabicLeadingZero|arabicThreeDigits|arabicFourDigits, start?: n (Start Chapter Numbering at), source?: automatic|userDefined|sameAsPrevious} → {chapterNumber, label, style, source, book: the open book holding the document, or null}; no parameters reports the setting",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.createAlternate",
+   :label "Create Alternate Layout…",
+   :params
+   "{name, width, height, rule?: page rule for the copies (default: keep each page's)} — every page copied after the last at the new size (a new section marked `name`), objects following the liquid rules",
+   :source "crates/engine/src/cmd/liquid.rs"}
+  {:id "layout.createGuides",
+   :label "Create Guides…",
+   :params
+   "{rows?: 0..1000, columns?: 0..1000, rowGutter?: 12, columnGutter?: 12, fitTo?: margins|page, removeExisting?: false, spread?, page? (index in the spread; default all pages)} — at most 10000 guides per command",
+   :source "crates/engine/src/cmd/guides.rs"}
+  {:id "layout.detachAll",
+   :label "Detach All Objects from Parent",
+   :params
+   "{page (0-based)} — the page's overridden copies become ordinary items",
+   :source "crates/engine/src/cmd/overrides.rs"}
+  {:id "layout.documentSetup",
+   :label "Document Setup…",
+   :params
+   "{width?, height?, pages?: count, startPage?: n, facingPages?, binding?: leftToRight|rightToLeft, intent?: print|web|mobile, margins?: n | {top, bottom, inside, outside} (every page and parent page), bleed?, slug?: n | [top, bottom, inside, outside], adjustLayout?: bool (objects follow the new page size and margins)} → the document setup (margins: the first page's)",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.marginsAndColumns",
+   :label "Margins and Columns…",
+   :params
+   "{pages?: [index] (default all), margins?: number|{top,bottom,inside,outside}, columns?, gutter?, adjustLayout?: bool (objects follow the margins), parent? (a parent's prefix, label or index)} — document pages take these as their own margins; with `parent` the parent's pages change instead (`pages` then indexes them), and so do the document pages without their own",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.numberingOptions",
+   :label "Apply Numbering & Section Options",
+   :params
+   "{page, …the settings as layout.section, chapter?: {…the settings as layout.chapterNumbering}} — the section and the document's chapter numbering in one undo step; if either is refused nothing changes",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.overrideParentItems",
+   :label "Override All Parent Page Items",
+   :params
+   "{page (0-based), ids?: parent items (default: all on the page's parent page)} → {ids} the page's editable copies",
+   :source "crates/engine/src/cmd/overrides.rs"}
+  {:id "layout.pageOptions",
+   :label "Page Options",
+   :params
+   "{pages: [1-based], showParentOverlay?: bool} — Page tool options (Show Parent Page Overlay: the parent page's size drawn over the page)",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.pageSize",
+   :label "Page Size",
+   :params
+   "{pages: [1-based page numbers], width?, height?, preset?: \"A4\"|\"Letter\"|…, anchor?: 0–8 (reference point that stays put, row-major from the top-left; default 0)} — pages of their own size (Page tool); objects keep their place relative to the anchor, or follow the page's liquid rule",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.pages.applyParent",
+   :label "Apply Parent to Pages…",
+   :params
+   "{pages: [index], parent: id|\"A-Parent\"|\"A\"|null (null or \"[None]\" clears)}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.pages.delete",
+   :label "Delete Pages",
+   :params "{pages: [index]}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.pages.duplicateSpread",
+   :label "Duplicate Spread",
+   :params
+   "{spread, atEnd?: bool (Duplicate Spread at End of Document; the Pages panel's New Page button takes a dropped page there), to?: page index the copied pages move to in the same undo step (the Pages panel's Alt-drag)} → {page: the copy's first page (0-based)} — the spread's pages (size, margins, columns, guides, liquid rule) and items",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.pages.insert",
+   :label "Insert Pages…",
+   :params
+   "{count?: 1, after?: page index (default: last), parent?: id|\"A-Parent\"|\"A\"|null}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.pages.move",
+   :label "Move Pages…",
+   :params "{from, to}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.pages.toSpread",
+   :label "Add Page to Spread",
+   :params
+   "{page (1-based), spread (0-based)} — the page joins that spread (up to 10 pages; the spread stops shuffling)",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.parents.edit",
+   :label "Edit Parents",
+   :params
+   "{on?: bool, parent?: id|\"A-Parent\"|\"A\"} — show parent spreads on the canvas; `parent` shows that parent (and implies on). Turning on without `parent` shows the first parent",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.parents.new",
+   :label "New Parent…",
+   :params "{prefix?, name?: \"Parent\"}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.parents.options",
+   :label "Parent Options…",
+   :params
+   "{parent: id|\"B-Parent\"|\"B\", basedOn: id|\"A-Parent\"|\"A\"|null (= [None])} — the parent shows its base's items under its own, and so do the pages that use it → {parent, basedOn}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.removeOverrides",
+   :label "Remove All Local Overrides",
+   :params
+   "{page (0-based)} — deletes the page's overridden copies; the parent items show again",
+   :source "crates/engine/src/cmd/overrides.rs"}
+  {:id "layout.rotateSpreadView",
+   :label "Rotate Spread",
+   :params
+   "{spread?: index (0), angle: 90 (clockwise) | -90 | 180 | 0 (clear)} — turn one spread on screen (output is unaffected)",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.section",
+   :label "Numbering & Section Options…",
+   :params
+   "{page (1-based; starts a section there), startNumber?: n (1–99999)|null (continue), style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|arabicLeadingZero|arabicThreeDigits|arabicFourDigits|kanji, prefix? (up to 8 characters; no + or comma), includePrefix?, marker?, remove?: bool}",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.selectPage",
+   :label "Select Page",
+   :params
+   "{page: 1-based | null, ids?: [item ids] (objects selected with it: the Page tool on an object-based page)} — the page the Page tool selects (its handles, the Control panel)",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "layout.spreadShuffle",
+   :label "Allow Selected Spread to Shuffle",
+   :params
+   "{spread (0-based), allow: bool} — off keeps the spread's pages together when pages are added or removed",
+   :source "crates/engine/src/cmd/layout.rs"}
+  {:id "library.add",
+   :label "Add Item",
+   :params "{name?, description?} — the selection → {index}",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "library.close",
+   :label "Close Library",
+   :params "{}",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "library.json",
+   :label "Library Contents",
+   :params
+   "{} → the library as JSON text (to save where there's no file system)",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "library.list",
+   :label "Library Items",
+   :params "{} → [{index, name, description}]",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "library.new",
+   :label "New Library",
+   :params
+   "{path?} — an empty Object Library (saved to `path` when given)",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "library.open",
+   :label "Open Library",
+   :params "{path | json} → {items}",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "library.place",
+   :label "Place Item",
+   :params
+   "{index, spread?, x?, y?} — at its original position unless x/y (top-left) are given",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "library.remove",
+   :label "Delete Item",
+   :params "{index}",
+   :source "crates/engine/src/cmd/library.rs"}
+  {:id "line.create",
+   :label "Create Line",
+   :params "{spread?, a: [x,y], b: [x,y]}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "links.copyTo",
+   :label "Copy Link(s) To…",
+   :params
+   "{dir, assets?: [asset ids] (default: all)} — write the placed files to `dir` and relink to the copies → {copied}",
+   :source "crates/engine/src/cmd/package.rs"}
+  {:id "links.embed",
+   :label "Embed Link",
+   :params
+   "{asset | story} — keep only the copy in the document (a text file: unlink the story)",
+   :source "crates/engine/src/cmd/links.rs"}
+  {:id "links.goTo",
+   :label "Go To Link",
+   :params
+   "{asset | story} — selects the frames showing the graphic or the linked text",
+   :source "crates/engine/src/cmd/links.rs"}
+  {:id "links.list",
+   :label "Links",
+   :params
+   "{} → [{asset, name, path, status: ok|modified|missing|embedded, refused?: why a missing link isn't followed (a path on another computer, a device), pixels, pdfCrop (placed PDFs: the box shown), uses: [{id, page, ppi}]}], then linked text files: [{story, name, path, status (also tooLarge: unchanged size, too big to check), edited (the story was changed in the layout), uses: [{id, page}]}]",
+   :source "crates/engine/src/cmd/links.rs"}
+  {:id "links.relink",
+   :label "Relink…",
+   :params
+   "{asset | story, path} — use another file for every placement of the graphic (keeps the selected PDF page; error if missing), or import another text file into the linked story",
+   :source "crates/engine/src/cmd/links.rs"}
+  {:id "links.relinkFolder",
+   :label "Relink to Folder…",
+   :params
+   "{dir?: folder to look in (default: each link's own folder), extension?: e.g. \"tif\" (Relink File Extension), assets?: [ids], missingOnly?: bool (default true with `dir`)} → {relinked, notFound: [names]}",
+   :source "crates/engine/src/cmd/links.rs"}
+  {:id "links.update",
+   :label "Update Link",
+   :params
+   "{asset? | story?} — reload modified links from their files (all when neither); a linked text file is imported again into its story with the import options it was placed with, replacing edits made in the layout → {updated, warnings}",
+   :source "crates/engine/src/cmd/links.rs"}
+  {:id "liquid.object",
+   :label "Object Liquid Settings",
+   :params
+   "{ids?, resizeWidth?, resizeHeight?, pinTop?, pinBottom?, pinLeft?, pinRight?} — for object-based pages",
+   :source "crates/engine/src/cmd/liquid.rs"}
+  {:id "liquid.pageRule",
+   :label "Liquid Page Rule",
+   :params
+   "{rule: off|scale|reCenter|guideBased|objectBased|controlledByParent (the parent page's rule), pages?: [1-based] (default: all)}",
+   :source "crates/engine/src/cmd/liquid.rs"}
+  {:id "list.define",
+   :label "Define Lists…",
+   :params
+   "{name, continueAcrossStories?: true, rename?} — paragraphs join it with type.para {listType: numbers, listName}",
+   :source "crates/engine/src/cmd/lists.rs"}
+  {:id "list.delete",
+   :label "Delete List",
+   :params "{name}",
+   :source "crates/engine/src/cmd/lists.rs"}
+  {:id "math.insert",
+   :label "Insert Math Expression…",
+   :params
+   "{latex, size?: points (12), x?, y?, spread?} or {id, latex, size?} — at the text insertion point (inline), else as a frame; with `id`: edits that equation",
+   :source "crates/engine/src/cmd/mathexpr.rs"}
+  {:id "math.svg",
+   :label "Math Expression SVG",
+   :params
+   "{latex, size?} → {svg, width, height} — typeset without placing",
+   :source "crates/engine/src/cmd/mathexpr.rs"}
+  {:id "media.get",
+   :label "Media",
+   :params
+   "{id?} → {kind, name, playOnPageLoad, loop, controls, poster}",
+   :source "crates/engine/src/cmd/media.rs"}
+  {:id "media.options",
+   :label "Media Options",
+   :params
+   "{ids?, playOnPageLoad?, loop?, controls?, poster?: {path | base64+name} | null (placeholder)} — for placed video and sound",
+   :source "crates/engine/src/cmd/media.rs"}
+  {:id "note.convertToText",
+   :label "Convert Note to Text",
+   :params "{story, id} — the note's text replaces its anchor",
+   :source "crates/engine/src/cmd/editorial.rs"}
+  {:id "note.delete",
+   :label "Delete Note",
+   :params "{story, id}",
+   :source "crates/engine/src/cmd/editorial.rs"}
+  {:id "note.edit",
+   :label "Edit Note",
+   :params "{story, id, text?, author?}",
+   :source "crates/engine/src/cmd/editorial.rs"}
+  {:id "note.list",
+   :label "Notes",
+   :params "{} → [{story, id, at, author, text}] in story order",
+   :source "crates/engine/src/cmd/editorial.rs"}
+  {:id "note.new",
+   :label "New Note",
+   :params "{text, author?} — at the insertion point → {story, id}",
+   :source "crates/engine/src/cmd/editorial.rs"}
+  {:id "object.align",
+   :label "Align",
+   :params
+   "{edge: left|hcenter|right|top|vcenter|bottom, to?: selection|keyObject|margins|page|spread, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.altText",
+   :label "Object Export Options",
+   :params "{text, ids?} — alternative text for tagged PDF and EPUB",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.arrange",
+   :label "Arrange",
+   :params "{to: front|forward|backward|back, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.attributes",
+   :label "Attributes",
+   :params
+   "{overprintFill?, overprintStroke?, overprintGap?, nonprinting?: bool, ids?} — Attributes panel",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.bevel",
+   :label "Bevel and Emboss",
+   :params
+   "{on?: bool, size?, depth? (%), angle?, globalLight?: bool, highlight?, highlightOpacity?, shadow?, shadowOpacity?, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.bringForward",
+   :label "Bring Forward",
+   :params "{}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.bringToFront",
+   :label "Bring to Front",
+   :params "{}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.caption",
+   :label "Generate Static Caption",
+   :params
+   "{text?: template (default \"{name}\"; variables {name} {path} {altText} {label} {ppi} {dimensions} {format}), position?: below|above|left|right, offset? (pt, 0), height? (pt, 24), style?: paragraph style, live?: bool (kept current as the source changes), ids?} → {ids}",
+   :source "crates/engine/src/cmd/captions.rs"}
+  {:id "object.clippingPath",
+   :label "Clipping Path…",
+   :params
+   "{type?: alpha|edges (default alpha), threshold?: 0–255 (alpha: opaque above; edges: darker than 255 − threshold counts; default 25), tolerance?: px (2), ids?} — traces the placed graphic and makes the outline the frame (Convert Clipping Path to Frame)",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.clippingPathOptions",
+   :label "Clipping Path Options…",
+   :params
+   "{type?: none, invert?: bool, includeInsideEdges?: bool, ids?} — without type, invert or includeInsideEdges, reports each selected graphic's clipping path ({items: [{id, type: none|detectEdges|alphaChannel|photoshopPath|userModifiedPath, anchors, invert, includeInsideEdges, threshold, tolerance, inset, sourceName}]}); type none removes it, invert shows the graphic outside it instead of inside",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.color",
+   :label "Apply Color",
+   :params
+   "{color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255)|{model: rgb|cmyk|gray, r,g,b|c,m,y,k|k}(0..1), target?: fill|stroke, text?: bool, ids?} — an unnamed colour (not in the Swatches panel until Add to Swatches) on the selection (with nothing selected, the colour of new shapes); `text`: on the selected text, or the text of the selected frames (Formatting Affects Text)",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "object.content",
+   :label "Content",
+   :params "{type: graphic|text|unassigned, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.convertShape",
+   :label "Convert Shape",
+   :params
+   "{to: rectangle|roundedRectangle|beveledRectangle|inverseRoundedRectangle|ellipse|triangle|polygon|line|orthogonalLine|openPath|closedPath, ids?}",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "object.cornerOptions",
+   :label "Corner Options…",
+   :params
+   "{shape: none|rounded|inverseRounded|inset|bevel|fancy, size, corners?: [{shape, size}] (4 entries in path order: top-left, top-right, bottom-right, bottom-left; replaces shape and size), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.defaultFillStroke",
+   :label "Default Fill and Stroke",
+   :params
+   "{ids?} — no fill and a black stroke; locked objects stay as they are. With nothing selected: for new shapes",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.directionalFeather",
+   :label "Directional Feather",
+   :params
+   "{on?: bool, widths?: [top, left, bottom, right] | number, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.distribute",
+   :label "Distribute",
+   :params
+   "{axis: horizontal|vertical, by?: centers|spacing, spacing?: points, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.dropShadow",
+   :label "Drop Shadow",
+   :params
+   "{on?: bool, distance?, angle?, globalLight?: bool, opacity?, size?, spread? (%), color? (swatch), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.effects",
+   :label "Effects",
+   :params
+   "{effects?: {dropShadow?: {on?, color?, opacity?, angle?, globalLight?, distance?, size?, spread?}, innerShadow?, outerGlow?, innerGlow? {on?, color?, opacity?, size?, choke?, center?, mode? (blend mode: Screen, Multiply, …; Screen by default), technique?: softer|precise}, bevel?, satin?, feather? (width), featherOptions? {choke? (%), corners?: sharp|rounded|diffused}, directionalFeather?, gradientFeather?} (the fields given replace the object's, as the Effects dialog sets them), opacity?: 0..1, blend?, ids?} — every effect at once, one undo step",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.exportOptions",
+   :label "Object Export Options…",
+   :params
+   "{ids?, artifact?: bool (tagged PDF decoration), rasterize?: bool (EPUB/HTML image), align?: left|center|right|\"\", pageBreakBefore?: bool, altText?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.feather",
+   :label "Basic Feather",
+   :params "{width (0 = off), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.fill",
+   :label "Fill",
+   :params
+   "{swatch? (a swatch's name, e.g. [Paper]), tint?: 0..1, ids?} — at least one; a tint alone keeps each object's own swatch (the Swatches panel's Tint field). With nothing selected: the fill of new shapes",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.findByLabel",
+   :label "Find by Script Label",
+   :params "{label} → ids of objects whose label is `label`",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.fit",
+   :label "Fitting",
+   :params
+   "{mode: fillProportionally (preserves aspect ratio, covers frame, clips overflow)|fitProportionally (preserves aspect ratio, shows whole image, may leave empty space)|fitContentToFrame (stretches content to frame)|centerContent (keeps current size, positions at fitting alignment)|fitFrameToContent (resizes frame to content), axis?: both|height|width (frame-local sides Fit Frame to Content moves; default both), ids?} — locked objects and objects on locked layers are left as they are",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.fittingOptions",
+   :label "Frame Fitting Options…",
+   :params
+   "{autoFit?: bool, fitting?: none|fillProportionally|fitProportionally|fitContentToFrame|centerContent, align?: 0..8 (reference point, 4 = centre), crop?: n | [t, l, b, r] (negative adds space), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.globalLight",
+   :label "Global Light…",
+   :params
+   "{angle} — the light angle shared by shadows that use Global Light",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.gradient",
+   :label "Gradient",
+   :params
+   "{kind?: linear|radial, stops?: [{location: 0–100, color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255)|{model: rgb|cmyk|gray, …}(0..1) | swatch: name (its colour, as dropped on the Gradient panel), opacity?: 0–100, midpoint?: 13–87}], reverse?: bool, angle?: degrees, from?: [x,y], to?: [x,y] (spread coords: the Gradient Swatch tool's drag), target?: fill|stroke, ids?} → {swatch, kind, stops} — edits the fill's (or the stroke's) gradient (an unnamed gradient unless it equals a gradient swatch)",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "object.gradientFeather",
+   :label "Gradient Feather",
+   :params
+   "{on?: true, radial?, angle?, start?: opacity 0–100 (100), end?: (0), from?: [x,y], to?: [x,y] (spread coords: the Gradient Feather tool's drag), ids?}",
+   :source "crates/engine/src/cmd/paths.rs"}
+  {:id "object.group",
+   :label "Group",
+   :params "{ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.hide",
+   :label "Hide",
+   :params "{ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.innerGlow",
+   :label "Inner Glow",
+   :params
+   "{on?: bool, opacity?, size?, choke? (%), center?: bool (glow from the centre), color?, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.innerShadow",
+   :label "Inner Shadow",
+   :params
+   "{on?: bool, distance?, angle?, globalLight?: bool, opacity?, size?, choke? (%), color?, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.label",
+   :label "Script Label",
+   :params
+   "{label, ids?} — free text scripts and agents can find objects by",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.layerOptions",
+   :label "Object Layer Options…",
+   :params
+   "{ids?, hidden: [layer name]} — layers of placed PDFs to hide ([] = the file's own settings)",
+   :source "crates/engine/src/cmd/pdflayers.rs"}
+  {:id "object.lock",
+   :label "Lock",
+   :params "{ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.makeCompoundPath",
+   :label "Make Compound Path",
+   :params
+   "{ids?} — one path from the selected paths (the backmost object's look); paths inside others become holes → {id}",
+   :source "crates/engine/src/cmd/paths.rs"}
+  {:id "object.matchAttributes",
+   :label "Apply Attributes (Eyedropper)",
+   :params
+   "{from: id, ids?} — copy fill, stroke, corners, opacity, effects, wrap",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.opacity",
+   :label "Opacity",
+   :params "{opacity: 0..1, blend?: normal|multiply|…, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.outerGlow",
+   :label "Outer Glow",
+   :params "{on?: bool, opacity?, size?, spread? (%), color?, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.pathfinder",
+   :label "Pathfinder",
+   :params
+   "{op: add|subtract|intersect|exclude|minusBack, ids?} — combine the selected shapes into one, which keeps the frontmost object's look and content (a placed graphic stays in it); Subtract keeps the backmost → {id}",
+   :source "crates/engine/src/cmd/paths.rs"}
+  {:id "object.pdfLayers",
+   :label "Object Layers",
+   :params
+   "{id?} → [{name, visible, default}] — the layers of the selected placed PDF",
+   :source "crates/engine/src/cmd/pdflayers.rs"}
+  {:id "object.primaryTextFrame",
+   :label "Primary Text Frame",
+   :params
+   "{on?: bool (default: toggle), ids?} — the selected text frame's story becomes the primary story (Smart Text Reflow adds and removes pages for it)",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.qrCode",
+   :label "Generate QR Code…",
+   :params
+   "{type?: url|text|sms|email|vcard (default url), content (url/text), number?, message?, to?, subject?, body?, name?, phone?, email?, org?, url?, color? (swatch, [Black]), rect? (new object; else into the selected frame, or re-encode a selected code), spread?} → {id, content}",
+   :source "crates/engine/src/cmd/qr.rs"}
+  {:id "object.releaseCompoundPath",
+   :label "Release Compound Path",
+   :params "{ids?} — each subpath becomes its own object → {ids}",
+   :source "crates/engine/src/cmd/paths.rs"}
+  {:id "object.rename",
+   :label "Rename",
+   :params "{id | ids?, name}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.reorder",
+   :label "Reorder Objects",
+   :params
+   "{ids?, above?: id | below?: id | index?: n (0 = top of the layer), layer?} — moves the objects (siblings on one spread) in the stacking order: in front of `above` or behind `below` (onto that object's layer), or to `index` in `layer` counted from the top (default: the first object's layer, index 0). Group members stay in their group. Leaves the document (and undo history) alone when nothing would change.",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.satin",
+   :label "Satin",
+   :params
+   "{on?: bool, opacity?, angle?, distance?, size?, invert?: bool, color?, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.sendBackward",
+   :label "Send Backward",
+   :params "{}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.sendToBack",
+   :label "Send to Back",
+   :params "{}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.setFlags",
+   :label "Set Visibility / Lock",
+   :params
+   "{ids: [id], hidden?: bool, locked?: bool} — Layers panel eye/lock per object",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.setLayer",
+   :label "Move to Layer",
+   :params
+   "{layer, ids?} — a group member moves its whole top-level group",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.showAll",
+   :label "Show All on Spread",
+   :params "{}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.stroke",
+   :label "Stroke",
+   :params
+   "{swatch?, tint?, weight?, align?: center|inside|outside, type?: {kind:…}, cap?: butt|round|projecting, join?: miter|round|bevel, miterLimit?, start?, end?: none|simple|simpleWide|triangle|triangleWide|barbed|curved|circle|circleSolid|square|squareSolid|bar, gapSwatch?, gapTint?, gapOverprint?: bool, ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.swapFillStroke",
+   :label "Swap Fill and Stroke",
+   :params
+   "{ids?} — each object's fill and stroke colours (and tints) trade places; locked objects stay as they are. With nothing selected: those of new shapes",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.textFrameOptions",
+   :label "Text Frame Options…",
+   :params
+   "{columns?, gutter?, inset?: number|[t,l,b,r] (null keeps that side), verticalJustification?: top|center|bottom|justify, columnsKind?: fixedNumber|fixedWidth, columnWidth? (pt, Fixed Width), firstBaseline?: ascent|capHeight|leading|xHeight|emboxHeight|fixed, firstBaselineMin? (pt), autoSize?: off|heightOnly|widthOnly|heightAndWidth|heightAndWidthProportionally, autoSizeReference?: topLeft|topCenter|topRight|leftCenter|center|rightCenter|bottomLeft|bottomCenter|bottomRight (the point that stays put), useMinimumHeight?: bool, minimumHeight? (pt), useMinimumWidth?: bool, minimumWidth? (pt), noLineBreaks?: bool, ignoreWrap?, balanceColumns?, columnRule?: bool, columnRuleWeight? (pt), columnRuleColor? (swatch name), columnRuleTint? (0..1), columnRuleOffset? (pt, horizontal), columnRuleTopInset? (pt), columnRuleBottomInset? (pt), vertical?: bool (sets the story direction of the frames' stories, as Type ▸ Story Direction), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.textWrap",
+   :label "Text Wrap",
+   :params
+   "{mode?: none|boundingBox|contour|jumpObject|jumpToNextColumn (boundingBox when absent, unless side or contour is given: then unchanged), offset?: number|[t,l,b,r], invert?: bool, side?: bothSides|leftSide|rightSide|towardsSpine|awayFromSpine|largestArea, contour?: boundingBox|graphicFrame|sameAsClipping, content?: bool (the placed graphic instead of its frame; default: whether the selection is the frame's content), ids?}; offset or contour drops an imported custom wrap boundary",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.transparencyGroup",
+   :label "Group Transparency",
+   :params
+   "{isolate?: bool, knockout?: bool, ids?} — Effects panel: Isolate Blending, Knockout Group",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.ungroup",
+   :label "Ungroup",
+   :params "{ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "object.unlockAll",
+   :label "Unlock All on Spread",
+   :params "{}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "page.transition",
+   :label "Page Transition",
+   :params
+   "{pages?: [1-based] | spread? | all?: bool, kind: blinds|box|comb|cover|dissolve|fade|push|split|uncover|wipe|zoomIn|zoomOut|none, duration?: seconds (1), horizontal?: bool} — for interactive PDF",
+   :source "crates/engine/src/cmd/transitions.rs"}
+  {:id "page.transitions",
+   :label "Page Transitions",
+   :params "{} → [{spread, kind, duration, horizontal}]",
+   :source "crates/engine/src/cmd/transitions.rs"}
+  {:id "path.addAnchor",
+   :label "Add Anchor Point",
+   :params
+   "{id, at: [x,y] (spread coords; the nearest point on the path), tolerance?: pt (default 4)} → {subpath, anchor}",
+   :source "crates/engine/src/cmd/anchors.rs"}
+  {:id "path.appendAnchor",
+   :label "Add Anchor",
+   :params
+   "{id, anchor: {p, in?, out?} (spread coords), subpath?: index (default the last), at?: end|start (default end)} — after the subpath's last anchor, or before its first with `at: start`",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "path.close",
+   :label "Close Path",
+   :params "{id, subpath?: index (default every subpath)}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "path.convertAnchor",
+   :label "Convert Direction Point",
+   :params
+   "{id, subpath, anchor, to?: [x,y] (spread coords: drag out symmetric handles to there), corner?: bool} — without `to`, a smooth point becomes a corner and a corner gets smooth handles",
+   :source "crates/engine/src/cmd/anchors.rs"}
+  {:id "path.convertPoints",
+   :label "Convert Point",
+   :params
+   "{kind: plain|corner|smooth|symmetrical, ids?} — the Direct Selection tool's selected points, or every point of the selected paths: plain (no direction handles), corner (independent handles), smooth (collinear handles), symmetrical (collinear, equal length) → {converted}",
+   :source "crates/engine/src/cmd/anchors.rs"}
+  {:id "path.create",
+   :label "Create Path",
+   :params
+   "{spread?, anchors: [{p:[x,y], in?:[x,y], out?:[x,y]}], closed?: bool}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "path.deleteAnchor",
+   :label "Delete Anchor Point",
+   :params
+   "{id, subpath, anchor} — removes the point (and the object when no path is left)",
+   :source "crates/engine/src/cmd/anchors.rs"}
+  {:id "path.erase",
+   :label "Erase",
+   :params
+   "{id, points: [[x,y], …] (spread coords: the Erase tool's drag), tolerance?: pt (default 4)} — removes the stretch of path the drag ran along",
+   :source "crates/engine/src/cmd/anchors.rs"}
+  {:id "path.join",
+   :label "Join",
+   :params
+   "{ids?} — one open path: closes it; two open paths: joins them where their ends are nearest (coincident ends become one point) into the first, and removes the second → {id}",
+   :source "crates/engine/src/cmd/anchors.rs"}
+  {:id "path.moveAnchors",
+   :label "Move Anchors",
+   :params
+   "{id, anchors: [[subpath, index]], dx, dy, handle?: in|out}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "path.reverse",
+   :label "Reverse Path",
+   :params
+   "{ids?, subpath?: index (only that subpath of the first target)} — the anchors run the other way (the end point becomes the start)",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "path.setAnchor",
+   :label "Set Anchor",
+   :params
+   "{id, subpath?: index (default the last), anchor: index|\"first\"|\"last\", p?, in?, out? (spread coords)} — moves an anchor or its direction lines; with both lines given and collinear it becomes smooth",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "path.smooth",
+   :label "Smooth",
+   :params
+   "{id, points: [[x,y], …] (spread coords), tolerance?: pt (default 4)} — re-fits the stretch the drag ran along with fewer, smoother anchors",
+   :source "crates/engine/src/cmd/anchors.rs"}
+  {:id "path.split",
+   :label "Split Path",
+   :params
+   "{id, at: [x,y] (spread coords; the nearest point on the path)} — Scissors: an open path becomes two, a closed one opens there → {ids}",
+   :source "crates/engine/src/cmd/paths.rs"}
+  {:id "place.drop",
+   :label "Place Loaded Graphic",
+   :params "{spread?, x, y, rect?: [x0,y0,x1,y1], frame?: id}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "place.load",
+   :label "Load Place Cursor",
+   :params
+   "{path | base64, name?} — load a graphic into the place cursor (then click/drag with the placeGun tool)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "place.styles",
+   :label "Import Options: Styles",
+   :params
+   "{path | base64, name} → {paragraph: [name], character: [name], conflicts: [name]} — the styles a Word/RTF file brings (for styleMap / styleConflicts)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "preflight.run",
+   :label "Preflight Document",
+   :params
+   "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
+   :source "crates/engine/src/cmd/preflight.rs"}
+  {:id "prefs.set",
+   :label "Preferences",
+   :params
+   "{showHiddenCharacters?, typographersQuotes?, polygonSides?, starInset?, scaleStrokes?, dimensionsIncludeStroke?, transformationsAreTotals?, absolutePageNumbers?, highlightHj?, highlightKeeps?, highlightCustomTracking?, highlightSubstitutedFonts?, richBlackOutput?, favoriteFonts?: [family], recentFonts?: [family], showFontNamesInEnglish?, smartTextReflow?, autocorrect?, autocorrectList?: [[word, correction]], showAddedText?, showNoteAnchors?, cjkFeatures?: bool|null (CJK-only menu items and dialogs shown; null follows the interface language), linkTextFiles? (Create Links When Placing Text Files), recoveryMinutes?, recentFilesMax?: 0–100} → all application preferences",
+   :source "crates/engine/src/cmd/prefs.rs"}
+  {:id "script.run",
+   :label "Run Script",
+   :params
+   "{text} — command script lines (`command.id {json}`, JSON lines or a JSON array; `$N.path` refers to earlier results) → {results, steps}",
+   :source "crates/engine/src/cmd/scripts.rs"}
+  {:id "select.container",
+   :label "Container",
+   :params "{} — the group or frame holding the selection",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "select.content",
+   :label "Content",
+   :params
+   "{} — the graphic in a frame, or the first object in a group",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "select.firstAbove",
+   :label "First Object Above",
+   :params "{} — the frontmost object on the spread (layers included)",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "select.lastBelow",
+   :label "Last Object Below",
+   :params "{} — the backmost object on the spread",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "select.nextAbove",
+   :label "Next Object Above",
+   :params "{}",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "select.nextBelow",
+   :label "Next Object Below",
+   :params "{}",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "select.nextInGroup",
+   :label "Next Object in Group",
+   :params "{}",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "select.previousInGroup",
+   :label "Previous Object in Group",
+   :params "{}",
+   :source "crates/engine/src/cmd/select.rs"}
+  {:id "selection.set",
+   :label "Select",
+   :params "{ids: [id], add?: bool, content?: bool}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.toggle",
+   :label "Toggle Selection",
+   :params "{id}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "snippet.export",
+   :label "Export Selection as Snippet",
+   :params
+   "{path?} — the selected items (with their stories, styles and images) as a .designcraft snippet; no path: {base64}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "snippet.place",
+   :label "Place Snippet",
+   :params
+   "{path | base64, spread?, x?, y?} — items keep their positions unless x/y given (top-left)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "spelling.addWord",
+   :label "Add to Dictionary",
+   :params "{word}",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "spelling.change",
+   :label "Change",
+   :params "{story, start, end, to}",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "spelling.check",
+   :label "Check Spelling…",
+   :params
+   "{story?, suggestions?: true} → [{story, start, end, word, suggestions}]",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "spelling.setWords",
+   :label "User Dictionary",
+   :params "{words: [word]} — replace the document's user dictionary",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "spelling.words",
+   :label "User Dictionary Words",
+   :params "{} → [word]",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "states.create",
+   :label "Convert Selection to Multi-State Object",
+   :params
+   "{ids? (default: the selection; one group's objects or several objects become states)} → {id, states}",
+   :source "crates/engine/src/cmd/states.rs"}
+  {:id "states.list",
+   :label "Object States",
+   :params "{id?} → {states, active}",
+   :source "crates/engine/src/cmd/states.rs"}
+  {:id "states.release",
+   :label "Release State to Objects",
+   :params "{id?} — back to a plain group (every state shows)",
+   :source "crates/engine/src/cmd/states.rs"}
+  {:id "states.rename",
+   :label "State Options",
+   :params "{id?, index, name}",
+   :source "crates/engine/src/cmd/states.rs"}
+  {:id "states.show",
+   :label "Show State",
+   :params "{id?, index? | name?}",
+   :source "crates/engine/src/cmd/states.rs"}
+  {:id "story.get",
+   :label "Get Story",
+   :params
+   "{story? | frame?} → text, frames, paragraphs, vertical, overset",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "story.links",
+   :label "Linked Stories",
+   :params "{} → [{story, parent, outOfDate}]",
+   :source "crates/engine/src/cmd/linked.rs"}
+  {:id "story.placeAndLink",
+   :label "Place and Link",
+   :params
+   "{story (parent), rect, spread?} — a new frame whose story copies the parent and stays linked → {id, story}",
+   :source "crates/engine/src/cmd/linked.rs"}
+  {:id "story.replaceRange",
+   :label "Edit Story",
+   :params
+   "{story, start, end, text} — replace a byte range keeping surrounding formatting",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "story.setDirection",
+   :label "Story Column Direction",
+   :params
+   "{story?, frame?: a text frame of the story, direction: leftToRight|rightToLeft} — column progression, independent of paragraph direction",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "story.setText",
+   :label "Set Story Text",
+   :params "{story, text} — replace a story's whole text",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "story.unlink",
+   :label "Unlink",
+   :params "{story}",
+   :source "crates/engine/src/cmd/linked.rs"}
+  {:id "story.updateLink",
+   :label "Update Link",
+   :params
+   "{story? (default: every out-of-date linked story)} — the child takes the parent's current content (its own edits are replaced)",
+   :source "crates/engine/src/cmd/linked.rs"}
+  {:id "strokeStyle.delete",
+   :label "Delete Stroke Style",
+   :params "{name} — strokes using it become solid",
+   :source "crates/engine/src/cmd/strokes.rs"}
+  {:id "strokeStyle.list",
+   :label "Stroke Styles",
+   :params "{} → [{name, kind}]",
+   :source "crates/engine/src/cmd/strokes.rs"}
+  {:id "strokeStyle.new",
+   :label "New Stroke Style…",
+   :params
+   "{name, type: stripes|dash|dot, bands?: [[start, width] (fractions of the weight)], pattern?: [dash, gap, …] (pt)} — apply with object.stroke {type: {kind: \"style\", name}}",
+   :source "crates/engine/src/cmd/strokes.rs"}
+  {:id "style.breakLink",
+   :label "Break Link to Style",
+   :params
+   "{kind: paragraph|character} — the selected text keeps its look as local formatting, with [No Paragraph Style] / [None]",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "style.cell.apply",
+   :label "Apply Cell Style",
+   :params
+   "{name, story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?} — the target cells (the whole table when the cursor is in it)",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "style.cell.create",
+   :label "New Cell Style…",
+   :params
+   "{name, fromSelection?: bool (the target cell's look), fill?, tint?, insets?: n|[t,l,b,r], vj?: top|center|bottom|justify, stroke?: {weight?, color?, tint?, type?, gapColor?, gapTint?} (all four edges; values as table.setCell's stroke), paragraphStyle?, basedOn?: cell style name, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} → {name}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "style.cell.edit",
+   :label "Cell Style Options…",
+   :params
+   "{name, …same as style.cell.create} — cells using the style follow",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "style.character.apply",
+   :label "Apply Character Style",
+   :params "{name}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.character.create",
+   :label "New Character Style…",
+   :params
+   "{name, basedOn?: style | \"[None]\", chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}, fromSelection?: bool (default false)} — if true, capture the first selected character's style/local overrides (caret: typing format), then overlay chars (null unsets); only explicit fill names are validated; paragraph formatting stays inherited; no text target: chars only → {name} (made unique)",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.character.delete",
+   :label "Delete Character Style",
+   :params "{name, replaceWith?}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.character.edit",
+   :label "Character Style Options…",
+   :params
+   "{name, rename?, basedOn?: style | \"[None]\" | null, chars?: {character attribute (as type.char names them: fontFamily, fontStyle, size, …): value | null (no longer set)}} — renaming updates every use",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.character.redefine",
+   :label "Redefine Character Style",
+   :params
+   "{name?} — incorporate the first selected character's local formatting into its character style without capturing paragraph attributes; one undo step",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.compositeFont.list",
+   :label "List Composite Fonts",
+   :params "{} → composite font definitions",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.compositeFont.set",
+   :label "Set Composite Font",
+   :params
+   "{name, entries: [{name?, characters?, family, style?, relativeSize?, horizontalScale?, verticalScale?, baselineShift?, scaleOption?}]} — replaces a composite font definition; empty characters selects the base entry",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.exportTag",
+   :label "Export Tagging",
+   :params
+   "{style, character?: bool, tag?: p|h1…h6|blockquote|pre|li|… (span|em|strong|code|sup|sub… for characters; \"\" = automatic), class?} → the tagging",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.group",
+   :label "Move to Group",
+   :params
+   "{kind: paragraph|character, names: [style names], group: \"Heads\" | \"Heads/Display\" | \"\" (out of any group)} — styles are named Group/Name; every use is renamed → {renamed: {old: new}}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.list",
+   :label "List Styles",
+   :params "{} → paragraph and character style names",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.load",
+   :label "Load Styles…",
+   :params
+   "{path | base64, name?: the file's name (`.idml` reads IDML), paragraph?: [name], character?: [name], conflicts?: redefine|useExisting|autoRename} — paragraph and character styles of another document (.designcraft or .idml): all of a kind, or the named ones (`[]`: none). The styles, swatches and lists they name come along where this document has none. A style this document defines differently under the same name takes the loaded definition (redefine, the default), stays as it is (useExisting), or the loaded one gets a new name (autoRename) → {paragraph: {added, replaced, renamed: {name: new name}}, character: {…}, swatches: [name]}",
+   :source "crates/engine/src/cmd/load_styles.rs"}
+  {:id "style.load.list",
+   :label "List Styles in File",
+   :params
+   "{path | base64, name?} → {paragraph: [{name, conflict}], character: [{name, conflict}]} — the styles `style.load` would bring; `conflict`: this document defines a style of that name differently",
+   :source "crates/engine/src/cmd/load_styles.rs"}
+  {:id "style.object.apply",
+   :label "Apply Object Style",
+   :params
+   "{name, ids?} — sets the style's fill, stroke, effects and text frame options on the items",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.object.clearOverrides",
+   :label "Clear Object Style Overrides",
+   :params
+   "{ids?} — each item takes its object style's fill, stroke, effects and text frame options again → {changed}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.object.create",
+   :label "New Object Style…",
+   :params
+   "{name, fromSelection?: true (fill, stroke, effects and text frame options of the first selected item), fill?, paragraphStyle?, effects?: {dropShadow?, feather?, innerShadow?, outerGlow?, innerGlow?, bevel?, satin?, gradientFeather?, directionalFeather?}, dropShadow?: {on?, color?, opacity? (0–1), angle?, globalLight?, distance?, size?, spread?}, feather?: width, innerShadow?, outerGlow?, innerGlow?, bevel?, satin?, gradientFeather?, directionalFeather?} → {name} (made unique)",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.object.edit",
+   :label "Object Style Options…",
+   :params
+   "{name, effects?: {…} | null (the style no longer sets effects), dropShadow?, feather?, innerShadow?, outerGlow?, innerGlow?, bevel?, satin?, gradientFeather?, directionalFeather?} — effect objects merge field by field into the style's effects (fields as in `document.inspect` item effects); values that aren't finite numbers are refused, the others clamped (opacities 0–1, sizes and distances ≥ 0); items using the style whose effects match the style's (no effects, when the style set none) take the new effects, items with their own effects keep them → {name, updated}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.paragraph.apply",
+   :label "Apply Paragraph Style",
+   :params "{name, clearOverrides?: bool}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.paragraph.create",
+   :label "New Paragraph Style…",
+   :params
+   "{name, basedOn?, nextStyle?, para?: {paragraph attributes, as type.para names them: align, leftIndent, firstLineIndent, spaceBefore, spaceAfter, …; startAt?: null = continue numbering; grepStyles?: [{style, pattern}]: a pattern that can't compile is an error}, chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}, fromSelection?: bool}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.paragraph.delete",
+   :label "Delete Paragraph Style",
+   :params "{name, replaceWith?}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.paragraph.edit",
+   :label "Paragraph Style Options…",
+   :params
+   "{name, rename?, basedOn?, nextStyle?, para?: {paragraph attributes, as type.para names them: align, leftIndent, spaceBefore, …; ruleAbove?/ruleBelow?: only the named rule fields change; startAt?: null = continue numbering; kinsoku?: set | null (default rules); a grepStyles pattern that can't compile is an error}, chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.paragraph.redefine",
+   :label "Redefine Paragraph Style",
+   :params
+   "{name?} — incorporate the first selected paragraph/character's local formatting into its paragraph style; retain character styles; one undo step",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "style.table.apply",
+   :label "Apply Table Style",
+   :params
+   "{name, story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "style.table.create",
+   :label "New Table Style…",
+   :params
+   "{name, basedOn?: table style name, header?, body?, footer?, leftColumn?, rightColumn?: cell style names, border?: {weight?, color?, tint?, type?, gapColor?, gapTint?}, altRows?: {first, firstColor, next, nextColor}, spaceBefore?, spaceAfter?} → {name}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "style.table.edit",
+   :label "Table Style Options…",
+   :params
+   "{name, …same as style.table.create} — tables using the style follow",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "swatch.addColorTheme",
+   :label "Color Theme…",
+   :params
+   "{colors: [one to five RGB hex colours], name?: group name} → {name, swatches} — adds the previewed palette as one undoable swatch group",
+   :source "crates/engine/src/cmd/color_theme.rs"}
+  {:id "swatch.addToSwatches",
+   :label "Add to Swatches",
+   :params
+   "{swatch?: name (default: the selection's fill), target?: fill|stroke, name?: new name} — makes an unnamed colour a swatch",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.addUnnamed",
+   :label "Add Unnamed Colors",
+   :params "{} — every unnamed colour used becomes a swatch",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.create",
+   :label "New Color Swatch…",
+   :params
+   "{name?, color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255)|{model: rgb|cmyk|gray, …}(0..1), spot?: bool} | {name? (\"New Gradient Swatch\"), gradient: {kind?: linear|radial, stops: [{location: 0–100, swatch?: a colour swatch's name | color?, opacity?: 0–100, midpoint?: 13–87}]}} → {name}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.delete",
+   :label "Delete Swatch",
+   :params "{name}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.load",
+   :label "Load Swatches…",
+   :params
+   "{path?|base64?, replace?: bool} — colour swatches from a swatch exchange (.ase) file; a name the file repeats gets a number (\"Red 2\") and an unnamed color is named by its value; names already in the document are kept unless `replace` → {added, replaced}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.moveToGroup",
+   :label "Move to Color Group",
+   :params "{swatches: [names], group: name | null (top level)}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.new",
+   :label "New Swatch",
+   :params
+   "{swatch?: name, target?: fill|stroke} → {name} — the Swatches panel's New Swatch: `swatch` (default: the selection's fill or stroke) as a new swatch. An unnamed colour or gradient becomes a named one (a gradient: \"New Gradient Swatch\"), still applied; a named swatch is duplicated (\"… copy\"); with nothing selected and no `swatch`, a new colour swatch",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.newColorGroup",
+   :label "New Color Group",
+   :params
+   "{name?, swatches?: [names]} — a Swatches panel folder (the swatches move into it) → {name}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.options",
+   :label "Swatch Options…",
+   :params
+   "{name, to?: new name, nameWithValue?: bool, color?: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b]|{gray}(0..100), spot?: bool, tint?: 0–1 (tint swatches), base?: colour swatch (tint swatches)} → {name} — every use follows a rename; [None], [Registration], [Black] and [Paper] keep their names",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.renameColorGroup",
+   :label "Color Group Options",
+   :params "{name, to}",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.save",
+   :label "Save Swatches for Exchange…",
+   :params
+   "{path?, names?: [swatch names] (default: all colour swatches)} → {base64} or writes `path` (.ase)",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "swatch.ungroupColorGroup",
+   :label "Ungroup Color Group",
+   :params "{name} — its swatches go back to the top level",
+   :source "crates/engine/src/cmd/style.rs"}
+  {:id "table.convertFromText",
+   :label "Convert Text to Table",
+   :params
+   "{columnSeparator?: tab|comma, width?: table width (default: the column)} — selected paragraphs become rows",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.convertRowsToBody",
+   :label "To Body",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — the target header rows next to the body, footer rows next to it, or both",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.convertRowsToFooter",
+   :label "To Footer",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — the target rows, at the bottom of the table or right before its footer rows",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.convertRowsToHeader",
+   :label "To Header",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — the target rows, at the top of the table or right after its header rows",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.convertToText",
+   :label "Convert Table to Text",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — cells separated by tabs, rows by paragraphs",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.delete",
+   :label "Delete Table",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.deleteColumn",
+   :label "Delete Column",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — the columns of the target cells",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.deleteRow",
+   :label "Delete Row",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — the rows of the target cells",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.distributeColumns",
+   :label "Distribute Columns Evenly",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.distributeRows",
+   :label "Distribute Rows Evenly",
+   :params
+   "{story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?} — equal fixed heights preserving the selected rows' composed total height; may overset cell text; unmerge row-spanning cells first",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.dropCells",
+   :label "Drag Rows or Columns",
+   :params
+   "{frame, from: [x, y], to: [x, y]} — selected whole rows (or columns) dragged from `from` move to the row (column) at `to`; otherwise a text drag",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.get",
+   :label "Get Table",
+   :params
+   "{story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?} → rows, columns, cells (text, spans, fill), options",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.getCellStroke",
+   :label "Get Cell Stroke",
+   :params
+   "{story?, table?, rows?, cols?, edges?} → {weight, color, tint, type, gapColor, gapTint, fill, fillTint, edges: count} of the chosen edges of the target cells; a value that differs between them is null",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.insert",
+   :label "Create Table",
+   :params
+   "{rows?: body rows (4), cols? | columns? (4), headerRows? (0), footerRows? (0), width?} — at the text insertion point",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.insertColumn",
+   :label "Insert Column",
+   :params
+   "{where?: left|right, count? (1), width?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.insertColumnLeft",
+   :label "Insert Column Left",
+   :params
+   "{count?, width?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.insertColumnRight",
+   :label "Insert Column Right",
+   :params
+   "{count?, width?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.insertRow",
+   :label "Insert Row",
+   :params
+   "{where?: above|below, count? (1), story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.insertRowAbove",
+   :label "Insert Row Above",
+   :params
+   "{count?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.insertRowBelow",
+   :label "Insert Row Below",
+   :params
+   "{count?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.merge",
+   :label "Merge Cells",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — merge the target cell range",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.moveColumn",
+   :label "Move Column",
+   :params
+   "{from?, to, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} (0-based; from defaults to the target column)",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.moveRow",
+   :label "Move Row",
+   :params
+   "{from?, to, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} (0-based; from defaults to the target row) — like dragging a row",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.nextCell",
+   :label "Next Cell",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.options",
+   :label "Table Options",
+   :params
+   "{direction?: leftToRight|rightToLeft, border?: {weight?, color?, tint?, type?, gapColor?, gapTint?}, spaceBefore?, spaceAfter?, headerRows?, footerRows?, repeatHeader?, repeatFooter?, altRows?: {first, firstColor, firstTint, next, nextColor, nextTint, skipFirst, skipLast} | null, altCols?: … | null, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.placeGraphic",
+   :label "Convert Cell to Graphic Cell",
+   :params
+   "{path? | base64?, name?: with base64, fit?: proportional|fill (default proportional), story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — an image in the target cell (its text is kept but hidden)",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.prevCell",
+   :label "Previous Cell",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.resizeBorder",
+   :label "Resize Row or Column",
+   :params
+   "{story?, table?, frame?, axis: column|row, index, delta? | size?, keepTableSize?: bool} — moves the border after column/row `index` by `delta` (or makes that column/row `size` wide/high); later columns/rows move along. The last index is the table's end/bottom edge. keepTableSize: on an inner border the next column/row gives or takes the change; on the edge all columns/rows scale proportionally. A dragged row becomes At Least. Refuses a locked `frame`",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.select",
+   :label "Select Cells",
+   :params
+   "{story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?, what?: cell|row|column|table}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.selectColumn",
+   :label "Select Column",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.selectRow",
+   :label "Select Row",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.selectTable",
+   :label "Select Table",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.setCell",
+   :label "Cell Options",
+   :params
+   "{fill?: swatch, tint?: 0..1, insets?: n | [t,l,b,r], vj? | verticalJustification?: top|center|bottom|justify, text?, stroke?: {weight?, color?: swatch, tint?: 0..1, type?: solid|dashed|dotted|thickThin|thinThick|thinThin|thickThick|thinThickThin|thickThinThick|wavy|hashed | {kind:…}, gapColor?: swatch, gapTint?: 0..1, edges?: name | [names] (all|outer|inner|top|left|bottom|right|innerHorizontal|innerVertical; default all)}, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — top/left/bottom/right are the target range's outer sides, innerHorizontal/innerVertical the lines between its rows/columns",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.setColumnWidth",
+   :label "Column Width",
+   :params
+   "{width, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.setRowHeight",
+   :label "Row Height",
+   :params
+   "{height, mode?: atLeast|exactly, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.sortRows",
+   :label "Sort",
+   :params
+   "{column?: 0-based (default: the target cell's), descending?: bool, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — body rows by that column's text (numbers numerically)",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.splitHorizontally",
+   :label "Split Cell Horizontally",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — each target cell becomes two, one above the other",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.splitVertically",
+   :label "Split Cell Vertically",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — each target cell becomes two, side by side",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.textCell",
+   :label "Convert Cell to Text Cell",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — drop the target cells' graphics",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "table.unmerge",
+   :label "Unmerge Cells",
+   :params
+   "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}",
+   :source "crates/engine/src/cmd/table.rs"}
+  {:id "text.delete",
+   :label "Delete Text",
+   :params "{forward?: bool, word?: bool}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.exitToFrame",
+   :label "Select Frame",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.extendTo",
+   :label "Extend Text Selection",
+   :params
+   "{frame, point, unit?: word|line|paragraph|story} — moves the selection's focus to the point; with `unit`, after a text.selectAt, the selection grows by whole units from the unit first selected (a drag after a double, triple or quadruple click)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.insert",
+   :label "Type",
+   :params
+   "{text, raw?: bool (no typographer's quotes)} — replaces the selected text",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.move",
+   :label "Move Caret",
+   :params
+   "{dir: left|right|up|down|lineStart|lineEnd|storyStart|storyEnd, extend?, word?}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.placeCaret",
+   :label "Place Caret",
+   :params
+   "{frame, point: [x,y] (spread coords)} — converts empty frames to text frames",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.release",
+   :label "Release",
+   :params
+   "{frame, point, moved: bool, copy?: bool} — ends a press in text: a drag that started in the selected text moves (copy: duplicates) it to the point; a click places the caret",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.removeFromThread",
+   :label "Remove Frame from Thread",
+   :params
+   "{frame?} — takes `frame` (default: the selected text frame) out of its thread: the frames before and after it join up and keep the text, `frame` stays empty",
+   :source "crates/engine/src/cmd/thread.rs"}
+  {:id "text.select",
+   :label "Select Text",
+   :params
+   "{story, anchor, focus} (UTF-8 byte offsets into the story text, as find.find reports them: á or — counts 2 or 3)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.selectAt",
+   :label "Select Text Unit",
+   :params
+   "{frame, point, unit: word|line|paragraph|story} — what a double, triple, quadruple or quintuple click selects: the word (or run of spaces) under the point, its line, its paragraph with the paragraph return, or the whole story",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.selectParagraph",
+   :label "Select Paragraph",
+   :params
+   "{frame, point} — the paragraph under the point, without its paragraph return",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.selectSentence",
+   :label "Select Sentence",
+   :params "{frame, point} — the sentence under the point",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.selectStory",
+   :label "Select Story",
+   :params
+   "{frame, point} — all the text of the story under the point, threaded frames included",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.selectWord",
+   :label "Select Word",
+   :params
+   "{frame, point} — the word (or run of spaces) under the point",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "text.thread",
+   :label "Thread Text Frames",
+   :params
+   "{from?, to?, rect?: [x0,y0,x1,y1] (spread coords), spread?, autoflow?: bool} — threads frame `to` right after frame `from` (between `from` and the frame that followed it, if any). `to` is an empty frame or a text frame nothing threads into yet; its text joins the end of the story. Give `rect` in place of `from` or `to` to thread a new text frame made there on `spread`: `{from, rect}` adds it after `from`, `{rect, to}` in front of `to`. autoflow: then add pages with threaded frames until the story fits. Selects the frame that joined the thread. → {story, from, to, overset, pagesAdded}",
+   :source "crates/engine/src/cmd/thread.rs"}
+  {:id "text.unthread",
+   :label "Break Thread",
+   :params
+   "{frame?, side?: after|before} — breaks the thread after (or before) `frame` (default: the selected text frame). The frames from the break on stay threaded to each other but become empty; the text stays in the story, overset if the earlier frames can't hold it",
+   :source "crates/engine/src/cmd/thread.rs"}
+  {:id "toc.entries",
+   :label "Table of Contents Entries",
+   :params
+   "{entries | styles} → [{level, text, page}] without changing the document",
+   :source "crates/engine/src/cmd/toc.rs"}
+  {:id "toc.generate",
+   :label "Table of Contents…",
+   :params
+   "{entries: [{style, level?: 1 (1-9), entryStyle?: paragraph style of its entries (default \"TOC Level n\"), pageNumber?: \"after\"|\"before\"|\"none\", separator?: text between entry and number (default a tab), pageNumberStyle?: character style of the page number, separatorStyle?: character style of the separator, sort?: bool (Sort Entries in Alphabetical Order: among their siblings, each with the entries under it)}] | styles: [names] (levels 1, 2, …), title?: \"Contents\", titleStyle?: paragraph style of the title (default \"TOC Title\"), pageNumbers?: true, replace?: true (regenerate the existing table of contents in place; false makes a new frame), page?: 1-based page for a new frame (its margins), rect?: [x0,y0,x1,y1] (spread coords)} → {story, entries}",
+   :source "crates/engine/src/cmd/toc.rs"}
+  {:id "toc.update",
+   :label "Update Table of Contents",
+   :params "{} — regenerate the existing table of contents",
+   :source "crates/engine/src/cmd/toc.rs"}
+  {:id "tool.list",
+   :label "List Tools",
+   :params "{}",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "tool.polygonSettings",
+   :label "Polygon Settings…",
+   :params
+   "{sides?: 3–100, starInset?: 0–100 (%)} → the settings new polygons use",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "tool.select",
+   :label "Select Tool",
+   :params "{tool: selection|directSelection|type|rectangleFrame|…}",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "transform.again",
+   :label "Transform Again",
+   :params
+   "{individually?: bool, sequence?: bool, ids?} — repeat the last transform (or the whole sequence applied to this selection), on the selection as a whole or on each object about its own centre",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.clear",
+   :label "Clear Transformations",
+   :params
+   "{ids?} — remove rotation, shear and scaling (the object keeps its centre)",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.flip",
+   :label "Flip",
+   :params
+   "{axis: horizontal|vertical, ref?: 0..8 (reference point of the selection bounds, default 4: centre), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.info",
+   :label "Transform Values",
+   :params
+   "{ids?} → {scaleX, scaleY (%), rotation, shear (°), content?: the same for a placed graphic} of the first target",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.move",
+   :label "Move",
+   :params
+   "{dx, dy, copy?: bool, ids?, toSpread?, content?: bool (move the placed graphic or pasted-in items inside each frame; the frame stays. Default: whether the selection is content, when neither ids nor copy is given)} → {moved, ids: the objects moved (with copy, the copies)}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.resize",
+   :label "Resize",
+   :params
+   "{from: rect, to: rect, content?: bool (scale content), distribute?: bool (Live Distribute: objects keep their size, their centres spread with the bounds), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.rotate",
+   :label "Rotate",
+   :params
+   "{angle (degrees, CCW), ref?: 0..8 (reference point of the selection bounds, default 4: centre), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.scale",
+   :label "Scale",
+   :params "{sx, sy, ids?} (about the selection centre)",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.set",
+   :label "Transform Panel",
+   :params
+   "{x?, y? (measured from the rulers' zero point, view.zeroPoint), width?, height?, scaleX? (%), scaleY? (%), rotation? (°), shear? (°), ref?: 0..8, ids?, content?: bool (the placed graphic inside each frame; the frame stays. Default: whether the selection is content, when no ids are given), bounds?: [x0, y0, x1, y1] (content: the graphic's new bounds on the spread, as its handles drag it)} — reference-point based geometry; rotation and shear are absolute (Transformations are Totals decides whether nested objects measure them on the pasteboard)",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "transform.shear",
+   :label "Shear",
+   :params
+   "{angle (degrees), ref?: 0..8 (reference point of the selection bounds, default 4: centre), ids?}",
+   :source "crates/engine/src/cmd/object.rs"}
+  {:id "type.align",
+   :label "Align",
+   :params "{align: left|center|right|leftJustified|…}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.alignCenter",
+   :label "Align Center",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.alignLeft",
+   :label "Align Left",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.alignRight",
+   :label "Align Right",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.allCaps",
+   :label "All Caps",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.autoTateChuYoko",
+   :label "Auto Tate-Chu-Yoko",
+   :params
+   "{digits?: 0..10 (0 = off), includeRoman?: bool} — in vertical text, set runs of up to `digits` half-width digits (and roman letters) across one em, for the selected paragraphs",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.bold",
+   :label "Bold",
+   :params
+   "{on?: bool} — the family's bold style, keeping italic (style linking); toggles when `on` is left out",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.changeCase",
+   :label "Change Case",
+   :params
+   "{case: upper|lower|title|sentence} — the selected text, or the stories of selected frames (formatting kept)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.char",
+   :label "Character Formatting",
+   :params
+   "{attrs: {fontFamily?, fontStyle?, size?, leading?: {kind:auto}|{kind:points,value}, tracking?, kerning?, hScale?, vScale?, baselineShift?, fill?, capitalization?, underline?, …}}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.createOutlines",
+   :label "Create Outlines",
+   :params
+   "{ids?} — text frames become compound paths of their glyphs (one per line and text colour, grouped when several, so Ungroup separates the lines) → {ids}",
+   :source "crates/engine/src/cmd/paths.rs"}
+  {:id "type.feature",
+   :label "Set OpenType Features",
+   :params
+   "{features: {tag: true|false, …}} — turns OpenType features on or off across the selected text, keeping each run's other features",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.fillWithPlaceholder",
+   :label "Fill with Placeholder Text",
+   :params "{frame?, story?}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.gridSettings",
+   :label "Grid Settings",
+   :params
+   "{alignment?: none|romanBaseline|emTop|emCenter|emBottom|icfTop|icfBottom, firstLineOnly?: bool, gyoudori?: 0..100 (0 = auto), paragraphGyoudori?: bool} — how the selected paragraphs sit on the baseline grid",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.italic",
+   :label "Italic",
+   :params
+   "{on?: bool} — the family's italic style, keeping the weight (style linking); toggles when `on` is left out",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.justify",
+   :label "Justify Left",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.kenten",
+   :label "Kenten",
+   :params
+   "{on?: bool, kind?: sesameDot|whiteSesameDot|fisheye|blackCircle|smallBlackCircle|bullseye|blackTriangle|whiteTriangle|whiteCircle|smallWhiteCircle|custom, character?: text (custom kind), font?: family (custom kind), fontStyle?, size?: pt (null: half the text size), distance?: pt, position?: aboveRight|belowLeft, alignment?: center|start, xScale?: %, yScale?: %, fill?: swatch (\"\": the text's), fillTint?: %, stroke?: swatch, strokeTint?: %, strokeWeight?: pt, overprintFill?: auto|on|off, overprintStroke?: auto|on|off} — emphasis marks beside the selected characters (toggles by default; any setting turns them on)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.kernPair",
+   :label "Kerning",
+   :params
+   "{kerning: {kind: metrics|optical|none}|{kind: manual, value: 1/1000 em}|null} — at a caret in text, the pair at the caret (the character before the caret takes it); at the start of a story or paragraph, the next typing; a selection or frames take it like `type.char`",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.kernStep",
+   :label "Kerning/Tracking Step",
+   :params
+   "{steps?: n (default 1; negative tightens), amount?: 1/1000 em (in place of steps × the document's kerningIncrement)} — with a caret, the manual kerning between the characters at the caret (from the pair's manual value, else 0); with a selection, the tracking of the selected text",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.onPath",
+   :label "Type on a Path",
+   :params
+   "{id: path, text?, start?: distance along the path, flip?, align?: baseline|ascender|descender|center} → {story} — the text cursor goes into it",
+   :source "crates/engine/src/cmd/path_type.rs"}
+  {:id "type.openType",
+   :label "OpenType",
+   :params
+   "{feature?: dlig|frac|ordn|swsh|titl|calt|zero|ssNN|any tag, on?: bool (default: toggle), figures?: tabularLining|proportionalOldstyle|proportionalLining|tabularOldstyle|default, stylisticSets?: [1–20]} → {features, figures}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.openTypeFeatures",
+   :label "OpenType Features",
+   :params
+   "{} → the OpenType features and stylistic sets the selected text's fonts offer, each with its applied and available state (none, some or all of the selection)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.para",
+   :label "Paragraph Formatting",
+   :params
+   "{attrs: {align?, leftIndent?, firstLineIndent?, spaceBefore?, spaceAfter?, dropCapLines?, dropCapChars?, dropCapStyle?, dropCapAlignLeft?, dropCapScaleDescenders?, hyphenate?: bool (default true), composer?, tabs?, ruleAbove?/ruleBelow?: {on?, weight?, color?, tint?, columnWidth?, offset?, leftIndent?, rightIndent?} (only the named rule fields change), …}}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.pathOptions",
+   :label "Type on a Path Options…",
+   :params
+   "{id?, start?, end?: distance along the path or null (the path's end), flip?, align?: baseline|ascender|descender|center, delete?: true (Delete Type from Path)} — start and end are the brackets: start ≤ end, both on the path",
+   :source "crates/engine/src/cmd/path_type.rs"}
+  {:id "type.pickUpFormat",
+   :label "Apply Text Attributes (Eyedropper)",
+   :params
+   "{frame, point} — the Eyedropper with text selected: the character and paragraph formatting (styles and overrides) of the text under the point go to the selected text",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.romanWordBreak",
+   :label "Roman Word Break",
+   :params
+   "{on?: bool} — roman words in the selected paragraphs may break between any two letters, without a hyphen (toggles by default)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.rotateRoman",
+   :label "Rotate Roman Characters in Vertical Text",
+   :params
+   "{on?: bool} — half-width characters stand upright in vertical text, for the selected paragraphs (toggles by default)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.ruby",
+   :label "Ruby",
+   :params
+   "{text?, type?: group|perCharacter, alignment?: left|center|right|fullJustify|jis|equalAki|oneAki, position?: aboveRight|belowLeft, xOffset?, yOffset? (pt), font?, fontStyle? (\"\" = the text's), size? (pt; null = half the text size), xScale?, yScale? (%), openTypePro?: bool, autoTcyDigits?: 0-9, autoTcyIncludeRoman?: bool, autoTcyAutoScale?: bool, overhang?: none|oneRuby|halfRuby|oneChar|halfChar|noLimit, parentSpacing?: noAdjustment|bothSides|aki121|equalAki|fullJustify, autoAlign?: bool, autoScaling?: bool, scalingPercent? (%), fill?, stroke? (swatch; \"\" = the text's), fillTint?, strokeTint? (%; null = the text's), strokeWeight? (pt; null = the text's), overprintFill?, overprintStroke?: auto|on|off} — the reading set over the selected text and how it is placed; empty text removes it. Per-character ruby separates the readings with U+3000",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.selectionAttrs",
+   :label "Selection Attributes",
+   :params
+   "{mixed?: bool} → resolved character/paragraph attributes at the text selection; with mixed, paraMixed lists the paragraph attributes that differ across the selected paragraphs; the selection's start as `selectedText` (one line, up to 60 characters)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.shatai",
+   :label "Shatai",
+   :params
+   "{magnification?: % (0 = off), angle?: degrees, adjustRotation?: bool, adjustTsume?: bool} — slant the selected characters by compressing them across a direction",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.sizeDown",
+   :label "Decrease Point Size",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.sizeUp",
+   :label "Increase Point Size",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.storyDirection",
+   :label "Story Direction",
+   :params
+   "{vertical: bool} — the stories of the text selection or the selected frames: vertical lines run top to bottom and follow each other right to left, in every frame of the thread",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.swapFillStroke",
+   :label "Swap Text Fill and Stroke",
+   :params
+   "{} — swap each selected character's resolved fill/stroke and tints; at a caret, swap the next typing's colors",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.tabs.add",
+   :label "Add Tab",
+   :params
+   "{position (pt from the column's left edge), align?: left|center|right|char, leader? (≤ 8 characters), alignOn? (one character), style?} → {index, tabs} — a stop at the same position is replaced",
+   :source "crates/engine/src/cmd/tabs.rs"}
+  {:id "type.tabs.change",
+   :label "Change Tab",
+   :params
+   "{index, align?: left|center|right|char, leader?, alignOn?, style?} → {index, tabs}",
+   :source "crates/engine/src/cmd/tabs.rs"}
+  {:id "type.tabs.clear",
+   :label "Clear All Tabs",
+   :params "{style?} → {tabs}",
+   :source "crates/engine/src/cmd/tabs.rs"}
+  {:id "type.tabs.get",
+   :label "Get Tabs",
+   :params
+   "{style?} → {tabs, leftIndent, firstLineIndent, rightIndent, width, frame?, column?: [x0,y0,x1,y1] (frame inner space)} — the first selected paragraph's (or the style's) stops and indents, and the width of its text column",
+   :source "crates/engine/src/cmd/tabs.rs"}
+  {:id "type.tabs.move",
+   :label "Move Tab",
+   :params "{index, position, style?} → {index, tabs}",
+   :source "crates/engine/src/cmd/tabs.rs"}
+  {:id "type.tabs.remove",
+   :label "Delete Tab",
+   :params "{index, style?} → {tabs}",
+   :source "crates/engine/src/cmd/tabs.rs"}
+  {:id "type.tabs.repeat",
+   :label "Repeat Tab",
+   :params
+   "{index, width?, style?} → {index, tabs} — repeats the distance from the previous stop (or the left indent) to this one up to the column width less the right indent",
+   :source "crates/engine/src/cmd/tabs.rs"}
+  {:id "type.tateChuYoko",
+   :label "Tate-Chu-Yoko",
+   :params
+   "{on?: bool} — set the selected text horizontally within one em of a vertical line (toggles by default)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.underline",
+   :label "Underline",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "type.warichu",
+   :label "Warichu",
+   :params
+   "{on?: bool, lines?: int, size?: number, lineSpacing?: number, align?: auto|left|center|right|justify, charsBeforeBreak?: int, charsAfterBreak?: int} — set the selection as an inline note in smaller lines inside one line height (toggles by default)",
+   :source "crates/engine/src/cmd/text.rs"}
+  {:id "variables.define",
+   :label "Define Text Variable…",
+   :params
+   "{name, type: custom|lastPageNumber|chapterNumber|fileName|creationDate|modificationDate|outputDate|runningHeader, text?, format?, style?, use?: firstOnPage|lastOnPage, character?, section?, extension?, before?, after?} — creates or replaces by name",
+   :source "crates/engine/src/cmd/variables.rs"}
+  {:id "variables.delete",
+   :label "Delete Text Variable",
+   :params
+   "{name} — instances become plain text of their current value",
+   :source "crates/engine/src/cmd/variables.rs"}
+  {:id "variables.insert",
+   :label "Insert Variable",
+   :params "{name} — at the text insertion point",
+   :source "crates/engine/src/cmd/variables.rs"}
+  {:id "variables.list",
+   :label "Text Variables",
+   :params "{} → [{index, name, type, …, value (page 1)}]",
+   :source "crates/engine/src/cmd/variables.rs"}
+  {:id "view.lockZeroPoint",
+   :label "Lock Zero Point",
+   :params
+   "{on?: bool (default: toggle)} → {locked} — a locked zero point can't be dragged, moved or reset",
+   :source "crates/engine/src/cmd/rulers.rs"}
+  {:id "view.zeroPoint",
+   :label "Ruler Zero Point",
+   :params
+   "{at?: [x, y] (points right of and below the ruler origin — document.preferences rulerOrigin: spread|page|spine; kept on the pasteboard), reset?: bool} → {zeroPoint: [x, y], locked}; with neither, reports it. Not an undo step; refused while locked",
+   :source "crates/engine/src/cmd/rulers.rs"}
+  {:id "xml.deleteDtd",
+   :label "Delete DTD",
+   :params "{}",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.deleteTag",
+   :label "Delete Tag",
+   :params "{name} — tagged objects are untagged",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.loadDtd",
+   :label "Load DTD…",
+   :params
+   "{path | text} — keep the DTD for validation and add a tag for each declared element; the root takes the first element's name unless already named → {elements}",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.mapStyle",
+   :label "Map Styles to Tags",
+   :params
+   "{style: paragraph style, tag | null} — that style's paragraphs export as `<tag>` elements and import back with it",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.newTag",
+   :label "New Tag",
+   :params "{name, color?: [r, g, b]}",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.structure",
+   :label "Structure",
+   :params
+   "{} → {root, elements: [{tag, id, kind, text?}]} in reading order",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.tag",
+   :label "Tag Frame",
+   :params
+   "{tag (made if new), ids? (default: the selection)} — `tag: null` untags",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.tagText",
+   :label "Tag Text",
+   :params
+   "{tag | null (untag)} — the selected text becomes an inline element",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.tags",
+   :label "Tags",
+   :params
+   "{} → {root, tags: [{name, color}], styleMap: [[style, tag]], dtd: bool}",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xml.validate",
+   :label "Validate from Root Element",
+   :params
+   "{} — check the structure (as exported) against the loaded DTD → {valid, problems: [{path, message}]}",
+   :source "crates/engine/src/cmd/xml.rs"}
+  {:id "xref.defineFormat",
+   :label "Define Cross-Reference Format…",
+   :params
+   "{name, definition} — building blocks: <fullPara />, <paraText />, <paraNum />, <pageNum />, <txtAnchrName />, <chapNum />, <fileName />, <partialPara delim=\":\" includeDelim=\"false\" />; creates or replaces",
+   :source "crates/engine/src/cmd/xref.rs"}
+  {:id "xref.formats",
+   :label "Cross-Reference Formats",
+   :params "{} → [{name, definition}]",
+   :source "crates/engine/src/cmd/xref.rs"}
+  {:id "xref.insert",
+   :label "Insert Cross-Reference…",
+   :params
+   "{anchor? | paragraph?: text to find (first paragraph containing it) | story?: with para? | para?: 0-based paragraph of `story`, format?: name (default Full Paragraph & Page Number)} — at the insertion point; the text updates itself as the destination moves",
+   :source "crates/engine/src/cmd/xref.rs"}
+  {:id "xref.list",
+   :label "Cross-References",
+   :params "{} → [{story, pos, target, format, text}]",
+   :source "crates/engine/src/cmd/xref.rs"}
+  {:id "xref.setFormat",
+   :label "Set Cross-Reference Format",
+   :params "{story, index, format}",
+   :source "crates/engine/src/cmd/xref.rs"}],
+ :mcp
+ [{:name "list_commands",
+   :title "List commands",
+   :description
+   "\"List DesignCraft commands: id, label, menu path, shortcut, parameter description and whether it can run right now. \\\n             Every user-visible action is a command (frame.create, text.insert, type.char, style.paragraph.apply, layout.pages.insert, \\\n             object.fill, transform.move, edit.undo…); run them with execute or batch.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"filter\": string(\"Case-insensitive substring matched against id, label and menu path (e.g. \\\"frame\\\", \\\"style\\\", \\\"Layout\\\")\"),\n                    \"enabledOnly\": boolean(\"Only commands that can run right now\"),\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "execute",
+   :title "Execute command",
+   :description
+   "\"Run any DesignCraft command by id with JSON params (ids and params from list_commands). Examples: \\\n             {\\\"command\\\":\\\"frame.create\\\",\\\"params\\\":{\\\"rect\\\":[36,36,576,300],\\\"content\\\":\\\"text\\\",\\\"text\\\":\\\"Hello\\\"}} → {id, story}; \\\n             {\\\"command\\\":\\\"type.char\\\",\\\"params\\\":{\\\"size\\\":24}}; {\\\"command\\\":\\\"edit.undo\\\"}. Coordinates are points in spread space. \\\n             In the desktop app the UI-only commands (view.*, window.*, help.*, edit.dynamicSpelling, and app.* except app.links, \\\n             which works everywhere) work too.\"",
+   :input-schema-source
+   "obj(json!({\"command\": string(\"Command id, e.g. frame.create\"), \"params\": params_schema()}), &[\"command\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "batch",
+   :title "Execute commands",
+   :description
+   "\"Run several commands in order, stopping at the first error. Returns each result; on failure also the failing index \\\n             and message (earlier commands stay applied; use edit.undo to revert them). Later steps can use earlier results: a \\\n             parameter string \\\"$N.path\\\" is replaced by that value of step N's result (0-based; \\\"$last.path\\\" for the previous \\\n             step), e.g. after frame.create → {\\\"id\\\": 8, \\\"story\\\": 9}, {\\\"story\\\": \\\"$0.story\\\"} passes 9; \\\"${N.path}\\\" \\\n             interpolates into longer strings. Other strings starting with $ stay as written; \\\"$$\\\" is a literal $ \\\n             (\\\"$$1\\\" passes the GREP group $1). Give `commands`, or `script` text (one `command.id {json}` per line).\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"commands\": {\n                        \"type\": \"array\",\n                        \"minItems\": 1,\n                        \"description\": \"Commands to run in order\",\n                        \"items\": obj(json!({\"command\": string(\"Command id\"), \"params\": params_schema()}), &[\"command\"]),\n                    },\n                    \"script\": string(\"Alternative to `commands`: lines of `command.id {json params}` (# comments allowed)\"),\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "inspect_document",
+   :title "Inspect document",
+   :description
+   "\"Summary of the active document: settings, pages (index, name, bounds, margins, columns), spreads with items (id, kind, \\\n             bounds, fill, stroke, story), stories (id, frames, length in UTF-8 bytes, overset, preview), layers, \\\n             paragraph/character styles, swatches, selection, active tool.\"",
+   :input-schema-source "empty()",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "get_story",
+   :title "Get story",
+   :description
+   "\"Full text of a story plus its length, frames, paragraph count, line count and overset position (length and positions \\\n             are UTF-8 byte offsets, the unit text.select takes). Identify it by `story` id or by a text `frame` id (default: the \\\n             selection).\"",
+   :input-schema-source
+   "obj(json!({\"story\": int(\"Story id\"), \"frame\": int(\"Text frame id\")}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "set_story_text",
+   :title "Set story text",
+   :description
+   "\"Replace the whole text of a story (keeps the first paragraph's and character's formatting). Use \\\\n for paragraph breaks. \\\n             Identify the story by `story` id or by a text `frame` id.\"",
+   :input-schema-source
+   "obj(json!({\"story\": int(\"Story id\"), \"frame\": int(\"Text frame id\"), \"text\": string(\"New text\")}), &[\"text\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "new_document",
+   :title "New document",
+   :description
+   "\"Create a new document and make it active. Sizes are in points (72 pt = 1 in). sample:true opens the multi-page \\\n             magazine sample instead.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"preset\": string(\"Page size preset, e.g. \\\"Letter\\\", \\\"A4\\\", \\\"Tabloid\\\"\"),\n                    \"width\": num(\"Page width (pt)\"),\n                    \"height\": num(\"Page height (pt)\"),\n                    \"pages\": {\"type\": \"integer\", \"minimum\": 1, \"description\": \"Number of pages\"},\n                    \"facingPages\": boolean(\"Facing pages (spreads)\"),\n                    \"columns\": {\"type\": \"integer\", \"minimum\": 1, \"description\": \"Column count\"},\n                    \"gutter\": num(\"Column gutter (pt)\"),\n                    \"margins\": {\"description\": \"Uniform margin (pt) or {top, bottom, inside, outside}\", \"anyOf\": [{\"type\": \"number\"}, {\"type\": \"object\"}]},\n                    \"bleed\": {\"description\": \"Bleed on all sides (pt) or [top, bottom, inside, outside]\", \"anyOf\": [{\"type\": \"number\"}, {\"type\": \"array\", \"items\": {\"type\": \"number\"}}]},\n                    \"title\": string(\"Document title\"),\n                    \"intent\": {\"type\": \"string\", \"enum\": [\"print\", \"web\", \"mobile\"], \"description\": \"Document intent\"},\n                    \"units\": string(\"Ruler units, e.g. \\\"points\\\", \\\"picas\\\", \\\"millimeters\\\"\"),\n                    \"startPage\": {\"type\": \"integer\", \"minimum\": 1, \"description\": \"Number of the first page\"},\n                    \"slug\": {\"description\": \"Slug on all sides (pt) or [top, bottom, inside, outside]\", \"anyOf\": [{\"type\": \"number\"}, {\"type\": \"array\", \"items\": {\"type\": \"number\"}}]},\n                    \"primaryTextFrame\": boolean(\"Put a primary text frame on the parent page\"),\n                    \"sample\": boolean(\"Open the sample magazine instead\"),\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "open_document",
+   :title "Open document",
+   :description "Open a .designcraft file as a new, active document.",
+   :input-schema-source
+   "obj(json!({\"path\": string(\"File path\")}), &[\"path\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "save_document",
+   :title "Save document",
+   :description
+   "Save the active document in the native .designcraft format.",
+   :input-schema-source
+   "obj(json!({\"path\": string(\"Destination (default: the document's current path)\")}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "place_image",
+   :title "Place image",
+   :description
+   "\"Place an image (PNG, JPEG, WebP, GIF, TIFF) from a file `path` or `base64` data. It goes into `frame` (or the selected \\\n             empty/graphic frame), otherwise into a new frame at x, y (default: the page's top-left margin) with an optional width.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"path\": string(\"Image file path\"),\n                    \"base64\": string(\"Image bytes, base64 (alternative to path)\"),\n                    \"name\": string(\"Name for base64 images\"),\n                    \"frame\": int(\"Frame id to place into\"),\n                    \"spread\": int(\"Spread index for a new frame (default 0)\"),\n                    \"x\": num(\"Left of the new frame (spread pt)\"),\n                    \"y\": num(\"Top of the new frame (spread pt)\"),\n                    \"width\": num(\"Width of the new frame (pt); height follows the aspect ratio\"),\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "render_page",
+   :title "Render page",
+   :description
+   "\"Render one page of the active document (printing items only, like Preview) and return it as a PNG image. Optionally \\\n             also write it to `path`.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"page\": {\"type\": \"integer\", \"minimum\": 0, \"description\": \"Page index, 0-based (default 0; in the desktop app default = the current page)\"},\n                    \"scale\": num(\"Pixels per point (default 1 = 72 ppi)\"),\n                    \"bleed\": boolean(\"Include the bleed area\"),\n                    \"path\": string(\"Also write the PNG here\"),\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "export_png",
+   :title "Export PNG",
+   :description
+   "Export one page as a PNG (or JPEG if the path ends in .jpg) file. Returns the path and pixel size.",
+   :input-schema-source
+   "obj(\n                json!({\"path\": string(\"Destination file\"), \"page\": {\"type\": \"integer\", \"minimum\": 0, \"description\": \"Page index, 0-based (default 0; in the desktop app default = the current page)\"}, \"scale\": num(\"Pixels per point (default 2)\")}),\n                &[\"path\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "screenshot",
+   :title "Screenshot",
+   :description &app_only,
+   :input-schema-source
+   "obj(json!({\"path\": string(\"Also write the PNG here\")}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "select_tool",
+   :title "Select tool",
+   :description
+   "\"Switch the active tool (as clicking it in the Tools panel). Ids: selection, directSelection, type, rectangleFrame, \\\n             ellipseFrame, polygonFrame, rectangle, ellipse, polygon, line, hand, zoom, …\"",
+   :input-schema-source
+   "obj(json!({\"tool\": string(\"Tool id\")}), &[\"tool\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "pointer",
+   :title "Pointer gesture",
+   :description
+   "\"Drive the active tool with mouse events, exactly like the mouse would. Coordinates are spread points (space \\\"doc\\\", \\\n             default) or, in the desktop app, screen points (space \\\"screen\\\"). Example: a text frame with the type tool: \\\n             {tool:\\\"type\\\", events:[{kind:\\\"down\\\",x:72,y:72},{kind:\\\"drag\\\",x:300,y:200},{kind:\\\"up\\\",x:300,y:200}]} leaves a caret \\\n             in the new frame, ready for type_text. Returns the selection and the active tool.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"tool\": string(\"Optional tool to select before the gesture\"),\n                    \"events\": {\n                        \"type\": \"array\",\n                        \"minItems\": 1,\n                        \"items\": obj(json!({\n                            \"kind\": {\"type\": \"string\", \"enum\": [\"down\", \"drag\", \"up\", \"move\", \"doubleclick\"]},\n                            \"x\": num(\"x (pt)\"),\n                            \"y\": num(\"y (pt)\"),\n                            \"space\": {\"type\": \"string\", \"enum\": [\"doc\", \"screen\"], \"description\": \"Coordinate space (default doc)\"},\n                            \"mods\": mods_schema(),\n                            \"clicks\": {\"type\": \"integer\", \"minimum\": 1, \"description\": \"On a down: presses in a row it completes (2 double, 3 triple…; default 1)\"},\n                        }), &[\"kind\", \"x\", \"y\"]),\n                    },\n                    \"mods\": mods_schema(),\n                }),\n                &[\"events\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "key",
+   :title "Press key",
+   :description
+   "\"Press a key with modifiers, e.g. {key:\\\"Z\\\", cmd:true} (undo), {key:\\\"Escape\\\"}, {key:\\\"Enter\\\"}, {key:\\\"Left\\\", shift:true}. \\\n             In the desktop app it goes through the real keyboard path; headless it goes to the active tool (caret keys while typing), \\\n             then command shortcuts, then tool shortcuts.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"key\": string(\"Key name: A–Z, 0–9, Enter, Escape, Delete, Backspace, Tab, Space, Left/Right/Up/Down, Home, End, [ ] …\"),\n                    \"shift\": {\"type\": \"boolean\"}, \"alt\": {\"type\": \"boolean\"}, \"cmd\": {\"type\": \"boolean\"}, \"ctrl\": {\"type\": \"boolean\"},\n                }),\n                &[\"key\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "type_text",
+   :title "Type text",
+   :description
+   "\"Type text at the text insertion point, independently of the active tool, or into the focused dialog field in \\\n             the desktop app. Put a caret first with pointer (tool \\\"type\\\") or execute text.placeCaret / text.select.\"",
+   :input-schema-source
+   "obj(json!({\"text\": string(\"Text to type (\\\\n = new paragraph)\")}), &[\"text\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "ime",
+   :title "Input method",
+   :description
+   "\"Input method (IME) events at the Type tool's caret, as a system IME sends them: `preedit` is the marked text \\\n             (shown in place, no undo step; an empty string cancels the composition), `active` the clause being converted \\\n             in characters of it, `commit` the text the IME types in its place (one undo step). Example, Japanese: \\\n             {preedit:\\\"にほん\\\", active:[3,3]} then {preedit:\\\"日本\\\", active:[0,2]} then {commit:\\\"日本\\\"}. Returns \\\n             whether a composition is still open.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"preedit\": string(\"Marked text (replaces the previous marked text; empty = cancel)\"),\n                    \"active\": {\"type\": \"array\", \"items\": {\"type\": \"integer\", \"minimum\": 0}, \"minItems\": 2, \"maxItems\": 2,\n                               \"description\": \"[start, end] of the clause being converted, in characters of preedit (start = end: the IME's cursor)\"},\n                    \"commit\": string(\"Committed text, typed in place of the marked text\"),\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "click",
+   :title "Click",
+   :description &app_only,
+   :input-schema-source
+   "obj(\n                json!({\n                    \"x\": num(\"Screen x\"), \"y\": num(\"Screen y\"),\n                    \"button\": {\"type\": \"string\", \"enum\": [\"left\", \"right\"], \"description\": \"Default left\"},\n                    \"count\": {\"type\": \"integer\", \"minimum\": 1, \"description\": \"2 = double-click\"},\n                    \"shift\": {\"type\": \"boolean\"}, \"alt\": {\"type\": \"boolean\"}, \"cmd\": {\"type\": \"boolean\"}, \"ctrl\": {\"type\": \"boolean\"},\n                }),\n                &[\"x\", \"y\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "drag",
+   :title "Drag",
+   :description &app_only,
+   :input-schema-source
+   "obj(\n                json!({\n                    \"x\": num(\"Start x\"), \"y\": num(\"Start y\"), \"toX\": num(\"End x\"), \"toY\": num(\"End y\"),\n                    \"steps\": {\"type\": \"integer\", \"minimum\": 1, \"description\": \"Intermediate moves (default 8)\"},\n                    \"button\": {\"type\": \"string\", \"enum\": [\"left\", \"right\"], \"description\": \"Default left\"},\n                    \"shift\": {\"type\": \"boolean\"}, \"alt\": {\"type\": \"boolean\"}, \"cmd\": {\"type\": \"boolean\"}, \"ctrl\": {\"type\": \"boolean\"},\n                }),\n                &[\"x\", \"y\", \"toX\", \"toY\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "menu_list",
+   :title "List menus",
+   :description &app_only,
+   :input-schema-source "empty()",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "ui_inspect",
+   :title "Inspect UI",
+   :description &app_only,
+   :input-schema-source "empty()",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "ui_set",
+   :title "Set UI state",
+   :description &app_only,
+   :input-schema-source
+   "obj(\n                json!({\n                    \"panel\": string(\"Panel: properties, pages, layers, swatches, paragraphStyles, characterStyles, stroke, character, paragraph, textWrap, links\"),\n                    \"brightness\": {\"type\": \"string\", \"enum\": [\"dark\", \"mediumDark\", \"mediumLight\", \"light\"]},\n                    \"rulers\": {\"type\": \"boolean\"}, \"guides\": {\"type\": \"boolean\"}, \"frameEdges\": {\"type\": \"boolean\"},\n                    \"baselineGrid\": {\"type\": \"boolean\"}, \"documentGrid\": {\"type\": \"boolean\"}, \"textThreads\": {\"type\": \"boolean\"},\n                    \"status\": string(\"Status bar text\"),\n                    \"controlBar\": boolean(\"Show the Control bar\"),\n                    \"closePanel\": boolean(\"Close the panel that is showing\"),\n                    \"dockExpanded\": boolean(\"Expand the panel dock (false: icons only)\"),\n                    \"screenMode\": {\"type\": \"string\", \"enum\": [\"normal\", \"preview\", \"bleed\", \"slug\", \"presentation\"]},\n                    \"zoom\": num(\"1.0 = 100%\"),\n                    \"page\": {\"type\": \"integer\", \"minimum\": 1, \"description\": \"Go to page (1-based)\"},\n                    \"fit\": {\"type\": \"string\", \"enum\": [\"page\", \"spread\"]},\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "dialog_set",
+   :title "Set dialog field",
+   :description &app_only,
+   :input-schema-source
+   "obj(json!({\"field\": string(\"Field name\"), \"value\": {\"description\": \"New value\"}}), &[\"field\", \"value\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "dialog_confirm",
+   :title "Confirm dialog",
+   :description &app_only,
+   :input-schema-source "empty()",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "dialog_cancel",
+   :title "Cancel dialog",
+   :description &app_only,
+   :input-schema-source "empty()",
+   :source "crates/mcp/src/tools.rs"}],
+ :control
+ ["app.export"
+  "app.open"
+  "app.quit"
+  "app.save"
+  "document.inspect"
+  "engine.commands"
+  "engine.execute"
+  "ui.click"
+  "ui.dialog.cancel"
+  "ui.dialog.confirm"
+  "ui.dialog.open"
+  "ui.dialog.set"
+  "ui.drag"
+  "ui.focus"
+  "ui.ime"
+  "ui.inspect"
+  "ui.key"
+  "ui.menu.invoke"
+  "ui.menu.list"
+  "ui.move"
+  "ui.paste"
+  "ui.pointer"
+  "ui.render"
+  "ui.resize"
+  "ui.screenshot"
+  "ui.set"
+  "ui.text"
+  "ui.tool.list"
+  "ui.tool.select"]}

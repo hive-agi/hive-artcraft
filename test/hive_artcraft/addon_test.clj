@@ -140,14 +140,15 @@
 
 ;; ---------------------------------------------------------------- acceptance
 
-(deftest apps-lists-photocraft-and-vectorcraft
+(deftest apps-lists-mounts-and-natives
   (let [instance (running)
-        rows (read-text ((handler instance) {"command" "apps"}))]
-    (is (= ["photocraft" "vectorcraft"] (mapv :app rows)))
+        rows (read-text ((handler instance) {"command" "apps"}))
+        shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft"]]
+    (is (= shipped (mapv :app rows)))
     (is (every? #(= :mounted (:status %)) rows))
     (is (= {"photocraft" "hive.photocraft" "vectorcraft" "hive.vectorcraft"}
-           (into {} (map (juxt :app :delegate)) rows)))
-    (is (= ["photocraft" "vectorcraft"] (get-in (first (protocol/tools instance)) [:inputSchema :properties "app" :enum])))
+           (into {} (comp (filter :delegate) (map (juxt :app :delegate))) rows)))
+    (is (= shipped (get-in (first (protocol/tools instance)) [:inputSchema :properties "app" :enum])))
     (is (= 1 (count (protocol/tools instance))))
     (protocol/shutdown! instance)))
 
