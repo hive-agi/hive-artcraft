@@ -1,0 +1,7 @@
+{:control-file nil,
+ :host
+ {:host "localhost", :connect-ms 2000, :timeout-ms 30000, :port 7980},
+ :injected :injected,
+ :none nil,
+ :port
+ {:host "127.0.0.1", :connect-ms 2000, :timeout-ms 30000, :port 7980}}

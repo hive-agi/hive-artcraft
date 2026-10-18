@@ -1,0 +1,4 @@
+{:reference-revision "test"
+ :engine [{:id "shape.rectangle" :label "Rectangle"} {:id "shape.ellipse" :label "Ellipse"}]
+ :mcp [{:name "run_command"}]
+ :control ["engine.execute" "document.inspect" "ui.render"]}

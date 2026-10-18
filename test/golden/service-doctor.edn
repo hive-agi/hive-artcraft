@@ -1,0 +1,35 @@
+{:control-file
+ {:ok
+  {:app "pdfcraft",
+   :shape :control-file,
+   :catalog {:engine 1, :control 3},
+   :port nil,
+   :transport :absent,
+   :hint
+   "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works."}},
+ :none
+ {:ok
+  {:app "studio",
+   :shape :none,
+   :catalog {:engine 1, :control 3},
+   :port nil,
+   :transport :absent,
+   :hint
+   "ArtCraft Studio has no external control surface; it is catalog-only."}},
+ :port-absent
+ {:ok
+  {:app "lightcraft",
+   :shape :port,
+   :catalog {:engine 1, :control 3},
+   :port {:port 7980, :source :default},
+   :transport :absent,
+   :hint
+   "Start `lightcraft --control 7980` and set :apps {\"lightcraft\" {:control-port N}} or LIGHTCRAFT_CONTROL_PORT."}},
+ :port-ready
+ {:ok
+  {:app "lightcraft",
+   :shape :port,
+   :catalog {:engine 1, :control 3},
+   :port {:port 7980, :source :default},
+   :transport :ready,
+   :hint "Transport ready; calls go to the running app."}}}

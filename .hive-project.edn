@@ -1,0 +1,6 @@
+{:project-id  "hive-artcraft"
+ :description "One IAddon (hive.artcraft) exposing every ArtCraft Crafting App under a single `artcraft` tool: an app-module contract (malli data), a data-list registry, a JSON-lines control-port transport, and mounts that delegate to hive-photocraft and hive-vectorcraft."
+ :type        :library
+ :kg-backend  :datahike
+ :parent      "hive"
+ :carto       {:source-roots ["dev" "resources" "src" "test"]}}

@@ -1,0 +1,3 @@
+{:missing {:error :artcraft/mount-failed},
+ :photocraft {:tool "photocraft"},
+ :vectorcraft {:tool "vectorcraft"}}

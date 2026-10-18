@@ -1,0 +1,6 @@
+{:no-port {},
+ :photo-no-token {},
+ :photo-token
+ {:token-ref {:scheme :env, :name "PHOTOCRAFT_CONTROL_TOKEN"},
+  :control-port 7878},
+ :vector-port {:control-port 7979}}

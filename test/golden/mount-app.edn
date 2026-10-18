@@ -1,0 +1,3 @@
+{:mount {:port {:port 7979, :source :default}, :ready? true},
+ :native-file {:port nil, :ready? false},
+ :native-port {:port {:port 7980, :source :default}, :ready? true}}

@@ -1,0 +1,21 @@
+{:control-file
+ {:error
+  {:kind :artcraft/unsupported-shape,
+   :hint
+   "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works."}},
+ :no-transport
+ {:error
+  {:kind :artcraft/no-transport,
+   :hint
+   "Start `lightcraft --control 7980` and set :apps {\"lightcraft\" {:control-port N}} or LIGHTCRAFT_CONTROL_PORT."}},
+ :none
+ {:error
+  {:kind :artcraft/unsupported-shape,
+   :hint
+   "ArtCraft Studio has no external control surface; it is catalog-only."}},
+ :unknown
+ {:error
+  {:kind :artcraft/unknown-command,
+   :hint
+   "Unknown lightcraft engine command \"bad\"; run artcraft app=lightcraft command=catalog query=engine to list valid ids."}},
+ :valid {:ok {:id 3}}}

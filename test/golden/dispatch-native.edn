@@ -1,0 +1,21 @@
+{:call
+ {:error
+  {:kind :artcraft/unsupported-shape,
+   :hint
+   "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works."}},
+ :catalog
+ {:ok
+  {:app "lightcraft",
+   :revision "test",
+   :engine 2,
+   :mcp 1,
+   :control 3}},
+ :doctor
+ {:ok
+  {:app "pdfcraft",
+   :shape :control-file,
+   :catalog {:engine 2, :control 3},
+   :port nil,
+   :transport :absent,
+   :hint
+   "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works."}}}

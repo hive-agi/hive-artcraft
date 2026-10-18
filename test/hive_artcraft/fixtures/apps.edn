@@ -1,0 +1,7 @@
+[{:app/id "lightcraft" :app/label "LightCraft" :app/summary "fixture :port app"
+  :app/kind :native :app/transport :port :app/default-port 7980
+  :app/port-env "LIGHTCRAFT_CONTROL_PORT"
+  :app/catalog-resource "hive_artcraft/fixtures/catalog.edn"}
+ {:app/id "pdfcraft" :app/label "PdfCraft" :app/summary "fixture :control-file app"
+  :app/kind :native :app/transport :control-file
+  :app/catalog-resource "hive_artcraft/fixtures/catalog.edn"}]

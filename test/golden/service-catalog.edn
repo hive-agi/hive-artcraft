@@ -1,0 +1,14 @@
+{:control {:ok ["engine.execute" "document.inspect" "ui.render"]},
+ :one {:ok {:id "shape.rectangle", :label "Rectangle"}},
+ :overview
+ {:ok
+  {:app "lightcraft",
+   :revision "test",
+   :engine 1,
+   :mcp 1,
+   :control 3}},
+ :unknown
+ {:error
+  {:kind :artcraft/unknown-command,
+   :hint
+   "Unknown lightcraft engine command \"zzz\"; run artcraft app=lightcraft command=catalog query=engine to list valid ids."}}}

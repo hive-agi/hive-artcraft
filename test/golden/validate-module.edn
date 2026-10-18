@@ -1,0 +1,6 @@
+{:bad-shape {:error :artcraft/invalid-module},
+ :control-file {:ok "pdfcraft"},
+ :mount-without-ctor {:error :artcraft/invalid-module},
+ :none {:ok "studio"},
+ :port {:ok "lightcraft"},
+ :port-without-port {:error :artcraft/invalid-module}}

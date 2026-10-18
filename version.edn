@@ -1,0 +1,4 @@
+{:lib io.github.hive-agi/hive-artcraft :minor 0
+ :license {:name "MIT" :url "https://opensource.org/licenses/MIT"}
+ :scm-url "https://github.com/hive-agi/hive-artcraft"
+ :src-dirs ["src" "resources"] :publish :clojars}

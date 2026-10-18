@@ -1,0 +1,6 @@
+{:fixture {:engine 2},
+ :missing
+ {:error
+  {:kind :artcraft/catalog-missing,
+   :hint
+   "Package \"nope.edn\" for app lightcraft; extract it from upstream source."}}}

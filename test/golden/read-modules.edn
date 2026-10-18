@@ -1,0 +1,6 @@
+{:fixture {:ok ["lightcraft" "pdfcraft"]},
+ :missing
+ {:error
+  {:kind :artcraft/registry-missing,
+   :hint
+   "Package hive_artcraft/nope.edn on the classpath; it lists the app modules."}}}

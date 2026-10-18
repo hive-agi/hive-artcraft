@@ -1,0 +1,31 @@
+;; The Crafting App registry: ONE data list of app modules (hive-artcraft.schema/AppModule).
+;; Add an app by appending one module map (plus, for a :native app, one catalog resource
+;; under hive_artcraft/catalogs/<id>.edn). Shared code never changes. Every classpath copy of
+;; hive_artcraft/apps.edn is concatenated, so another jar can contribute apps too.
+;; Default control ports: decision memory 20261018171653-7ef42121 (no collisions).
+[
+ {:app/id "photocraft"
+  :app/label "PhotoCraft"
+  :app/summary "Image editing, layers, PSD. Mounted from io.github.hive-agi/hive-photocraft."
+  :app/kind :mount
+  :app/transport :port
+  :app/default-port 7878
+  :app/port-env "PHOTOCRAFT_CONTROL_PORT"
+  ;; PhotoCraft's control channel authenticates: a live port also needs :token-ref
+  ;; ({:scheme :file :path ...} or {:scheme :env :name "PHOTOCRAFT_CONTROL_TOKEN"}).
+  :app/mount {:ctor hive-photocraft.addon/addon-ctor
+              :addon-id "hive.photocraft"
+              :port-requires [:token-ref]}
+  :app/upstream "https://github.com/storytold/photocraft"}
+
+ {:app/id "vectorcraft"
+  :app/label "VectorCraft"
+  :app/summary "Vector illustration. Mounted from io.github.hive-agi/hive-vectorcraft."
+  :app/kind :mount
+  :app/transport :port
+  :app/default-port 7979
+  :app/port-env "VECTORCRAFT_CONTROL_PORT"
+  :app/mount {:ctor hive-vectorcraft.addon/addon-ctor
+              :addon-id "hive.vectorcraft"}
+  :app/upstream "https://github.com/vectorcraft/vectorcraft"}
+]

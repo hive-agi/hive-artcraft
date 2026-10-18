@@ -1,0 +1,6 @@
+{:found {:ok {:id "shape.rectangle", :label "Rectangle"}},
+ :missing
+ {:error
+  {:kind :artcraft/unknown-command,
+   :hint
+   "Unknown lightcraft engine command \"nope\"; run artcraft app=lightcraft command=catalog query=engine to list valid ids."}}}

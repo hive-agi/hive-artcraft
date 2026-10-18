@@ -1,0 +1,6 @@
+{:control-file
+ "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works.",
+ :none
+ "ArtCraft Studio has no external control surface; it is catalog-only.",
+ :port
+ "Start `lightcraft --control 7980` and set :apps {\"lightcraft\" {:control-port N}} or LIGHTCRAFT_CONTROL_PORT."}

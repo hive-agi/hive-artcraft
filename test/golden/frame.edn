@@ -1,0 +1,11 @@
+{:broken
+ {:error
+  {:kind :artcraft/invalid-frame,
+   :hint
+   "Encode one JSON object as a single line; remove line breaks."}},
+ :line {:ok "{\"id\":1}\n"},
+ :not-object
+ {:error
+  {:kind :artcraft/invalid-frame,
+   :hint
+   "Encode one JSON object as a single line; remove line breaks."}}}

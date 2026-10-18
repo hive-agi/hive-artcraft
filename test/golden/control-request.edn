@@ -1,0 +1,10 @@
+{:invalid
+ {:error
+  {:kind :artcraft/invalid-params,
+   :hint "Pass params as an object/map."}},
+ :unknown
+ {:error
+  {:kind :artcraft/unknown-method,
+   :hint
+   "Unknown lightcraft control method \"app.format-disk\"; run artcraft app=lightcraft command=catalog query=control."}},
+ :valid {:ok {:id 9, :method "document.inspect", :params {}}}}

@@ -1,0 +1,18 @@
+{:bad-id
+ {:error
+  {:kind :artcraft/invalid-id,
+   :hint "Pass a nonnegative integer or string request id."}},
+ :bad-params
+ {:error
+  {:kind :artcraft/invalid-params,
+   :hint "Pass params as an object/map (use {} for no params)."}},
+ :unknown
+ {:error
+  {:kind :artcraft/unknown-command,
+   :hint
+   "Unknown lightcraft engine command \"nope\"; run artcraft app=lightcraft command=catalog query=engine to list valid ids."}},
+ :valid
+ {:ok
+  {:id 3,
+   :method "engine.execute",
+   :params {:command "shape.rectangle", :params {:x 1}}}}}

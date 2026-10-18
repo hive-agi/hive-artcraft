@@ -1,0 +1,4 @@
+{:content {:content [{:type "text", :text "x"}]},
+ :error {:isError true, :content [{:type "text", :text ":k: h"}]},
+ :ok {:content [{:type "text", :text "{:a 1}"}]},
+ :other {:content [{:type "text", :text "42"}]}}

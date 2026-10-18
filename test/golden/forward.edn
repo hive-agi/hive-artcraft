@@ -1,0 +1,6 @@
+{:echo {:content [{:type "text", :text "{\"command\" \"doctor\"}"}]},
+ :throws
+ {:isError true,
+  :content
+  [{:type "text",
+    :text ":artcraft/delegate-failed: The mounted tool threw: boom"}]}}

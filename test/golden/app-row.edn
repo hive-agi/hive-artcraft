@@ -1,0 +1,18 @@
+{:lightcraft
+ {:transport :ready,
+  :default-port 7980,
+  :port {:port 7980, :source :default},
+  :port-env "LIGHTCRAFT_CONTROL_PORT",
+  :summary "fixture :port app",
+  :status :mounted,
+  :label "LightCraft",
+  :kind :native,
+  :app "lightcraft",
+  :shape :port},
+ :pdfcraft
+ {:app "pdfcraft",
+  :label "PdfCraft",
+  :summary "fixture :control-file app",
+  :kind :native,
+  :shape :control-file,
+  :status :mounted}}

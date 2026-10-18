@@ -1,0 +1,3 @@
+{:dupe {:error :artcraft/duplicate-app},
+ :invalid {:error :artcraft/invalid-module},
+ :two {:ok ["lightcraft" "pdfcraft"]}}

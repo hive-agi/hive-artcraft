@@ -1,0 +1,15 @@
+{:control-file
+ {:error
+  {:kind :artcraft/unsupported-shape,
+   :hint
+   "PdfCraft uses `--control <FILE>` (random port + token handshake, ui.* methods); the control-file transport is not implemented yet, so calls refuse. Catalog works."}},
+ :unknown
+ {:error
+  {:kind :artcraft/unknown-method,
+   :hint
+   "Unknown lightcraft control method \"app.format-disk\"; run artcraft app=lightcraft command=catalog query=control."}},
+ :upstream
+ {:error
+  {:kind :artcraft/upstream-error,
+   :hint "lightcraft rejected the request: no document"}},
+ :valid {:ok {:layers 1}}}

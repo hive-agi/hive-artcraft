@@ -1,0 +1,22 @@
+{:apps
+ {:content
+  [{:type "text",
+    :text
+    "[{:transport :ready, :default-port 7980, :port {:port 7980, :source :default}, :port-env \"LIGHTCRAFT_CONTROL_PORT\", :summary \"fixture :port app\", :status :mounted, :label \"LightCraft\", :kind :native, :app \"lightcraft\", :shape :port} {:app \"pdfcraft\", :label \"PdfCraft\", :summary \"fixture :control-file app\", :kind :native, :shape :control-file, :status :mounted}]"}]},
+ :native
+ {:content
+  [{:type "text",
+    :text
+    "{:app \"lightcraft\", :revision \"test\", :engine 2, :mcp 1, :control 3}"}]},
+ :unknown-app
+ {:isError true,
+  :content
+  [{:type "text",
+    :text
+    ":artcraft/unknown-app: Pass app = one of [\"lightcraft\" \"pdfcraft\"]; run artcraft command=apps."}]},
+ :unknown-command
+ {:isError true,
+  :content
+  [{:type "text",
+    :text
+    ":artcraft/unknown-tool-command: Choose apps, catalog, doctor, call or control.\nUnknown command for `artcraft`: \"draw\"\n\nAvailable commands:\n  - apps\n  - catalog\n  - doctor\n  - call\n  - control\n\nHINT: Did you mean `apps`, `call`, `doctor`?"}]}}

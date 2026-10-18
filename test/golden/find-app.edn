@@ -1,0 +1,6 @@
+{:found {:ok "lightcraft"},
+ :unknown
+ {:error
+  {:kind :artcraft/unknown-app,
+   :hint
+   "Unknown app \"gimp\"; mounted apps: lightcraft, pdfcraft. Run artcraft command=apps."}}}
