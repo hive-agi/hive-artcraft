@@ -1,0 +1,18 @@
+{"materialcraft" [],
+ "soundcraft"
+ [{:macro "toggle!",
+   :count 17,
+   :source "crates/engine/src/cmd/options.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/cmd/plugin_state.rs"}
+  {:macro "option!",
+   :count 10,
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:macro "flag!",
+   :count 61,
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:macro "radio!",
+   :count 6,
+   :source "crates/engine/src/cmd/view_more.rs"}],
+ "texturecraft" []}

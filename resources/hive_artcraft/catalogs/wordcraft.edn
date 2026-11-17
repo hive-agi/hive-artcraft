@@ -1,0 +1,3913 @@
+{:reference-revision "1a56d041defe28f0d35de501ba7e40268a549d26",
+ :engine
+ [{:id "arrange.align",
+   :label "Align",
+   :params "{\"value\": \"left|center|right\"}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.bounds",
+   :label "Move or Resize",
+   :params
+   "{\"width\"?: pt, \"height\"?: pt, \"x\"?: pt, \"y\"?: pt, \"page\"?: n, \"to\"?: Pos}  (x/y: the top-left on page `page` (0-based, default its page); moving an inline object by x/y floats it. to: an In Line with Text object moves to that text position and stays inline, as a drag does)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.bringForward",
+   :label "Bring Forward",
+   :params "{}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.copyTo",
+   :label "Copy to",
+   :params
+   "{\"x\": pt, \"y\": pt, \"page\"?: n} | {\"to\": Pos}  (Ctrl+drag: a copy of the selected object lands with its top-left there, or an In Line with Text one at the text position `to`, and is selected; the original and the clipboard stay as they were)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.group",
+   :label "Group",
+   :params
+   "{}  (groups the selected pictures, shapes and text boxes: the selected one plus those added with select.addObject)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.moveWithText",
+   :label "Move with Text",
+   :params
+   "{\"value\": bool}  (true: Move with Text, the floating object's vertical position follows its paragraph; false: Fix Position on Page. It stays where it is)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange › Wrap Text"}
+  {:id "arrange.nudge",
+   :label "Nudge",
+   :params "{\"dx\"?: pt, \"dy\"?: pt}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.position",
+   :label "Position",
+   :params
+   "{\"preset\"?: \"topLeft|topCenter|topRight|middleLeft|middleCenter|middleRight|bottomLeft|bottomCenter|bottomRight\", \"x\"?: pt, \"y\"?: pt}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.rotate",
+   :label "Rotate",
+   :params
+   "{\"direction\": \"right|left|flipVertical|flipHorizontal\"}  (turns 90° or mirrors the selected picture, shape or text box; its pixels are kept)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.rotation",
+   :label "Rotation",
+   :params
+   "{\"degrees\": number, \"flipH\"?: bool, \"flipV\"?: bool}  (the exact angle, clockwise, of the selected picture, shape or text box; normalised to 0–360)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.selectionPane",
+   :label "Selection Pane",
+   :params "{}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.sendBackward",
+   :label "Send Backward",
+   :params "{}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.ungroup",
+   :label "Ungroup",
+   :params "{}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.wrap",
+   :label "Wrap Text",
+   :params
+   "{\"wrap\": \"inline|square|tight|through|topAndBottom|behindText|inFrontOfText\"}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "arrange.wrapText",
+   :label "Wrap Text Sides",
+   :params
+   "{\"side\": \"bothSides|left|right|largest\"}  (the sides of the selected Square, Tight or Through object text flows on; largest: the wider side, line by line)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Layout › Arrange"}
+  {:id "canvas.expand",
+   :label "Expand",
+   :params
+   "{\"by\"?: pt (default 36)}  (grows the frame right and down; at least enough to show every member)",
+   :source "crates/engine/src/cmd/canvas.rs",
+   :location "Shape Format › Drawing Canvas"}
+  {:id "canvas.fit",
+   :label "Fit",
+   :params
+   "{}  (shrinks the selected canvas's frame to its drawing: the members move to its top-left corner)",
+   :source "crates/engine/src/cmd/canvas.rs",
+   :location "Shape Format › Drawing Canvas"}
+  {:id "canvas.member",
+   :label "Canvas Member",
+   :params
+   "{\"index\"?: n, \"x\"?: pt, \"y\"?: pt, \"width\"?: pt, \"height\"?: pt, \"delete\"?: bool}  (moves, resizes or removes member `index` of the selected canvas; x/y from the canvas's top-left; without index, returns the members)",
+   :source "crates/engine/src/cmd/canvas.rs",
+   :location "Shape Format › Drawing Canvas"}
+  {:id "canvas.scale",
+   :label "Scale Drawing",
+   :params
+   "{\"factor\": number (0.1–10)}  (scales the frame and every member together)",
+   :source "crates/engine/src/cmd/canvas.rs",
+   :location "Shape Format › Drawing Canvas"}
+  {:id "caret.docEnd",
+   :label "Document End",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Mod+End"}
+  {:id "caret.docStart",
+   :label "Document Start",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Mod+Home"}
+  {:id "caret.down",
+   :label "Down",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Down"}
+  {:id "caret.end",
+   :label "Line End",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "caret.home",
+   :label "Line Start",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "caret.left",
+   :label "Left",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Left"}
+  {:id "caret.pageDown",
+   :label "Page Down",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "PageDown"}
+  {:id "caret.pageUp",
+   :label "Page Up",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "PageUp"}
+  {:id "caret.paraDown",
+   :label "Paragraph Down",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Mod+Down / Alt+Down"}
+  {:id "caret.paraUp",
+   :label "Paragraph Up",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Mod+Up / Alt+Up"}
+  {:id "caret.pastCitation",
+   :label "Move Past Citation",
+   :params "{}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Zotero › Citations"}
+  {:id "caret.right",
+   :label "Right",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Right"}
+  {:id "caret.set",
+   :label "Set Caret",
+   :params
+   "{\"pos\": Pos, \"extend\"?: bool} | {\"page\": n, \"x\": pt, \"y\": pt}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "caret.up",
+   :label "Up",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Up"}
+  {:id "caret.wordLeft",
+   :label "Word Left",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "caret.wordRight",
+   :label "Word Right",
+   :params "EXTEND",
+   :params-expr true,
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "chart.dataLabels",
+   :label "Data Labels",
+   :params
+   "{\"on\"?: bool} (no value: switch the data labels on or off)",
+   :source "crates/engine/src/cmd/chart.rs",
+   :location "Chart Design › Chart Layouts › Add Chart Element"}
+  {:id "chart.editData",
+   :label "Edit Data",
+   :params
+   "{\"data\": {\"categories\"?: [string], \"series\"?: [{\"name\": string, \"values\": [number|null]}]}}",
+   :source "crates/engine/src/cmd/chart.rs",
+   :location "Chart Design › Data"}
+  {:id "chart.legend",
+   :label "Legend",
+   :params
+   "{\"pos\"?: \"right|left|top|bottom|none\"} (no pos: switch the legend on or off)",
+   :source "crates/engine/src/cmd/chart.rs",
+   :location "Chart Design › Chart Layouts › Add Chart Element"}
+  {:id "chart.title",
+   :label "Chart Title",
+   :params
+   "{\"text\"?: string|null} (no text: switch the title on or off)",
+   :source "crates/engine/src/cmd/chart.rs",
+   :location "Chart Design › Chart Layouts › Add Chart Element"}
+  {:id "chart.type",
+   :label "Change Chart Type",
+   :params
+   "{\"type\": \"column|columnStacked|bar|barStacked|line|area|pie|doughnut|scatter\"}",
+   :source "crates/engine/src/cmd/chart.rs",
+   :location "Chart Design › Type"}
+  {:id "design.effects",
+   :label "Effects",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.pageBorders",
+   :label "Page Borders",
+   :params
+   "{\"kind\"?: \"box|none\", \"width\"?: pt, \"color\"?: \"RRGGBB\", \"style\"?: \"single|double|dotted|dashed|thick|triple|dotDash|wave\", \"sides\"?: {\"top\"|\"left\"|\"bottom\"|\"right\": {\"style\"?, \"width\"?: pt, \"color\"?: \"RRGGBB\"} | null} (exactly these sides, instead of `kind`), \"applyTo\"?: \"section|document\"}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Page Background"}
+  {:id "design.pageColor",
+   :label "Page Color",
+   :params "{\"color\": \"RRGGBB\" | null}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Page Background"}
+  {:id "design.paragraphSpacing",
+   :label "Paragraph Spacing",
+   :params
+   "{\"value\": \"default|none|compact|tight|open|relaxed|double\"}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.scaleFontSizes",
+   :label "Scale Font Sizes",
+   :params
+   "{\"delta\": pt (-1638..1638, not 0) | \"percent\": number (-99..1000, not 0; 10 = +10%)} (exactly one)",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.setDefault",
+   :label "Set as Default",
+   :params "{}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.styleSet",
+   :label "Style Set",
+   :params
+   "{\"name\": \"default|basic|lines|shaded|casual|centered|minimalist|title\"}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.theme",
+   :label "Themes",
+   :params "{\"name\": string}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.themeColors",
+   :label "Colors",
+   :params "{\"name\": string (see design.themes)}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.themeFonts",
+   :label "Fonts",
+   :params "{\"heading\": string, \"body\"?: string}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.themes",
+   :label "Theme List",
+   :params "{}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Document Formatting"}
+  {:id "design.watermark",
+   :label "Watermark",
+   :params
+   "{\"text\"?: string, \"remove\"?: bool, \"diagonal\"?: bool, \"color\"?: \"RRGGBB\"}",
+   :source "crates/engine/src/cmd/design.rs",
+   :location "Design › Page Background"}
+  {:id "developer.buildingBlock",
+   :label "Building Block Gallery Content Control",
+   :params "INSERT",
+   :params-expr true,
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.checkBox",
+   :label "Check Box Content Control",
+   :params
+   "{\"title\"?: string, \"tag\"?: string, \"checked\"?: bool}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.chooseItem",
+   :label "Choose List Item",
+   :params
+   "{\"control\"?: tag or title, \"at\"?: pos, \"index\"?: number, \"value\"?: string, \"text\"?: string}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.comboBox",
+   :label "Combo Box Content Control",
+   :params "LIST",
+   :params-expr true,
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.control",
+   :label "Content Control at Selection",
+   :params "{\"control\"?: tag or title, \"at\"?: pos}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.datePicker",
+   :label "Date Picker Content Control",
+   :params
+   "{\"title\"?: string, \"tag\"?: string, \"format\"?: \"M/d/yyyy\", \"date\"?: \"YYYY-MM-DD\"}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.designMode",
+   :label "Design Mode",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.dropDown",
+   :label "Drop-Down List Content Control",
+   :params "LIST",
+   :params-expr true,
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.picture",
+   :label "Picture Content Control",
+   :params "INSERT",
+   :params-expr true,
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.plainText",
+   :label "Plain Text Content Control",
+   :params "INSERT",
+   :params-expr true,
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.properties",
+   :label "Properties",
+   :params
+   "{\"control\"?: tag or title, \"title\"?: string, \"tag\"?: string, \"lockDelete\"?: bool, \"lockEdit\"?: bool, \"temporary\"?: bool, \"multiLine\"?: bool, \"placeholder\"?: string, \"items\"?: [string | {\"display\", \"value\"}], \"format\"?: \"M/d/yyyy\", \"checkedSymbol\"?: char, \"uncheckedSymbol\"?: char}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.removeControl",
+   :label "Remove Content Control",
+   :params "{\"control\"?: tag or title, \"at\"?: pos}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.repeatingSection",
+   :label "Repeating Section Content Control",
+   :params "INSERT",
+   :params-expr true,
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.richText",
+   :label "Rich Text Content Control",
+   :params "INSERT",
+   :params-expr true,
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.setDate",
+   :label "Set Date",
+   :params
+   "{\"control\"?: tag or title, \"at\"?: pos, \"date\": \"YYYY-MM-DD\"}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "developer.toggleCheckBox",
+   :label "Toggle Check Box",
+   :params
+   "{\"control\"?: tag or title, \"at\"?: pos, \"value\"?: bool}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "document.inspect",
+   :label "Inspect Document",
+   :params "{\"text\"?: bool}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "Agents"}
+  {:id "document.layout",
+   :label "Layout Summary",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "Agents"}
+  {:id "document.paragraph",
+   :label "Paragraph Details",
+   :params "{\"path\": [n], \"story\"?: Story}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "Agents"}
+  {:id "document.selection",
+   :label "Selection",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "Agents"}
+  {:id "document.setText",
+   :label "Replace Document Text",
+   :params "{\"text\": string}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "Agents"}
+  {:id "document.text",
+   :label "Document Text",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "Agents"}
+  {:id "draw.addPen",
+   :label "Add Pen",
+   :params
+   "{\"kind\"?: \"pen|pencil|highlighter\", \"color\"?: \"RRGGBB\", \"width\"?: pt}  (adds the pen to the gallery and picks it up)",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Pens"}
+  {:id "draw.convertInk",
+   :label "Convert to Shapes",
+   :params "{}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Convert"}
+  {:id "draw.erase",
+   :label "Erase Ink",
+   :params "{\"page\": n, \"x\": pt, \"y\": pt}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Tools"}
+  {:id "draw.eraser",
+   :label "Eraser",
+   :params
+   "{\"page\"?: n, \"x\"?: pt, \"y\"?: pt}  (no point: use the eraser; a point: delete the ink stroke there)",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Tools"}
+  {:id "draw.highlighter",
+   :label "Highlighter",
+   :params "PEN_PARAMS",
+   :params-expr true,
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Pens"}
+  {:id "draw.inkToShape",
+   :label "Ink to Shape",
+   :params
+   "{\"value\"?: bool}  (no value: convert the lasso-selected strokes, or turn Ink to Shape on or off)",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Convert"}
+  {:id "draw.lasso",
+   :label "Lasso Select",
+   :params
+   "{\"page\"?: n, \"points\"?: [[x, y], …], \"clear\"?: bool}  (no points: use the lasso; points: select the ink inside that loop; clear: drop the selection)",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Tools"}
+  {:id "draw.lassoColor",
+   :label "Recolor Selected Ink",
+   :params "{\"color\": \"RRGGBB\"}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Tools"}
+  {:id "draw.lassoDelete",
+   :label "Delete Selected Ink",
+   :params "{}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Tools"}
+  {:id "draw.lassoMove",
+   :label "Move Selected Ink",
+   :params "{\"dx\": pt, \"dy\": pt}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Tools"}
+  {:id "draw.pen",
+   :label "Pen",
+   :params "PEN_PARAMS",
+   :params-expr true,
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Pens"}
+  {:id "draw.pencil",
+   :label "Pencil",
+   :params "PEN_PARAMS",
+   :params-expr true,
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Pens"}
+  {:id "draw.removePen",
+   :label "Remove Pen",
+   :params "{\"index\": n}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Pens"}
+  {:id "draw.replay",
+   :label "Ink Replay",
+   :params
+   "{\"value\"?: bool}  (starts or stops Ink Replay; returns the strokes in the order they were drawn)",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Replay"}
+  {:id "draw.select",
+   :label "Select",
+   :params "{}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Tools"}
+  {:id "draw.stroke",
+   :label "Draw Ink",
+   :params
+   "{\"page\": n, \"points\": [[x, y], …] (page points, at most 5000), \"tool\"?: \"pen|pencil|highlighter\", \"color\"?: \"RRGGBB\", \"width\"?: pt}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Draw › Pens"}
+  {:id "edit.advancedFind",
+   :label "Advanced Find",
+   :params
+   "{\"text\"?: string, …options of edit.find, \"in\"?: \"main|selection\", \"highlight\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing › Find"}
+  {:id "edit.clearClipboard",
+   :label "Clear All",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard › Clipboard Pane"}
+  {:id "edit.clipboardItems",
+   :label "Clipboard Items",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard › Clipboard Pane"}
+  {:id "edit.clipboardPane",
+   :label "Clipboard Pane",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard"}
+  {:id "edit.copy",
+   :label "Copy",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard",
+   :shortcut "Mod+C / Mod+Insert"}
+  {:id "edit.copyFormat",
+   :label "Copy Formatting",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard"}
+  {:id "edit.cut",
+   :label "Cut",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard",
+   :shortcut "Mod+X"}
+  {:id "edit.deleteClipboardItem",
+   :label "Delete Clipboard Item",
+   :params "{\"index\": n (0 = newest)}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard › Clipboard Pane"}
+  {:id "edit.find",
+   :label "Find",
+   :params
+   "{\"text\": string, \"matchCase\"?: bool, \"wholeWord\"?: bool, \"matchPrefix\"?: bool, \"matchSuffix\"?: bool, \"ignorePunct\"?: bool, \"ignoreSpace\"?: bool, \"wildcards\"?: bool, \"special\"?: bool (^p ^t ^# … codes, default true), \"regex\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing",
+   :shortcut "Mod+F"}
+  {:id "edit.findNext",
+   :label "Find Next",
+   :params
+   "{\"text\"?: string, \"matchCase\"?: bool, \"wholeWord\"?: bool, \"regex\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing › Find",
+   :shortcut "Mod+G / F3 / Shift+F4 / Mod+PageDown"}
+  {:id "edit.findPrevious",
+   :label "Find Previous",
+   :params
+   "{\"text\"?: string, \"matchCase\"?: bool, \"wholeWord\"?: bool, \"regex\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing › Find"}
+  {:id "edit.findReplace",
+   :label "Find and Replace",
+   :params "{\"tab\"?: \"find|replace|goto\" (default replace)}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing"}
+  {:id "edit.formatPainter",
+   :label "Format Painter",
+   :params "{\"sticky\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard"}
+  {:id "edit.goBack",
+   :label "Go Back",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Navigation",
+   :shortcut "Shift+F5 / Mod+Alt+Z"}
+  {:id "edit.goto",
+   :label "Go To",
+   :params
+   "{\"page\"?: n, \"pageBy\"?: int (pages forward, negative back, from the caret's page), \"bookmark\"?: string (selects its text), \"paragraph\"?: n}; none opens Find and Replace on its Go To tab",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing › Find",
+   :shortcut "Mod+Alt+G / F5"}
+  {:id "edit.insertSpike",
+   :label "Insert Spike",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Editing",
+   :shortcut "Mod+Shift+F3"}
+  {:id "edit.paste",
+   :label "Paste",
+   :params
+   "{\"text\"?: string, \"html\"?: string, \"rtf\"?: string, \"privateClipboard\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard",
+   :shortcut "Mod+V / Shift+Insert"}
+  {:id "edit.pasteAllClipboard",
+   :label "Paste All",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard › Clipboard Pane"}
+  {:id "edit.pasteClipboardItem",
+   :label "Paste Clipboard Item",
+   :params "{\"index\": n (0 = newest)}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard › Clipboard Pane"}
+  {:id "edit.pasteFormat",
+   :label "Paste Formatting",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard",
+   :shortcut "Mod+Shift+V"}
+  {:id "edit.pasteMerge",
+   :label "Paste: Merge Formatting",
+   :params
+   "{\"text\"?: string, \"html\"?: string, \"rtf\"?: string, \"privateClipboard\"?: bool}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard › Paste"}
+  {:id "edit.pasteSpecial",
+   :label "Paste Special",
+   :params
+   "{\"as\"?: \"formatted\"|\"rtf\"|\"html\"|\"picture\"|\"text\", \"text\"?: string, \"html\"?: string, \"rtf\"?: string, \"picture\"?: base64, \"privateClipboard\"?: bool}",
+   :source "crates/engine/src/cmd/paste.rs",
+   :location "Home › Clipboard › Paste",
+   :shortcut "Mod+Alt+V"}
+  {:id "edit.pasteText",
+   :label "Paste: Keep Text Only",
+   :params "{\"text\"?: string}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Clipboard › Paste",
+   :shortcut "Mod+Shift+Alt+V"}
+  {:id "edit.redo",
+   :label "Redo",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Quick Access Toolbar",
+   :shortcut "Mod+Y / Mod+Shift+Z"}
+  {:id "edit.repeat",
+   :label "Repeat",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Quick Access Toolbar",
+   :shortcut "F4"}
+  {:id "edit.replace",
+   :label "Replace",
+   :params
+   "{\"text\": string, \"with\": string, …options of edit.replaceAll} — Word's Replace button: replaces the match only when it is already selected, then selects the next one. The first call on a caret replaces nothing; call again to replace the selected match, or use edit.replaceAll for every match. Returns {\"replaced\": 0 | 1, \"remaining\": n, \"selected\": {start, end} | null}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing"}
+  {:id "edit.replaceAll",
+   :label "Replace All",
+   :params
+   "{\"text\": string, \"with\": string (^p ^t ^& ^c …; \\\\1 with wildcards; with regex also $1 ${n} ${name} $0 $$ \\\\1 \\\\n (paragraph mark) \\\\t), …options of edit.find}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Home › Editing › Replace"}
+  {:id "edit.spike",
+   :label "Spike",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Editing",
+   :shortcut "Mod+F3"}
+  {:id "edit.undo",
+   :label "Undo",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Quick Access Toolbar",
+   :shortcut "Mod+Z"}
+  {:id "edit.undoHistory",
+   :label "Undo History",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Quick Access Toolbar"}
+  {:id "edit.undoTo",
+   :label "Undo Actions",
+   :params
+   "{\"count\": n (1 = the newest step, like edit.undo; n undoes the newest n steps at once; at most the undo depth)}",
+   :source "crates/engine/src/cmd/edit.rs",
+   :location "Quick Access Toolbar"}
+  {:id "equation.backspace",
+   :label "Delete Back in Equation",
+   :params "{}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.convert",
+   :label "Convert",
+   :params "{\"to\": \"professional|linear\", \"all\"?: bool}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation › Conversions"}
+  {:id "equation.delete",
+   :label "Delete in Equation",
+   :params "{}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.deleteSurrounding",
+   :label "Delete Around Caret in Equation",
+   :params "{\"before\": n, \"after\": n}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.display",
+   :label "Change to Display",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.edit",
+   :label "Edit Equation",
+   :params "{\"pos\"?: {\"path\": [[node, child]…], \"off\": n}}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.enter",
+   :label "Enter in Equation",
+   :params "{}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.exit",
+   :label "Leave Equation",
+   :params "{\"before\"?: bool}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.gallery",
+   :label "Equation Gallery",
+   :params "{}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation › Structures"}
+  {:id "equation.get",
+   :label "Equation Info",
+   :params "{}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.inputFormat",
+   :label "Input Format",
+   :params "{\"format\": \"unicode|latex\"}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation › Conversions"}
+  {:id "equation.insertStructure",
+   :label "Insert Structure",
+   :params
+   "{\"id\"?: string (see equation.gallery), \"linear\"?: string, \"latex\"?: string}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation › Structures"}
+  {:id "equation.insertSymbol",
+   :label "Insert Symbol",
+   :params "{\"char\": string}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation › Symbols"}
+  {:id "equation.justify",
+   :label "Justification",
+   :params "{\"jc\": \"centerGroup|center|left|right\"}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.move",
+   :label "Move in Equation",
+   :params "{\"dir\": \"left|right|up|down|home|end|next|prev\"}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.normalText",
+   :label "Normal Text",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation › Tools"}
+  {:id "equation.number",
+   :label "Equation Number",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.set",
+   :label "Set Equation",
+   :params "{\"linear\"?: string, \"latex\"?: string}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.structure",
+   :label "Change Structure",
+   :params
+   "{\"action\": string (see equation.structureActions), \"level\"?: n}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.structureActions",
+   :label "Structure Actions",
+   :params "{}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "equation.type",
+   :label "Type in Equation",
+   :params "{\"text\": string}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Equation"}
+  {:id "fields.lock",
+   :label "Lock Fields",
+   :params "{}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts",
+   :shortcut "Mod+F11"}
+  {:id "fields.next",
+   :label "Next Field",
+   :params "{}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts",
+   :shortcut "Alt+F1"}
+  {:id "fields.previous",
+   :label "Previous Field",
+   :params "{}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts",
+   :shortcut "Shift+F11 / Alt+Shift+F1"}
+  {:id "fields.selected",
+   :label "Selected Fields",
+   :params "{}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts"}
+  {:id "fields.setCode",
+   :label "Edit Field Code",
+   :params "{\"code\": string}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts"}
+  {:id "fields.toggleCode",
+   :label "Toggle Field Codes",
+   :params "{}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts",
+   :shortcut "Shift+F9"}
+  {:id "fields.unlink",
+   :label "Unlink Fields",
+   :params "{}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts",
+   :shortcut "Mod+Shift+F9"}
+  {:id "fields.unlock",
+   :label "Unlock Fields",
+   :params "{}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "Insert › Text › Quick Parts",
+   :shortcut "Mod+Shift+F11"}
+  {:id "file.accessibility",
+   :label "Check Accessibility",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Review › Accessibility"}
+  {:id "file.autosave",
+   :label "AutoSave",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Quick Access Toolbar"}
+  {:id "file.close",
+   :label "Close",
+   :params
+   "{\"force\"?: bool (desktop app's control channel and MCP bridge only: without it a document with unsaved changes is an error and stays open; with it the changes are discarded. Headless sessions never ask; file.closeDocument closes a document there)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File",
+   :shortcut "Mod+W / Mod+F4"}
+  {:id "file.closeDocument",
+   :label "Close Document",
+   :params
+   "{\"id\"?: n (an open document, see view.switchWindows; default the active one), \"force\"?: bool (discard unsaved changes; without it a document with unsaved changes is an error and stays open)} → {\"closed\": id, \"active\": id, \"documents\": [{\"id\", \"title\", \"path\", \"dirty\", \"active\"}]}; closing the last document leaves a new blank one",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "Agents"}
+  {:id "file.compatibility",
+   :label "Check Compatibility",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Info"}
+  {:id "file.encrypt",
+   :label "Encrypt with Password",
+   :params
+   "{\"password\": string (Word packages and OpenDocument text files (.odt, .ott) are saved encrypted with it) | null or \"\" (saved unencrypted)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Info › Protect Document"}
+  {:id "file.exportPdf",
+   :label "Export PDF",
+   :params
+   "{\"path\": string, \"markup\"?: bool (Print Markup: tracked changes marked up and each page scaled down beside the comments in balloons; default file.printMarkup), \"strict\"?: bool (refuse, writing nothing, if a character can't be drawn or a picture is missing; see file.strictReport)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Export"}
+  {:id "file.exportPng",
+   :label "Export Page as PNG",
+   :params
+   "{\"path\": string, \"page\"?: n (1-based), \"scale\"?: px per pt, \"markup\"?: bool (the page with its comments in balloons beside it; default file.printMarkup), \"strict\"?: bool (refuse, writing nothing, if a character on the page can't be drawn or a picture is missing; see file.strictReport)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Export"}
+  {:id "file.info",
+   :label "Info",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File"}
+  {:id "file.inspect",
+   :label "Inspect Document",
+   :params
+   "{\"remove\"?: [\"comments\", \"revisions\", \"properties\", \"hidden\", \"headers\"]} → {found: {comments, revisions, properties, hiddenText, hiddenCount, hidden: [{story: \"body|header|footer|footnote|endnote|comment|textBox\", part?, text}] (at most 1000), truncated, unsupported: [{story, object: \"table|opaque\", ..}] (hidden text not inspected: table styles, verbatim objects), headers}, removed, residual: [..] (hidden text a removal couldn't reach), removedNotes: [{kind, part, text}] (notes whose hidden reference was removed)}; whole hidden paragraphs go with their marks; the removals are refused while the document tracks changes",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Info"}
+  {:id "file.listTemplates",
+   :label "Personal Templates",
+   :params
+   "{\"dir\"?: string (the user templates folder; default: the one saved in File › Options)} → {\"dir\", \"templates\": [{\"label\" (the file name without its extension), \"title\": string|null (dc:title), \"path\", \"category\" (\"\" at the top level, else the subfolder's name), \"modified\": ISO-8601|null}] (.dotx and .dotm, at most 500, by category then label), \"truncated\": bool}; a network folder is refused",
+   :source "crates/engine/src/cmd/user_templates.rs",
+   :location "File › New"}
+  {:id "file.new",
+   :label "New",
+   :params "{\"template\"?: \"blank|sample|letter|resume|report\"}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File",
+   :shortcut "Mod+N"}
+  {:id "file.newFromTemplate",
+   :label "New from Template",
+   :params
+   "{\"path\": string, \"data\"?: base64 (the template's bytes; `path` then only names it), \"password\"?: string (for a password-protected template), \"replaceBlank\"?: bool (an untouched blank document gives way to it, as to a file file.open opens)} → a new, untitled document from the template, attached to it",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › New"}
+  {:id "file.open",
+   :label "Open",
+   :params
+   "{\"path\": string, \"data\"?: base64 (the file's bytes; `path` then only names it), \"password\"?: string (for a password-protected Word or OpenDocument text file)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File",
+   :shortcut "Mod+O / Mod+F12 / Mod+Alt+F2"}
+  {:id "file.options",
+   :label "Options",
+   :params
+   "{\"pane\"?: \"general|display|proofing|save|language|accessibility|advanced|agents\", \"author\"?: string, \"initials\"?: string, \"units\"?: \"inches|centimeters|millimeters|points|picas|auto\" (auto: the region's), \"region\"?: string (a locale tag like pl-PL, saved: the paper File › New starts on, the default units and the decimal separator; auto: the system's), \"typingReplacesSelection\"?: bool, \"insertKeyOvertype\"?: bool, \"overtype\"?: bool, \"marks\"?: {\"tabs\"?: bool, \"spaces\"?: bool, \"paragraphs\"?: bool, \"hidden\"?: bool}, \"checkSpelling\"?: bool, \"markGrammar\"?: bool, \"ignoreUppercase\"?: bool, \"ignoreNumbers\"?: bool, \"ignoreInternet\"?: bool, \"dictionariesFolder\"?: string (a folder of Hunspell .aff/.dic files searched first, saved; auto: clear the configured folder), \"userTemplatesFolder\"?: string (the folder File › New lists personal templates from, saved; auto: the app's own Templates folder; not a network folder), \"addWords\"?: [string], \"removeWords\"?: [string]} — with any setting it changes them and opens nothing; without, it opens File › Options (at `pane`). Returns the settings.",
+   :source "crates/engine/src/cmd/options.rs",
+   :location "File"}
+  {:id "file.print",
+   :label "Print",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File",
+   :shortcut "Mod+P / Mod+Shift+F12 / Mod+F2 / Mod+Alt+I"}
+  {:id "file.printMarkup",
+   :label "Print Markup",
+   :params
+   "{\"value\"?: bool (omit to toggle)} — PDFs, prints and copies show comments (balloons beside each page; a list at the end of HTML, Markdown and text) and tracked changes",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Print"}
+  {:id "file.printPdf",
+   :label "Print to PDF",
+   :params
+   "{\"path\": string, \"pagesPerSheet\"?: 1 | 2 | 4 | 6 | 9 | 16 | \"booklet\" | \"bookletReverse\", \"range\"?: \"all\" | \"current\" | \"selection\" (the pages the selection touches) | \"custom\", \"pages\"?: \"1-3,5\" (implies custom), \"parity\"?: \"all\" | \"odd\" | \"even\", \"copies\"?: 1-999, \"collate\"?: bool (default true), \"paper\"?: \"none\" | \"Letter\" | \"Legal\" | \"A4\" | … (a Layout › Size name: scale every page to this paper, centred; the document keeps its size)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Print"}
+  {:id "file.privacy",
+   :label "Privacy Settings",
+   :params
+   "{} → {\"removePersonalInfo\": bool, \"removeDateTime\": bool} (file.privacyOptions changes them)",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Options › Save"}
+  {:id "file.privacyOptions",
+   :label "Privacy Options",
+   :params
+   "{\"removePersonalInfo\"?: bool (save comment and revision authors as \"Author\", no creator or last-modified-by), \"removeDateTime\"?: bool (save comments and tracked changes without dates)} — at least one; the open document keeps its real names and dates",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Options › Save"}
+  {:id "file.properties",
+   :label "Properties",
+   :params
+   "{\"title\"?, \"subject\"?, \"author\"?, \"keywords\"?, \"comments\"?, \"category\"?, \"custom\"?: {name: string | {\"value\": string, \"linkTarget\"?: string | null} | null (removes)}}; text values and bookmark targets are at most 1 MiB; a string keeps an existing target, an object replaces it (omitted/null target unlinks)",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Info"}
+  {:id "file.protect",
+   :label "Protect Document",
+   :params
+   "{\"mode\": \"none|readOnly|comments|trackedChanges\"} (starting enforcement; \"none\" doesn't stop a protected document — use review.restrict {\"stop\": true})",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Info"}
+  {:id "file.recover",
+   :label "Recover Unsaved Documents",
+   :params
+   "{\"restore\"?: recoveryId, \"discard\"?: recoveryId, \"refresh\"?: true}; desktop only; returns {enabled,busy,documents,error}; restore loads asynchronously without a file path",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Info"}
+  {:id "file.rename",
+   :label "Rename Document",
+   :params
+   "{\"name\": string (document name; its extension is kept, so the name may be given with or without it)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Info"}
+  {:id "file.save",
+   :label "Save",
+   :params
+   "{\"path\"?: string, \"password\"?: string (encrypt this and later saves with it, as file.encrypt does), \"markup\"?: bool (Print Markup for a PDF, PNG, HTML, Markdown or text copy: comments shown; default file.printMarkup), \"format\"?: \"wordml2003\" (an .xml file as a Word 2003 XML Document) | \"flatopc\" (as a Word XML Document, the default; saving over a Word 2003 XML file keeps that format), \"strict\"?: bool (a .pdf or .png only: refuse, writing nothing, if a character can't be drawn or a picture is missing; see file.strictReport)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File",
+   :shortcut "Mod+S / Shift+F12 / Alt+Shift+F2"}
+  {:id "file.saveAs",
+   :label "Save As",
+   :params
+   "{\"path\": string, \"password\"?: string, \"markup\"?: bool, \"format\"?: string (as file.save), \"strict\"?: bool (as file.save)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File"}
+  {:id "file.saveTemplate",
+   :label "Save as Template",
+   :params "{\"path\": string}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Save As"}
+  {:id "file.setAuthor",
+   :label "User Name",
+   :params
+   "{\"name\": string (author of new tracked changes and comments)}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Options › General"}
+  {:id "file.share",
+   :label "Share",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File"}
+  {:id "file.strictReport",
+   :label "Strict Export Report",
+   :params
+   "{\"markup\"?: bool (as file.exportPdf), \"page\"?: n (1-based: check that page of the page image file.exportPng writes; omit for every page of a PDF)} → {\"schema\": 1, \"strict\": \"passed\" | \"failed\", \"missing_glyphs\": [{\"cp\": \"U+2D30\", \"count\": n}], \"missing_pictures\": [{\"part\", \"source_part\": the story part it is in (word/header2.xml; background, body, header, footer, text box or \"\" where unknown), \"reason\": \"missing_part\" | \"external_target\" | \"link_only\" | \"undecodable\" | \"unsupported_format\"}], \"truncated\": bool (either list was cut at 256 entries), \"total_missing_glyphs\": n (distinct, past the cap too), \"total_missing_pictures\": n (past the cap too), \"glyphs_truncated\": bool, \"pictures_truncated\": bool}",
+   :source "crates/engine/src/cmd/file.rs",
+   :location "File › Export"}
+  {:id "file.versions",
+   :label "Version History",
+   :params "{\"save\"?: label, \"restore\"?: index}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Info"}
+  {:id "font.add",
+   :label "Add Font…",
+   :params
+   "{\"path\"?: string, \"data\"?: base64, \"name\"?: string (file name for \"data\")} — a TTF, OTF, TTC, WOFF or WOFF2 file; none: pick a file",
+   :source "crates/engine/src/cmd/font.rs",
+   :location "Home › Font"}
+  {:id "font.list",
+   :label "Added Fonts",
+   :params "{\"all\"?: bool (also every available family)}",
+   :source "crates/engine/src/cmd/font.rs",
+   :location "Home › Font"}
+  {:id "font.loadSystem",
+   :label "Load System Installed Fonts…",
+   :params "{}",
+   :source "crates/engine/src/cmd/font.rs",
+   :location "Home › Font"}
+  {:id "font.missing",
+   :label "Missing Fonts",
+   :params
+   "{} → {\"missing\": [{\"font\": string, \"shownAs\": [string] (the families drawn instead), \"metricCompatible\": bool (its substitute measures like the font)}]} — the text the current view shows",
+   :source "crates/engine/src/cmd/font.rs",
+   :location "Status Bar"}
+  {:id "font.remove",
+   :label "Remove Added Font",
+   :params "{\"family\": string}",
+   :source "crates/engine/src/cmd/font.rs",
+   :location "Home › Font"}
+  {:id "format.allCaps",
+   :label "All Caps",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font",
+   :shortcut "Mod+Shift+A"}
+  {:id "format.bold",
+   :label "Bold",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+B"}
+  {:id "format.border",
+   :label "Character Border",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.changeCase",
+   :label "Change Case",
+   :params "{\"mode\"?: \"sentence|lower|upper|title|toggle\"}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Shift+F3"}
+  {:id "format.charStyle",
+   :label "Apply Character Style",
+   :params "{\"style\": string}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Styles"}
+  {:id "format.clear",
+   :label "Clear All Formatting",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.color",
+   :label "Font Color",
+   :params "{\"color\": \"RRGGBB\" | \"auto\"}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.doubleStrikethrough",
+   :label "Double Strikethrough",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font"}
+  {:id "format.doubleUnderline",
+   :label "Double Underline",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Underline",
+   :shortcut "Mod+Shift+D"}
+  {:id "format.emboss",
+   :label "Emboss",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font"}
+  {:id "format.emphasisMark",
+   :label "Emphasis Mark",
+   :params
+   "{\"mark\"?: \"none\" | \"dot\" | \"comma\" | \"circle\" | \"underDot\"}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font"}
+  {:id "format.enclose",
+   :label "Enclose Characters",
+   :params
+   "{\"shape\": \"circle|square|triangle|diamond\" | null, \"style\"?: \"shrink|enlarge\", \"text\"?: string}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.engrave",
+   :label "Engrave",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font"}
+  {:id "format.font",
+   :label "Font",
+   :params "{\"name\"?: string, \"eastAsia\"?: string}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+Shift+F"}
+  {:id "format.fontDialog",
+   :label "Font Dialog",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+D"}
+  {:id "format.growFont",
+   :label "Increase Font Size",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+Shift+. / Mod+Shift+>"}
+  {:id "format.growFont1",
+   :label "Grow Font 1 Point",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+]"}
+  {:id "format.hidden",
+   :label "Hidden",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font",
+   :shortcut "Mod+Shift+H"}
+  {:id "format.highlight",
+   :label "Text Highlight Color",
+   :params
+   "{\"color\"?: \"yellow|brightGreen|turquoise|pink|blue|red|darkBlue|teal|green|violet|darkRed|darkYellow|gray50|gray25|black|none\"} (explicit colour sets it; omitted toggles the last chosen colour, initially yellow)",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.italic",
+   :label "Italic",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+I"}
+  {:id "format.outline",
+   :label "Outline",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Text Effects"}
+  {:id "format.phonetic",
+   :label "Phonetic Guide",
+   :params
+   "{\"ruby\"?: string | null, \"align\"?: \"center|distributeLetter|distributeSpace|left|right|rightVertical\", \"size\"?: number, \"offset\"?: number}",
+   :source "crates/engine/src/cmd/phonetic.rs",
+   :location "Home › Font"}
+  {:id "format.position",
+   :label "Character Position",
+   :params "{\"points\": number}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font › Advanced"}
+  {:id "format.resetChar",
+   :label "Reset Character Formatting",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.scale",
+   :label "Character Scale",
+   :params "{\"percent\": number}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font › Advanced"}
+  {:id "format.set",
+   :label "Set Character Formatting",
+   :params "{\"props\": CharProps}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font"}
+  {:id "format.shading",
+   :label "Character Shading",
+   :params "{\"color\": \"RRGGBB\" | null}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.shadow",
+   :label "Shadow",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Text Effects"}
+  {:id "format.shrinkFont",
+   :label "Decrease Font Size",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+Shift+, / Mod+Shift+<"}
+  {:id "format.shrinkFont1",
+   :label "Shrink Font 1 Point",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+["}
+  {:id "format.size",
+   :label "Font Size",
+   :params "{\"size\": number}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+Shift+P"}
+  {:id "format.smallCaps",
+   :label "Small Caps",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font",
+   :shortcut "Mod+Shift+K"}
+  {:id "format.spacing",
+   :label "Character Spacing",
+   :params "{\"points\": number}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Font › Advanced"}
+  {:id "format.state",
+   :label "Formatting at Selection",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font"}
+  {:id "format.strikethrough",
+   :label "Strikethrough",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+Shift+X"}
+  {:id "format.subscript",
+   :label "Subscript",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+="}
+  {:id "format.superscript",
+   :label "Superscript",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+Shift+="}
+  {:id "format.textEffects",
+   :label "Text Effects",
+   :params "EFFECT_PARAMS",
+   :params-expr true,
+   :source "crates/engine/src/cmd/wordart.rs",
+   :location "Home › Font"}
+  {:id "format.underline",
+   :label "Underline",
+   :params
+   "{\"value\"?: bool, \"style\"?: \"single|double|thick|dotted|dash|dotDash|dotDotDash|wave|words\"}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font",
+   :shortcut "Mod+U"}
+  {:id "format.underlineColor",
+   :label "Underline Color",
+   :params
+   "{\"color\": \"RRGGBB\" | \"auto\"} (the underline's own colour; \"auto\" follows the text colour)",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Underline"}
+  {:id "format.wordUnderline",
+   :label "Underline Words Only",
+   :params "{}",
+   :source "crates/engine/src/cmd/format.rs",
+   :location "Home › Font › Underline",
+   :shortcut "Mod+Shift+W"}
+  {:id "hf.next",
+   :label "Next Section",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Header & Footer › Navigation"}
+  {:id "hf.position",
+   :label "Header/Footer Position",
+   :params "{\"header\"?: pt, \"footer\"?: pt}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Header & Footer › Position"}
+  {:id "hf.previous",
+   :label "Previous Section",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Header & Footer › Navigation"}
+  {:id "insert.autoText",
+   :label "AutoText",
+   :params
+   "{\"save\"?: name, \"in\"?: \"document\", \"insert\"?: name, \"delete\"?: name} → {\"parts\": names, \"document\": the document's AutoText}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Insert › Text › Quick Parts"}
+  {:id "insert.blankPage",
+   :label "Blank Page",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Pages"}
+  {:id "insert.bookmark",
+   :label "Bookmark",
+   :params "{\"name\": string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Links",
+   :shortcut "Mod+Shift+F5"}
+  {:id "insert.canvas",
+   :label "Drawing Canvas",
+   :params
+   "{\"width\"?: pt (default 432 = 6\"), \"height\"?: pt (default 216 = 3\"), \"fill\"?: \"RRGGBB\", \"outline\"?: \"RRGGBB\"}  (in line with text at the caret; it stays selected, so the next Pictures, Shapes or Text Box goes inside it)",
+   :source "crates/engine/src/cmd/canvas.rs",
+   :location "Insert › Illustrations"}
+  {:id "insert.chart",
+   :label "Chart",
+   :params
+   "{\"type\"?: \"column|columnStacked|bar|barStacked|line|area|pie|doughnut|scatter\", \"data\"?: {\"categories\": [string], \"series\": [{\"name\": string, \"values\": [number|null]}]}, \"title\"?: string, \"legend\"?: \"right|left|top|bottom|none\", \"dataLabels\"?: bool, \"width\"?: pt, \"height\"?: pt} (no params: the chart type picker)",
+   :source "crates/engine/src/cmd/chart.rs",
+   :location "Insert › Illustrations"}
+  {:id "insert.closeHeader",
+   :label "Close Header and Footer",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Header & Footer"}
+  {:id "insert.coverPage",
+   :label "Cover Page",
+   :params
+   "{\"title\"?: string, \"subtitle\"?: string, \"author\"?: string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Pages"}
+  {:id "insert.createFooter",
+   :label "Footer",
+   :params
+   "{\"page\"?: number (0-based; default: the caret's section)} — the footer that page shows, created if it has none, with the caret in it",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer"}
+  {:id "insert.createHeader",
+   :label "Header",
+   :params
+   "{\"page\"?: number (0-based; default: the caret's section)} — the header that page shows, created if it has none, with the caret in it",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer"}
+  {:id "insert.crossReference",
+   :label "Cross-reference",
+   :params
+   "{\"to\": \"heading|bookmark|figure|table|equation|label:<Name> (a caption label of your own)\", \"target\": string (text / name / number), \"show\"?: \"text|page|number|aboveBelow\"} or {} to list targets",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "Insert › Links"}
+  {:id "insert.dateField",
+   :label "Insert Date Field",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text › Quick Parts"}
+  {:id "insert.dateTime",
+   :label "Date & Time",
+   :params
+   "{\"format\"?: \"M/d/yyyy\", \"update\"?: bool, \"language\"?: \"en-US|pt-BR\"}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text"}
+  {:id "insert.deleteBookmark",
+   :label "Delete Bookmark",
+   :params "{\"name\": string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Links"}
+  {:id "insert.docProperty",
+   :label "Document Property",
+   :params
+   "{\"name\": \"Title|Author|Subject|Keywords|Comments|Category\"}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Insert › Text › Quick Parts"}
+  {:id "insert.dropCap",
+   :label "Drop Cap",
+   :params
+   "{\"position\"?: \"none\"|\"dropped\"|\"margin\" (default dropped), \"lines\"?: 1..10 (default 3; 0 = none), \"distance\"?: pt from the text (0..1584, default 0), \"font\"?: family (omit for the text's font), \"keep\"?: bool (true: each selected paragraph that has a drop cap keeps its own lines, distance and font unless given here)}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text"}
+  {:id "insert.editFooter",
+   :label "Edit Footer",
+   :params
+   "{\"page\"?: number (0-based: the footer that page shows, created if it has none)}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer › Footer"}
+  {:id "insert.editHeader",
+   :label "Edit Header",
+   :params
+   "{\"page\"?: number (0-based: the header that page shows, created if it has none)}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer › Header"}
+  {:id "insert.equation",
+   :label "Equation",
+   :params
+   "{\"linear\"?: string, \"latex\"?: string, \"builtin\"?: \"pythagoras|area|quadratic|binomial|expansion|euler|derivative|taylor|gaussian|fourier|trig1|trig2|normal|bayes\", \"display\"?: bool, \"edit\"?: bool (default true)}",
+   :source "crates/engine/src/cmd/equation.rs",
+   :location "Insert › Symbols",
+   :shortcut "Alt+="}
+  {:id "insert.field",
+   :label "Field",
+   :params "{\"instr\": string, \"result\"?: string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text › Quick Parts",
+   :shortcut "Mod+F9"}
+  {:id "insert.footer",
+   :label "Footer",
+   :params
+   "{\"text\"?: string, \"preset\"?: \"blank|blankThree|pageNumber\"}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer"}
+  {:id "insert.header",
+   :label "Header",
+   :params
+   "{\"text\"?: string, \"preset\"?: \"blank|blankThree|title\"}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer"}
+  {:id "insert.horizontalLine",
+   :label "Horizontal Line",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Home › Paragraph › Borders"}
+  {:id "insert.icon",
+   :label "Icons",
+   :params
+   "{\"id\"?: string (omit to list the library), \"color\"?: \"RRGGBB\", \"size\"?: pt, \"query\"?: string, \"category\"?: string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Illustrations"}
+  {:id "insert.link",
+   :label "Link",
+   :params
+   "{\"url\": string} | {\"bookmark\": name} | {\"heading\": block (see link.targets)} | {\"top\": true}, \"text\"?: string (Place in This Document: a bookmark, a heading or the top of the document)",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Links",
+   :shortcut "Mod+K"}
+  {:id "insert.object",
+   :label "Object",
+   :params "{\"path\": string}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Insert › Text"}
+  {:id "insert.pageBreak",
+   :label "Page Break",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Pages"}
+  {:id "insert.pageField",
+   :label "Insert Page Field",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text › Quick Parts"}
+  {:id "insert.pageNumber",
+   :label "Page Number",
+   :params
+   "{\"position\"?: \"top|bottom|current\", \"align\"?: \"left|center|right\", \"format\"?: \"x of y\"}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer"}
+  {:id "insert.picture",
+   :label "Pictures",
+   :params
+   "{\"path\"?: string, \"data\"?: base64, \"width\"?: pt, \"alt\"?: string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Illustrations"}
+  {:id "insert.quickParts",
+   :label "Quick Parts",
+   :params
+   "{\"save\"?: name (from the selection), \"in\"?: \"document\" (save into the document's own building blocks, kept in its file; else this session's), \"insert\"?: name, \"delete\"?: name} → {\"parts\": names (this session's, then the document's Quick Parts), \"document\": the document's Quick Parts}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Insert › Text"}
+  {:id "insert.removeEmptyHeaders",
+   :label "Close Header and Footer",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Header & Footer"}
+  {:id "insert.removeFooter",
+   :label "Remove Footer",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer › Footer"}
+  {:id "insert.removeHeader",
+   :label "Remove Header",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Header & Footer › Header"}
+  {:id "insert.removeLink",
+   :label "Remove Hyperlink",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Links"}
+  {:id "insert.shape",
+   :label "Shapes",
+   :params
+   "{\"kind\": \"rectangle|roundedRectangle|ellipse|triangle|diamond|line|arrow|star|heart|straightConnector|elbowConnector|curvedConnector\", \"width\"?: pt, \"height\"?: pt, \"fill\"?: \"RRGGBB\", \"stroke\"?: \"RRGGBB\", \"arrow\"?: \"none\"|\"start\"|\"end\"|\"both\" (lines and connectors; glue a connector's ends with shape.connect)}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Illustrations"}
+  {:id "insert.signatureLine",
+   :label "Signature Line",
+   :params "{\"signer\"?: string, \"title\"?: string}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Insert › Text"}
+  {:id "insert.smartArt",
+   :label "Diagram",
+   :params
+   "{\"layout\"?: \"basicList|process|cycle|hierarchy|pyramid|radial|matrix|venn\", \"items\"?: [string | {\"text\": string, \"level\"?: 0-7, \"color\"?: RRGGBB}], \"colors\"?: \"accent1…accent6|colorful\", \"width\"?: pt, \"height\"?: pt} (no items: sample items for the layout)",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "Insert › Illustrations"}
+  {:id "insert.spreadsheet",
+   :label "Spreadsheet Table",
+   :params
+   "{\"csv\"?: string, \"values\"?: [[cell, …], …] (rows of equal length, at most 1000 rows × 63 columns; wins over csv), \"header\"?: bool (first row repeats on each page), \"style\"?: table style name (default GridTable1Light)}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Insert › Tables"}
+  {:id "insert.symbol",
+   :label "Symbol",
+   :params
+   "{\"char\": string, \"font\"?: family (the symbol's own font)}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Symbols"}
+  {:id "insert.table",
+   :label "Table",
+   :params "{\"rows\": n, \"cols\": n, \"style\"?: string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Tables"}
+  {:id "insert.textBox",
+   :label "Text Box",
+   :params "{\"text\"?: string, \"width\"?: pt, \"height\"?: pt}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text"}
+  {:id "insert.textFromFile",
+   :label "Text from File",
+   :params "{\"path\": string}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text › Object"}
+  {:id "insert.timeField",
+   :label "Insert Time Field",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Text › Quick Parts"}
+  {:id "insert.wordArt",
+   :label "Decorative Text",
+   :params
+   "{\"text\"?: string, \"style\"?: Decorative Text style id (see format.textEffects), \"transform\"?: \"textArchUp\"|\"textArchDown\"|\"textCircle\"|\"textWave1\"|… (a DrawingML preset text warp)}",
+   :source "crates/engine/src/cmd/wordart.rs",
+   :location "Insert › Text"}
+  {:id "layout.break",
+   :label "Breaks",
+   :params
+   "{\"kind\": \"page|column|textWrapping|nextPage|continuous|evenPage|oddPage\"}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.columns",
+   :label "Columns",
+   :params
+   "{\"count\": 1-12, \"space\"?: pt, \"separator\"?: bool, \"preset\"?: \"left|right\", \"widths\"?: [[width pt, space after pt], …] (unequal columns; sets the count), \"apply\"?: \"section|document|forward|selection\"} (default: selection when text is selected in the main text — section breaks around it — else section)",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.differentFirstPage",
+   :label "Different First Page",
+   :params "{}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Header & Footer › Options"}
+  {:id "layout.differentOddEven",
+   :label "Different Odd & Even Pages",
+   :params "{}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Header & Footer › Options"}
+  {:id "layout.documentGrid",
+   :label "Document Grid",
+   :params
+   "{\"type\"?: \"none|lines|linesAndChars|snapToChars\", \"linesPerPage\"?: n (sets the line pitch from the text height), \"charsPerLine\"?: n (sets the character pitch from the text width), \"linePitch\"?: pt, \"charSpace\"?: n (4096ths of a point added to the default font size: the character pitch)} — left out stays as it is; returns the grid with its lines per page and characters per line",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup › Document Grid"}
+  {:id "layout.fitOnePage",
+   :label "Fit One Page",
+   :params
+   "{\"maxDeltaPt\"?: pt (default: 2.0), \"stepPt\"?: pt (default: the built-in discrete candidate table; when given, up to 20 fine steps), \"adjustSpacing\"?: bool (default: true)}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.hyphenation",
+   :label "Hyphenation",
+   :params
+   "{\"value\"?: bool (automatic; toggles when nothing is given), \"zone\"?: pt, \"caps\"?: bool (hyphenate words in capitals), \"limit\"?: n (consecutive hyphens, 0 = no limit)}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.lineNumbers",
+   :label "Line Numbers",
+   :params
+   "{\"value\"?: \"none|continuous|restartPage|restartSection\", \"start\"?: 1-32767, \"countBy\"?: 1-100, \"distance\"?: pt (0 = auto)}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.linkToPrevious",
+   :label "Link to Previous",
+   :params "{\"footer\"?: bool}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Header & Footer › Navigation"}
+  {:id "layout.manualHyphenation",
+   :label "Manual Hyphenation",
+   :params
+   "{\"from\"?: Pos (default: the caret)} → the next word at a line end that could be hyphenated: {\"word\", \"pos\", \"points\": [char index], \"suggest\": char index} or {\"done\": true}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup › Hyphenation"}
+  {:id "layout.margins",
+   :label "Margins",
+   :params
+   "{\"preset\"?: \"normal|narrow|moderate|wide|mirrored|office2003\", \"top\"?: pt, \"bottom\"?: pt, \"left\"?: pt, \"right\"?: pt, \"gutter\"?: pt, \"mirror\"?: bool}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.orientation",
+   :label "Orientation",
+   :params "{\"value\": \"portrait|landscape\"}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.pageNumberFormat",
+   :label "Format Page Numbers",
+   :params
+   "{\"format\"?: \"decimal|lowerRoman|upperRoman|lowerLetter|upperLetter\", \"start\"?: n | null} (\"start\" left out: the numbering keeps its start; null: the pages number on from the section before; a number: numbering starts there)",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Insert › Header & Footer › Page Number"}
+  {:id "layout.pageSetup",
+   :label "Page Setup",
+   :params
+   "{\"section\"?: SectionProps} (replaces the whole section, headers and footers included; checked like Size, Margins, Columns, Line Numbers, Footnotes and Page Borders: non-finite numbers and margins that leave no room for text are refused; page sides 7.2–1584 pt, 1–12 columns with 0–300 pt gaps, header/footer/gutter 0–1584 pt, page border width 0.25–6 pt and distance 0–31 pt, note start 1–32767, line numbers start 1–32767, countBy 1–100, distance 0–1584 pt are clamped)",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.section",
+   :label "Section Properties",
+   :params "{}",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.sectionRtl",
+   :label "Right-to-Left Section",
+   :params
+   "{\"value\"?: bool} (true: the section's columns run right to left; without a value it toggles)",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.size",
+   :label "Size",
+   :params
+   "{\"name\"?: \"Letter|Legal|A4|…\", \"width\"?: pt, \"height\"?: pt} (each side clamped to 7.2–1584 pt, 0.1–22 in; the section keeps its orientation)",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.textDirection",
+   :label "Text Direction",
+   :params
+   "{\"value\"?: \"horizontal|down|up\"} (also lrTb|tbRl|btLr; down: rotate all text 90°, lines top to bottom stacking right to left; up: 270°; default: the next after the current). In a table cell it turns the selected cells, in a text box the box; anywhere else the section(s) of the selection",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup"}
+  {:id "layout.verticalAlign",
+   :label "Vertical Alignment",
+   :params
+   "{\"value\": \"top|center|justify|bottom\"} (also both|justified; anything else is top). Justified shares each page's spare room between its paragraphs and tables",
+   :source "crates/engine/src/cmd/page.rs",
+   :location "Layout › Page Setup › Layout"}
+  {:id "link.targets",
+   :label "Link",
+   :params "{}",
+   :source "crates/engine/src/cmd/insert.rs",
+   :location "Insert › Links"}
+  {:id "list.define",
+   :label "Define New Multilevel List",
+   :params
+   "{\"levels\": [{\"format\"?: \"decimal|lowerLetter|upperLetter|lowerRoman|upperRoman|decimalZero|ordinal|bullet|none\", \"text\"?: \"%1.%2.\" (%n = level n's number; the bullet character for bullet), \"start\"?: n, \"restartAfter\"?: 0-8 (0 = never; omit = the level above), \"style\"?: paragraph style linked to the level | null, \"align\"?: \"left|center|right\", \"alignedAt\"?: pt, \"indentAt\"?: pt, \"follow\"?: \"tab|space|nothing\", \"tabAt\"?: pt | null, \"font\"?: string | null, \"bold\"?: bool, \"italic\"?: bool, \"color\"?: \"RRGGBB\" | null, \"legal\"?: bool}, …] (index = level, up to 9; fields left out keep the base list's), \"num\"?: list id to change in place (default: a new list), \"apply\"?: bool (default true: number the selected paragraphs), \"name\"?: string}",
+   :source "crates/engine/src/cmd/lists.rs",
+   :location "Home › Paragraph › Multilevel List"}
+  {:id "list.get",
+   :label "List Definition",
+   :params
+   "{\"num\"?: list id (default: the caret's list)} → {\"num\", \"levels\": [as list.define]}",
+   :source "crates/engine/src/cmd/lists.rs",
+   :location "Home › Paragraph › Multilevel List"}
+  {:id "list.multilevelPreset",
+   :label "Multilevel List Library",
+   :params
+   "{\"preset\": \"headings\" (1 / 1.1 / 1.1.1) | \"article\" (Article I. / Section 1.01 / (a)) | \"outlineHeadings\" (I. / A. / 1.) | \"chapter\" (Chapter 1, lower levels unnumbered)} — a new list whose nine levels are linked to Heading 1–9: every paragraph in those styles is numbered, selected paragraphs already in a Heading style keep it, and any other selected paragraph becomes Heading 1 (the first level)",
+   :source "crates/engine/src/cmd/lists.rs",
+   :location "Home › Paragraph › Multilevel List"}
+  {:id "mailings.addressBlock",
+   :label "Address Block",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Write & Insert Fields"}
+  {:id "mailings.checkErrors",
+   :label "Check for Errors",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Finish"}
+  {:id "mailings.editRecipients",
+   :label "Edit Recipient List",
+   :params
+   "{\"rows\"?: [{field: value}] | [[value]], \"fields\"?: [string]} (no params: the list as {headers, rows (every record), records (how many merge), rules, sort})",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Start Mail Merge"}
+  {:id "mailings.envelopes",
+   :label "Envelopes",
+   :params
+   "{\"delivery\": string, \"return\"?: string, \"size\"?: \"Envelope #10|#9|Monarch|DL|C4|C5|C6|B5\", \"width\"?: pt, \"height\"?: pt, \"add\"?: bool (add to this document instead of a new one)}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Create"}
+  {:id "mailings.filterRecipients",
+   :label "Filter Recipients",
+   :params
+   "{\"rules\"?: [{\"field\": string, \"op\": \"equal|notEqual|less|greater|lessOrEqual|greaterOrEqual|blank|notBlank|contains|notContains\", \"value\"?: string, \"join\"?: \"and|or\" (with the rule before; And binds tighter)}], \"sort\"?: [{\"field\": string, \"descending\"?: bool}]} (replaces the filter; `sort` too when given; `sort` also accepts a field name, one key object or null; array entries may also be field names; {} clears both). Preview, Finish & Merge and labels use only the matching records, in sort order",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Start Mail Merge › Edit Recipient List"}
+  {:id "mailings.findRecipient",
+   :label "Find Recipient",
+   :params "{\"text\": string}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Preview Results"}
+  {:id "mailings.finish",
+   :label "Finish & Merge",
+   :params
+   "{\"path\"?: string (save the merged document), \"records\"?: \"all|current\" (current: the previewed record; default all, or from/to), \"from\"?: n, \"to\"?: n (record numbers, 1 = the first)}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Finish"}
+  {:id "mailings.first",
+   :label "First Record",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Preview Results"}
+  {:id "mailings.goToRecord",
+   :label "Go to Record",
+   :params
+   "{\"record\": n (1 = the first; past either end goes to the first or last record)}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Preview Results"}
+  {:id "mailings.greetingLine",
+   :label "Greeting Line",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Write & Insert Fields"}
+  {:id "mailings.highlightFields",
+   :label "Highlight Merge Fields",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Write & Insert Fields"}
+  {:id "mailings.insertField",
+   :label "Insert Merge Field",
+   :params "{\"field\": string}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Write & Insert Fields"}
+  {:id "mailings.labels",
+   :label "Labels",
+   :params
+   "{\"text\"?: string, \"product\"?: \"letter-3x10|letter-2x10|letter-2x7|letter-2x5|letter-4x20|a4-3x7|a4-2x7|a4-3x8|a4-2x4\", \"rows\"?: n, \"cols\"?: n, \"fromRecipients\"?: bool (one label per selected recipient, continuing across sheets), \"single\"?: {\"row\": n, \"col\": n}}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Create"}
+  {:id "mailings.last",
+   :label "Last Record",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Preview Results"}
+  {:id "mailings.matchFields",
+   :label "Match Fields",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Write & Insert Fields"}
+  {:id "mailings.next",
+   :label "Next Record",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Preview Results"}
+  {:id "mailings.preview",
+   :label "Preview Results",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Preview Results"}
+  {:id "mailings.previous",
+   :label "Previous Record",
+   :params "{}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Preview Results"}
+  {:id "mailings.printDocuments",
+   :label "Print Documents",
+   :params
+   "{\"records\"?: \"all|current\", \"from\"?: n, \"to\"?: n} (merges into a new document, as Finish & Merge does, and opens Print for it)",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Finish › Finish & Merge"}
+  {:id "mailings.recipients",
+   :label "Select Recipients",
+   :params
+   "{\"csv\"?: string, \"path\"?: string (.csv/.tsv/.txt, or a .xlsx/.xlsm/.xls/.ods workbook), \"data\"?: base64 (a file's bytes, as for path), \"encoding\"?: string (a text list's encoding, e.g. \"gbk\", \"big5\", \"shift_jis\", \"utf-16le\"; default: detected), \"sheet\"?: name | number (1 = first; a workbook with several sheets and no sheet answers {\"sheets\": [...], \"chooseSheet\": true} and loads nothing), \"headers\"?: bool (default true: the first non-blank row names the fields; false: fields are Column 1…N), \"rows\"?: [{field: value}] | [[value]], \"fields\"?: [string] (column order; required with array rows)}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Start Mail Merge"}
+  {:id "mailings.rules",
+   :label "Rules",
+   :params
+   "{\"rule\": \"IF|SKIPIF|NEXTIF|NEXT|MERGEREC\", \"field\"?, \"value\"?, \"then\"?, \"else\"?}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Write & Insert Fields"}
+  {:id "mailings.sortRecipients",
+   :label "Sort Recipients",
+   :params
+   "{\"sort\"?: [{\"field\": string, \"descending\"?: bool}]} | {\"field\": string, \"descending\"?: bool} (`sort` also accepts a field name, one key object or null; array entries may also be field names; no params: the list's own order)",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Start Mail Merge › Edit Recipient List"}
+  {:id "mailings.start",
+   :label "Start Mail Merge",
+   :params
+   "{\"kind\": \"letters|emails|envelopes|labels|directory|normal\"}",
+   :source "crates/engine/src/cmd/mailings.rs",
+   :location "Mailings › Start Mail Merge"}
+  {:id "object.altText",
+   :label "Alt Text",
+   :params
+   "{\"text\"?: string, \"title\"?: string, \"decorative\"?: bool} (the selected picture, shape, text box, group or chart)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Accessibility"}
+  {:id "outline.close",
+   :label "Close Outline View",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Close"}
+  {:id "outline.collapse",
+   :label "Collapse",
+   :params "BLOCK",
+   :params-expr true,
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+-"}
+  {:id "outline.demote",
+   :label "Demote",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.demoteToBody",
+   :label "Demote to Body Text",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.expand",
+   :label "Expand",
+   :params "BLOCK",
+   :params-expr true,
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+="}
+  {:id "outline.firstLineOnly",
+   :label "Show First Line Only",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.level",
+   :label "Outline Level",
+   :params "LEVEL",
+   :params-expr true,
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.moveDown",
+   :label "Move Down",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.moveUp",
+   :label "Move Up",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.promote",
+   :label "Promote",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.promoteToHeading1",
+   :label "Promote to Heading 1",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.selectSubtree",
+   :label "Select Heading and Content",
+   :params "BLOCK",
+   :params-expr true,
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.showAll",
+   :label "Show All Levels",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+A"}
+  {:id "outline.showFormatting",
+   :label "Show Text Formatting",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.showLevel",
+   :label "Show Level",
+   :params "{\"level\": 1-9 | \"all\"}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "outline.showLevel1",
+   :label "Show Level 1",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+1"}
+  {:id "outline.showLevel2",
+   :label "Show Level 2",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+2"}
+  {:id "outline.showLevel3",
+   :label "Show Level 3",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+3"}
+  {:id "outline.showLevel4",
+   :label "Show Level 4",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+4"}
+  {:id "outline.showLevel5",
+   :label "Show Level 5",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+5"}
+  {:id "outline.showLevel6",
+   :label "Show Level 6",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+6"}
+  {:id "outline.showLevel7",
+   :label "Show Level 7",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+7"}
+  {:id "outline.showLevel8",
+   :label "Show Level 8",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+8"}
+  {:id "outline.showLevel9",
+   :label "Show Level 9",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools",
+   :shortcut "Alt+Shift+9"}
+  {:id "outline.state",
+   :label "Outline State",
+   :params "{}",
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining"}
+  {:id "outline.toggle",
+   :label "Expand or Collapse Heading",
+   :params "BLOCK",
+   :params-expr true,
+   :source "crates/engine/src/cmd/outline.rs",
+   :location "Outlining › Outline Tools"}
+  {:id "para.addSpaceBefore",
+   :label "Add Space Before Paragraph",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line Spacing",
+   :shortcut "Mod+0"}
+  {:id "para.align",
+   :label "Alignment",
+   :params
+   "{\"value\": \"left|center|right|justify|distribute (as seen on the page) | start|end (reading direction)\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.alignCenter",
+   :label "Center",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+E"}
+  {:id "para.alignLeft",
+   :label "Align Left",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+L"}
+  {:id "para.alignRight",
+   :label "Align Right",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+R"}
+  {:id "para.asianTypography",
+   :label "Asian Typography",
+   :params
+   "{\"kinsoku\"?: bool (East Asian line-breaking rules), \"wordWrap\"?: bool (false: Latin words may break at any character), \"overflowPunct\"?: bool (hanging punctuation), \"topLinePunct\"?: bool (compress punctuation at the start of a line), \"autoSpaceDE\"?: bool (space between Asian and Latin text), \"autoSpaceDN\"?: bool (space between Asian text and numbers)} — flags left out stay as they are; returns the flags at the caret",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Asian Typography"}
+  {:id "para.blankBetween",
+   :label "Insert Blank Paragraphs Between",
+   :params
+   "{\"scope\"?: \"selection|all\", \"after\"?: bool (also after the last paragraph)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.borders",
+   :label "Borders",
+   :params
+   "{\"kind\": \"bottom|top|left|right|none|all|outside|inside|horizontalLine\", \"width\"?: pt, \"color\"?: \"RRGGBB\", \"style\"?: \"single|double|dotted|dashed|thick|triple|dotDash|wave\", \"sides\"?: Sides} where Sides = {\"top\"|\"left\"|\"bottom\"|\"right\"|\"between\": {\"style\"?, \"width\"?: pt, \"color\"?: \"RRGGBB\"} | null}: exactly these sides (others off), instead of `kind`",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.bullets",
+   :label "Bullets",
+   :params "{\"kind\"?: \"bullet\" | single char, \"off\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+Shift+L"}
+  {:id "para.convertBreaks",
+   :label "Convert Line Breaks to Paragraphs",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.defineBullet",
+   :label "Define New Bullet",
+   :params "{\"char\": string}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Home › Paragraph › Bullets"}
+  {:id "para.defineNumber",
+   :label "Define New Number Format",
+   :params
+   "{\"format\": \"decimal|upperRoman|lowerLetter…\", \"text\"?: \"%1.\", \"start\"?: n}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Home › Paragraph › Numbering"}
+  {:id "para.demote",
+   :label "Demote",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.dialog",
+   :label "Paragraph Settings",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.distribute",
+   :label "Distributed",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+Shift+J"}
+  {:id "para.double",
+   :label "Double Spacing",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line Spacing",
+   :shortcut "Mod+2"}
+  {:id "para.hangingIndent",
+   :label "Hanging Indent",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph",
+   :shortcut "Mod+T"}
+  {:id "para.heading1",
+   :label "Heading 1",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles",
+   :shortcut "Mod+Alt+1"}
+  {:id "para.heading2",
+   :label "Heading 2",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles",
+   :shortcut "Mod+Alt+2"}
+  {:id "para.heading3",
+   :label "Heading 3",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles",
+   :shortcut "Mod+Alt+3"}
+  {:id "para.indent",
+   :label "Increase Indent",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+M"}
+  {:id "para.indentToSpaces",
+   :label "Convert Indents to Spaces",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.indents",
+   :label "Indents",
+   :params
+   "{\"left\"?: pt, \"right\"?: pt, \"firstLine\"?: pt (negative = hanging)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Layout › Paragraph"}
+  {:id "para.justify",
+   :label "Justify",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+J"}
+  {:id "para.keepLines",
+   :label "Keep Lines Together",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line and Page Breaks"}
+  {:id "para.keepNext",
+   :label "Keep with Next",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line and Page Breaks"}
+  {:id "para.lineSpacing",
+   :label "Line and Paragraph Spacing",
+   :params
+   "{\"value\": number (multiple) } | {\"atLeast\": pt} | {\"exactly\": pt}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.listLevel",
+   :label "Change List Level",
+   :params "{\"level\": 0-8}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Bullets"}
+  {:id "para.ltr",
+   :label "Left-to-Right Text Direction",
+   :params "{\"value\"?: bool (false = right to left)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.moveDown",
+   :label "Move Paragraph Down",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.moveUp",
+   :label "Move Paragraph Up",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.multilevel",
+   :label "Multilevel List",
+   :params "{\"kind\"?: \"legal|outline\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.normal",
+   :label "Normal Style",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles",
+   :shortcut "Mod+Shift+N"}
+  {:id "para.numbering",
+   :label "Numbering",
+   :params
+   "{\"kind\"?: \"numbered|numberedParen|upperLetter|lowerLetter|lowerRoman|outline\", \"off\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.oneAndHalf",
+   :label "1.5 Line Spacing",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line Spacing",
+   :shortcut "Mod+5"}
+  {:id "para.outdent",
+   :label "Decrease Indent",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+Shift+M"}
+  {:id "para.outlineLevel",
+   :label "Outline Level",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph"}
+  {:id "para.pageBreakBefore",
+   :label "Page Break Before",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line and Page Breaks"}
+  {:id "para.promote",
+   :label "Promote",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.removeBlank",
+   :label "Delete Blank Paragraphs",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.removeExtraSpaces",
+   :label "Remove Extra Spaces",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.removeHanging",
+   :label "Reduce Hanging Indent",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph",
+   :shortcut "Mod+Shift+T"}
+  {:id "para.removeLineBreaks",
+   :label "Remove Line Breaks",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.removeSpaceAfter",
+   :label "Remove Space After Paragraph",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line Spacing"}
+  {:id "para.reset",
+   :label "Reset Paragraph Formatting",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.restartNumbering",
+   :label "Restart at 1",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Numbering"}
+  {:id "para.rtl",
+   :label "Right-to-Left Text Direction",
+   :params "{\"value\"?: bool (false = left to right)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.separateParagraphs",
+   :label "Separate Paragraphs",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.set",
+   :label "Set Paragraph Formatting",
+   :params
+   "{\"props\": ParaProps, \"onPage\"?: {\"align\"?: \"left|center|right|justify|distribute\", \"left\"?: pt, \"right\"?: pt} (alignment and indents as seen on the page: each paragraph's own direction, after `props`, says which edge is its start)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph"}
+  {:id "para.setNumberingValue",
+   :label "Set Numbering Value",
+   :params "{\"value\": n}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Home › Paragraph › Numbering"}
+  {:id "para.shading",
+   :label "Shading",
+   :params
+   "{\"color\": \"RRGGBB\" | null, \"paragraph\"?: bool} (text selected inside one paragraph is shaded itself, as in Word; `paragraph: true` shades the paragraphs instead, as Borders and Shading › Apply to: Paragraph)",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.single",
+   :label "Single Spacing",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line Spacing",
+   :shortcut "Mod+1"}
+  {:id "para.sort",
+   :label "Sort",
+   :params "{\"descending\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph"}
+  {:id "para.spacesToIndent",
+   :label "Convert Spaces to Indentation",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.spacing",
+   :label "Paragraph Spacing",
+   :params
+   "{\"before\"?: pt, \"after\"?: pt, \"beforeAuto\"?: bool, \"afterAuto\"?: bool (automatic, HTML-style spacing: 14 pt)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Layout › Paragraph"}
+  {:id "para.style",
+   :label "Apply Style",
+   :params "{\"style\": string (name or id)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "para.tabs",
+   :label "Tabs",
+   :params
+   "{\"tabs\"?: [TabStop] (replace the direct stops), \"set\"?: [TabStop], \"clear\"?: [pt], \"clearAll\"?: bool, \"default\"?: pt} where TabStop = {\"pos\": pt, \"align\"?: \"left|center|right|decimal|bar\", \"leader\"?: \"none|dot|hyphen|underscore|middleDot\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph"}
+  {:id "para.trimLeadingSpaces",
+   :label "Remove Leading Spaces",
+   :params "{\"scope\"?: \"selection|all\"}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Paragraph Tools"}
+  {:id "para.widowControl",
+   :label "Widow/Orphan Control",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Paragraph › Line and Page Breaks"}
+  {:id "picture.altText",
+   :label "Alt Text",
+   :params
+   "{\"text\": string, \"title\"?: string, \"decorative\"?: bool}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Accessibility"}
+  {:id "picture.border",
+   :label "Picture Border",
+   :params
+   "{\"color\"?: \"RRGGBB\", \"width\"?: px} (replaces the picture's border)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Picture Styles"}
+  {:id "picture.change",
+   :label "Change Picture",
+   :params "{\"path\"?: string, \"data\"?: base64}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.color",
+   :label "Color",
+   :params
+   "{\"mode\": \"grayscale|sepia|washout|blackAndWhite|saturation|tint\", \"saturation\"?: 0..400}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.compress",
+   :label "Compress Pictures",
+   :params "{\"maxPixels\"?: n}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.corrections",
+   :label "Corrections",
+   :params
+   "{\"brightness\"?: -100..100, \"contrast\"?: -100..100, \"sharpen\"?: -100..100}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.crop",
+   :label "Crop",
+   :params
+   "{\"left\"?, \"top\"?, \"right\"?, \"bottom\"? (fractions of the source 0–0.95; the two sides of an axis keep at least 5% between them; a side left out is uncropped), \"width\"?: pt, \"height\"?: pt (the new display size, in the same undo step; a floating picture also moves by what a left/top crop trims, so the visible part stays put)}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Size"}
+  {:id "picture.effects",
+   :label "Artistic Effects",
+   :params
+   "{\"effect\": \"blur|sharpen|invert|posterize|pixelate|none\"} (replaces the picture's effect)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.iconColor",
+   :label "Icon Color",
+   :params "{\"color\": \"RRGGBB\"}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.removeBackground",
+   :label "Remove Background",
+   :params "{\"tolerance\"?: 0..255}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.reset",
+   :label "Reset Picture",
+   :params "{}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "picture.size",
+   :label "Size",
+   :params
+   "{\"width\"?: pt, \"height\"?: pt, \"lockAspect\"?: bool, \"scale\"?: percent, \"original\"?: bool} (scale: of the current size, or with original of the picture's original size, its pixels at 96 ppi less what is cropped; original alone restores that size; one side alone keeps the proportions unless lockAspect is false; 1–4000 pt: when the proportions are kept (from the original, or with both sides having a length), a side past 4000 pt shrinks the other with it; a side the call leaves as it was keeps its size, a straight line's 0 too)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Size"}
+  {:id "picture.style",
+   :label "Picture Styles",
+   :params
+   "{\"style\": \"simpleFrame|thickFrame|rounded|softEdge|shadow\"} (replaces the picture's style and border)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Picture Styles"}
+  {:id "picture.transparency",
+   :label "Transparency",
+   :params "{\"percent\": 0..100}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Picture Format › Adjust"}
+  {:id "proof.installPack",
+   :label "Install Language Pack",
+   :params
+   "{\"locale\": string (a pack's locale from proof.packs, like nl or pt-pt)} — downloads, verifies (sha256) and installs it; spelling and hyphenation in that language use it at once. Needs downloading on (only the person in the app can turn it on). Opens nothing. In the app it runs in the background and returns {\"started\": true}: follow it with proof.packs (\"installing\", then \"installed\" or \"errors\"); elsewhere it returns when installed.",
+   :source "crates/engine/src/cmd/packs.rs",
+   :location "File › Options › Language"}
+  {:id "proof.packs",
+   :label "Language Packs",
+   :params
+   "{\"refresh\"?: bool (fetch the pinned index again; only while downloading is on; in the app it runs in the background: see \"refreshing\")} — opens nothing. Returns {\"packs\": [{\"locale\", \"name\", \"size\" (bytes), \"licence\" (SPDX), \"class\", \"source\" (where the data comes from), \"archive\" (the download), \"spelling\", \"hyphenation\", \"installed\"}], \"languages\": [{\"tags\", \"pack\", \"installed\", \"size\", \"proofing\" (built_in, installed, own_dictionary, system_dictionary, install, grammar_built_in, not_available), \"default\"}] (Options › Language › Your languages), \"installed\": [{\"locale\", \"name\", \"licence\"}], \"installing\": [{\"locale\", \"done\", \"total\"} (bytes)], \"refreshing\": bool, \"errors\": {locale or \"\" (the list): message} (the last failure of each), \"index_override\": string|null (a test index in use instead of the pinned one), \"network\": bool (downloading on), \"available\": bool (a font store to install into)}",
+   :source "crates/engine/src/cmd/packs.rs",
+   :location "File › Options › Language"}
+  {:id "proof.removePack",
+   :label "Remove Language Pack",
+   :params
+   "{\"locale\": string} — removes the installed pack. Opens nothing.",
+   :source "crates/engine/src/cmd/packs.rs",
+   :location "File › Options › Language"}
+  {:id "readAloud.next",
+   :label "Next Sentence",
+   :params "{}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech"}
+  {:id "readAloud.playPause",
+   :label "Play/Pause",
+   :params "{}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech"}
+  {:id "readAloud.previous",
+   :label "Previous Sentence",
+   :params "{}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech"}
+  {:id "readAloud.skipCitations",
+   :label "Skip Citations and Bibliography",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech"}
+  {:id "readAloud.speed",
+   :label "Reading Speed",
+   :params "{\"value\": number (0.5…3, 1 = normal)}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech"}
+  {:id "readAloud.status",
+   :label "Read Aloud Status",
+   :params "{}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech"}
+  {:id "readAloud.stop",
+   :label "Stop Reading",
+   :params "{}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech"}
+  {:id "references.addText",
+   :label "Add Text",
+   :params "{\"level\": 0 (do not show) | 1-9}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Table of Contents"}
+  {:id "references.bibliography",
+   :label "Bibliography",
+   :params "{\"title\"?: string}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Citations & Bibliography"}
+  {:id "references.caption",
+   :label "Insert Caption",
+   :params
+   "{\"label\"?: \"Figure|Table|Equation|any label\", \"text\"?: string, \"position\"?: \"below|above\", \"excludeLabel\"?: bool, \"format\"?: \"ARABIC|alphabetic|ALPHABETIC|roman|ROMAN\", \"chapter\"?: heading level 1-9, \"separator\"?: \"-|.|:|—|–\"}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Captions"}
+  {:id "references.citation",
+   :label "Insert Citation",
+   :params
+   "{\"tag\"?: string, \"source\"?: Source (added if new), \"pages\"?: string}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Citations & Bibliography"}
+  {:id "references.citationStyle",
+   :label "Style",
+   :params
+   "{\"style\": \"APA|Chicago|GB/T 7714|GOST (name sort)|GOST (title sort)|Harvard (Anglia)|IEEE|ISO 690 (author-date)|ISO 690 (numerical)|MLA|SIST02|Turabian\" (Word's style names work too)}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Citations & Bibliography"}
+  {:id "references.convertNotes",
+   :label "Convert Notes",
+   :params
+   "{\"to\": \"endnote\" (footnotes become endnotes) | \"footnote\" (endnotes become footnotes) | \"swap\"}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Footnotes"}
+  {:id "references.endnote",
+   :label "Insert Endnote",
+   :params
+   "{\"text\"?: string, \"mark\"?: string (a custom mark instead of the number)}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Footnotes"}
+  {:id "references.footnote",
+   :label "Insert Footnote",
+   :params
+   "{\"text\"?: string, \"mark\"?: string (a custom mark instead of the number)}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Footnotes",
+   :shortcut "Mod+Alt+F"}
+  {:id "references.index",
+   :label "Insert Index",
+   :params
+   "{\"type\"?: \"indented|runIn\", \"columns\"?: 1-4, \"rightAlign\"?: bool, \"tabLeader\"?: \"dot|hyphen|underscore|none\", \"headings\"?: bool (letter headings)} (replaces an existing index's settings)",
+   :source "crates/engine/src/cmd/index.rs",
+   :location "References › Index"}
+  {:id "references.markCitation",
+   :label "Mark Citation",
+   :params "{\"entry\"?: string}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Table of Authorities"}
+  {:id "references.markEntry",
+   :label "Mark Entry",
+   :params
+   "{\"entry\"?: string (the selection), \"subentry\"?: string, \"crossReference\"?: \"See …\", \"bookmark\"?: page-range bookmark, \"bold\"?: bool, \"italic\"?: bool, \"all\"?: bool (Mark All: every paragraph's first match of \"text\" or the selection)}",
+   :source "crates/engine/src/cmd/index.rs",
+   :location "References › Index"}
+  {:id "references.nextFootnote",
+   :label "Next Footnote",
+   :params "{}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Footnotes"}
+  {:id "references.noteOptions",
+   :label "Footnote and Endnote",
+   :params
+   "{\"kind\"?: \"footnote|endnote\", \"pos\"?: \"pageBottom|beneathText\" (footnotes) | \"sectEnd|docEnd\" (endnotes), \"numFmt\"?: \"decimal|lowerRoman|upperRoman|lowerLetter|upperLetter|…\", \"numStart\"?: 1-32767, \"numRestart\"?: \"continuous|eachSect|eachPage\" (each page: footnotes only), \"scope\"?: \"document|section\", \"footnoteFormat\"?: …, \"endnoteFormat\"?: …} — no settings: the options in effect at the caret",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Footnotes"}
+  {:id "references.notes",
+   :label "Show Notes",
+   :params "{}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Footnotes"}
+  {:id "references.removeToc",
+   :label "Remove Table of Contents",
+   :params "{}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Table of Contents"}
+  {:id "references.researcher",
+   :label "Researcher",
+   :params "{}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Research"}
+  {:id "references.sources",
+   :label "Manage Sources",
+   :params
+   "{\"add\"?: Source, \"remove\"?: tag, \"import\"?: path (a Word bibliography file, `b:Sources` / `Sources.xml`)} → list",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Citations & Bibliography"}
+  {:id "references.tableOfAuthorities",
+   :label "Insert Table of Authorities",
+   :params "{}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Table of Authorities"}
+  {:id "references.tableOfFigures",
+   :label "Insert Table of Figures",
+   :params
+   "{\"label\"?: \"Figure|Table|Equation\" or a caption label of your own, \"includeLabel\"?: bool, \"pageNumbers\"?: bool, \"rightAlign\"?: bool, \"tabLeader\"?: \"dot|hyphen|underscore|none\"}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Captions"}
+  {:id "references.toc",
+   :label "Table of Contents",
+   :params
+   "{\"levels\"?: 1-9, \"title\"?: string (at most 1024 characters), \"pageNumbers\"?: bool, \"rightAlign\"?: bool, \"tabLeader\"?: \"dot|hyphen|underscore|none\", \"hyperlinks\"?: bool, \"headingStyles\"?: bool, \"outlineLevels\"?: bool, \"tcFields\"?: bool, \"styleLevels\"?: {style name: 1-9}} (replaces an existing table; {} updates it)",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Table of Contents"}
+  {:id "references.updateAuthorities",
+   :label "Update Table",
+   :params "{}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Table of Authorities"}
+  {:id "references.updateFields",
+   :label "Update Field",
+   :params
+   "{\"all\"?: bool (the body and every header, footer, note and text box, wherever the caret is; default: the story the caret is in)}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References",
+   :shortcut "F9"}
+  {:id "references.updateFigures",
+   :label "Update Table",
+   :params "{}",
+   :source "crates/engine/src/cmd/citations.rs",
+   :location "References › Captions"}
+  {:id "references.updateIndex",
+   :label "Update Index",
+   :params "{}",
+   :source "crates/engine/src/cmd/index.rs",
+   :location "References › Index"}
+  {:id "references.updateToc",
+   :label "Update Table",
+   :params "{}",
+   :source "crates/engine/src/cmd/references.rs",
+   :location "References › Table of Contents"}
+  {:id "review.accept",
+   :label "Accept",
+   :params "{\"next\"?: bool (then select the next change)}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Changes"}
+  {:id "review.acceptAll",
+   :label "Accept All Changes",
+   :params "{\"stopTracking\"?: bool (also turn Track Changes off)}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Changes"}
+  {:id "review.addToDictionary",
+   :label "Add to Dictionary",
+   :params "{\"word\"?: string}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing"}
+  {:id "review.applySuggestion",
+   :label "Change",
+   :params "{\"text\": string}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing"}
+  {:id "review.changes",
+   :label "Reviewing Pane",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Tracking"}
+  {:id "review.combine",
+   :label "Combine",
+   :params "COMPARE_PARAMS",
+   :params-expr true,
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Review › Compare"}
+  {:id "review.comments",
+   :label "Show Comments",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.compare",
+   :label "Compare",
+   :params "COMPARE_PARAMS",
+   :params-expr true,
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Review › Compare"}
+  {:id "review.deleteComment",
+   :label "Delete",
+   :params
+   "{\"id\"?: non-negative 32-bit JSON integer (omit to use the caret), \"all\"?: bool}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.editComment",
+   :label "Edit Comment",
+   :params
+   "{\"id\": non-negative 32-bit JSON integer, \"text\": string}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.editor",
+   :label "Editor",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Home › Editor"}
+  {:id "review.hideInk",
+   :label "Hide Ink",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/draw.rs",
+   :location "Review › Ink"}
+  {:id "review.ignoreAll",
+   :label "Ignore All",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing"}
+  {:id "review.issues",
+   :label "Proofing Issues",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing"}
+  {:id "review.language",
+   :label "Language",
+   :params
+   "{\"lang\"?: \"en-US|en-GB|pl-PL|fr-FR|…\" (BCP 47; default en-US), \"noProof\"?: bool, \"detect\"?: bool (detect language automatically, a preference), \"default\"?: bool (also the document's default and the saved language for future blank documents), \"scope\"?: \"selection\" (default) | \"document\" (every run and paragraph mark of every story: body, headers, footers, notes, comments, text boxes, tables, glossary (skipped while Track Changes and Track Formatting are on); one undo step, selection unchanged; returns the caret, \"scope\":\"document\" and \"glossarySkipped\":true when the glossary was skipped)}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Review › Language"}
+  {:id "review.language.preferred",
+   :label "Set as Default Language",
+   :params
+   "{\"lang\": \"en-US|en-GB|pl-PL|nl-NL|…\" (BCP 47)} — only the saved default proofing language, what future blank documents are written in, as Options › Language › Set as default does; the open document, the selection and the undo history don't change. Returns {\"preferred\": tag}.",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Options › Language"}
+  {:id "review.markup",
+   :label "Display for Review",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Tracking"}
+  {:id "review.newComment",
+   :label "New Comment",
+   :params "{\"text\": string}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.nextChange",
+   :label "Next Change",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Changes"}
+  {:id "review.nextComment",
+   :label "Next",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.previousChange",
+   :label "Previous Change",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Changes"}
+  {:id "review.previousComment",
+   :label "Previous",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.proofing",
+   :label "Check Spelling as You Type",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "File › Options › Proofing"}
+  {:id "review.readAloud",
+   :label "Read Aloud",
+   :params "{\"skipCitations\"?: bool}",
+   :source "crates/engine/src/cmd/speech.rs",
+   :location "Review › Speech",
+   :shortcut "Mod+Alt+Space"}
+  {:id "review.reject",
+   :label "Reject",
+   :params "{\"next\"?: bool (then select the next change)}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Changes"}
+  {:id "review.rejectAll",
+   :label "Reject All Changes",
+   :params "{\"stopTracking\"?: bool (also turn Track Changes off)}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Changes"}
+  {:id "review.reply",
+   :label "Reply",
+   :params
+   "{\"id\": non-negative 32-bit JSON integer, \"text\": string}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.resolveComment",
+   :label "Resolve",
+   :params
+   "{\"id\"?: non-negative 32-bit JSON integer (omit to use the caret), \"value\"?: bool (omit to toggle)}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Comments"}
+  {:id "review.restrict",
+   :label "Restrict Editing",
+   :params
+   "{\"mode\"?: \"none|readOnly|comments|trackedChanges|forms\" (editing restriction; use \"none\" with \"formatting\": true for formatting-only protection), \"formatting\"?: bool (limit formatting to unlocked styles), \"lockedStyles\"?: [style id or name] (the styles that can't be applied; every other style is unlocked), \"password\"?: string (set when enforcing; required to stop a password-protected document), \"stop\"?: bool (true: stop protection), \"exception\"?: \"add\" (the selection stays editable for everyone) | \"remove\" (exceptions touching the selection) | \"removeAll\"} → state",
+   :source "crates/engine/src/cmd/protect.rs",
+   :location "Review › Protect"}
+  {:id "review.showMarkup",
+   :label "Show Markup",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Review › Tracking"}
+  {:id "review.spelling",
+   :label "Spelling & Grammar",
+   :params
+   "{\"wrap\"?: bool (default true; false stops at the end of the current story)}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing"}
+  {:id "review.suggestions",
+   :label "Spelling Suggestions",
+   :params "{\"pos\"?: Pos}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing"}
+  {:id "review.thesaurus",
+   :label "Thesaurus",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing",
+   :shortcut "Shift+F7"}
+  {:id "review.trackChanges",
+   :label "Track Changes",
+   :params "{\"value\"?: bool (omit to toggle)}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Tracking",
+   :shortcut "Mod+Shift+E"}
+  {:id "review.trackingOptions",
+   :label "Track Changes Options",
+   :params
+   "{\"comments\"?: bool, \"ink\"?: bool, \"insertionsDeletions\"?: bool, \"formatting\"?: bool, \"balloons\"?: \"revisions|inline|commentsAndFormatting\", \"commentDisplay\"?: \"margin|selected\", \"insertMark\"?: \"underline|doubleUnderline|bold|italic|strikethrough|colorOnly|none\", \"insertColor\"?: \"byAuthor\" | \"RRGGBB\", \"deleteMark\"?: \"strikethrough|doubleStrikethrough|hidden|caret|hash|underline|doubleUnderline|bold|italic|colorOnly|none\", \"deleteColor\"?: \"byAuthor\" | \"RRGGBB\", \"changedLines\"?: \"outside|left|right|none\", \"changedLinesColor\"?: \"auto\" | \"RRGGBB\", \"trackFormatting\"?: bool, \"moveFromMark\"?: (as deleteMark; none = plain text, no colour), \"moveFromColor\"?: \"byAuthor\" | \"RRGGBB\", \"moveToMark\"?: (as insertMark; none = plain text, no colour), \"moveToColor\"?: \"byAuthor\" | \"RRGGBB\", \"trackMoves\"?: bool (the document's setting; off = a cut and paste is a deletion and an insertion, not a move)} → the options (omit all to read them)",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Tracking"}
+  {:id "review.wordCount",
+   :label "Word Count",
+   :params "{\"includeTextBoxes\"?: bool}",
+   :source "crates/engine/src/cmd/review.rs",
+   :location "Review › Proofing"}
+  {:id "select.addObject",
+   :label "Add Object to Selection",
+   :params
+   "{\"pos\"?: Pos, \"index\"?: n, \"objects\"?: [Pos | n]}  (n: its Selection Pane index; with no object selected yet, the first one becomes the selection)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Home › Editing › Select"}
+  {:id "select.all",
+   :label "Select All",
+   :params "{}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Home › Editing › Select",
+   :shortcut "Mod+A"}
+  {:id "select.collapse",
+   :label "Collapse Selection",
+   :params
+   "{\"end\"?: bool (default false: collapse to the start; true: to the end)}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation",
+   :shortcut "Escape"}
+  {:id "select.column",
+   :label "Column Selection",
+   :params
+   "{\"anchor\": Pos, \"focus\": Pos} | {\"from\": {\"page\": n, \"x\": pt, \"y\": pt}, \"to\": {\"page\": n, \"x\": pt, \"y\": pt}, \"story\"?: StoryRef} | {\"on\"?: bool} (no corners: toggle column selection mode, where the arrow keys extend the block)",
+   :source "crates/engine/src/cmd/column.rs",
+   :location "Editing › Selection",
+   :shortcut "Mod+Shift+F8"}
+  {:id "select.dragUnit",
+   :label "Extend Selection by Units",
+   :params
+   "{\"unit\": \"word|sentence|line|paragraph|document\", \"start\": Pos, \"end\": Pos, \"pos\": Pos}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "select.extend",
+   :label "Extend Selection",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Editing › Selection",
+   :shortcut "F8"}
+  {:id "select.line",
+   :label "Select Line",
+   :params "{\"pos\"?: Pos}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "select.member",
+   :label "Select Canvas Member",
+   :params
+   "{\"index\": n | null}  (picks member `index` of the selected drawing canvas on its own: Shape Format, Size, Rotate, Alt Text, Delete, Cut and Copy then act on it, and Move or Resize and Nudge move it inside the canvas; null: the canvas itself again)",
+   :source "crates/engine/src/cmd/canvas.rs",
+   :location "Shape Format › Drawing Canvas"}
+  {:id "select.objects",
+   :label "Select Objects",
+   :params "{\"index\"?: n}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Home › Editing › Select"}
+  {:id "select.paragraph",
+   :label "Select Paragraph",
+   :params "{}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "select.range",
+   :label "Select Range",
+   :params "{\"anchor\": Pos, \"focus\": Pos}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "select.sentence",
+   :label "Select Sentence",
+   :params "{}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "select.similar",
+   :label "Select Text with Similar Formatting",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Home › Editing › Select"}
+  {:id "select.text",
+   :label "Select Text",
+   :params "{\"text\": string, \"occurrence\"?: n}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "select.word",
+   :label "Select Word",
+   :params "{}",
+   :source "crates/engine/src/cmd/caret.rs",
+   :location "Navigation"}
+  {:id "shape.alignText",
+   :label "Align Text",
+   :params
+   "{\"anchor\": \"t|ctr|b\"}  (top, middle, bottom of the box: for turned text, from the side its lines start on)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Text"}
+  {:id "shape.breakLink",
+   :label "Break Link",
+   :params
+   "{}  (the text stops at the end of the selected box; the boxes after it go back to their own text)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Text"}
+  {:id "shape.change",
+   :label "Change Shape",
+   :params "{\"kind\": string}",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Insert Shapes"}
+  {:id "shape.connect",
+   :label "Connect Shapes",
+   :params
+   "{\"start\"?: end, \"end\"?: end}  end: {\"path\": [..], \"off\": n, \"site\"?: n} (glue to that body shape's connection site; nearest one when omitted) | {\"x\": pt, \"y\": pt, \"page\"?: n} (drag the end there: it glues to a shape's site within 12 pt, else stays free there) | null (unglue)",
+   :source "crates/engine/src/cmd/connectors.rs",
+   :location "Shape Format › Insert Shapes"}
+  {:id "shape.effects",
+   :label "Shape Effects",
+   :params
+   "{\"shadow\"?: preset|{\"preset\"?, \"color\"?: \"RRGGBB\", \"transparency\"?: %, \"blur\"?: pt, \"distance\"?: pt, \"angle\"?: deg}|null, \"glow\"?: pt|{\"color\"?: \"RRGGBB\", \"size\"?: pt, \"transparency\"?: %}|null, \"softEdge\"?: pt|null}  (shadow presets: offsetBottomRight, offsetBottom, offsetBottomLeft, offsetRight, offsetCenter, offsetLeft, offsetTopRight, offsetTop, offsetTopLeft; an omitted key is left as it is; applies to every shape in the selection)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Shape Styles"}
+  {:id "shape.fill",
+   :label "Shape Fill",
+   :params
+   "{\"color\": \"RRGGBB\" | null, \"transparency\"?: %} | {\"gradient\": {\"stops\": [{\"pos\": %, \"color\": \"RRGGBB\", \"transparency\"?: %}], \"type\"?: \"linear|radial|rectangular|path\", \"angle\"?: deg, \"focus\"?: [l, t, r, b], \"tile\"?: [l, t, r, b], \"scaled\"?: bool, \"rotateWithShape\"?: bool}}  (tile: percent insets of the gradient's area; scaled: a linear angle scaled with the shape; a colour alone keeps the shape's transparency; angle: linear only, 0 = left to right, 90 = top to bottom; focus: percent insets of where a radial, rectangular or path gradient starts; applies to every selected shape, text box and canvas background)",
+   :source "crates/engine/src/cmd/shape_fill.rs",
+   :location "Shape Format › Shape Styles"}
+  {:id "shape.link",
+   :label "Create Link",
+   :params
+   "{\"target\": Pos | n}  (the empty text box the selected box's text continues in: its position, or its Selection Pane index)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Text"}
+  {:id "shape.outline",
+   :label "Shape Outline",
+   :params
+   "{\"color\": \"RRGGBB\" | null, \"width\"?: pt}  (a selected drawing canvas: its border)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Shape Styles"}
+  {:id "shape.textDirection",
+   :label "Text Direction",
+   :params
+   "{\"dir\": \"horz|vert|vert270|wordArtVert\"}  (horizontal, rotate all text 90°, 270°, stacked; the selected text box or the one the caret is in)",
+   :source "crates/engine/src/cmd/objects/specs.rs",
+   :location "Shape Format › Text"}
+  {:id "smartArt.addShape",
+   :label "Add Shape",
+   :params
+   "{\"after\"?: item index (default: the last), \"text\"?: string, \"below\"?: bool (a sub-item instead of the next item)}",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Create Graphic"}
+  {:id "smartArt.colors",
+   :label "Change Colors",
+   :params
+   "{\"variant\": \"accent1|accent2|accent3|accent4|accent5|accent6|colorful\"} (the items' own colours are dropped)",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Diagram Styles"}
+  {:id "smartArt.demote",
+   :label "Demote",
+   :params
+   "{\"index\"?: item index (default: the last)} (the item and the items under it move down a level)",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Create Graphic"}
+  {:id "smartArt.itemColor",
+   :label "Item Color",
+   :params
+   "{\"index\"?: item index (default: the last), \"color\"?: \"RRGGBB\" (none: the style's colour)}",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Diagram Styles"}
+  {:id "smartArt.items",
+   :label "Edit Items",
+   :params
+   "{\"items\": [string | {\"text\": string, \"level\"?: 0-7, \"color\"?: RRGGBB}]} (replaces the outline)",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Create Graphic"}
+  {:id "smartArt.layout",
+   :label "Change Layout",
+   :params
+   "{\"layout\": \"basicList|process|cycle|hierarchy|pyramid|radial|matrix|venn\"}",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Layouts"}
+  {:id "smartArt.promote",
+   :label "Promote",
+   :params
+   "{\"index\"?: item index (default: the last)} (the item and the items under it move up a level)",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Create Graphic"}
+  {:id "smartArt.reset",
+   :label "Reset Graphic",
+   :params
+   "{} (back to the default colours; the items and layout stay)",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Reset"}
+  {:id "smartArt.textPane",
+   :label "Text Pane",
+   :params "{\"value\"?: bool} (no value: show or hide the Text Pane)",
+   :source "crates/engine/src/cmd/smart_art.rs",
+   :location "SmartArt Design › Create Graphic"}
+  {:id "styles.addToGallery",
+   :label "Add to Style Gallery",
+   :params
+   "{\"style\": string (name or id), \"value\"?: bool (default true)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.apply",
+   :label "Apply Styles",
+   :params "{\"style\"?: string (name or id)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.copyFrom",
+   :label "Copy Styles",
+   :params
+   "{\"path\": string, \"data\"?: base64, \"styles\": [name or id]} → {\"added\", \"replaced\", \"skipped\"}",
+   :source "crates/engine/src/cmd/templates.rs",
+   :location "View › Templates › Organizer"}
+  {:id "styles.create",
+   :label "Create a Style",
+   :params
+   "{\"name\": string, \"basedOn\"?: string, \"fromSelection\"?: bool}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.delete",
+   :label "Delete Style",
+   :params "{\"style\": string (name or id; custom styles only)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.inspect",
+   :label "Inspect Styles at Selection",
+   :params "{}",
+   :source "crates/engine/src/cmd/inspector.rs",
+   :location "Home › Styles › Style Inspector"}
+  {:id "styles.inspector",
+   :label "Style Inspector",
+   :params "{\"value\"?: bool (show/hide the pane)}",
+   :source "crates/engine/src/cmd/inspector.rs",
+   :location "Home › Styles",
+   :shortcut "Shift+F1"}
+  {:id "styles.inspectorClear",
+   :label "Clear Formatting Level",
+   :params
+   "{\"level\": \"paragraphStyle|paragraphFormatting|characterStyle|characterFormatting\"}",
+   :source "crates/engine/src/cmd/inspector.rs",
+   :location "Home › Styles › Style Inspector"}
+  {:id "styles.list",
+   :label "Styles",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.manage",
+   :label "Manage Styles",
+   :params
+   "{\"sort\"?: \"recommended|alphabetical\"} → [{id, name, type: \"paragraph|character|linked|table\", builtIn, inGallery, hidden, basedOn, priority, format}]",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.modify",
+   :label "Modify Style",
+   :params
+   "{\"style\": string, \"chr\"?: CharProps, \"para\"?: ParaProps, \"name\"?: string, \"next\"?: string}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.organizer",
+   :label "Organizer",
+   :params
+   "{\"path\"?: string, \"data\"?: base64} → {\"document\": [style], \"file\"?: {\"path\", \"styles\": [style]}}",
+   :source "crates/engine/src/cmd/templates.rs",
+   :location "View › Templates › Organizer"}
+  {:id "styles.pane",
+   :label "Styles Pane",
+   :params "{}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles",
+   :shortcut "Mod+Alt+Shift+S"}
+  {:id "styles.rename",
+   :label "Rename Style",
+   :params
+   "{\"style\": string (name or id; custom styles only), \"name\": string}",
+   :source "crates/engine/src/cmd/templates.rs",
+   :location "View › Templates › Organizer"}
+  {:id "styles.setVisibility",
+   :label "Show or Hide Style",
+   :params
+   "{\"style\": string, \"gallery\"?: bool (Styles gallery, w:qFormat), \"hidden\"?: bool (hidden from style lists, w:semiHidden)}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "styles.updateToMatch",
+   :label "Update Style to Match Selection",
+   :params "{\"style\"?: string}",
+   :source "crates/engine/src/cmd/para.rs",
+   :location "Home › Styles"}
+  {:id "table.altText",
+   :label "Alt Text",
+   :params "{\"text\"?: string, \"title\"?: string} (empty clears)",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Table › Properties"}
+  {:id "table.autofit",
+   :label "AutoFit",
+   :params "{\"mode\": \"contents|window|fixed\"}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Cell Size"}
+  {:id "table.borderPainter",
+   :label "Border Painter",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Table Design › Borders"}
+  {:id "table.borders",
+   :label "Borders",
+   :params
+   "{\"kind\": \"all|outside|inside|none|top|bottom|left|right\", \"width\"?: pt, \"color\"?: \"RRGGBB\"}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Design › Borders"}
+  {:id "table.cellAlign",
+   :label "Alignment",
+   :params "{\"value\": \"topLeft|topCenter|…|bottomRight\"}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Alignment"}
+  {:id "table.cellMargins",
+   :label "Cell Margins",
+   :params "{\"top\"?, \"left\"?, \"bottom\"?, \"right\"? (pt)}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Table Layout › Alignment"}
+  {:id "table.columnWidth",
+   :label "Table Column Width",
+   :params
+   "{\"width\": pt} (every column the selection covers, the caret cell's without one; the table's preferred width is cleared so the columns get exactly this)",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Cell Size"}
+  {:id "table.deleteCells",
+   :label "Delete Cells",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns › Delete"}
+  {:id "table.deleteColumn",
+   :label "Delete Columns",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns › Delete"}
+  {:id "table.deleteRow",
+   :label "Delete Rows",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns › Delete"}
+  {:id "table.deleteStyle",
+   :label "Delete Table Style",
+   :params "{\"style\"?: string (default: the current table's)}",
+   :source "crates/engine/src/cmd/table_style.rs",
+   :location "Table Design › Table Styles"}
+  {:id "table.deleteTable",
+   :label "Delete Table",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns › Delete"}
+  {:id "table.distributeColumns",
+   :label "Distribute Columns",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Cell Size"}
+  {:id "table.distributeRows",
+   :label "Distribute Rows",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Cell Size"}
+  {:id "table.draw",
+   :label "Draw Table",
+   :params
+   "{\"page\": n, \"x0\": pt, \"y0\": pt, \"x1\": pt, \"y1\": pt, \"story\"?: StoryRef} (a pen stroke in page points, 0-based page: a rectangle at least 12 pt each way outside any table inserts a one-cell table of that size at the paragraph under its start; a straight vertical or horizontal line inside a table splits the cells it crosses there. In the app the button turns the pen on.)",
+   :source "crates/engine/src/cmd/table_draw.rs",
+   :location "Insert › Tables"}
+  {:id "table.eraser",
+   :label "Eraser",
+   :params
+   "{\"page\": n, \"x\": pt, \"y\": pt} (removes the border between two cells within 4 pt of the point: cells that make one rectangle merge, including cells merged down the same rows; otherwise the border is hidden along the whole edge. In the app the button turns the eraser on.)",
+   :source "crates/engine/src/cmd/table_draw.rs",
+   :location "Table Layout › Draw"}
+  {:id "table.fitColumn",
+   :label "AutoFit Column by Double-Clicking",
+   :params
+   "{\"page\": n, \"x\": pt, \"y\": pt, \"reach\"?: pt} (a double-click on a column border: the column left of it fits its contents and the columns right of it keep their widths, moving with the border, so the table narrows or widens (up to the right margin), as in Word)",
+   :source "crates/engine/src/cmd/table_mouse.rs",
+   :location "Table Layout › Cell Size"}
+  {:id "table.formula",
+   :label "Formula",
+   :params "{\"formula\"?: \"=SUM(ABOVE)\"}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Data"}
+  {:id "table.fromText",
+   :label "Convert Text to Table",
+   :params
+   "{\"separator\"?: \"tab|comma|paragraph|other\", \"char\"?: string (with other), \"columns\"?: n, \"autofit\"?: \"initial|fixed|contents|window\", \"width\"?: pt (initial column width, 0 = Auto, at most 1584)}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Insert › Tables"}
+  {:id "table.insertAt",
+   :label "Insert Row or Column by Clicking",
+   :params
+   "{\"page\": n, \"x\": pt, \"y\": pt, \"reach\"?: pt} (a click on a table's insert button: left of a row border adds a row there, above a column border a column; the new row or column is selected, as in Word)",
+   :source "crates/engine/src/cmd/table_mouse.rs",
+   :location "Table Layout › Rows & Columns"}
+  {:id "table.insertColumnLeft",
+   :label "Insert Left",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns"}
+  {:id "table.insertColumnRight",
+   :label "Insert Right",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns"}
+  {:id "table.insertRowAbove",
+   :label "Insert Above",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns"}
+  {:id "table.insertRowBelow",
+   :label "Insert Below",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Rows & Columns"}
+  {:id "table.look",
+   :label "Table Style Options",
+   :params
+   "{\"headerRow\"?: bool, \"totalRow\"?: bool, \"bandedRows\"?: bool, \"firstColumn\"?: bool, \"lastColumn\"?: bool, \"bandedColumns\"?: bool}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Design › Table Style Options"}
+  {:id "table.merge",
+   :label "Merge Cells",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Merge"}
+  {:id "table.modifyStyle",
+   :label "Modify Table Style",
+   :params
+   "style_params!(\"\\\"style\\\"?: string (default: the current table's), \\\"name\\\"?: string\")",
+   :params-expr true,
+   :source "crates/engine/src/cmd/table_style.rs",
+   :location "Table Design › Table Styles"}
+  {:id "table.moveDrag",
+   :label "Move Table by Dragging",
+   :params
+   "{\"page\": n, \"x\": pt, \"y\": pt, \"toX\": pt, \"toY\": pt, \"reach\"?: pt} (a drag from the move handle past a table's top-left corner (top-right in a right-to-left table): the table floats where it's dropped, the text wrapping around it; tables in the main text only)",
+   :source "crates/engine/src/cmd/table_mouse.rs",
+   :location "Table Layout › Table"}
+  {:id "table.newStyle",
+   :label "New Table Style",
+   :params "style_params!(\"\\\"name\\\": string\")",
+   :params-expr true,
+   :source "crates/engine/src/cmd/table_style.rs",
+   :location "Table Design › Table Styles"}
+  {:id "table.properties",
+   :label "Properties",
+   :params
+   "{\"align\"?: \"left|center|right\", \"rtl\"?: bool, \"width\"?: pt|null, \"widthPct\"?: percent, \"indent\"?: pt, \"rowHeight\"?: pt|null, \"rowHeightRule\"?: \"atLeast|exact\", \"allowBreak\"?: bool, \"headerRow\"?: bool, \"columnWidth\"?: pt, \"cellWidth\"?: pt|null, \"valign\"?: \"top|center|bottom\"} (row, column and cell settings apply to the selected rows, columns and cells, or the caret's; without settings it returns the caret's current ones)",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Table"}
+  {:id "table.quick",
+   :label "Quick Tables",
+   :params "{\"kind\"?: \"calendar|tabular|matrix\"}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Insert › Tables"}
+  {:id "table.repeatHeader",
+   :label "Repeat Header Rows",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Data"}
+  {:id "table.resizeDrag",
+   :label "Resize Table by Dragging",
+   :params
+   "{\"page\": n, \"x\": pt, \"y\": pt, \"toX\": pt, \"toY\": pt, \"shift\"?: bool, \"ctrl\"?: bool, \"reach\"?: pt} (a mouse drag in page points, 0-based page, starting on a table border or the resize handle: a column border moves (the column to its right gives or takes the difference, so the table keeps its width; with ctrl the columns right of it share it in proportion; with shift, or on the table's right edge, only the column left of it changes); the table's left edge moves a left-aligned table's indent, the first column making up the difference (a centred or right-aligned table keeps its alignment: only the first column changes); with cells of the table selected, a border of theirs moves only in their rows; a row's bottom border sets that row's height; the handle just outside the bottom-right corner scales every column and the rows on that page. `reach` (default 3) is how near the start has to be.)",
+   :source "crates/engine/src/cmd/table_resize.rs",
+   :location "Table Layout › Cell Size"}
+  {:id "table.rowHeight",
+   :label "Table Row Height",
+   :params
+   "{\"height\": pt, \"rule\"?: \"atLeast|exact\"} (every row the selection covers, the caret's without one)",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Cell Size"}
+  {:id "table.rtl",
+   :label "Right-to-Left Table",
+   :params
+   "{\"value\"?: bool} (true: the first column stands at the right; without a value it toggles)",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Table"}
+  {:id "table.selectAt",
+   :label "Select Table Cells by Clicking",
+   :params
+   "{\"page\": n, \"x\": pt, \"y\": pt, \"toX\"?: pt, \"toY\"?: pt, \"reach\"?: pt, \"extend\"?: bool, \"anchorRow\"?: n} (a click in page points, 0-based page, on a selection area of a table in the caret's story: just above a column selects the column, left of a row the row, along a cell's left edge inside it the cell, the move handle past the top-left corner (top-right in a right-to-left table) the table; with toX/toY (a drag) every column, row or cell from there to that point; the page margin beside a table (its leading side: right for a right-to-left table) is a row area too, and `extend` (Shift+click) on one takes the rows from the selected ones' anchor, or from row `anchorRow` (0-based) when given, so a drag keeps its press's anchor. `reach` (default 3) is the column borders' resize reach, which the cell areas keep clear of.)",
+   :source "crates/engine/src/cmd/table_mouse.rs",
+   :location "Table Layout › Table › Select"}
+  {:id "table.selectCell",
+   :label "Select Cell",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Table › Select"}
+  {:id "table.selectColumn",
+   :label "Select Column",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Table › Select"}
+  {:id "table.selectRow",
+   :label "Select Row",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Table › Select"}
+  {:id "table.selectTable",
+   :label "Select Table",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Table › Select"}
+  {:id "table.shading",
+   :label "Shading",
+   :params "{\"color\": \"RRGGBB\" | null}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Design › Table Styles"}
+  {:id "table.sort",
+   :label "Sort",
+   :params
+   "{\"column\"?: non-negative JSON integer (0-based, default 0; must name a column in the table), \"descending\"?: bool, \"header\"?: bool}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Data"}
+  {:id "table.split",
+   :label "Split Cells",
+   :params
+   "{\"columns\"?: n (2), \"rows\"?: n (1), \"mergeFirst\"?: bool (true: several selected cells are merged first)}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Merge"}
+  {:id "table.splitTable",
+   :label "Split Table",
+   :params "{}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Merge"}
+  {:id "table.style",
+   :label "Table Styles",
+   :params "{\"style\": string}",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Design › Table Styles"}
+  {:id "table.textDirection",
+   :label "Text Direction",
+   :params
+   "{\"value\"?: \"horizontal|down|up\"} (default: the next direction after the caret cell's, like Word's button)",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Alignment"}
+  {:id "table.toText",
+   :label "Convert to Text",
+   :params
+   "{\"separator\"?: \"tab|comma|paragraph|other\", \"char\"?: string (with other)} (the selected rows, or the whole table)",
+   :source "crates/engine/src/cmd/table.rs",
+   :location "Table Layout › Data"}
+  {:id "table.viewGridlines",
+   :label "View Gridlines",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Table Layout › Table"}
+  {:id "text.backTab",
+   :label "Shift+Tab",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Shift+Tab"}
+  {:id "text.backspace",
+   :label "Backspace",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Backspace"}
+  {:id "text.columnBreak",
+   :label "Column Break",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Layout › Breaks",
+   :shortcut "Mod+Shift+Enter"}
+  {:id "text.copyright",
+   :label "Copyright Sign",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols"}
+  {:id "text.delete",
+   :label "Delete",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Delete"}
+  {:id "text.deleteSentenceBack",
+   :label "Delete Previous Sentence",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Mod+Shift+Backspace"}
+  {:id "text.deleteWordBack",
+   :label "Delete Previous Word",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Mod+Backspace / Alt+Backspace"}
+  {:id "text.deleteWordForward",
+   :label "Delete Next Word",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Mod+Delete / Alt+Delete"}
+  {:id "text.ellipsis",
+   :label "Ellipsis",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols"}
+  {:id "text.emDash",
+   :label "Em Dash",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols",
+   :shortcut "Mod+Alt+-"}
+  {:id "text.insert",
+   :label "Type Text",
+   :params
+   "{\"text\": string, \"raw\"?: bool, \"paragraphs\"?: bool} (paragraphs: each line a paragraph, one undo step, at most 10000 lines)",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing"}
+  {:id "text.insertTab",
+   :label "Tab Character",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing"}
+  {:id "text.lineBreak",
+   :label "Line Break",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Shift+Enter"}
+  {:id "text.nbHyphen",
+   :label "Nonbreaking Hyphen",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols",
+   :shortcut "Mod+Shift+-"}
+  {:id "text.nbsp",
+   :label "Nonbreaking Space",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols",
+   :shortcut "Mod+Shift+Space"}
+  {:id "text.newParagraph",
+   :label "New Paragraph",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Enter"}
+  {:id "text.optionalHyphen",
+   :label "Optional Hyphen",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols",
+   :shortcut "Mod+-"}
+  {:id "text.overtype",
+   :label "Overtype",
+   :params "{\"value\"?: bool (default: toggle)}",
+   :source "crates/engine/src/cmd/options.rs",
+   :location "File › Options › Advanced"}
+  {:id "text.pageBreak",
+   :label "Page Break",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Pages",
+   :shortcut "Mod+Enter"}
+  {:id "text.registered",
+   :label "Registered Sign",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols"}
+  {:id "text.tab",
+   :label "Tab",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing",
+   :shortcut "Tab"}
+  {:id "text.toggleUnicode",
+   :label "Toggle Unicode Character",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing"}
+  {:id "text.trademark",
+   :label "Trademark Sign",
+   :params "{}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Insert › Symbols"}
+  {:id "text.typeCode",
+   :label "Type Character Code",
+   :params
+   "{\"code\": string (decimal digits as typed on the keypad, e.g. \"0233\"), \"ansi\"?: 874 | 1250–1258 (the leading-0 code page, default 1252), \"oem\"?: 437 | 737 | 850 | 852 | 857 | 866 (default from the locale)}",
+   :source "crates/engine/src/cmd/text.rs",
+   :location "Editing"}
+  {:id "tools.attachTemplate",
+   :label "Attach Template",
+   :params
+   "{\"path\": string, \"linkStyles\"?: bool, \"update\"?: bool (update the styles from it now), \"data\"?: base64 (the template's bytes, for \"update\")}",
+   :source "crates/engine/src/cmd/templates.rs"}
+  {:id "tools.autocorrect",
+   :label "AutoCorrect Options",
+   :params
+   "{\"enabled\"?: bool (all of AutoCorrect), \"replaceText\"|\"twoInitialCaps\"|\"capSentences\"|\"capCells\"|\"capDays\"|\"capsLock\"|\"smartQuotes\"|\"fractions\"|\"ordinals\"|\"dashes\"|\"links\"|\"bullets\"|\"numbering\"|\"borderLines\"?: bool, \"boldItalic\"?: bool (*bold* and _italic_ with real formatting; default false), \"tabIndent\"?: bool (Set left- and first-indent with tabs and backspaces; default false), \"headingStyles\"?: bool (Built-in Heading styles; default false), \"doubleSpacePeriod\"?: bool (Add a period with double-space; default false), \"autoAddFirstLetter\"|\"autoAddInitialCaps\"?: bool (Automatically add words to the exception lists when an automatic capital is undone; default true), \"add\"?: {\"from\": string, \"to\": string} (adds or replaces an entry), \"delete\"?: string (an entry's \"from\", built in or added), \"addException\"?: string, \"deleteException\"?: string, \"addInitialCapsException\"?: string (keeps TWo INitial CApitals, like \"IDs\"), \"deleteInitialCapsException\"?: string} → options, entries and exceptions",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Options › Proofing"}
+  {:id "tools.customizeKeyboard",
+   :label "Customize Keyboard",
+   :params
+   "{\"command\"?: id (its keys), \"key\"?: \"Mod+Shift+K\" (the command it runs), \"assign\"?: {\"command\": id, \"key\": string}, \"remove\"?: {\"command\": id, \"key\": string}, \"reset\"?: true (built-in keys only)} → {custom: {assigned: {key: id}, removed: [key]}, …}; no params opens the dialog",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Options"}
+  {:id "tools.customizeRibbon",
+   :label "Customize Ribbon",
+   :params
+   "{\"hide\"?: tab, \"show\"?: tab, \"newTab\"?: {\"name\"?, \"after\"?: tab}, \"newGroup\"?: {\"tab\", \"name\"?}, \"add\"?: {\"tab\", \"group\", \"command\", \"after\"?: id}, \"remove\"?: {\"tab\", \"group\"?, \"command\"?}, \"rename\"?: {\"tab\", \"group\"?, \"to\"}, \"move\"?: {\"tab\", \"group\"?, \"command\"?, \"by\": int}, \"qatAdd\"?: id, \"qatRemove\"?: id, \"qatMove\"?: {\"command\", \"by\": int}, \"reset\"?: true | \"ribbon\" | \"qat\", \"layout\"?: object} → {tabs: [{name, custom?, hidden?, groups?: [{name, commands}]}], qat: [id]}; only custom tabs and groups can be renamed or removed (built-in tabs can be hidden and moved); no params opens the dialog",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "File › Options"}
+  {:id "tools.detachTemplate",
+   :label "Detach Template",
+   :params "{}",
+   :source "crates/engine/src/cmd/templates.rs"}
+  {:id "tools.linkStyles",
+   :label "Automatically Update Document Styles",
+   :params "{\"value\"?: bool (default: toggle)}",
+   :source "crates/engine/src/cmd/templates.rs"}
+  {:id "tools.macros",
+   :label "Macros",
+   :params
+   "{\"run\"?: name, \"define\"?: {\"name\": string, \"steps\": [{\"command\", \"params\"}]}, \"delete\"?: name}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "View › Macros",
+   :shortcut "Alt+F8"}
+  {:id "tools.recordMacro",
+   :label "Record Macro",
+   :params "{\"name\"?: string} (call again to stop)",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "View › Macros"}
+  {:id "tools.search",
+   :label "Search",
+   :params
+   "{\"query\"?: string} → {matches: [{id, label, location, shortcut}]} (every word of the query in the label, location or id; at most 50); no query opens the Search box",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "Title Bar"}
+  {:id "tools.templates",
+   :label "Templates and Add-ins",
+   :params
+   "{} → {\"template\": path|null, \"linkStyles\": bool} (from the ribbon, the app shows the dialog)",
+   :source "crates/engine/src/cmd/templates.rs",
+   :location "View › Templates"}
+  {:id "tools.updateStyles",
+   :label "Update Styles from Template",
+   :params
+   "{\"path\"?: string (default: the attached template), \"data\"?: base64 (the file's bytes; `path` then only names it)} → {\"added\", \"replaced\"}",
+   :source "crates/engine/src/cmd/templates.rs"}
+  {:id "view.accessibilityPane",
+   :label "Accessibility Pane",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Review › Accessibility"}
+  {:id "view.altTextPane",
+   :label "Alt Text Pane",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Review › Accessibility"}
+  {:id "view.arrangeAll",
+   :label "Arrange All",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Window"}
+  {:id "view.commentsPane",
+   :label "Comments Pane",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Review › Comments"}
+  {:id "view.darkMode",
+   :label "Switch Modes",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Dark Mode"}
+  {:id "view.draft",
+   :label "Draft",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Views",
+   :shortcut "Mod+Alt+N"}
+  {:id "view.fieldCodes",
+   :label "Field Codes",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/fields.rs",
+   :location "View › Show",
+   :shortcut "Alt+F9"}
+  {:id "view.focus",
+   :label "Focus",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Immersive"}
+  {:id "view.formatShapePane",
+   :label "Format Shape Pane",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Shape Format › Shape Styles"}
+  {:id "view.fullScreen",
+   :label "Full Screen",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Window"}
+  {:id "view.fullScreenView",
+   :label "Full Screen View",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Immersive"}
+  {:id "view.gridlines",
+   :label "Gridlines",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Show"}
+  {:id "view.hideWhiteSpace",
+   :label "Hide White Space",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Show"}
+  {:id "view.immersive",
+   :label "Immersive Reader",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "View › Immersive"}
+  {:id "view.interfaceTheme",
+   :label "Interface Theme",
+   :params
+   "{\"value\"?: \"light\" | \"dark\" | \"system\"; without it, toggles light and dark}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Dark Mode"}
+  {:id "view.markdownSource",
+   :label "Markdown Source",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/md_source.rs",
+   :location "View › Views"}
+  {:id "view.markdownSourceText",
+   :label "Markdown Source Text",
+   :params
+   "{\"text\"?: string (up to 2 MB), \"caret\"?: integer >= 0}",
+   :source "crates/engine/src/cmd/md_source.rs",
+   :location "View › Views"}
+  {:id "view.marks",
+   :label "Show/Hide ¶",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Home › Paragraph",
+   :shortcut "Mod+Shift+8 / Mod+8"}
+  {:id "view.multiplePages",
+   :label "Multiple Pages",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Zoom"}
+  {:id "view.navigationPane",
+   :label "Navigation Pane",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Show"}
+  {:id "view.newWindow",
+   :label "New Window",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Window"}
+  {:id "view.numeral",
+   :label "Numerals",
+   :params "{\"value\"?: \"arabic|hindi|context|system\"}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "File › Options › Advanced"}
+  {:id "view.onePage",
+   :label "One Page",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Zoom"}
+  {:id "view.outline",
+   :label "Outline",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Views",
+   :shortcut "Mod+Alt+O"}
+  {:id "view.pageWidth",
+   :label "Page Width",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Zoom"}
+  {:id "view.paperColor",
+   :label "Screen Paper Color",
+   :params
+   "{\"value\": \"document\" | \"green\" | \"cream\" | \"gray\"}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Display"}
+  {:id "view.printLayout",
+   :label "Print Layout",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Views",
+   :shortcut "Mod+Alt+P"}
+  {:id "view.readColumnWidth",
+   :label "Reading Column Width",
+   :params
+   "{\"value\": \"auto\" | \"narrow\" | \"medium\" | \"wide\" | \"page\"}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Reading › Layout"}
+  {:id "view.readLineSpacing",
+   :label "Reading Line Spacing",
+   :params "{\"value\": \"document\" | 1.0 | 1.25 | 1.5 | 2.0}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Reading › Layout"}
+  {:id "view.readMode",
+   :label "Read Mode",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Views"}
+  {:id "view.readPageColor",
+   :label "Reading Page Color",
+   :params "{\"value\": \"none\" | \"sepia\" | \"inverse\"}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Reading › Layout"}
+  {:id "view.readTextSize",
+   :label "Reading Text Size",
+   :params "{\"value\": percent (75–150)}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Reading › Layout"}
+  {:id "view.ruler",
+   :label "Ruler",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Show"}
+  {:id "view.sideBySide",
+   :label "View Side by Side",
+   :params
+   "{\"value\"?: bool, \"window\"?: id of the other window (optional when one other window is open)}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Window"}
+  {:id "view.sideToSide",
+   :label "Side to Side",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "View › Page Movement"}
+  {:id "view.split",
+   :label "Split",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Window",
+   :shortcut "Mod+Alt+S"}
+  {:id "view.state",
+   :label "View State",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View"}
+  {:id "view.stylesPane",
+   :label "Styles Pane",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Home › Styles"}
+  {:id "view.stylesPaneDock",
+   :label "Styles Pane Position",
+   :params "{\"dock\"?: \"left\" | \"right\" | \"float\"}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "Home › Styles"}
+  {:id "view.switchWindows",
+   :label "Switch Windows",
+   :params
+   "{\"id\"?: n (make this open document the active one), \"window\"?: n (make this open window the active one)} → {\"documents\": [{\"id\", \"title\", \"path\", \"dirty\", \"active\"}]} in the order they were opened",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Window"}
+  {:id "view.syncScroll",
+   :label "Synchronous Scrolling",
+   :params "{\"value\"?: bool}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Window"}
+  {:id "view.vertical",
+   :label "Vertical",
+   :params "{}",
+   :source "crates/engine/src/cmd/tools/specs.rs",
+   :location "View › Page Movement"}
+  {:id "view.webLayout",
+   :label "Web Layout",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Views"}
+  {:id "view.zoom",
+   :label "Zoom",
+   :params
+   "{\"value\": percent (10-500) | \"pageWidth\" | \"onePage\" | \"multiplePages\"}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Zoom"}
+  {:id "view.zoom100",
+   :label "100%",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Zoom"}
+  {:id "view.zoomIn",
+   :label "Zoom In",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Zoom"}
+  {:id "view.zoomOut",
+   :label "Zoom Out",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs",
+   :location "View › Zoom"}
+  {:id "wordArt.style",
+   :label "Decorative Text Styles",
+   :params
+   "{\"style\": \"solid\"|\"outlined\"|\"hollow\"|\"gradient\"|\"shadowed\"|\"glowing\"|\"reflected\"|\"sunset\"}",
+   :source "crates/engine/src/cmd/wordart.rs",
+   :location "Shape Format › Decorative Text Styles"}
+  {:id "wordArt.textFill",
+   :label "Text Fill",
+   :params
+   "{\"fill\": \"RRGGBB\"|\"none\"|{\"gradient\": [\"RRGGBB\", …], \"angle\"?: deg}|null}",
+   :source "crates/engine/src/cmd/wordart.rs",
+   :location "Shape Format › Decorative Text Styles"}
+  {:id "wordArt.textOutline",
+   :label "Text Outline",
+   :params
+   "{\"color\"?: \"RRGGBB\"|null, \"width\"?: pt} or {\"outline\": \"none\"|null}",
+   :source "crates/engine/src/cmd/wordart.rs",
+   :location "Shape Format › Decorative Text Styles"}
+  {:id "wordArt.transform",
+   :label "Transform",
+   :params
+   "{\"preset\": \"textArchUp\"|\"textArchDown\"|\"textCircle\"|\"textWave1\"|\"textSlantUp\"|\"textSlantDown\"|\"textInflate\"|\"textDeflate\"|\"textChevron\"|\"textChevronInverted\"|\"textTriangle\"|\"textTriangleInverted\"|… (any DrawingML preset text warp)|\"none\", \"adj\"?: n (the preset's adjust value)}",
+   :source "crates/engine/src/cmd/wordart.rs",
+   :location "Shape Format › Decorative Text Styles"}],
+ :unexpanded [],
+ :mcp
+ [{:name "list_commands",
+   :title "List commands",
+   :description
+   "Every WordCraft command: id, label, ribbon location, shortcut and params. Filter with `query`.",
+   :input-schema-source
+   "obj(json!({\"query\": s(\"Case-insensitive filter on id/label/location\")}), &[])",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "execute",
+   :title "Run a command",
+   :description
+   "Run one command by id with params, e.g. {command:\"format.bold\"} or {command:\"insert.table\", params:{rows:3, cols:4}}. To insert a table that is already filled, use `insert_table`. Commands work on the active document, or on the open document `doc` names. file.new and file.open open another document beside the open ones and make it active; view.switchWindows {id} makes another one active and file.closeDocument {id, force?} closes one.",
+   :input-schema-source
+   "with_doc(obj(json!({\"command\": s(\"Command id\"), \"params\": {\"type\": \"object\", \"description\": \"Command parameters\"}}), &[\"command\"]))",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "insert_table",
+   :title "Insert filled table",
+   :description
+   "Insert a table at the caret, filled from `values` in one call (an array of rows, each an array of cells; all rows the same length, up to 1000 rows and 63 columns). Set `header` to make the first row a repeating header row.",
+   :input-schema-source
+   "with_doc(obj(\n                json!({\n                    \"values\": {\"type\": \"array\", \"description\": \"Rows of cells (text, numbers or booleans)\", \"items\": {\"type\": \"array\", \"items\": {\"type\": [\"string\", \"number\", \"boolean\", \"null\"]}}},\n                    \"header\": {\"type\": \"boolean\", \"description\": \"First row is a header row that repeats on each page\"},\n                    \"style\": s(\"Table style name (default GridTable1Light)\")\n                }),\n                &[\"values\"]\n            ))",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "batch",
+   :title "Run several commands",
+   :description
+   "Run commands in order; stops at the first error unless keepGoing. `doc` sends every command to that open document.",
+   :input-schema-source
+   "with_doc(obj(\n                json!({\"commands\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}, \"params\": {\"type\": \"object\"}}, \"required\": [\"command\"]}}, \"keepGoing\": {\"type\": \"boolean\"}}),\n                &[\"commands\"]\n            ))",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "new_document",
+   :title "New document",
+   :description
+   "Start a document: blank, sample, letter, resume or report. It opens beside the documents already open and becomes the active one; the reply's `id` addresses it (`doc`).",
+   :input-schema-source
+   "obj(json!({\"template\": s(\"blank|sample|letter|resume|report\")}), &[])",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "open_document",
+   :title "Open",
+   :description
+   "Open a .docx, .doc, .odt, .rtf, .md, .tex, .html, .txt or .json file, or any other text file (.m3u, .log, .ini…) as plain text. Give `password` for a protected file; without it the call fails asking for one. The file opens beside the documents already open (it replaces a blank one nobody has used) and becomes the active one; a file that is already open becomes active again (`alreadyOpen`). The reply's `id` addresses it (`doc`).",
+   :input-schema-source
+   "obj(json!({\"path\": s(\"File path\"), \"password\": s(\"Password, if the file is protected\")}), &[\"path\"])",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "save_document",
+   :title "Save",
+   :description
+   "Save (format from the extension: docx, pdf, odt, rtf, html, md, tex, txt, png).",
+   :input-schema-source
+   "with_doc(obj(json!({\"path\": s(\"File path; omit to save in place\")}), &[]))",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "type_text",
+   :title "Type text",
+   :description
+   "&format!(\n                \"Type at the caret (replacing the selection). Use \\\\n... for line breaks inside text; use execute text.newParagraph for new paragraphs, or `paragraphs: true` to split lines into paragraphs (one undo step, at most {} lines).\",\n                wordcraft_engine::cmd::text::MAX_TYPED_PARAGRAPHS\n            )",
+   :description-expr true,
+   :input-schema-source
+   "with_doc(obj(json!({\"text\": s(\"Text\"), \"paragraphs\": {\"type\": \"boolean\"}}), &[\"text\"]))",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "select_text",
+   :title "Select text",
+   :description "Select the n-th occurrence of some text.",
+   :input-schema-source
+   "with_doc(obj(json!({\"text\": s(\"Text to find\"), \"occurrence\": n(\"1-based\")}), &[\"text\"]))",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "get_text",
+   :title "Document text",
+   :description "Body text with tracked deletions omitted.",
+   :input-schema-source "with_doc(obj(json!({}), &[]))",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "inspect_document",
+   :title "Inspect document",
+   :description
+   "Structure: blocks with text, styles, formatting runs, lists, tables, sections, parts, selection, pages.",
+   :input-schema-source "with_doc(obj(json!({}), &[]))",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "render_page",
+   :title "Render page",
+   :description "Render a page to PNG to look at the result.",
+   :input-schema-source
+   "with_doc(obj(json!({\"page\": n(\"1-based page\"), \"scale\": n(\"Pixels per point (default 1)\")}), &[]))",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "list_documents",
+   :title "Open documents",
+   :description
+   "The open documents in the order they were opened: id, title, path, dirty (unsaved changes) and active (the one commands work on by default). new_document and open_document open another document beside these. Give a document's id as `doc` to execute, batch, type_text, select_text, get_text, inspect_document, render_page or save_document to work on it while it stays in the background; execute view.switchWindows {id} makes it the active one, file.closeDocument {id, force?} closes it.",
+   :input-schema-source "obj(json!({}), &[])",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "parity",
+   :title "Feature parity",
+   :description
+   "WordCraft's command coverage of the word-processor feature catalog.",
+   :input-schema-source "obj(json!({}), &[])",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "screenshot",
+   :title "Screenshot app",
+   :description
+   "Screenshot of the whole WordCraft window (desktop app only).",
+   :input-schema-source "obj(json!({}), &[])",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "click",
+   :title "Click",
+   :description "Click at window coordinates (desktop app only).",
+   :input-schema-source
+   "obj(json!({\"x\": n(\"x\"), \"y\": n(\"y\"), \"count\": n(\"1-3 clicks\"), \"shift\": {\"type\": \"boolean\"}, \"cmd\": {\"type\": \"boolean\"}}), &[\"x\", \"y\"])",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "key",
+   :title "Press key",
+   :description
+   "Press a key with modifiers (desktop app only), e.g. {key:\"B\", cmd:true}.",
+   :input-schema-source
+   "obj(json!({\"key\": s(\"Key name\"), \"shift\": {\"type\": \"boolean\"}, \"alt\": {\"type\": \"boolean\"}, \"cmd\": {\"type\": \"boolean\"}}), &[\"key\"])",
+   :read-only false,
+   :source "crates/mcp/src/tools.rs"}
+  {:name "ui_inspect",
+   :title "Inspect UI",
+   :description
+   "UI state: tab, panes, dialog, page rectangles on screen, caret (desktop app only).",
+   :input-schema-source "obj(json!({}), &[])",
+   :read-only true,
+   :source "crates/mcp/src/tools.rs"}],
+ :control
+ ["app.quit"
+  "document.inspect"
+  "engine.commands"
+  "engine.execute"
+  "ui.click"
+  "ui.clickText"
+  "ui.drag"
+  "ui.focus"
+  "ui.inspect"
+  "ui.key"
+  "ui.move"
+  "ui.parity"
+  "ui.press"
+  "ui.release"
+  "ui.render"
+  "ui.resize"
+  "ui.screenshot"
+  "ui.text"
+  "ui.wheel"]}

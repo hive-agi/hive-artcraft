@@ -1,0 +1,21 @@
+{"cadcraft"
+ {:app "cadcraft",
+  :revision "16341b665fa358d6fa1847e4f2325b5a5b0ec037",
+  :engine 439,
+  :mcp 15,
+  :control 26,
+  :unexpanded 18},
+ "figcraft"
+ {:app "figcraft",
+  :revision "da2792cb4aaa4d14ecd84929297e804eeb67669f",
+  :engine 649,
+  :mcp 19,
+  :control 18,
+  :unexpanded 0},
+ "wordcraft"
+ {:app "wordcraft",
+  :revision "1a56d041defe28f0d35de501ba7e40268a549d26",
+  :engine 674,
+  :mcp 18,
+  :control 19,
+  :unexpanded 0}}

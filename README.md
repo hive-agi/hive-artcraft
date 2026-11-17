@@ -3,7 +3,8 @@
 ![hive · artcraft: eight Crafting Apps under one verb, drawn live in VectorCraft through artcraft](docs/img/showcase.png)
 
 One hive addon, `hive.artcraft`, with **one verb, `artcraft`**, for every ArtCraft "Crafting App"
-(PhotoCraft, VectorCraft, LightCraft, DesignCraft, FilmCraft, EffectCraft, PdfCraft, ArtCraft Studio).
+(PhotoCraft, VectorCraft, LightCraft, DesignCraft, FilmCraft, EffectCraft, PdfCraft, ArtCraft Studio,
+DeckCraft, GridCraft, AniCraft, CADCraft, FigCraft, WordCraft, SoundCraft, MaterialCraft, TextureCraft).
 Each app is a **module**: a piece of data in a registry list. The `app` argument is an enum built
 from the apps that mounted.
 
@@ -56,6 +57,27 @@ from `clojure -M:dev -m extract-studio [root]`) are native too. It uses the shar
 `dev/artcraft_extract.clj`, which is ported from hive-vectorcraft and also reads DesignCraft's
 `noundo` arm. `:reference-revision` is the clone's HEAD sha.
 
+Nine more storytold apps are native modules too. Each has its own `dev/extract_<app>.clj`. Apps whose
+sources declare commands differently share a variant parser: `dev/cad_fig_word_extract.clj`
+(`CommandSpec::new` builders, `spec!`, heading-style method docs) and
+`dev/sound_material_texture_extract.clj` (CLI-served MCP tools, a char-literal-safe scanner).
+Commands a wrapper macro hides from static reading are counted under `:unexpanded`, not dropped.
+
+| app | transport | port (env) | engine / MCP / control | control auth |
+|---|---|---|---|---|
+| deckcraft | `:port` | 7983 (`DECKCRAFT_CONTROL_PORT`) | 329 / 25 / 26 | none |
+| gridcraft | `:port` | 7985 (`GRIDCRAFT_CONTROL_PORT`) | 386 / 22 / 34 | first-line `auth` handshake (not sent yet) |
+| anicraft | `:none` | none | 360 / 5 / 0 | no external control surface; MCP via `anicraft-cli mcp` |
+| cadcraft | `:port` | 7982 (`CADCRAFT_CONTROL_PORT`) | 439 / 15 / 26 (+18 unexpanded) | top-level `"token"`, `:token-ref` env `CADCRAFT_CONTROL_TOKEN` |
+| figcraft | `:port` | 7984 (`FIGCRAFT_CONTROL_PORT`) | 649 / 19 / 18 | none |
+| wordcraft | `:port` | 7986 (`WORDCRAFT_CONTROL_PORT`) | 674 / 18 / 19 | per-window `"key"` (not sent yet) |
+| soundcraft | `:port` | 7987 (`SOUNDCRAFT_CONTROL_PORT`) | 388 / 17 / 17 (+95 unexpanded) | none |
+| materialcraft | `:port` | 7988 (`MATERIALCRAFT_CONTROL_PORT`) | 121 / 20 / 12 | first-line `auth` handshake (not sent yet) |
+| texturecraft | `:port` | 7989 (`TEXTURECRAFT_CONTROL_PORT`) | 178 / 22 / 15 | first-line `auth` handshake (not sent yet) |
+
+Catalog, doctor and the refusal paths work for all of them today. Live calls to gridcraft, wordcraft,
+materialcraft and texturecraft are refused by the app until a handshake transport lands.
+
 ## Using it
 
 Every call goes through the host `code` tool:
@@ -98,7 +120,10 @@ Each app's control port is chosen in this order:
 3. the module's default
 
 The default ports are 7878 (photocraft), 7979 (vectorcraft), 7980 (lightcraft), 7981 (designcraft),
-9876 (filmcraft) and 9877 (effectcraft). They never collide.
+7982 (cadcraft), 7983 (deckcraft), 7984 (figcraft), 7985 (gridcraft), 7986 (wordcraft),
+7987 (soundcraft), 7988 (materialcraft), 7989 (texturecraft), 9876 (filmcraft) and 9877 (effectcraft).
+They never collide. FigCraft's and WordCraft's own docs use 7979 and 7981, which belong to VectorCraft
+and DesignCraft here.
 
 PhotoCraft authenticates its control channel, so it only gets a port when a `:token-ref` is also
 configured. Without one, its calls refuse with the fix instead of failing on the socket. Keep every

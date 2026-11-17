@@ -1,0 +1,903 @@
+{:reference-revision "9c1b9cbc7b1e5541cffa03b80a8fa6bd1366a54d",
+ :engine
+ [{:id "alpha.list",
+   :label "List brush alphas",
+   :params "{} — procedural alphas and the built-in library",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "bake.cage.clear",
+   :label "Remove cage mesh",
+   :params "{}",
+   :source "crates/engine/src/bake/mesh_map_command.rs"}
+  {:id "bake.cage.paint",
+   :label "Paint Cage",
+   :params
+   "{ts?, points: [[u,v],...], radius?: 0.03, value?: 1 (frontal distance multiplier, 0..1), hardness?: 0.5, strength?: 1, size?: 1024, continue?: false}",
+   :source "crates/engine/src/bake/paint_command.rs"}
+  {:id "bake.cage.reset",
+   :label "Reset Painted Cage",
+   :params "{ts?}",
+   :source "crates/engine/src/bake/paint_command.rs"}
+  {:id "bake.cage.set",
+   :label "Load cage mesh",
+   :params "{path} — a mesh with the low poly's triangles",
+   :source "crates/engine/src/bake/mesh_map_command.rs"}
+  {:id "bake.highPoly.add",
+   :label "Add high definition mesh",
+   :params
+   "{path} — a mesh file (glb, gltf, fbx, dae, usd, usda, usdc, usdz, abc, obj, ply, stl; base color textures from glTF, embedded FBX media, usdz packages and image files next to a .gltf or USD layer supply opacity)",
+   :source "crates/engine/src/bake/mesh_map_command.rs"}
+  {:id "bake.highPoly.list",
+   :label "List high definition meshes",
+   :params "{}",
+   :source "crates/engine/src/bake/mesh_map_command.rs"}
+  {:id "bake.highPoly.remove",
+   :label "Remove high definition mesh",
+   :params "{index? | name? | all?: true}",
+   :source "crates/engine/src/bake/mesh_map_command.rs"}
+  {:id "bake.preview",
+   :label "Bake preview",
+   :params
+   "{show?: \"follow\" (the newest finished map) | \"material\" | \"map:<id>\" (pin a map)} → {active, show, shown, newest, stage, sets}. While the app bakes, the 3D view shows the maps as they finish; `show` picks what it shows. With no bake running {active: false} (setting `show` is then an error)",
+   :source "crates/engine/src/bake_preview.rs"}
+  {:id "bake.run",
+   :label "Bake mesh maps",
+   :params
+   "{ts?: index|[indices]|\"all\"|\"selected\", cpu?: true (skip the GPU), ...any bake.settings parameter} → {baked, tracer: [where each set's rays ran]}",
+   :source "crates/engine/src/bake/mesh_map_command.rs"}
+  {:id "bake.settings",
+   :label "Bake settings",
+   :params
+   "{ts?: index|[indices]|\"all\"|\"selected\" (default: the active set), model?: complete nested BakeSettings (named enum values), preserveEnabled?: keep each texture set enabled flag when replacing the model, patch?: nested BakeSettings fields to update after model (omitted fields stay unchanged, null clears optional fields), resolution?, antialiasing?: 1|2|4|8, dilation?, ao?: {rays?, maxDistance?, spread?: degrees (180 = hemisphere), distribution?: cosine|uniform, ignoreBackface?: never|always|byMeshName, selfOcclusion?: always|sameMeshName}, thickness?: {rays?, maxDistance?, spread?, distribution?}, bentNormal?: {rays?, maxDistance?, spread?, distribution?}, rays?, maxDistance? (all three ray maps), curvatureMethod?: normalMap|mesh, positionMode?: boundingBox|boundingSphere|none, maps?: [ids], enabled?, useLowAsHigh?, maxFrontal?, maxRear?, averageNormals?, lowSuffix?, highSuffix?}",
+   :source "crates/engine/src/bake/mesh_map_command.rs"}
+  {:id "bake.skew.clear",
+   :label "Remove Skew Correction",
+   :params "{ts?}",
+   :source "crates/engine/src/bake/paint_command.rs"}
+  {:id "bake.skew.paint",
+   :label "Paint Skew Correction",
+   :params
+   "{ts?, points: [[u,v],...], radius?: 0.03, value?: 1, hardness?: 0.5, strength?: 1, size?: 1024, continue?: false}",
+   :source "crates/engine/src/bake/paint_command.rs"}
+  {:id "bake.skew.set",
+   :label "Set Skew Correction",
+   :params "{ts?, value?: 0..1 | path: grayscale image}",
+   :source "crates/engine/src/bake/paint_command.rs"}
+  {:id "bake.tile.set",
+   :label "Include UV tile in bake",
+   :params
+   "{ts?, tile: UDIM number, enabled: bool} → {ts, tile, enabled}; excluded tiles keep existing baked pixels",
+   :source "crates/engine/src/bake/tile_command.rs"}
+  {:id "brush.preset.apply",
+   :label "Apply brush preset",
+   :params
+   "{preset: id or label (brush.preset.list)} — sets the stroke (alpha, spacing, flow, hardness, jitters…), keeps the size",
+   :source "crates/engine/src/brush_preset_cmds.rs"}
+  {:id "brush.preset.list",
+   :label "List brush presets",
+   :params "{} — the built-in presets: id, label, category",
+   :source "crates/engine/src/brush_preset_cmds.rs"}
+  {:id "brush.preset.load",
+   :label "Load brush preset",
+   :params
+   "{path} — a .tcbrush file's stroke on the brush, keeping the size",
+   :source "crates/engine/src/brush_preset_cmds.rs"}
+  {:id "brush.preset.save",
+   :label "Save brush preset",
+   :params "{path} — the current brush as a .tcbrush file",
+   :source "crates/engine/src/brush_preset_cmds.rs"}
+  {:id "camera.add",
+   :label "Save view as camera",
+   :params "{name?}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark1",
+   :label "Go to camera 1",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark2",
+   :label "Go to camera 2",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark3",
+   :label "Go to camera 3",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark4",
+   :label "Go to camera 4",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark5",
+   :label "Go to camera 5",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark6",
+   :label "Go to camera 6",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark7",
+   :label "Go to camera 7",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark8",
+   :label "Go to camera 8",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.bookmark9",
+   :label "Go to camera 9",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.get",
+   :label "Get camera",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "camera.list",
+   :label "Cameras",
+   :params "{}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.orbit",
+   :label "Orbit camera",
+   :params "{dx?, dy? (degrees)}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "camera.remove",
+   :label "Remove camera",
+   :params "{index? | name?}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.rename",
+   :label "Rename camera",
+   :params "{index? | name?, to}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.select",
+   :label "Select camera",
+   :params
+   "{index? | name?} (neither, or name \"Default camera\": the default camera framing the mesh)",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "camera.set",
+   :label "Set camera",
+   :params
+   "{yaw?, pitch? (degrees), distance?, fov?, target?: [x,y,z], ortho?}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "display.set",
+   :label "Display settings",
+   :params
+   "{environment?: <built-in>|resource:<image resource>, exposure?, blur?, rotation?, opacity?, toneMapping?: linear|aces, fov?, shadows?, aoIntensity?, bloom?, vignette?, sharpen?, grain?, postEffects?, taa?, specGloss?, parallax?, displacement? (the viewport moves the surface by the height channel), scatterColor?: [r,g,b] (linear) | \"#rrggbb\", scatterRadius? (0..1 of the mesh radius), ior? (1..3, transmission), dof?: {enabled?, focusDistance? (view depth, world units; 0 = the orbit target), aperture? (lens radius, 0..1 of the mesh radius)}}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "edit.history",
+   :label "History",
+   :params
+   "{} → {undo: steps, oldest first, redo: undone steps, next first}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "edit.redo",
+   :label "Redo",
+   :params
+   "{steps?: 1 (as many as there are)} → {redone: the last step redone, steps}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "edit.undo",
+   :label "Undo",
+   :params
+   "{steps?: 1 (as many as there are)} → {undone: the last step undone, steps}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "effect.add.anchor",
+   :label "Add anchor point",
+   :params
+   "{layer?, target?: content|mask (content), name?} (on the content it records the stack up to this layer, in a mask the mask value at that point; fills, masks and generators above read it: effect.add.fill {anchor}, effect.add.generator {microAnchor})",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.add.compare",
+   :label "Add compare mask",
+   :params
+   "{layer?, name?, op?: lesser|within|greater, value?, tolerance?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.add.fill",
+   :label "Add fill",
+   :params
+   "{layer?, target?: mask|content, name?, mask: value?: 0..1 | procedural?: kind, scale?, seed? | anchor?: anchor effect id, anchorChannel?: channel (height); content: color?, roughness?, metallic?, height?, opacity? (default: every layer channel); projection?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.add.filter",
+   :label "Add filter",
+   :params
+   "{layer?, target?: mask|content, name?, filter?: id from filter.list (invert, threshold, blur, sharpen, hsl, levels, contrastLuminosity, colorBalance, gradientMap, posterize, clamp, histogramScan|Range|Shift, warp, blurDirectional, slopeBlur, matFinishGrind|Raw|Sanded|Hammered), level?, radius?, amount?, hue?: turns -1..1, saturation?, lightness?, contrast?, luminosity?, shadows?|midtones?|highlights?: [r,g,b] -1..1, colors?: [[r,g,b]|\"#rrggbb\", ...], levels?, min?, max?, position?, range?, offset?, intensity?, scale?, seed?, angle?} — material finishes go on the content",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.add.generator",
+   :label "Add generator",
+   :params
+   "{layer?, name?, generator?: edgeWear|dirt|thinAreas|curvature|ambientOcclusion|position|direction, level?, softness?, noise?, offset?: -1..1 added to the result, invert?, blur?: 0..1, balance?: 0..1 (0.5 unchanged), contrast?: 0..1, resolution?: auto|textureSet|uvTile|custom, customResolution?, resolutionFactor?: -3..3 (1/8..x8), mode?: edges|cavities|both|raw, sizes?: [7 weights 0..1, finest first] (curvature and edgeWear), microAnchor?: anchor effect id below, microAmount?: 0..1 (0.5)}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.add.levels",
+   :label "Add levels",
+   :params
+   "{layer?, target?: mask|content, name?, inLow?, inHigh?, gamma?, outLow?, outHigh?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.add.paint",
+   :label "Add paint",
+   :params "{layer?, target?: mask|content, name?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.colorSelection.pick",
+   :label "Pick ID color",
+   :params
+   "{effect?: a color selection (default: the selected effect), x?, y?: viewport pixels, viewport?: [w,h] | uv?: [u,v] texture set atlas UV (the 2D view), index?: replace this color instead of adding one} → {color: [r,g,b] as the ID map stores it, index} — samples the ID mesh map under the point",
+   :source "crates/engine/src/color_selection_cmds.rs"}
+  {:id "effect.copy",
+   :label "Copy effect",
+   :params "{effect?: the selected effect}",
+   :source "crates/engine/src/effect_clipboard.rs"}
+  {:id "effect.cut",
+   :label "Cut effect",
+   :params "{effect?: the selected effect}",
+   :source "crates/engine/src/effect_clipboard.rs"}
+  {:id "effect.duplicate",
+   :label "Duplicate effect",
+   :params
+   "{effect?: the selected effect} → {effect} (the copy, just above it, pixels included)",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.histogram",
+   :label "Effect input histogram",
+   :params
+   "{effect, channel?: for content effects (default: the layer's first channel), bins?: 2..256 (64)} → {target: mask|content, channel?, bins: [count per bucket over 0..1]}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.move",
+   :label "Move effect",
+   :params
+   "{effect, index: position in its stack, 0 = bottom (applied first)}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.paste",
+   :label "Paste effect",
+   :params
+   "{layer?, target?: mask|content (default: the selection's stack)} → {effect} — above the selected effect, or on top of the stack",
+   :source "crates/engine/src/effect_clipboard.rs"}
+  {:id "effect.remove",
+   :label "Remove effect",
+   :params "{effect?: the selected effect}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "effect.set",
+   :label "Edit effect",
+   :params
+   "{effect, visible?, blend?, opacity?, name?, filter?: id from filter.list (a filter effect only: swaps its type, keeping position, blend and opacity; its current id edits it in place), generator?: kind (a generator effect only: changes kind in place), level?, softness?, noise?, noiseScale?, offset?, invert?, blur?, balance?, contrast?, resolution?, customResolution?, resolutionFactor?, input?: mesh map id + one of inputImage?, inputValue?, inputAnchor?, inputBaked?: true (a generator), mode?, sizes?, microAnchor?: id|null, microAmount?, value?, anchor?, anchorChannel?, inLow?, inHigh?, gamma?, outLow?, outHigh?, tolerance?, colors?: [[r,g,b], ...] (a color selection's ID colors), filter parameters (see effect.add.filter)}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "export.plan",
+   :label "List export outputs",
+   :params
+   "{preset?: name or preset object, ts?, format?, bitDepth?, size?, colorSpace?} → [{ts, map, file, format, bitDepth, warnings}]",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "export.preset.get",
+   :label "Get an export preset",
+   :params
+   "{name} → {name, maps: [{file, format, bit_depth, channels}]}",
+   :source "crates/engine/src/preset_cmds.rs"}
+  {:id "export.preset.remove",
+   :label "Remove a user export preset",
+   :params "{name}",
+   :source "crates/engine/src/preset_cmds.rs"}
+  {:id "export.preset.save",
+   :label "Save a user export preset",
+   :params
+   "{preset: {name, maps}, unique?: true = add \" 2\", \" 3\"… on a name clash instead of failing, rename?: name of the user preset this one replaces} → {name}",
+   :source "crates/engine/src/preset_cmds.rs"}
+  {:id "export.presets",
+   :label "Export presets",
+   :params "{} → [{name, maps, builtin}]",
+   :source "crates/engine/src/preset_cmds.rs"}
+  {:id "file.changeMesh",
+   :label "Change mesh",
+   :params
+   "{path: the new mesh file, preserveStrokes?: bool (painted pixels follow the surface where the UVs differ; default true)} → {preserved?: texels re-projected}. Keeps layers, texture sets and settings; texture sets map to the new mesh by material index",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.close",
+   :label "Close",
+   :params "{}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.exportMesh",
+   :label "Export Mesh...",
+   :params
+   "{path: .obj, .glb, .usda, .usdc or .usdz file, format?: obj|glb|usda|usdc|usdz (default: from the extension, else obj); obj writes its .mtl and textures, usda/usdc their textures, next to the file} → {path, textures?}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.exportTextures",
+   :label "Export textures",
+   :params
+   "{dir, preset?: built-in or user preset name, or a preset object {name, maps}, ts?: index|\"all\", format?: png|jpg|tga|tif|exr|..., bitDepth?, padding?: none|dilation|dilationDefault|infinite, dilation?: px, size?: px, normalFormat?: openGl|directX, colorSpace?: sRGB (default for 8/16-bit files)|Linear Rec.709 (default for exr, hdr)|ACEScg|ACES2065-1 (colour maps are converted, data maps never are; 8/16-bit files clamp to 0-1; a chosen space is also recorded in the colour maps: an ICC profile in PNG, JPEG, TIFF and WebP, the chromaticities in EXR; TGA, BMP and HDR can't hold one and warn), materialX?: bool (also write a .mtlx OpenPBR material per texture set; needs the \"OpenPBR (separate maps)\" preset)}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.importMaterialX",
+   :label "Import MaterialX material...",
+   :params
+   "{path: a .mtlx file, material?: the surfacematerial to read (default: the first), name?: layer name} → {layer, material, channels, resources, warnings}: one fill layer with the material's textures (read from the file's folder) and values; open_pbr_surface, standard_surface and gltf_pbr are read",
+   :source "crates/engine/src/materialx_cmds.rs"}
+  {:id "file.new",
+   :label "New project from a mesh file",
+   :params
+   "{mesh: path to .glb/.gltf/.fbx/.dae/.usd/.usda/.usdc/.usdz/.abc/.obj/.ply/.stl, resolution?: 2048, name?, uvTiles?: bool (UDIM; default: when the UVs leave tile 1001), template?: project template name}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.open",
+   :label "Open...",
+   :params "{path: .tcraft project or mesh file}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.reimportMesh",
+   :label "Reimport mesh",
+   :params
+   "{path?, preserveStrokes?: bool (painted pixels follow the surface when the UVs changed; default false)} → {preserved?: texels re-projected}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.removeUnused",
+   :label "Remove unused resources...",
+   :params "{}",
+   :source "crates/engine/src/resource_cmds.rs"}
+  {:id "file.save",
+   :label "Save",
+   :params "{path?: .tcraft (default: the project's own file)}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.saveAs",
+   :label "Save as...",
+   :params "{path}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.saveCopy",
+   :label "Save a copy...",
+   :params "{path}",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "filter.list",
+   :label "List filters",
+   :params
+   "{} — the filter library: id, label, group, whether masks take it, default parameters",
+   :source "crates/engine/src/filter_lib.rs"}
+  {:id "layer.add.decal",
+   :label "Add decal",
+   :params
+   "{image: resource name, channel?: a channel id (default baseColor) | \"mask\" (a new fill layer masked by the image's gray), x?, y?: viewport pixels (default: the view center; a point on another texture set selects it), viewport?: [w,h] | position?: [x,y,z], normal?: [x,y,z] (on the selected texture set), up?: [x,y,z] (the image's up; default the view's up, or the view direction when that is along the normal), size?: height | [w,h] (world units; default a quarter of the mesh), rotation?: degrees, depth?, name?} → {layer, decal, maskEffect: the mask fill effect holding the image with channel \"mask\", else null} — a fill layer projecting the image from a frame placed on the surface; seen from the front, the image reads the right way round",
+   :source "crates/engine/src/decal_cmds.rs"}
+  {:id "layer.add.fill",
+   :label "Add fill layer",
+   :params "{name?, color?, roughness?, metallic?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.add.group",
+   :label "Add folder",
+   :params "{name?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.add.image",
+   :label "Add fill layer from image",
+   :params
+   "{name (exact resource name with extension or unique stem), channel?: baseColor, projection?: uv|triplanar|planar, scale?}",
+   :source "crates/engine/src/resource_cmds.rs"}
+  {:id "layer.add.paint",
+   :label "Add paint layer",
+   :params "{name?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.blend",
+   :label "Set channel blending",
+   :params
+   "{layer?, channel?: id|all, mode?, opacity?: 0..1, enabled?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.colorTag",
+   :label "Set layer color tag",
+   :params "{layer?, tag?: 0..7 (absent clears)}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.copy",
+   :label "Copy layer(s)",
+   :params "{layer?}",
+   :source "crates/engine/src/layer_ops.rs"}
+  {:id "layer.cut",
+   :label "Cut layer(s)",
+   :params "{layer?}",
+   :source "crates/engine/src/layer_ops.rs"}
+  {:id "layer.decal.set",
+   :label "Edit decal",
+   :params
+   "{layer? | effect?: a mask fill effect id (a decal placed as a mask; with `layer`, it must be in that layer), x?, y?, viewport? | position?, normal? (re-place it on its own texture set), up?: [x,y,z], size?: height | [w,h], rotation?: degrees, offset?: [right, up] (world units from where it was placed), depth?, image?: replaces the image in the channel or mask it was placed in, merge?: true continues the previous Edit decal undo step (drags)}",
+   :source "crates/engine/src/decal_cmds.rs"}
+  {:id "layer.duplicate",
+   :label "Duplicate layer(s)",
+   :params "{layer?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.fill.projection",
+   :label "Set fill projection",
+   :params
+   "{layer? | effect?: content fill effect id, projection?: uv|triplanar|planar|spherical|cylindrical (default: the current one), scale?: number | [u, v] (uv), rotation?: degrees (uv), offset?: [u, v] (uv) | [x, y, z] (triplanar, planar), sharpness?: 1..64 (triplanar), axis?: 0|1|2 (planar, cylindrical)} — what is not given keeps its value",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.fill.set",
+   :label "Set fill source",
+   :params
+   "{layer? | effect?: content fill effect id, channel, color?|value?|procedural?: kind, scale?, seed?, contrast?, balance?, invert?, low?, high?|image?, normalFormat?: openGl|directX (the image's normal map convention; alone, it changes the channel's image)|anchor?: anchor effect id, anchorChannel?, enabled?, solo?: true (this channel on, every other one off)}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.flatten",
+   :label "Flatten layer",
+   :params
+   "{layer?} — a fill or masked paint layer becomes a plain paint layer",
+   :source "crates/engine/src/layer_ops.rs"}
+  {:id "layer.group",
+   :label "Group layer(s)",
+   :params "{layer?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.instance",
+   :label "Create instance",
+   :params
+   "{layer?, ts?: texture set (default active)} — a linked instance above that set's selection; edits to the source show in every instance",
+   :source "crates/engine/src/instance_cmds.rs"}
+  {:id "layer.instantiateAll",
+   :label "Instantiate across texture sets",
+   :params
+   "{layer?, copy?: bool} — a linked instance of the layer on top of every other texture set (`copy`: independent copies)",
+   :source "crates/engine/src/layer_ops.rs"}
+  {:id "layer.list",
+   :label "List layers",
+   :params "{ts?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.move",
+   :label "Move layer",
+   :params
+   "{layer?, index?} | {layer?, above?: id|null, inside?: bool} | {layer?, delta: ±n}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.paste",
+   :label "Paste layer(s)",
+   :params "{} — above the selection, in the active texture set",
+   :source "crates/engine/src/layer_ops.rs"}
+  {:id "layer.pasteInstance",
+   :label "Paste as instance",
+   :params "{} — an instance of the copied layer above the selection",
+   :source "crates/engine/src/instance_cmds.rs"}
+  {:id "layer.remove",
+   :label "Remove layer(s)",
+   :params "{layer?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.rename",
+   :label "Rename layer",
+   :params "{layer?, name}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.select",
+   :label "Select layer",
+   :params "{layer, target?: content|mask|<effect id>}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "layer.set",
+   :label "Set layer properties",
+   :params
+   "{layer?, heightMask?: {enabled?, contrast?: 0..64, offset?: -1..1} | bool, geometryMask?: [part names] | null} — mask with height: m' = saturate(m + contrast·4m(1−m)·(height + offset)); geometry mask: the mesh parts (textureSet.parts) the layer shows on, null for all",
+   :source "crates/engine/src/instance_cmds.rs"}
+  {:id "layer.visible",
+   :label "Toggle layer visibility",
+   :params "{layer?, visible?}",
+   :source "crates/engine/src/layer_cmds.rs"}
+  {:id "mask.add.black",
+   :label "Add black mask",
+   :params "{layer?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "mask.add.colorSelection",
+   :label "Add mask with color selection",
+   :params "{layer?, color?: [r,g,b] ID color, tolerance?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "mask.add.white",
+   :label "Add white mask",
+   :params "{layer?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "mask.clear",
+   :label "Clear mask",
+   :params "{layer?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "mask.invert",
+   :label "Invert mask",
+   :params "{layer?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "mask.invertBackground",
+   :label "Invert mask background",
+   :params "{layer?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "mask.remove",
+   :label "Remove mask",
+   :params "{layer?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "mask.smart.apply",
+   :label "Apply smart mask",
+   :params "{name: smart mask id or label, layer?}",
+   :source "crates/engine/src/smart_masks.rs"}
+  {:id "mask.smart.list",
+   :label "List smart masks",
+   :params "{}",
+   :source "crates/engine/src/smart_masks.rs"}
+  {:id "mask.toggle",
+   :label "Toggle mask",
+   :params "{layer?, enabled?}",
+   :source "crates/engine/src/mask_cmds.rs"}
+  {:id "material.apply",
+   :label "Add smart material",
+   :params
+   "{material: id or label, above?: layer id, inside?: bool, index?: n} — above the selection by default; `above` (+ `inside` for a folder) or `index` in the top-level stack (0 = bottom) place it",
+   :source "crates/engine/src/project_cmds.rs"}
+  {:id "material.link.cook",
+   :label "Re-cook MaterialCraft material",
+   :params
+   "{layer?} — re-cooks a MaterialCraft material layer at its texture set's resolution with the set's baked mesh maps",
+   :source "crates/engine/src/link_cmds.rs"}
+  {:id "material.link.preset",
+   :label "Apply material preset",
+   :params
+   "{layer?, name, cook?: true} — applies a preset of a MaterialCraft material layer",
+   :source "crates/engine/src/link_cmds.rs"}
+  {:id "material.link.saveSource",
+   :label "Save MaterialCraft package",
+   :params
+   "{layer?, path} — writes the MaterialCraft source (.mcraft or .sbs) behind a material layer",
+   :source "crates/engine/src/link_cmds.rs"}
+  {:id "material.link.set",
+   :label "Set material parameter",
+   :params
+   "{layer?, id, value (number, [..], bool, \"#rrggbb\" or {t, v}), cook?: true} — sets an exposed input of a MaterialCraft material layer and re-cooks its maps (cook: false only stores the value)",
+   :source "crates/engine/src/link_cmds.rs"}
+  {:id "material.list",
+   :label "List materials",
+   :params "{}",
+   :source "crates/engine/src/project_cmds.rs"}
+  {:id "material.load",
+   :label "Add smart material from file",
+   :params
+   "{path: .tcmat smart material, .mcmat MaterialCraft material or .mcraft package, above?: layer id, inside?: bool, index?: n} — above the selection by default, or placed like material.apply",
+   :source "crates/engine/src/material_lib.rs"}
+  {:id "material.save",
+   :label "Create smart material",
+   :params "{layer?, path: .tcmat file, name?}",
+   :source "crates/engine/src/material_lib.rs"}
+  {:id "path.edit",
+   :label "Edit path",
+   :params
+   "{effect: path sublayer id, index: path index} — loads a stored path into the Path tool (with its brush and material); changes to it repaint the sublayer live until commit or clear",
+   :source "crates/engine/src/path_tool.rs"}
+  {:id "path.remove",
+   :label "Remove path",
+   :params
+   "{effect: path sublayer id, index: path index} — removes a stored path and repaints its sublayer",
+   :source "crates/engine/src/path_tool.rs"}
+  {:id "project.inspect",
+   :label "Inspect project",
+   :params "{}",
+   :source "crates/engine/src/project_cmds.rs"}
+  {:id "project.new",
+   :label "New project from a built-in mesh",
+   :params
+   "{mesh?: material_ball|sphere|cube|rounded_cube|cylinder|torus|plane|crate|udim_plane, resolution?: 1024 (or the template's), name?, uvTiles?: bool (UDIM; default: when the UVs leave tile 1001), template?: project template name (see project.templates)}",
+   :source "crates/engine/src/project_cmds.rs"}
+  {:id "project.sample",
+   :label "Open sample project",
+   :params "{}",
+   :source "crates/engine/src/project_cmds.rs"}
+  {:id "project.template.save",
+   :label "Save project settings as template",
+   :params
+   "{name} → {name, path?}: the current project's channels (active texture set), resolution, normal format and shader settings; replaces a user template of that name",
+   :source "crates/engine/src/template_cmds.rs"}
+  {:id "project.templates",
+   :label "Project templates",
+   :params
+   "{} → [{name, builtin, resolution, normalFormat, channels: [ids], specGloss}]",
+   :source "crates/engine/src/template_cmds.rs"}
+  {:id "resource.import",
+   :label "Import resources",
+   :params
+   "{path} — an image file (png, jpg, tga, tif, bmp, webp, exr, hdr)",
+   :source "crates/engine/src/resource_cmds.rs"}
+  {:id "resource.list",
+   :label "List resources",
+   :params "{}",
+   :source "crates/engine/src/resource_cmds.rs"}
+  {:id "resource.remove",
+   :label "Remove resource",
+   :params "{name}",
+   :source "crates/engine/src/resource_cmds.rs"}
+  {:id "resource.text",
+   :label "Add text",
+   :params
+   "{text (lines split at \\n), font?: family (text.fonts; default a common sans-serif), style?: e.g. Bold (default Regular), size?: 8..1024 texels per em (default 256), color?: [r,g,b] linear or \"#rrggbb\" (default white), name?} — draws the text as an image resource with an alpha (white for tool.brush {alpha: {image}}, colored for layer.add.decal)",
+   :source "crates/engine/src/text_cmds.rs"}
+  {:id "text.fonts",
+   :label "List fonts",
+   :params
+   "{} — the installed font families with their styles, and the built-in ones",
+   :source "crates/engine/src/text_cmds.rs"}
+  {:id "textureSet.channel.add",
+   :label "Add channel",
+   :params "{ts?, channel}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.channel.remove",
+   :label "Remove channel",
+   :params "{ts?, channel}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.inspect",
+   :label "Inspect texture set",
+   :params
+   "{ts?} → {index, name, resolution, size: [w, h], uvTiles: [UDIM numbers] (empty: no UV tiles), tiles: [{udim, block: [x, y]}], channels, layers, baked, visible, active}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.list",
+   :label "List texture sets",
+   :params "{}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.meshMap.clear",
+   :label "Clear mesh map",
+   :params "{ts?, map}",
+   :source "crates/engine/src/meshmap_cmds.rs"}
+  {:id "textureSet.meshMap.import",
+   :label "Import baked maps",
+   :params
+   "{files: [{path, map?: mesh map id}]} → {assigned: [{path, ts, map}], unmatched: [path]} — each image file becomes the mesh map its name names (`Body_ao.png`, `Body_world_normal.png`; or `map`) of the texture set its name starts with (any name when there is one set), read as by textureSet.meshMap.set. A UV-tiled set takes one file per tile, named with the tile number (`Body_ao.1001.png`, `Body_ao.1002.png`). Left out and listed in `unmatched`: files matching no set or map, a second file for one slot or tile, files of a UV-tiled set without one of its tile numbers, and every file of a map missing a tile. One undo step (none when nothing matches); at most 512 files and 2 GiB of file bytes, decoded images and mesh maps; desktop only",
+   :source "crates/engine/src/meshmap_import_cmds.rs"}
+  {:id "textureSet.meshMap.set",
+   :label "Use image as mesh map",
+   :params
+   "{ts?, map: mesh map id (normal, ambientOcclusion, curvature, id, height…), image: resource name} → {map, resolution} — resampled to the size of the set's other mesh maps (or its bake size); a normal or bent normal map is read in the project's normal format. A UV-tiled set takes one image per tile, named alike with the tile number (`image: \"ao.1001.png\"` finds ao.1002.png…)",
+   :source "crates/engine/src/meshmap_cmds.rs"}
+  {:id "textureSet.parts",
+   :label "List mesh parts",
+   :params
+   "{ts?} — the mesh parts (submesh names) of a texture set, for geometry masks",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.rename",
+   :label "Rename texture set",
+   :params "{ts?, name}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.resolution",
+   :label "Texture set size",
+   :params "{ts?, resolution: 128..8192 (power of two)}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.select",
+   :label "Select texture set",
+   :params "{ts}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.settings",
+   :label "Texture set settings",
+   :params
+   "{ts?, description?, heightStrength?, normalFormat?: openGl|directX}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.tile.resolution",
+   :label "UV tile resolution",
+   :params
+   "{ts?, tile: UDIM number, resolution: 128..8192 (power of two; the set's resolution clears the override)} → {ts, tile, resolution, size: [w, h]}",
+   :source "crates/engine/src/uv_tile_cmds.rs"}
+  {:id "textureSet.uvTiles",
+   :label "UV tiles mode",
+   :params
+   "{ts?, enabled: bool} → {ts, uvTiles, dropped: [UDIM numbers whose pixels were left out]} (painted pixels are resampled into the new layout)",
+   :source "crates/engine/src/uv_tile_cmds.rs"}
+  {:id "textureSet.visibility",
+   :label "Show or hide texture sets",
+   :params
+   "{mode: showAll|hideAll|invert|solo, ts?} → {visible: [bool per set]}; solo shows only `ts` (the active set), or every set again when it already was the only one",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "textureSet.visible",
+   :label "Toggle texture set visibility",
+   :params "{ts?, visible?}",
+   :source "crates/engine/src/set_cmds.rs"}
+  {:id "tool.brush",
+   :label "Brush settings",
+   :params
+   "{size?: 0..100, flow?: 0..100, opacity?: 0..100, spacing?: 1..1000, hardness?: 0..100, angle?, followPath?, alignment?: tangent|camera, lazy?, jitterSize?, jitterAngle?, jitterFlow?, jitterPosition?, alpha?: procedural name | {image: resource name} | {library: id (alpha.list)}, backfaceCulling?, symmetryOn? (the toolbar toggle; off keeps the settings), symmetryX?, symmetryY?, symmetryZ?, symmetryRadial?: 0..32 copies around symmetryAxis?: x|y|z (default y), symmetryOffset?: [x, y, z] (world units from the mesh center, where the mirror planes and radial axis cross), symmetryAngleSpan?: 0..360 degrees the radial copies spread over, minSize?, smudgeStrength?: 0..100, cloneSource?: composite|layer (what the Clone tool copies), particles?: {enabled?, count?: 1..16, lifetime?: 1..128 steps, gravity?: 0..2}}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.click",
+   :label "Tool click",
+   :params
+   "{x, y, viewport?: [w,h]} — polygon fill / material picker / single dab; polygon fill also takes a box {x0, y0, x1, y1, viewport?}, a 2D view point {uv: [u,v]} or a 2D view box {uv0: [u,v], uv1: [u,v]}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.clone",
+   :label "Clone",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.cloneSource",
+   :label "Set clone source",
+   :params
+   "{x, y, viewport?: [w,h]} a point on the mesh, or {uv: [u,v]}, or {clear: true} — the Clone tool copies from here (V + click)",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.colorPicker",
+   :label "Material picker",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.eraser",
+   :label "Eraser",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.fillMode",
+   :label "Polygon fill mode",
+   :params "{mode: triangle|polygon|uvIsland|mesh}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.fillSelection",
+   :label "Polygon fill selection",
+   :params
+   "{hitTest?: intersection|containedCenter (a box selects polygons it touches, or whose center it holds), visibleOnly?: bool (3D view boxes select only what the camera sees)}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.geometryMask",
+   :label "Geometry mask",
+   :params
+   "{} — then tool.click toggles the selected layer on the mesh part under the point",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.material",
+   :label "Tool material",
+   :params
+   "{channel, color?|value?, enabled?, solo?: true (paint this channel only)} or {maskValue?: 0..1}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.paint",
+   :label "Paint",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.path",
+   :label "Path",
+   :params
+   "{points?: [[x,y],...] viewport pixels on the mesh | uvPoints?: [[u,v],...], viewport?: [w,h], closed?, fill?, commit?: bool, clear?: bool} — selects the Path tool and edits its curve; commit adds the path to the selected path sublayer (or a new one), painted with the current brush or filled when closed and filled. While a stored path is edited (path.edit), changes repaint it at once",
+   :source "crates/engine/src/path_tool.rs"}
+  {:id "tool.polygonFill",
+   :label "Polygon fill",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.projection",
+   :label "Projection",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.select",
+   :label "Select tool",
+   :params
+   "{tool: paint|eraser|projection|polygonFill|smudge|clone|colorPicker|path}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.smudge",
+   :label "Smudge",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.state",
+   :label "Tool state",
+   :params "{}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.stencil",
+   :label "Projection stencil",
+   :params
+   "{image?: resource name, center?: [x,y] NDC, scale?: 0.01..10, rotation?: degrees, tile?, opacity?, clear?: bool}",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.stroke",
+   :label "Paint stroke",
+   :params
+   "{points: [[x,y],...] viewport pixels, viewport?: [w,h]} — paints with the current tool",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.strokeUv",
+   :label "Paint stroke in the 2D view",
+   :params
+   "{points: [[u,v],...] texture coordinates 0..1} — paints in UV space like the 2D view",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "tool.swapMaskValue",
+   :label "Invert mask value",
+   :params
+   "{} — mask value becomes 1 − value: switch the brush between adding to and removing from the mask",
+   :source "crates/engine/src/tool_cmds.rs"}
+  {:id "viewport.displayMaterial",
+   :label "Display material",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "viewport.focusAt",
+   :label "Focus depth of field here",
+   :params "{x, y (viewport pixels), viewport?: [w, h]}",
+   :source "crates/engine/src/camera_cmds.rs"}
+  {:id "viewport.frame",
+   :label "Show entire mesh",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "viewport.nextChannel",
+   :label "Display next channel",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "viewport.nextMeshMap",
+   :label "Display next mesh map",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "viewport.previousChannel",
+   :label "Display previous channel",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "viewport.previousMeshMap",
+   :label "Display previous mesh map",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "viewport.quickMask",
+   :label "Enable quick mask",
+   :params "{enabled?: bool} — toggles when omitted",
+   :source "crates/engine/src/quick_mask.rs"}
+  {:id "viewport.quickMask.edit",
+   :label "Edit quick mask",
+   :params
+   "{editing?: bool} — toggles when omitted; needs the quick mask enabled",
+   :source "crates/engine/src/quick_mask.rs"}
+  {:id "viewport.quickMask.invert",
+   :label "Invert quick mask",
+   :params "{}",
+   :source "crates/engine/src/quick_mask.rs"}
+  {:id "viewport.view",
+   :label "Set view mode",
+   :params
+   "{mode: material|uvChecker|mask|<channel id>|map:<mesh map id>, layer? (for mask)}",
+   :source "crates/engine/src/view_cmds.rs"}],
+ :mcp
+ [{:name "session_inspect",
+   :description
+   "\"The whole session as JSON: project, mesh, texture sets (resolution, channels, baked maps), the layer stack \\\n        top to bottom (fill sources, masks, effects, painted tile counts), tool, camera, display and history.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "command_list",
+   :description
+   "List engine commands: id, label, menu path, shortcut, params doc and whether it can run now.",
+   :source "crates/automation/src/server.rs"}
+  {:name "command_run",
+   :description
+   "\"Run an engine command by id with JSON params (see command_list). Runs with defaults, never opens a \\\n        dialog. Commands given host paths (file.open, file.save, resource.import, material.save, …) are disabled: use the \\\n        workspace tools (project_open, project_save, mesh_import, mesh_reimport, mesh_export, bake_mesh_add, resource_import, \\\n        material_save, material_load, textures_export).\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "command_batch",
+   :description
+   "\"Run several commands in order: steps [{id, params}]. Stops at the first error. Returns {completed, \\\n        results, failed: {index, id, error} | null}; a failed batch is a tool error.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "project_new",
+   :description
+   "\"Start a new project on a built-in mesh (one texture set per material, each with an empty paint layer). \\\n        Returns the session.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "project_open",
+   :description
+   "Open a .tcraft project or a mesh file (path relative to the read root). Returns the session.",
+   :source "crates/automation/src/server.rs"}
+  {:name "project_save",
+   :description
+   "Save the project as .tcraft (path relative to the write root; omit to save to its own file).",
+   :source "crates/automation/src/server.rs"}
+  {:name "mesh_import",
+   :description
+   "\"New project from a mesh file (path relative to the read root): one texture set per material. Returns \\\n        the session; import warnings are in the session log.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "mesh_reimport",
+   :description
+   "\"Reimport the project's mesh from a file (path relative to the read root) or, without a path, from \\\n        the project's own copy. Texture sets map by material index; `preserveStrokes` re-projects painted pixels where the UVs \\\n        changed. Returns {preserved?}.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "mesh_export",
+   :description
+   "\"Export the mesh with its textures (obj, glb, usda, usdc or usdz; path relative to the write root). \\\n        Returns {path, textures?}.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "bake_mesh_add",
+   :description
+   "\"Add a high-definition mesh for baking (path relative to the read root), or with `cage: true` set the \\\n        bake cage. Files next to a .gltf or USD layer (buffers, base color textures) come along. Returns {name, meshes}; bake \\\n        with `bake`.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "resource_import",
+   :description
+   "\"Import an image (png, jpg, tga, tif, bmp, webp, exr, hdr; path relative to the read root) as a project \\\n        resource. Returns its name, for command_run layer.add.image {name} or tool.stencil {image}.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "material_save",
+   :description
+   "Save a layer or folder (default: the selected one) as a smart material file (.tcmat) below the write root.",
+   :source "crates/automation/src/server.rs"}
+  {:name "material_load",
+   :description
+   "Add a smart material from a .tcmat file (relative to the read root) above the selection. Returns its layer.",
+   :source "crates/automation/src/server.rs"}
+  {:name "textures_export",
+   :description
+   "\"Export textures with a preset into a folder relative to the write root. Returns the written files and \\\n        warnings.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "bake",
+   :description
+   "\"Bake mesh maps (ambient occlusion, curvature, thickness, …) for generators and smart materials. Rays run \\\n        on the GPU when there is one (`cpu: true` forces the CPU); per-map ray settings are `bake.settings` parameters (command_run).\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "paint_stroke",
+   :description
+   "\"Paint a stroke with the paint tool on the selected layer (or its mask target): sets the brush material \\\n        (color, roughness, metallic, height) and size/hardness, then strokes through `points` in viewport pixels. See \\\n        viewport_render for where the mesh is.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "viewport_render",
+   :description
+   "\"Headless: render the 3D view (or the 2D UV view) as a PNG image, up to 2048 px a side. Camera yaw/pitch \\\n        apply to this render only. In bridge mode use viewport_screenshot.\"",
+   :source "crates/automation/src/server.rs"}
+  {:name "viewport_screenshot",
+   :description
+   "Bridge mode: PNG of the live app's 3D or 2D viewport.",
+   :source "crates/automation/src/server.rs"}
+  {:name "ui_screenshot",
+   :description
+   "Bridge mode: PNG of the whole app window (downscaled to 2048 px a side at most).",
+   :source "crates/automation/src/server.rs"}
+  {:name "ui_inspect",
+   :description
+   "Bridge mode: the app's UI state (panels, windows, mode, layout, viewport rect, toasts).",
+   :source "crates/automation/src/server.rs"}
+  {:name "ui_menu_invoke",
+   :description
+   "Bridge mode: activate a menu item by id like a click (may open a window). ui.menu.list lists ids.",
+   :source "crates/automation/src/server.rs"}],
+ :control
+ ["command.list"
+  "command.run"
+  "debug.frames"
+  "debug.paintTest"
+  "ping"
+  "session.inspect"
+  "ui.bake.cancel"
+  "ui.bake.start"
+  "ui.inspect"
+  "ui.menu.invoke"
+  "ui.menu.list"
+  "ui.resize"
+  "ui.screenshot"
+  "ui.set"
+  "viewport.screenshot"]}

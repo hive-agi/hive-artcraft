@@ -1,0 +1,1823 @@
+{:reference-revision "b47a58653c291f320179d20db3eafb40e70b88a7",
+ :engine
+ [{:id "app.quit",
+   :label "Quit",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "audiosuite.process",
+   :label "AudioSuite Process",
+   :params
+   "{process: <built-in plugin id (engine.plugins)> | normalize | reverse | invert | gain | duplicate | time_stretch | pitch_shift | varispeed | speed_ramp | signal_generator, params?: {..}, clips?, tracks?, start?, end?} — signal_generator fills start..end (default: the selection) with a new clip on each audio track in `tracks` (default: the selected tracks); speed_ramp takes change (0 slow down, 1 speed up), selection (0 fit to, 1 extend) and fades (1 on, 0 off)",
+   :source "crates/engine/src/cmd/audiosuite.rs"}
+  {:id "automation.clear",
+   :label "Clear Automation",
+   :params "{track?, param?, start?, end?}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.clip_gain_to_volume",
+   :label "Convert Clip Gain to Volume Automation",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.copy_to_send",
+   :label "Copy to Send...",
+   :params "{tracks?, send: slot}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.set_point",
+   :label "Add Automation Breakpoint",
+   :params
+   "{track?, param: volume|pan|mute|send_a_level|plugin:a:<id>, at, value, from?}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.thin",
+   :label "Thin",
+   :params "{tracks?, tolerance?: 0.1}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.thin_all",
+   :label "Thin All",
+   :params "{tolerance?: 0.1}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.volume_to_clip_gain",
+   :label "Convert Volume Automation to Clip Gain",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.write_range",
+   :label "Write Automation",
+   :params "{track?, param, start?, end?, value}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.write_to_all",
+   :label "Write to All Enabled",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "automation.write_to_current",
+   :label "Write to Current",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "clip.auto_rename",
+   :label "Auto Rename...",
+   :params
+   "{clips?: [id], name?, number?: 0..999999999, zeros?: 0..9, suffix?}: sets the names that editing gives the clips it separates from these clips (default: the Clip List's selected clips): the piece after each cut is named `name`, then `zeros` zeros, then a number counting up from `number` (default 1), then `suffix`, in one number sequence for all of them. Without a name, the clips keep their names when they are separated",
+   :source "crates/engine/src/cmd/auto_rename.rs"}
+  {:id "clip.bring_to_front",
+   :label "Bring to Front",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.capture",
+   :label "Capture...",
+   :params "{name?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.clear",
+   :label "Clear Clips",
+   :params
+   "{clips?: [id], sources?: [id], with_clips?: bool} — removes clips and audio files from the session (files stay on disk); default: the Clip List selection. A file still used on the timeline needs `with_clips: true`, which removes those clips too",
+   :source "crates/engine/src/cmd/clip_list.rs"}
+  {:id "clip.color",
+   :label "Clip Color",
+   :params "{clips?, color: [r,g,b] | null}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.conform_to_tempo",
+   :label "Conform to Tempo",
+   :params
+   "{clips?, source_bpm?} — stretches audio clips so their length in bars follows the session tempo; the first conform records the clip's tempo",
+   :source "crates/engine/src/cmd/clip_more.rs"}
+  {:id "clip.edit_lock",
+   :label "Edit Lock/Unlock",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.effects_bypass",
+   :label "Bypass",
+   :params "{clips?, value?: bool} (toggles when omitted)",
+   :source "crates/engine/src/cmd/clip_more.rs"}
+  {:id "clip.effects_render",
+   :label "Render",
+   :params
+   "{clips?} — renders clip gain and fades into new audio and clears the clip effects",
+   :source "crates/engine/src/cmd/clip_more.rs"}
+  {:id "clip.effects_set",
+   :label "Set Clip Effects",
+   :params
+   "{clips?, params: {name: number}} — stores clip-effect settings on the clips",
+   :source "crates/engine/src/cmd/clip_more.rs"}
+  {:id "clip.elastic_properties",
+   :label "Elastic Properties",
+   :params
+   "{clips?, ratio?: 1.0} — on Elastic Audio tracks (polyphonic/rhythmic/monophonic/x-form) the stretch is rendered pitch-preserving; elsewhere it is varispeed",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.gain",
+   :label "Clip Gain",
+   :params "{clips?, db | delta_db}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.gain_bypass",
+   :label "Bypass",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.gain_nudge_down",
+   :label "Nudge Clip Gain Down",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.gain_nudge_up",
+   :label "Nudge Clip Gain Up",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.gain_render",
+   :label "Render",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.group",
+   :label "Group",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.identify_sync_point",
+   :label "Identify Sync Point",
+   :params "{clip?, at?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.inspect",
+   :label "Inspect Clip",
+   :params "{clip}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "clip.loop",
+   :label "Loop...",
+   :params
+   "{clips?, count?: n, length?: samples, fill?: bool}: count is the clip plus its loops; length is the whole looped clip, with the last loop cut short to fit; fill loops up to the next clip on the track, or else to the session end",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.place_source",
+   :label "Place Audio File",
+   :params
+   "{source: id, track?: id|name (default: a new track), at?: position}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.quantize_to_grid",
+   :label "Quantize to Grid",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.rating",
+   :label "Rating",
+   :params "{clips?, rating: 0..5}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.regroup",
+   :label "Regroup",
+   :params
+   "{clips?} — puts the clips back into one clip group (reusing their most common group)",
+   :source "crates/engine/src/cmd/clip_more.rs"}
+  {:id "clip.remove_pitch_shift",
+   :label "Remove Pitch Shift",
+   :params
+   "{clips?} — re-renders vari-speed (stretched) clips with pitch preserved",
+   :source "crates/engine/src/cmd/clip_more.rs"}
+  {:id "clip.remove_sync_point",
+   :label "Remove Sync Point",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.remove_warp",
+   :label "Remove Warp",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.rename",
+   :label "Rename...",
+   :params "{clip?, name}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.send_to_back",
+   :label "Send to Back",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.time_lock",
+   :label "Time Lock/Unlock",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.ungroup",
+   :label "Ungroup",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.ungroup_all",
+   :label "Ungroup All",
+   :params "{}",
+   :source "crates/engine/src/cmd/clip.rs"}
+  {:id "clip.unloop",
+   :label "Unloop...",
+   :params
+   "{clips?, mode?: remove|flatten} — remove = keep only the original clip; flatten = keep the copies as ordinary clips",
+   :source "crates/engine/src/cmd/clip_more.rs"}
+  {:id "edit.automation_coalesce_clip_gain_to_volume",
+   :label "Coalesce Clip Gain to Volume Automation",
+   :params "{tracks?} — folds all clip gain into volume automation",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.automation_coalesce_volume_to_clip_gain",
+   :label "Coalesce Volume Automation to Clip Gain",
+   :params
+   "{tracks?} — folds the whole volume curve into clip gain; the fader goes to 0 dB",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.automation_glide_pan",
+   :label "Glide Pan Only",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.automation_glide_to_all",
+   :label "Glide to All Enabled",
+   :params
+   "{tracks?, start?, end?} — ramps every enabled lane from its value at the start to the current value at the end",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.automation_trim_to_all",
+   :label "Trim to All Enabled",
+   :params
+   "{tracks?, start?, end?} — offsets every enabled lane in the selection so it starts at the current control value",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.clear",
+   :label "Clear",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clear_all_automation",
+   :label "All Automation",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clear_clip_effects",
+   :label "Clip Effects",
+   :params "{clips?} — removes clip-effect settings (and bypass)",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.clear_clip_gain",
+   :label "Clip Gain",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clear_pan_automation",
+   :label "Pan Automation",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clear_plugin_automation",
+   :label "Plugin Automation",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.consolidate",
+   :label "Consolidate",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.copy",
+   :label "Copy",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.copy_all_automation",
+   :label "All Automation",
+   :params
+   "{tracks?, start?, end?} — copies automation only (no clips)",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.copy_audio_as_midi",
+   :label "Audio as MIDI",
+   :params
+   "{track?, start?, end?} — monophonic pitch tracking of the selected audio",
+   :source "crates/engine/src/cmd/audio_midi.rs"}
+  {:id "edit.copy_clip_effects",
+   :label "Clip Effects",
+   :params "{clips?} — copies the first clip's clip-effect settings",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.copy_clip_gain",
+   :label "Clip Gain",
+   :params
+   "{tracks?, start?, end?} — copies the clip gain curve under the selection",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.copy_pan_automation",
+   :label "Pan Automation",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.copy_plugin_automation",
+   :label "Plugin Automation",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.copy_to_duplicate_playlist",
+   :label "Duplicate of Main Playlist",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.copy_to_new_playlist",
+   :label "New Playlist",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.copy_to_target_playlist",
+   :label "Target Playlist",
+   :params
+   "{tracks?, start?, end?} — copies the selection into each track's target playlist",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.cut",
+   :label "Cut",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.cut_all_automation",
+   :label "All Automation",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.cut_clip_effects",
+   :label "Clip Effects",
+   :params "{clips?} — copies then removes clip-effect settings",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.cut_clip_gain",
+   :label "Clip Gain",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.cut_pan_automation",
+   :label "Pan Automation",
+   :params
+   "{tracks?, start?, end?} — cuts pan automation only to the clipboard",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.cut_plugin_automation",
+   :label "Plugin Automation",
+   :params "{tracks?, start?, end?} — cuts plug-in automation only",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.double_selection",
+   :label "Double Edit",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.duplicate",
+   :label "Duplicate",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.duplicate_extend",
+   :label "Duplicate and Extend Edit",
+   :params
+   "{tracks?, start?, end?} — duplicates the selection and extends the selection over the copy",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.extend_down_to_members",
+   :label "Extend Edit Down to Members",
+   :params
+   "{} — adds the members of selected folder tracks (recursively)",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.extend_selection_down",
+   :label "Extend Edit Down",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.extend_selection_up",
+   :label "Extend Edit Up",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.extend_up_to_members",
+   :label "Extend Edit Up to Members",
+   :params
+   "{} — adds the parent folder of each selected member and its members",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.fade_to_end",
+   :label "Fade to End",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fade_to_start",
+   :label "Fade to Start",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fades_create",
+   :label "Create...",
+   :params
+   "{shape?: linear|equal power|s-curve|exponential|logarithmic, tracks?, start?, end?} or {clip: id, side: in|out, length: samples, shape?, curvature?: -1..1}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fades_delete",
+   :label "Delete",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.halve_selection",
+   :label "Halve Edit",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.heal",
+   :label "Heal Separation",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.insert_silence",
+   :label "Insert Silence",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.marker_lane_extend_down",
+   :label "Extend Edit Selection To Marker Lane Below",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.marker_lane_extend_up",
+   :label "Extend Edit Selection To Marker Lane Above",
+   :params "{} — adds the marker ruler lane above to the selection",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.marker_lane_move_down",
+   :label "Move Edit Selection To Marker Lane Below",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.marker_lane_move_up",
+   :label "Move Edit Selection To Marker Lane Above",
+   :params "{} — the selection's marker ruler lane (1..5) moves up",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.mode",
+   :label "Edit Mode",
+   :params
+   "{mode: shuffle|slip|spot|grid|relative_grid, snap_to_grid?: bool (Shuffle, Slip and Spot)}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.move_clips",
+   :label "Move Clips",
+   :params
+   "{clips?: [id], by?: samples, to?: position for the first clip that can move (Grid modes snap its sync point), track?: where the first clip's track goes; the others keep their distance}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.move_selection_left",
+   :label "Move Edit Left",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.move_selection_right",
+   :label "Move Edit Right",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.move_to_duplicate_playlist",
+   :label "Duplicate of Main Playlist",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.move_to_new_playlist",
+   :label "New Playlist",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.move_to_target_playlist",
+   :label "Target Playlist",
+   :params
+   "{tracks?, start?, end?} — copies to the target playlist and clears it from the main",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.mute_clips",
+   :label "Mute",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.nudge",
+   :label "Nudge",
+   :params
+   "{direction: 1|-1, count?: n, next?: bool (next larger value)}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.paste",
+   :label "Paste",
+   :params "{tracks?, at?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.paste_clip_effects",
+   :label "Paste Clip Effects",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.paste_clip_gain",
+   :label "Paste Clip Gain",
+   :params
+   "{tracks?, at?} — pastes copied clip gain onto the clips under the paste range",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.paste_merge_markers",
+   :label "Merge Markers",
+   :params
+   "{at?} — adds the copied markers at the insertion point, skipping any that already exist there",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.paste_merge_midi",
+   :label "Merge MIDI",
+   :params
+   "{tracks?, at?} — merges copied MIDI notes into existing MIDI clips instead of replacing them",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.paste_repeat_to_fill",
+   :label "Repeat to Fill Selection",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.paste_to_current_automation",
+   :label "To Current Automation Type",
+   :params
+   "{tracks?, at?, param?} — pastes copied automation into the shown lane (track view) or `param`, rescaled to its range",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.play_timeline",
+   :label "Play Timeline",
+   :params "{} — plays the timeline selection",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.redo",
+   :label "Redo",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.remove_selection_bottom",
+   :label "Remove Edit from Bottom",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.remove_selection_top",
+   :label "Remove Edit from Top",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.repeat",
+   :label "Repeat...",
+   :params "{count: n}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.restore_last_selection",
+   :label "Restore Last Selection",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.select",
+   :label "Set Edit Selection",
+   :params
+   "{tracks?: [id|name], start?, end?, clips?: [id], sources?: [id] (Clip List files), exact?: bool (ignore edit groups)}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.select_all",
+   :label "Select All",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.select_none",
+   :label "Deselect All",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.selection_to_timeline",
+   :label "Change Timeline to Match Edit",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.separate",
+   :label "At Selection",
+   :params "{tracks?, at?|start/end}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.separate_at_transients",
+   :label "At Transients",
+   :params "{sensitivity?: 0..1}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.separate_on_grid",
+   :label "On Grid",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.shift",
+   :label "Shift...",
+   :params "{by: samples|{seconds}, later?: bool}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.shuffle_lock",
+   :label "Shuffle Lock",
+   :params
+   "{value?: bool} (toggles when omitted) — keeps Shuffle mode from being chosen",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.snap_next",
+   :label "Next",
+   :params
+   "{clips?} — moves each clip so its end meets the start of the next clip",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.snap_previous",
+   :label "Previous",
+   :params
+   "{clips?} — moves each clip so its start meets the end of the previous clip",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.snap_to_grid",
+   :label "Snap to Grid",
+   :params
+   "{value?: bool} (toggles when omitted) — in Shuffle, Slip and Spot the Edit cursor and selections snap to the grid",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.space_clips",
+   :label "Space Clips…",
+   :params
+   "{clips?, gap?: samples|{seconds} (default 0), mode?: end_to_start|start_to_start}",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.strip_silence",
+   :label "Strip Silence",
+   :params
+   "{threshold_db?: -48, min_length_ms?: 50, pad_before_ms?: 5, pad_after_ms?: 20, mode?: strip|extract|separate, name?, number?: 1, zeros?: 0, suffix?} (strip removes the silence; extract removes the audio and keeps the silence; separate separates the clips at the edges of the silence and does not remove any; with a name, the clips left in the selection are named name, zeros, a number counting up from number, suffix)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.strip_silence_preview",
+   :label "Strip Silence Rectangles",
+   :params
+   "{threshold_db?: -48, min_length_ms?: 50, pad_before_ms?: 5, pad_after_ms?: 20, tracks?, start?, end?} (the ranges edit.strip_silence finds with the same settings, padded, on each track: what Strip keeps and the Strip Silence window draws as rectangles; changes nothing)",
+   :source "crates/engine/src/cmd/strip_silence.rs"}
+  {:id "edit.tab",
+   :label "Tab",
+   :params "{back?: bool, extend?: bool (extend the selection)}",
+   :source "crates/engine/src/cmd/tab.rs"}
+  {:id "edit.tce_to_timeline",
+   :label "TCE Edit to Timeline Selection",
+   :params
+   "{clip?, start?, end?} — time-stretches the clip to fill the timeline selection (pitch preserved)",
+   :source "crates/engine/src/cmd/edit_more.rs"}
+  {:id "edit.timeline_to_selection",
+   :label "Change Edit to Match Timeline",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.tool",
+   :label "Edit Tool",
+   :params "{tool: zoom|trim|selector|grabber|scrubber|pencil|smart}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.trim_clip",
+   :label "Trim Clip",
+   :params
+   "{clip: id, start?: position, end?: position} — moves the clip's edges like the Trim tool, in the current Edit mode",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.trim_end_to_insertion",
+   :label "End to Insertion",
+   :params "{tracks?, at?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.trim_start_to_insertion",
+   :label "Start to Insertion",
+   :params "{tracks?, at?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.trim_to_file_boundaries",
+   :label "To File Boundaries",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.trim_to_fill_selection",
+   :label "To Fill Selection",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.trim_to_selection",
+   :label "To Selection",
+   :params "{tracks?, start?, end?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.undo",
+   :label "Undo",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "engine.clap_plugins",
+   :label "List CLAP Plugins",
+   :params
+   "{rescan?: bool} → [{id: \"clap:…\", plugin_id, name, vendor, version, description, features, category, is_instrument, path}]",
+   :source "crates/engine/src/cmd/clap.rs"}
+  {:id "engine.commands",
+   :label "List Commands",
+   :params "{filter?}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "engine.history",
+   :label "Undo History",
+   :params "{}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "engine.parity",
+   :label "Parity Report",
+   :params "{}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "engine.plugins",
+   :label "List Plugins",
+   :params "{}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "engine.vst3_plugins",
+   :label "List VST3 Plugins",
+   :params
+   "{rescan?: bool} → [{id: \"vst3:<class id hex>\", class_id, name, vendor, version, sdk_version, sub_categories, category, is_instrument, path}]",
+   :source "crates/engine/src/cmd/vst3.rs"}
+  {:id "event.add_key_change",
+   :label "Add Key Change...",
+   :params "{key: 'C major', at?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.all_notes_off",
+   :label "All MIDI Notes Off",
+   :params "{}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.beat_detective",
+   :label "Beat Analysis",
+   :params
+   "{tracks?, start?, end?, sensitivity?: 0.5, separate?: false, set_tempo?: false}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.change_duration",
+   :label "Change Duration...",
+   :params "{set?|add?|scale?|legato?: gap, clips?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.change_velocity",
+   :label "Change Velocity...",
+   :params "{set?|add?|scale?|min?,max?, clips?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.cut_time",
+   :label "Cut Time...",
+   :params "{start?, end?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.extract_chords",
+   :label "Extract Chords from Selection",
+   :params
+   "{tracks?, start?, end?} — names the chord in each bar and adds it as a marker on Markers 2",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.flatten_performance",
+   :label "Flatten Performance...",
+   :params
+   "{clips?} — makes the current notes the performance that Restore returns to",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.identify_beat",
+   :label "Identify Beat...",
+   :params
+   "{start?, end?, bars?: 1, beats?: 0} — sets the tempo so the selection lasts that many bars",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.input_quantize",
+   :label "Input Quantize...",
+   :params
+   "{enabled?: bool, grid?: '1/16'|ticks, strength?: 0..100, swing?: 0..100}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.insert_time",
+   :label "Insert Time...",
+   :params "{start?, length | end}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.meter",
+   :label "Change Meter...",
+   :params "{numerator, denominator, at?: position}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.midi_note",
+   :label "Add MIDI Note",
+   :params "{clip, pitch, start_ticks, length_ticks, velocity?: 100}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.midi_ops_window",
+   :label "MIDI Operations Window",
+   :params "{} — input quantize and stored performances",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.midi_rtp",
+   :label "MIDI Real-Time Properties",
+   :params
+   "{tracks?, velocity?: ±127, transpose?: ±127, duration?: % (100), delay?: ticks, clear?: bool}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.midi_track_offsets",
+   :label "MIDI Track Offsets",
+   :params
+   "{track?, offset?: samples|{seconds}} — sets (or lists) per-track MIDI playback offsets",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.move_song_start",
+   :label "Move Song Start...",
+   :params
+   "{to: position} — moves the song start; tick-based clips and later tempo/meter events move with it",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.quantize",
+   :label "Quantize...",
+   :params "{grid?: 1/16 | ticks, strength?: 100, swing?: 0, clips?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.remove_duplicate_notes",
+   :label "Remove Duplicate Notes",
+   :params "{clips?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.renumber_bars",
+   :label "Renumber Bars...",
+   :params "{}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.restore_performance",
+   :label "Restore Performance...",
+   :params
+   "{clips?} — returns MIDI clips to their stored original performance",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.retrospective_record",
+   :label "Retrospective Record",
+   :params
+   "{track?, notes?: [{pitch, start?: position | start_ticks?, length_ticks?: 240, velocity?: 100}]} — turns captured MIDI into a clip (input quantize applies)",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.select_split_notes",
+   :label "Select/Split Notes...",
+   :params
+   "{clips?, pitch_from?: 0, pitch_to?: 127, action?: select|split} — split moves the matching notes to a new MIDI track",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.step_input",
+   :label "Step Input...",
+   :params
+   "{track?, pitch?: 60 | pitches?: [..], duration?: '1/8'|ticks, velocity?: 100, rest?: bool, advance?: true}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.tempo",
+   :label "Tempo Change",
+   :params "{bpm, at?: position (default session start)}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.tempo_constant",
+   :label "Constant...",
+   :params "{bpm, start?, end?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.tempo_linear",
+   :label "Linear...",
+   :params
+   "{start?, end?, start_bpm?, end_bpm, resolution?: '1/8'|ticks}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.tempo_ops_window",
+   :label "Tempo Operations Window",
+   :params "{}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.tempo_parabolic",
+   :label "Parabolic...",
+   :params
+   "{start?, end?, start_bpm?, end_bpm, curvature?: -1..1 (0.5), resolution?}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.tempo_remove",
+   :label "Remove Tempo Change",
+   :params "{at}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.tempo_s_curve",
+   :label "S-Curve...",
+   :params "{start?, end?, start_bpm?, end_bpm, resolution?}",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.tempo_scale",
+   :label "Scale...",
+   :params "{factor}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "event.tempo_stretch",
+   :label "Stretch...",
+   :params
+   "{start?, end?, factor? | length?: new length} — scales the tempo inside the selection so it lasts `factor` times as long",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.time_ops_window",
+   :label "Time Operations Window",
+   :params
+   "{} — tempo/meter map, song start and selection for the Time Operations window",
+   :source "crates/engine/src/cmd/event_more.rs"}
+  {:id "event.transpose",
+   :label "Transpose...",
+   :params "{semitones, clips?}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "file.bounce_mix",
+   :label "Bounce Mix...",
+   :params
+   "{path, format?: wav|aiff|flac, bit_depth?: 16|24|32f, start?, end?, source?: main|bus name, normalize?: false, dither?: true, fold_down?: stereo}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.bounce_stems",
+   :label "Bounce Stems...",
+   :params
+   "{dir, format?: wav|aiff|flac, bit_depth?: 16|24|32f, start?, end?, dither?: true, fold_down?: stereo}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.export_clip_groups",
+   :label "Export Clip Groups...",
+   :params
+   "{path, clips?} — writes a .scgrp clip group file with its audio",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.export_clips",
+   :label "Export Clips as Files...",
+   :params "{dir, clips?, format?: wav}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.export_midi",
+   :label "MIDI...",
+   :params "{path, tracks?}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.export_selected_tracks_as_session",
+   :label "Selected Tracks as New Session...",
+   :params "{path, tracks?, replace?: false}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.export_session_text",
+   :label "Session Info as Text...",
+   :params "{path?, replace?: false}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.export_sibelius",
+   :label "MusicXML...",
+   :params "{path, tracks?} — MIDI tracks as MusicXML (.musicxml)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.get_info",
+   :label "Get Info...",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.import_audio",
+   :label "Audio...",
+   :params
+   "{path | paths: [..], track?: target track, at?: position, new_tracks?: true (default; false uses `track` or the selected audio track)}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.import_clip_groups",
+   :label "Clip Groups...",
+   :params "{path, track?: first target track, at?}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.import_midi",
+   :label "MIDI...",
+   :params "{path, at?}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.import_session_data",
+   :label "Session Data...",
+   :params
+   "{path, tracks?: [names]} — imports tracks (clips, playlists, mixer, automation, audio) from another session",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "file.import_video",
+   :label "Video...",
+   :params
+   "{path, at?} — adds a Video track clip for the movie's picture (H.264, ProRes, Motion JPEG) and imports its audio onto a new track",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.print_score",
+   :label "Print Score...",
+   :params
+   "{path?, tracks?} — engraves the MIDI tracks as a printable SVG page",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.score_setup",
+   :label "Score Setup...",
+   :params
+   "{title?, composer?, bars_per_system?: 1..16, show_track_names?: bool} — returns the current setup",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.send_to_sibelius",
+   :label "MusicXML",
+   :params
+   "{path?, tracks?} — writes MusicXML for a notation program (to the temp folder when no `path`)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "markers.add",
+   :label "New Memory Location",
+   :params
+   "{name?, at?, start?, end?, kind?: marker|selection|none, ruler?: 1..5}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "markers.delete",
+   :label "Delete Memory Location",
+   :params "{number | id}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "markers.edit",
+   :label "Edit Memory Location",
+   :params
+   "{number | id, name?, comments?, at?, color?: [r,g,b] | null}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "markers.next",
+   :label "Go to Next Marker",
+   :params "{}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "markers.previous",
+   :label "Go to Previous Marker",
+   :params "{}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "markers.recall",
+   :label "Recall Memory Location",
+   :params "{number}",
+   :source "crates/engine/src/cmd/event.rs"}
+  {:id "midi.new_clip",
+   :label "New MIDI Clip",
+   :params
+   "{track, start?, end?|length?} (default: the edit selection, or 1 bar)",
+   :source "crates/engine/src/cmd/midi.rs"}
+  {:id "midi.note_add",
+   :label "Add Note",
+   :params
+   "{clip, pitch, start_ticks, length_ticks?: 480, velocity?: 100, channel?: 0}",
+   :source "crates/engine/src/cmd/midi.rs"}
+  {:id "midi.note_delete",
+   :label "Delete Notes",
+   :params "{clip, indices: [n]}",
+   :source "crates/engine/src/cmd/midi.rs"}
+  {:id "midi.note_edit",
+   :label "Edit Note",
+   :params
+   "{clip, index, pitch?, start_ticks?, length_ticks?, velocity?}",
+   :source "crates/engine/src/cmd/midi.rs"}
+  {:id "midi.notes",
+   :label "List MIDI Notes",
+   :params "{clip}",
+   :source "crates/engine/src/cmd/midi.rs"}
+  {:id "midi.notes_move",
+   :label "Move Notes",
+   :params "{clip, indices: [n], ticks?: 0, semitones?: 0}",
+   :source "crates/engine/src/cmd/midi.rs"}
+  {:id "mix.automation_mode",
+   :label "Automation Mode",
+   :params
+   "{tracks?, mode: off|read|touch|latch|touch/latch|write|trim}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.clear_mutes",
+   :label "Clear All Mutes",
+   :params "{}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.clear_solos",
+   :label "Clear All Solos",
+   :params "{}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.input_monitor",
+   :label "Input Monitoring",
+   :params "{tracks?, value?: bool}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.insert",
+   :label "Insert Plugin",
+   :params
+   "{track?, slot?: 0..9 | a..j, plugin: id, params?: {id: value}}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.insert_bypass",
+   :label "Bypass Insert",
+   :params "{track?, slot, value?: bool}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.insert_move",
+   :label "Move Insert",
+   :params "{track?, from, to}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.insert_param",
+   :label "Set Plugin Parameter",
+   :params "{track?, slot, param, value}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.insert_params",
+   :label "Set Plugin Parameters",
+   :params
+   "{track?, slot, params: {id: value}, preset?: name} (unknown ids and non-numeric values are errors)",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.insert_remove",
+   :label "Remove Insert",
+   :params "{track?, slot}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.instrument",
+   :label "Set Instrument",
+   :params
+   "{track?, plugin: id, params?: {id: value}} — an instrument track's instrument: built-in, `clap:`, `vst3:` or `au:` id; `params` sets built-in parameters (clamped into range; unknown ids and other fields are errors)",
+   :source "crates/engine/src/cmd/instrument.rs"}
+  {:id "mix.instrument_param",
+   :label "Set Instrument Parameter",
+   :params
+   "{track?, param, value}: one parameter of an instrument track's built-in instrument (clamped into range)",
+   :source "crates/engine/src/cmd/instrument.rs"}
+  {:id "mix.mute",
+   :label "Mute",
+   :params "{tracks?, value?: bool}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.new_bus",
+   :label "New Bus",
+   :params "{name, format?: stereo}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.pan",
+   :label "Set Pan",
+   :params "{tracks?, pan: -1..1, index?: 0|1}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.phase_invert",
+   :label "Phase Invert",
+   :params "{tracks?, value?: bool}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.record_arm",
+   :label "Record Enable",
+   :params "{tracks?, value?: bool}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.sampler_clear",
+   :label "Clear Sampler Sample",
+   :params "{track?}: the track's Sampler stops playing its sample",
+   :source "crates/engine/src/cmd/sampler.rs"}
+  {:id "mix.sampler_load",
+   :label "Load Sampler Sample",
+   :params
+   "{track?, path, params?: {root_note, key_low, key_high, attack, loop_mode, …}}: an instrument track plays the file through the built-in Sampler (made its instrument if it is not already) → {track, source, name, frames, channels, sample_rate}",
+   :source "crates/engine/src/cmd/sampler.rs"}
+  {:id "mix.send",
+   :label "Assign Send",
+   :params
+   "{track?, slot?: 0..9|a..j, bus: name, level_db?: -144..12, default -144 (silent; kept when re-targeting), pre_fader?: false}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.send_level",
+   :label "Send Level",
+   :params "{track?, slot, db?, pan?, mute?, pre_fader?}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.send_remove",
+   :label "Remove Send",
+   :params "{track?, slot}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.send_surround_pan",
+   :label "Set Send Surround Pan",
+   :params
+   "{track?, slot: 0..9|a..j, x?, y?, z?, divergence?, center?, lfe_db?, clear?: bool}",
+   :source "crates/engine/src/cmd/surround.rs"}
+  {:id "mix.solo",
+   :label "Solo",
+   :params "{tracks?, value?: bool, exclusive?: bool}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.solo_safe",
+   :label "Solo Safe",
+   :params "{tracks?, value?: bool}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.surround_pan",
+   :label "Set Surround Pan",
+   :params
+   "{tracks?, x?: -1..1 (left..right), y?: -1..1 (back..front), z?: 0..1 (height), divergence?: 0..1, center?: 0..100, lfe_db?: -144..12, clear?: bool}",
+   :source "crates/engine/src/cmd/surround.rs"}
+  {:id "mix.trim",
+   :label "Input Trim",
+   :params "{tracks?, db}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "mix.volume",
+   :label "Set Volume",
+   :params "{tracks?, db: -144..12 | delta_db}",
+   :source "crates/engine/src/cmd/mix.rs"}
+  {:id "options.destructive_record",
+   :label "Destructive Record",
+   :params "{value?: bool}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "options.keyboard_focus",
+   :label "Keyboard Focus",
+   :params
+   "{focus?: commands|clips|groups|none} — toggles Commands Keyboard Focus when omitted",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "options.post_roll",
+   :label "Post-Roll Amount",
+   :params "{length}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "options.pre_roll",
+   :label "Pre-Roll Amount",
+   :params "{length: samples|{seconds}}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "options.prepare_dpe_tracks",
+   :label "Prepare DPE Tracks",
+   :params
+   "{tracks?} — consolidates each record-armed (or given) audio track into one continuous clip for destructive punch",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "options.scrolling",
+   :label "Edit Window Scrolling",
+   :params "{mode: none|after_playback|page|continuous|center}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "options.solo_mode",
+   :label "Solo Mode",
+   :params "{mode: sip|afl|pfl, latch?: bool, xor?: bool}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "options.trackpunch",
+   :label "TrackPunch",
+   :params "{value?: bool}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "session.audio_health",
+   :label "Session Audio Health",
+   :params
+   "{}; checks all audio clips, including inactive playlists; no filesystem or signal analysis",
+   :source "crates/engine/src/cmd/health.rs"}
+  {:id "session.close",
+   :label "Close Session",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "session.format_time",
+   :label "Format Time",
+   :params
+   "{at: samples, format?: bars_beats|min_secs|timecode|feet_frames|samples}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "session.inspect",
+   :label "Inspect Session",
+   :params "{detail?: summary|full}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "session.new",
+   :label "New...",
+   :params
+   "{name?: 'Untitled', sample_rate?: 48000, bit_depth?: 24, template?: blank|demo}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "session.open",
+   :label "Open Session...",
+   :params "{path}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "session.revert",
+   :label "Revert Session to Saved...",
+   :params "{}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "session.save",
+   :label "Save Session",
+   :params "{path?, replace?: false}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "session.save_as",
+   :label "Save Session As...",
+   :params "{path, replace?: false}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "session.save_copy",
+   :label "Save Session Copy In...",
+   :params "{path, replace?: false}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "session.save_template",
+   :label "Save As Template...",
+   :params "{path, replace?: false}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "setup.click_countoff",
+   :label "Click/Countoff...",
+   :params
+   "{volume_db?: -60..12, accent_note?: 0..127, normal_note?: 0..127, accent_velocity?, normal_velocity?, countoff?: bool, countoff_bars?: 1..16, only_during_record?: bool}",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.current_feet_frames",
+   :label "Current Feet+Frames Position...",
+   :params
+   "{feet_frames: 'F+FF'} — the feet+frames reading at the insertion point",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.current_timecode",
+   :label "Current Timecode Position...",
+   :params
+   "{timecode: 'HH:MM:SS:FF'} — sets the session start so the insertion point reads this timecode",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.disk_allocation",
+   :label "Disk Allocation...",
+   :params
+   "{path?, track?} — the record folder for the session, or for one track",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.external_timecode_offset",
+   :label "External Timecode Offset...",
+   :params
+   "{frames?: ±, samples?: ±} — offset applied to incoming timecode",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.hardware",
+   :label "Hardware...",
+   :params
+   "{device?: output name, buffer_size?: 16..=8192 or null} — output device and buffer. Applied only in the desktop app (Playback Engine window / ui.audio_device), which returns the open device. Headless stores the request and returns applied: false; buffer_size is null when unset. Any integer in range, not rounded to the window's power-of-two sizes. Sample rate is the session's",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.io",
+   :label "I/O...",
+   :params
+   "{action?: list|create_bus|rename_bus|delete_bus|create_output|rename_output|delete_output, name?, new_name?, format?: stereo, first_channel?: 0}",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.keyboard_shortcuts",
+   :label "Keyboard Shortcuts...",
+   :params "{filter?} — every command shortcut",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.main_format",
+   :label "Main Output Format",
+   :params
+   "{format: stereo|LCR|Quad|5.0|5.1|6.1|7.0|7.1|7.1.2|5.1.4|7.1.4|9.1.6|1st Order Ambisonics…}",
+   :source "crates/engine/src/cmd/surround.rs"}
+  {:id "setup.midi_beat_clock",
+   :label "MIDI Beat Clock...",
+   :params "{enabled?: bool, offset?: samples, destination?: name}",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.midi_input_devices",
+   :label "MIDI Input Devices...",
+   :params "{enable?: [names], disable?: [names]}",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.midi_input_filter",
+   :label "MIDI Input Filter...",
+   :params
+   "{filter?: [notes|pitch_bend|mono_aftertouch|poly_aftertouch|program|cc|sysex|realtime], allow?: [...]} — filtered kinds are not recorded",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.midi_studio",
+   :label "MIDI Studio...",
+   :params "{devices?: [names]} — the MIDI devices in the studio",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.peripherals",
+   :label "Peripherals...",
+   :params
+   "{settings?: {name: number|bool|string}} — control surface / sync device settings",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.playback_engine",
+   :label "Playback Engine...",
+   :params
+   "{device?: output name, buffer_size?: 16..=8192 or null, delay_compensation?: bool} — device and buffer as setup.hardware (applied only in the desktop app, or via ui.audio_device); delay_compensation is applied here too. Headless returns applied: false and does not invent a buffer",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.preferences",
+   :label "Preferences...",
+   :params "{}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "setup.reset_edit_state",
+   :label "Reset Edit Settings",
+   :params "{}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "setup.session",
+   :label "Session",
+   :params
+   "{frame_rate?: '29.97 Drop'…, bit_depth?: 16|24|32f, timecode_start?: position, name?}",
+   :source "crates/engine/src/cmd/options.rs"}
+  {:id "setup.transcription_settings",
+   :label "Transcription Settings...",
+   :params "{enabled?: bool, language?: 'en'}",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "setup.video_sync_offset",
+   :label "Video Sync Offset...",
+   :params
+   "{frames?: ±, samples?: ±} — offset between audio and video playback",
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:id "track.bounce",
+   :label "Bounce...",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.bypass_delay",
+   :label "Delay",
+   :params "{tracks?, bypass?: bool}",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.bypass_dynamics",
+   :label "Dynamics",
+   :params "{tracks?, bypass?: bool}",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.bypass_eq",
+   :label "EQ",
+   :params "{tracks?, bypass?: bool} — EQ plug-ins only",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.bypass_inserts",
+   :label "All",
+   :params "{tracks?, bypass?: bool}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.bypass_inserts_ae",
+   :label "Inserts A-E",
+   :params "{tracks?, bypass?: bool}",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.bypass_inserts_fj",
+   :label "Inserts F-J",
+   :params "{tracks?, bypass?: bool}",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.bypass_modulation",
+   :label "Modulation",
+   :params "{tracks?, bypass?: bool}",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.bypass_reverb",
+   :label "Reverb",
+   :params "{tracks?, bypass?: bool}",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.change_width",
+   :label "Change Track Width",
+   :params "{tracks?, format: mono|stereo|…}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.clear_clip_indicators",
+   :label "Clear All Clip Indicators",
+   :params "{}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.clear_trim_automation",
+   :label "Clear Trim Automation",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.coalesce_trim",
+   :label "Coalesce Trim Automation",
+   :params
+   "{tracks?} — adds trim automation into volume automation and removes the trim",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.coalesce_vca",
+   :label "Coalesce VCA Controller Automation",
+   :params
+   "{tracks?} — for selected VCA masters: folds VCA level/automation into every member's volume automation, then resets the VCA",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.color",
+   :label "Track Color",
+   :params "{tracks?, color: [r,g,b] | palette index}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.comments",
+   :label "Track Comments",
+   :params "{track, comments}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.commit",
+   :label "Commit...",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.convert_aux_to_folder",
+   :label "Convert Aux to Routing Folder",
+   :params
+   "{tracks?} — aux inputs become routing folders; tracks feeding their input bus become members",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.create_click",
+   :label "Create Click Track",
+   :params "{}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.delete",
+   :label "Delete",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.designate_target_playlist",
+   :label "Designate as Target Playlist",
+   :params
+   "{tracks?, index?} — the active playlist (or `index`) becomes the target for Copy/Move Selection to",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.duplicate",
+   :label "Duplicate...",
+   :params
+   "{tracks?, playlists?: true, automation?: true, inserts?: true, sends?: true}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.elastic",
+   :label "Elastic Audio",
+   :params
+   "{tracks?, algorithm?: polyphonic|rhythmic|monophonic|varispeed|x-form|none}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.extract_midi",
+   :label "Extract MIDI to New Track",
+   :params
+   "{tracks?} — copies the MIDI clips of each MIDI/instrument track to a new MIDI track",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.folder_toggle",
+   :label "Open/Close Folder",
+   :params "{track, open?: bool}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.freeze",
+   :label "Freeze",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.group",
+   :label "Group...",
+   :params "{name?, tracks?, edit?: true, mix?: true}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.group_modify",
+   :label "Modify Group",
+   :params "{group: id|name, name?, tracks?, edit?, mix?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.group_toggle",
+   :label "Toggle Group Active",
+   :params "{group: id|name}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.height",
+   :label "Track Height",
+   :params
+   "{tracks?, height: micro|mini|small|medium|large|jumbo|extreme | points}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.height_down",
+   :label "Decrease Track Height",
+   :params "{tracks?} — one preset shorter",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.height_up",
+   :label "Increase Track Height",
+   :params "{tracks?} — one preset taller",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.hide",
+   :label "Hide Track",
+   :params "{tracks?, hidden?: bool}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.input",
+   :label "Track Input",
+   :params "{tracks?, input: none|bus name|hardware name}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.inspect",
+   :label "Inspect Track",
+   :params "{track}",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "track.load_preset",
+   :label "Load Track Preset",
+   :params
+   "{path, tracks?} — applies a saved track preset's mixer, inserts, sends and instrument",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.make_inactive",
+   :label "Make Inactive",
+   :params "{tracks?, inactive?: bool}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.move",
+   :label "Move Track",
+   :params "{track, to: index}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.move_to_folder",
+   :label "Move to Folder",
+   :params "{tracks?, folder}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.move_to_new_folder",
+   :label "Move to New Folder...",
+   :params "{tracks?, name?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.mute_sends",
+   :label "All",
+   :params "{tracks?, mute?: bool}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.mute_sends_ae",
+   :label "Sends A-E",
+   :params "{tracks?, mute?: bool} (toggles when omitted)",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.mute_sends_fj",
+   :label "Sends F-J",
+   :params "{tracks?, mute?: bool} (toggles when omitted)",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.new",
+   :label "New...",
+   :params
+   "{count?: 1, format?: mono|stereo|5.1…, kind?: audio|aux|master|midi|instrument|vca|folder, name?, timebase?: samples|ticks, instrument?: plugin id, rows?: [objects with the same fields] (1–128 tracks total)}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.object",
+   :label "Object / Bed",
+   :params
+   "{tracks?, object?: bool} — routes the tracks as immersive objects (true) or to the bed; toggles when `object` is omitted",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.output",
+   :label "Track Output",
+   :params "{tracks?, output: main|none|bus name}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.pin",
+   :label "Pin Track",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.playlist_delete_unused",
+   :label "Delete Unused Playlists",
+   :params "{track?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.playlist_duplicate",
+   :label "Duplicate Playlist",
+   :params "{track?, name?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.playlist_new",
+   :label "New Playlist",
+   :params "{track?, name?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.playlist_promote",
+   :label "Promote to Main Playlist",
+   :params
+   "{track, playlist: index, start?, end?} (copy that range from an alternate playlist into the active one)",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.playlist_select",
+   :label "Select Playlist",
+   :params "{track?, index | name}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.remove_from_folder",
+   :label "Remove from Folder",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.rename",
+   :label "Rename Track",
+   :params "{track, name}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.save_preset",
+   :label "Save Track Preset...",
+   :params
+   "{path, track?} — writes the track's type, width, mixer, inserts, sends and instrument as JSON",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.scroll_to",
+   :label "Scroll to Track...",
+   :params "{track}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.set_record_to_input_only",
+   :label "Set Record Tracks to Input Only",
+   :params "{}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.show_target_playlist",
+   :label "Show Target Playlist",
+   :params "{tracks?} — makes the target playlist the main playlist",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.split_into_mono",
+   :label "Split into Mono",
+   :params "{tracks?}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.timebase",
+   :label "Track Timebase",
+   :params "{tracks?, ticks: bool}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.toggle_recent_playlist",
+   :label "Toggle Recent Playlist",
+   :params "{tracks?} — swaps to the previously shown playlist",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.trim_automation_write",
+   :label "Write Trim Automation",
+   :params
+   "{tracks?, start?, end?, db} — writes a relative volume trim (dB) over a range",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "track.ungroup",
+   :label "Delete Group",
+   :params "{group: id|name}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.vca",
+   :label "Assign to VCA",
+   :params "{tracks?, vca: VCA track id|name | null}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.view",
+   :label "Track View",
+   :params
+   "{tracks?, view: waveform|blocks|notes|volume|pan|mute|<automation id>}",
+   :source "crates/engine/src/cmd/track.rs"}
+  {:id "track.write_midi_rtp",
+   :label "Write MIDI Real-Time Properties",
+   :params
+   "{tracks?} — writes the track's real-time properties (velocity, transpose, duration, delay) into its notes and resets them",
+   :source "crates/engine/src/cmd/track_more.rs"}
+  {:id "transport.fast_forward",
+   :label "Fast Forward",
+   :params "{seconds?: 1}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.go_to_end",
+   :label "Go to End",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.half_speed",
+   :label "Half-Speed Playback",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.locate",
+   :label "Locate",
+   :params "{at: position}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.pause",
+   :label "Pause",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.play",
+   :label "Play",
+   :params "{from?: position}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.play_selection",
+   :label "Play Edit",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.record",
+   :label "Record",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.rewind",
+   :label "Rewind",
+   :params "{seconds?: 1}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.rtz",
+   :label "Return to Zero",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.status",
+   :label "Transport Status",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.stop",
+   :label "Stop",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "transport.toggle",
+   :label "Play/Stop",
+   :params "{}",
+   :source "crates/engine/src/cmd/transport.rs"}
+  {:id "video.list",
+   :label "Movies",
+   :params
+   "{} — movies used by Video tracks (path, size, rate, codec, online file, why it is offline)",
+   :source "crates/engine/src/cmd/video.rs"}
+  {:id "video.offset",
+   :label "Set Video Start",
+   :params
+   "{track?: video track (default: the first), at: position} — moves the track's video clips so the picture starts at `at` (e.g. '01:00:00:00')",
+   :source "crates/engine/src/cmd/video.rs"}
+  {:id "video.online",
+   :label "Video Track Online",
+   :params
+   "{value?: bool} (toggles when omitted) — when offline the Video window and the Video track stop decoding pictures",
+   :source "crates/engine/src/cmd/video.rs"}
+  {:id "view.edit_all",
+   :label "All",
+   :params "{} — shows every Edit window column",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.edit_minimal",
+   :label "Minimal",
+   :params "{} — hides every optional Edit window column",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.expanded_sends_all",
+   :label "All",
+   :params "{} — expands every send in the sends view",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.expanded_sends_none",
+   :label "None",
+   :params "{}",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.flags",
+   :label "View Flags",
+   :params "{prefix?} — lists the view/option flags that are on",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.grid",
+   :label "Grid Value",
+   :params
+   "{value?, step?, format?: bars_beats|min_secs|timecode|feet_frames|samples|clips_markers, follow_main?: bool, lines?: bool}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.grid_lines",
+   :label "Show Grid Lines",
+   :params "{value?: bool}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.main_counter",
+   :label "Main Counter",
+   :params
+   "{format: bars_beats|min_secs|timecode|feet_frames|samples}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.nudge",
+   :label "Nudge Value",
+   :params
+   "{value?, step?, format?: bars_beats|min_secs|timecode|feet_frames|samples, follow_main?: bool}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.ruler",
+   :label "Rulers",
+   :params
+   "{ruler: bars_beats|min_secs|timecode|feet_frames|samples|tempo|meter|markers|key|chords, visible?: bool}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.ruler_all",
+   :label "All",
+   :params "{} — shows every ruler",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.ruler_all_markers",
+   :label "All Marker Rulers",
+   :params
+   "{visible?: bool} — shows (or hides) all five marker rulers",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.ruler_markers2",
+   :label "Markers 2",
+   :params "{visible?: bool}",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.ruler_markers3",
+   :label "Markers 3",
+   :params "{visible?: bool}",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.ruler_markers4",
+   :label "Markers 4",
+   :params "{visible?: bool}",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.ruler_markers5",
+   :label "Markers 5",
+   :params "{visible?: bool}",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.ruler_minimal",
+   :label "Minimal",
+   :params "{} — only the main time ruler and markers",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.ruler_timecode2",
+   :label "Timecode 2",
+   :params "{visible?: bool}",
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:id "view.scroll",
+   :label "Scroll Timeline",
+   :params "{to?: position, by_px?: n}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.sub_counter",
+   :label "Sub Counter",
+   :params "{format?: … | null}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.waveform_zoom",
+   :label "Waveform Zoom",
+   :params "{factor?: 2 | value}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_by",
+   :label "Zoom By",
+   :params
+   "{factor: >1 zooms in, x?: px into the timeline to hold (else the insertion point if on screen)}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_fit",
+   :label "Fill Window With Session",
+   :params "{width_px?: 1200}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_in",
+   :label "Zoom In",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_out",
+   :label "Zoom Out",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_preset",
+   :label "Zoom Preset",
+   :params "{preset: 1..5, store?: bool}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_set",
+   :label "Set Zoom",
+   :params "{samples_per_px}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_to_selection",
+   :label "Zoom to Selection",
+   :params "{width_px?: 1200}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom_toggle",
+   :label "Zoom Toggle",
+   :params "{width_px?: 1200, height_px?: 600}",
+   :source "crates/engine/src/cmd/zoom_toggle.rs"}
+  {:id "view.zoom_toggle_cancel",
+   :label "Cancel Zoom Toggle",
+   :params "{}",
+   :source "crates/engine/src/cmd/zoom_toggle.rs"}],
+ :unexpanded
+ [{:macro "toggle!",
+   :count 17,
+   :source "crates/engine/src/cmd/options.rs"}
+  {:macro "CommandSpec {}",
+   :count 1,
+   :source "crates/engine/src/cmd/plugin_state.rs"}
+  {:macro "option!",
+   :count 10,
+   :source "crates/engine/src/cmd/setup_more.rs"}
+  {:macro "flag!",
+   :count 61,
+   :source "crates/engine/src/cmd/view_more.rs"}
+  {:macro "radio!",
+   :count 6,
+   :source "crates/engine/src/cmd/view_more.rs"}],
+ :mcp
+ [{:name "list_commands",
+   :description
+   "List SoundCraft commands (id, label, menu path, shortcut, params doc, enabled).",
+   :input-schema-source
+   "json!({\"filter\": {\"type\": \"string\", \"description\": \"substring of id or label\"}})",
+   :required-source "&[]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "execute",
+   :description
+   "Run one command by id with JSON params. Returns the command's result.",
+   :input-schema-source
+   "json!({\"command\": {\"type\": \"string\"}, \"params\": {\"type\": \"object\"}})",
+   :required-source "&[\"command\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "batch",
+   :description
+   "Run up to 1000 commands in order; stops at the first error unless keep_going. Larger batches are rejected before any command runs.",
+   :input-schema-source
+   "json!({\"calls\": {\"type\": \"array\", \"maxItems\": MAX_BATCH_CALLS, \"items\": {\"type\": \"object\", \"properties\": {\"command\": {\"type\": \"string\"}, \"params\": {\"type\": \"object\"}}}}, \"keep_going\": {\"type\": \"boolean\"}})",
+   :required-source "&[\"calls\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "inspect_session",
+   :description
+   "The whole session as JSON: tracks (clips, inserts, sends, automation), busses, markers, groups, selection, transport.",
+   :input-schema-source
+   "json!({\"detail\": {\"type\": \"string\", \"enum\": [\"summary\", \"full\"]}})",
+   :required-source "&[]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "new_session",
+   :description "Start a new session (optionally the built-in demo).",
+   :input-schema-source
+   "json!({\"name\": {\"type\": \"string\"}, \"sample_rate\": {\"type\": \"integer\"}, \"template\": {\"type\": \"string\", \"enum\": [\"blank\", \"demo\"]}})",
+   :required-source "&[]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "open_session",
+   :description "Open a .scraft session file.",
+   :input-schema-source "json!({\"path\": {\"type\": \"string\"}})",
+   :required-source "&[\"path\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "save_session",
+   :description
+   "Save the session (path required the first time; replace: true to save over another existing file).",
+   :input-schema-source
+   "json!({\"path\": {\"type\": \"string\"}, \"replace\": {\"type\": \"boolean\"}})",
+   :required-source "&[]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "import_audio",
+   :description
+   "Import an audio file (WAV, AIFF, FLAC, MP3, OGG, AAC/M4A, ALAC, CAF) onto a new or existing track.",
+   :input-schema-source
+   "json!({\"path\": {\"type\": \"string\"}, \"track\": {\"type\": [\"string\", \"integer\"]}, \"at\": {}})",
+   :required-source "&[\"path\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "bounce_mix",
+   :description
+   "Render the mix to an audio file. Returns peak dBFS and integrated LUFS.",
+   :input-schema-source
+   "json!({\"path\": {\"type\": \"string\"}, \"format\": {\"type\": \"string\", \"enum\": craft_audio::ENCODE_EXTENSIONS}, \"bit_depth\": {\"type\": \"string\"}, \"start\": {}, \"end\": {}, \"normalize\": {\"type\": \"boolean\"}})",
+   :required-source "&[\"path\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "parity",
+   :description
+   "Feature-parity report against the incumbent's menu catalog.",
+   :input-schema-source "json!({})",
+   :required-source "&[]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "screenshot",
+   :description "APP_ONLY. Screenshot the app window (PNG).",
+   :input-schema-source "json!({\"path\": {\"type\": \"string\"}})",
+   :required-source "&[]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "ui_inspect",
+   :description
+   "APP_ONLY. UI state: front window, panels, layout rectangles of tracks, dialogs.",
+   :input-schema-source "json!({})",
+   :required-source "&[]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "ui_set",
+   :description
+   "APP_ONLY. Set UI state fields, e.g. {\"window\": \"Mix\"}.",
+   :input-schema-source "json!({\"state\": {\"type\": \"object\"}})",
+   :required-source "&[\"state\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "menu_invoke",
+   :description
+   "APP_ONLY. Invoke a menu item like a click (may open its dialog), e.g. \"Track > New...\".",
+   :input-schema-source "json!({\"path\": {\"type\": \"string\"}})",
+   :required-source "&[\"path\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "click",
+   :description "APP_ONLY. Click at window coordinates (points).",
+   :input-schema-source
+   "json!({\"x\": {\"type\": \"number\"}, \"y\": {\"type\": \"number\"}, \"button\": {\"type\": \"string\"}, \"count\": {\"type\": \"integer\"}})",
+   :required-source "&[\"x\", \"y\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "drag",
+   :description "APP_ONLY. Drag with the primary button.",
+   :input-schema-source
+   "json!({\"x\": {\"type\": \"number\"}, \"y\": {\"type\": \"number\"}, \"to_x\": {\"type\": \"number\"}, \"to_y\": {\"type\": \"number\"}})",
+   :required-source "&[\"x\", \"y\", \"to_x\", \"to_y\"]",
+   :source "crates/automation/src/mcp.rs"}
+  {:name "key",
+   :description "APP_ONLY. Press a key with modifiers.",
+   :input-schema-source
+   "json!({\"key\": {\"type\": \"string\"}, \"cmd\": {\"type\": \"boolean\"}, \"shift\": {\"type\": \"boolean\"}, \"alt\": {\"type\": \"boolean\"}, \"ctrl\": {\"type\": \"boolean\"}})",
+   :required-source "&[\"key\"]",
+   :source "crates/automation/src/mcp.rs"}],
+ :control
+ ["app.quit"
+  "engine.commands"
+  "engine.execute"
+  "engine.parity"
+  "session.inspect"
+  "ui.click"
+  "ui.drag"
+  "ui.inspect"
+  "ui.key"
+  "ui.menu.invoke"
+  "ui.menu.list"
+  "ui.move"
+  "ui.screenshot"
+  "ui.scroll"
+  "ui.set"
+  "ui.text"
+  "ui.zoom"]}

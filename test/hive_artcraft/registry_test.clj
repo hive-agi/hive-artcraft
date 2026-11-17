@@ -66,6 +66,11 @@
 
 (deftest shipped-registry-lists-mounts-and-natives
   (let [{:keys [ok]} (registry/load-registry)]
-    (is (= ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"] (:order ok)))
-    (is (= [7878 7979 7980 7981 nil nil 9876 9877] (map #(get-in ok [:by-id % :app/default-port]) (:order ok))))
-    (is (= [:control-file :none :port :port] (map #(get-in ok [:by-id % :app/transport]) ["pdfcraft" "studio" "filmcraft" "effectcraft"])))))
+    (is (= ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"
+            "deckcraft" "gridcraft" "anicraft" "cadcraft" "figcraft" "wordcraft"
+            "soundcraft" "materialcraft" "texturecraft"] (:order ok)))
+    (is (= [7878 7979 7980 7981 nil nil 9876 9877 7983 7985 nil 7982 7984 7986 7987 7988 7989]
+           (map #(get-in ok [:by-id % :app/default-port]) (:order ok))))
+    (is (= [:control-file :none :port :port :port :port :none :port :port :port :port :port :port]
+           (map #(get-in ok [:by-id % :app/transport]) ["pdfcraft" "studio" "filmcraft" "effectcraft" "deckcraft" "gridcraft" "anicraft"
+                                                        "cadcraft" "figcraft" "wordcraft" "soundcraft" "materialcraft" "texturecraft"])))))
