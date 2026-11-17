@@ -1,0 +1,650 @@
+{:reference-revision "60cb2a13a481a490904a90f61d8583d354d83d54",
+ :engine
+ [{:id "edit.copy",
+   :label "Copy selection",
+   :params "{ids?} copies nodes (and the wires between them)",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.cut",
+   :label "Cut selection",
+   :params "{ids?}",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.delete",
+   :label "Delete selection",
+   :params "{ids?}",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.deleteRelink",
+   :label "Delete and relink",
+   :params
+   "{ids?} deletes nodes and joins what fed their first input to what they fed",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.duplicate",
+   :label "Duplicate selection",
+   :params
+   "{ids?} duplicates nodes with their inner wires and their inputs",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.duplicateWithoutLinks",
+   :label "Duplicate selection without link",
+   :params "{ids?, snapToGrid?} duplicates without incoming links",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.finish",
+   :label "Finish edit gesture",
+   :params "{} ends the current undo group",
+   :source "crates/engine/src/embedded_edit_commands.rs"}
+  {:id "edit.paste",
+   :label "Paste",
+   :params
+   "{at? [x, y], clip? (JSON from edit.copy)} pastes nodes, selected",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.pasteWithoutLinks",
+   :label "Paste without link",
+   :params "{at?, snapToGrid?} pastes without incoming links",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.redo",
+   :label "Redo",
+   :params "{document?} defaults to the active package",
+   :source "crates/engine/src/document_history_commands.rs"}
+  {:id "edit.selectAll",
+   :label "Select all",
+   :params "{}",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.selectNone",
+   :label "Deselect",
+   :params "{}",
+   :source "crates/engine/src/edit_cmds.rs"}
+  {:id "edit.undo",
+   :label "Undo",
+   :params "{document?} defaults to the active package",
+   :source "crates/engine/src/document_history_commands.rs"}
+  {:id "explorer.copy",
+   :label "Copy Explorer item",
+   :params
+   "{graph? index, folder?} copies a graph, folder subtree, or package contents",
+   :source "crates/engine/src/explorer_clipboard_commands.rs"}
+  {:id "explorer.move",
+   :label "Move Explorer item",
+   :params
+   "{graph? index, folder?, resource?, parent?} moves a graph, folder or resource within its package",
+   :source "crates/engine/src/folder_commands.rs"}
+  {:id "explorer.paste",
+   :label "Paste Explorer item",
+   :params
+   "{folder?} pastes into a folder or the package root, with unique names",
+   :source "crates/engine/src/explorer_clipboard_commands.rs"}
+  {:id "file.export",
+   :label "Export outputs...",
+   :params
+   "{dir, format? (png|jpg|tga|bmp|webp|exr|hdr), pattern? ($(graph)_$(identifier)), depth? (8|16|32), size? (px of the larger side, or [width, height]; rounded down to powers of two, 16..8192; default the graph's size, keeping its proportions), outputs? ([identifier]: default every connected output), colorSpaces? ({identifier: srgb|linear|raw}: default sRGB for color usages, raw for data; linear and raw write values unchanged), graph?} cooks the graph at full size and writes the outputs",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.exportMaterial",
+   :label "Export material...",
+   :params
+   "{path, graph?, size? (px, power of two), values? {input: value}, inputs? {identifier: image path}} cooks the graph and writes a portable .mcmat material (maps, exposed inputs, source package) for TextureCraft",
+   :source "crates/engine/src/material_cmds.rs"}
+  {:id "file.importBitmap",
+   :label "Import bitmap...",
+   :params
+   "{path, name?, folder?} imports an image into Resources or its subfolders; returns its name without adding a graph node",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.importVector",
+   :label "Import vector graphics...",
+   :params
+   "{path, name?, folder?} imports an SVG into Resources or its subfolders, preserving its original bytes without adding a graph node",
+   :source "crates/engine/src/resource_commands.rs"}
+  {:id "file.new",
+   :label "Graph...",
+   :params
+   "{name?, folder?, kind? (material|function), template? (see graph.templates), size? (px, power of two)} adds a new graph to the package and opens it",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.newAtomicSample",
+   :label "Atomic sample",
+   :params "{} opens an original graph made only of native primitives",
+   :source "crates/engine/src/atomic_sample_commands.rs"}
+  {:id "file.newPackage",
+   :label "Empty package",
+   :params
+   "{name?} opens a new package alongside the existing packages",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.open",
+   :label "Open...",
+   :params
+   "{path} opens an SBS or MaterialCraft package; returns `warnings` and `path` (null when unsupported content requires Save As)",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.reload",
+   :label "Reload package",
+   :params
+   "{discard?: bool} reloads the current package; unsaved changes require explicit discard",
+   :source "crates/engine/src/package_file_commands.rs"}
+  {:id "file.save",
+   :label "Save",
+   :params
+   "{path?} saves .sbs with adjacent resources or an independent .mcraft archive",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.saveAs",
+   :label "Save as...",
+   :params "{path} saves the package under a new name",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "file.saveCopyAs",
+   :label "Save a copy as...",
+   :params
+   "{path} writes an SBS or MaterialCraft copy without changing the current path or saved state",
+   :source "crates/engine/src/package_file_commands.rs"}
+  {:id "file.sendToTextureCraft",
+   :label "Send to TextureCraft",
+   :params
+   "{graph?} exports the graph as a portable material into TextureCraft's library folder (Documents/TextureCraft/library), where its shelf lists it",
+   :source "crates/engine/src/material_cmds.rs"}
+  {:id "folder.attributes",
+   :label "Folder attributes",
+   :params "{folder, document?, identifier?, description?}",
+   :source "crates/engine/src/folder_property_commands.rs"}
+  {:id "folder.create",
+   :label "New folder",
+   :params "{parent?, name?} creates an empty folder",
+   :source "crates/engine/src/folder_commands.rs"}
+  {:id "folder.properties",
+   :label "Inspect folder properties",
+   :params "{folder, document?}",
+   :source "crates/engine/src/folder_property_commands.rs"}
+  {:id "folder.remove",
+   :label "Remove folder",
+   :params "{folder} removes a folder and its contents, with undo",
+   :source "crates/engine/src/folder_commands.rs"}
+  {:id "folder.rename",
+   :label "Rename folder",
+   :params
+   "{folder, name} renames a folder and updates local graph references",
+   :source "crates/engine/src/folder_commands.rs"}
+  {:id "graph.align",
+   :label "Align nodes",
+   :params
+   "{mode: left|right|top|bottom|hcenter|vcenter|hdistribute|vdistribute, ids?: required for Function/FX-Map, pattern?: owner node id, function?: FunctionGraphTarget, graph?: owning graph index}",
+   :source "crates/engine/src/alignment_commands.rs"}
+  {:id "graph.annotation.select",
+   :label "Select annotation",
+   :params
+   "{kind?: frame|comment|pin, id?} clears node selection; omit kind to deselect",
+   :source "crates/engine/src/annotation_commands.rs"}
+  {:id "graph.attributes",
+   :label "Graph attributes",
+   :params
+   "{graph?, document?, label?, category?, description?, author?, authorUrl?, tags?, group?, userData?}",
+   :source "crates/engine/src/graph_property_commands.rs"}
+  {:id "graph.comment.add",
+   :label "Add Comment",
+   :params "{text?, at? [x, y]}",
+   :source "crates/engine/src/comment_commands.rs"}
+  {:id "graph.comment.delete",
+   :label "Delete comment",
+   :params "{id}",
+   :source "crates/engine/src/comment_commands.rs"}
+  {:id "graph.comment.edit",
+   :label "Edit comment",
+   :params "{id, text?, at?, size?}",
+   :source "crates/engine/src/comment_commands.rs"}
+  {:id "graph.connect",
+   :label "Connect",
+   :params
+   "{from, fromPort? (output), to, toPort? (first compatible input), detach? {to, toPort}}",
+   :source "crates/engine/src/connection_commands.rs"}
+  {:id "graph.context",
+   :label "Graph evaluation context",
+   :params
+   "{physicalSize?: [x, y, z], pixelRatio?: 0|1, tiling?: [horizontal, vertical]} updates material-graph metadata used by system variables; {} reads it",
+   :source "crates/engine/src/evaluation_environment_commands.rs"}
+  {:id "graph.cook",
+   :label "Compute graph",
+   :params
+   "{full?: bool, graph?: index (another graph of the package cooks at full size into the cache)} cooks now; returns per-node timings and errors",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.createFromSelection",
+   :label "Create graph from selection",
+   :params
+   "{name?, ids?} moves the nodes into a new graph and replaces them with an instance",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.delete",
+   :label "Delete graph",
+   :params "{graph?}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.disconnect",
+   :label "Disconnect",
+   :params "{to, toPort}",
+   :source "crates/engine/src/connection_commands.rs"}
+  {:id "graph.duplicate",
+   :label "Duplicate graph",
+   :params "{graph?}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.exposed.add",
+   :label "Expose parameter",
+   :params
+   "{id?, label?, group?, description?, default?, min?, max?, editor?, clamp?, step?, bind?: {node, param}}",
+   :source "crates/engine/src/exposed_input_commands.rs"}
+  {:id "graph.exposed.delete",
+   :label "Delete input",
+   :params "{id}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.exposed.prepare",
+   :label "Prepare graph input",
+   :params
+   "{bind: {node, param}, default?} returns input settings without changing the graph",
+   :source "crates/engine/src/exposed_input_commands.rs"}
+  {:id "graph.exposed.set",
+   :label "Set input value",
+   :params "{id, value}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.format",
+   :label "Output format",
+   :params "{format: u8|u16|f16|f32, graph?, document?}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.frame.add",
+   :label "Add Frame",
+   :params
+   "{title?, titleVisible?, description?, rect? [x, y, w, h], color? [r,g,b,a]} around the selection when no rect",
+   :source "crates/engine/src/frame_commands.rs"}
+  {:id "graph.frame.delete",
+   :label "Delete frame",
+   :params "{id}",
+   :source "crates/engine/src/frame_commands.rs"}
+  {:id "graph.frame.edit",
+   :label "Edit frame",
+   :params "{id, title?, titleVisible?, description?, rect?, color?}",
+   :source "crates/engine/src/frame_commands.rs"}
+  {:id "graph.frame.move",
+   :label "Move frame and contents",
+   :params "{id, by: [dx, dy], snapToGrid?}",
+   :source "crates/engine/src/frame_commands.rs"}
+  {:id "graph.function.edit",
+   :label "Edit function node",
+   :params
+   "{target?: {kind: graph|parameter|dynamic|pattern, node?, owner?, parameter?}, edit: {action: add|move|connect|value|output, ...}, merge?: false}",
+   :source "crates/engine/src/embedded_edit_commands.rs"}
+  {:id "graph.function.node.info",
+   :label "Copy function node info",
+   :params
+   "{id, target?: FunctionGraphTarget} returns text describing a function node without changing the document or node clipboard",
+   :source "crates/engine/src/function_info_commands.rs"}
+  {:id "graph.function.set",
+   :label "Edit Function Graph",
+   :params
+   "{function, target?: {kind: graph|parameter|dynamic|pattern, node?, owner?, parameter?}} replaces a function graph",
+   :source "crates/engine/src/function_commands.rs"}
+  {:id "graph.function.variables",
+   :label "List function variables",
+   :params
+   "{id, target?: FunctionGraphTarget} lists variable suggestions matching the selected Get node's type and caller context",
+   :source "crates/engine/src/function_variable_commands.rs"}
+  {:id "graph.input.bind",
+   :label "Set input preview image",
+   :params
+   "{identifier, resource? | path?, linear?} shows a bitmap resource (or an image file, embedded) on the graph's input node `identifier`, e.g. a mesh map baked in TextureCraft",
+   :source "crates/engine/src/material_cmds.rs"}
+  {:id "graph.input.unbind",
+   :label "Clear input preview image",
+   :params "{identifier}",
+   :source "crates/engine/src/material_cmds.rs"}
+  {:id "graph.instance.add",
+   :label "Add graph instance",
+   :params
+   "{document, graph, function?: FunctionGraphTarget, at? [x,y]} instances a compatible graph from an open SBS package; requires an output and rejects cycles",
+   :source "crates/engine/src/graph_instance_commands.rs"}
+  {:id "graph.instance.reference",
+   :label "Open graph reference",
+   :params
+   "{id, function?: FunctionGraphTarget} resolves the source package and graph without changing the document",
+   :source "crates/engine/src/graph_instance_commands.rs"}
+  {:id "graph.node.add",
+   :label "Add node",
+   :params
+   "{def (see library.list), at? [x, y], snapToGrid? bool, params? {id: value}, connectFrom? {node, port?} wires that output into the new node's first input, label?}",
+   :source "crates/engine/src/node_cmds.rs"}
+  {:id "graph.node.base",
+   :label "Set base parameters",
+   :params
+   "{id?, param?: outputsize|format|pixelsize|pixelratio|tiling|randomseed, value?, inheritance?: relativeToInput|relativeToParent|absolute}; legacy fields: {sizeMode?, size?: [w, h] (log2), format?: inherit|u8|u16|f16|f32, seed?, tiling?: bool|[bool,bool], pixelRatio?: 0|1, tilingMode?, pixelRatioMode?}",
+   :source "crates/engine/src/node_cmds.rs"}
+  {:id "graph.node.bind",
+   :label "Bind parameter to input",
+   :params "{id?, param, base?: false, input: exposed id or null}",
+   :source "crates/engine/src/parameter_function_commands.rs"}
+  {:id "graph.node.disable",
+   :label "Disable selection",
+   :params "{ids?, disabled? (default: toggle)}",
+   :source "crates/engine/src/node_cmds.rs"}
+  {:id "graph.node.edit",
+   :label "Edit node graph",
+   :params
+   "{} resolves the selected FX-Map, processor or graph instance to {kind, node, parameter?, graph?, document?, path?}; UI invocation opens its reference",
+   :source "crates/engine/src/node_graph_commands.rs"}
+  {:id "graph.node.function",
+   :label "Set parameter function",
+   :params
+   "{id?, param, base?: false, mode?: empty|constant, value?: constant value, function?: {nodes, output}, remove?: false}",
+   :source "crates/engine/src/parameter_function_commands.rs"}
+  {:id "graph.node.function.edit",
+   :label "Edit parameter function",
+   :params
+   "{id?, param, base?: false} resolves the parameter function to open",
+   :source "crates/engine/src/parameter_function_commands.rs"}
+  {:id "graph.node.info",
+   :label "Copy node info",
+   :params
+   "{id} returns text describing a node without changing the document or node clipboard",
+   :source "crates/engine/src/node_info_commands.rs"}
+  {:id "graph.node.move",
+   :label "Move nodes",
+   :params "{ids?, by? [dx, dy], to? [x, y], snapToGrid? bool}",
+   :source "crates/engine/src/node_cmds.rs"}
+  {:id "graph.node.param",
+   :label "Set parameter",
+   :params
+   "{id?, param, value} (numbers, [x, y], \"#rrggbb\", enum index, typed {t, v})",
+   :source "crates/engine/src/node_cmds.rs"}
+  {:id "graph.node.parameterInfo",
+   :label "Inspect parameter",
+   :params
+   "{id?, param, base?: false} returns the parameter's type, driver and inheritance",
+   :source "crates/engine/src/parameter_function_commands.rs"}
+  {:id "graph.node.rename",
+   :label "Rename node",
+   :params "{id?, label}",
+   :source "crates/engine/src/node_cmds.rs"}
+  {:id "graph.node.reset",
+   :label "Reset parameters",
+   :params
+   "{id?, param? (default: all specific parameters), base?: false}",
+   :source "crates/engine/src/parameter_function_commands.rs"}
+  {:id "graph.node.value_input",
+   :label "Edit value input",
+   :params
+   "{id, name, type? (Float, Float2, Float3, Float4, Integer, Integer2, Integer3, Integer4, Boolean, String), remove?}",
+   :source "crates/engine/src/value_input_commands.rs"}
+  {:id "graph.open",
+   :label "Open graph",
+   :params "{graph: index or name}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.pattern.edit",
+   :label "Edit FX-Map node",
+   :params
+   "{id: owner, edit: {action: add|move|connect|disconnect|root|value, ...}, merge?: false}",
+   :source "crates/engine/src/embedded_edit_commands.rs"}
+  {:id "graph.pattern.set",
+   :label "Edit FX-Map graph",
+   :params "{id, pattern} replaces an FX-Map subgraph",
+   :source "crates/engine/src/pattern_graph_commands.rs"}
+  {:id "graph.pin.add",
+   :label "Add Navigation pin",
+   :params "{name?, description?, at? [x, y], function?, pattern?}",
+   :source "crates/engine/src/pin_commands.rs"}
+  {:id "graph.pin.delete",
+   :label "Delete pin",
+   :params "{id, function?, pattern?}",
+   :source "crates/engine/src/pin_commands.rs"}
+  {:id "graph.pin.edit",
+   :label "Edit Navigation pin",
+   :params "{id, description?, at? [x, y], function?, pattern?}",
+   :source "crates/engine/src/pin_commands.rs"}
+  {:id "graph.preset.apply",
+   :label "Apply preset",
+   :params "{name}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.preset.delete",
+   :label "Delete preset",
+   :params "{name}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.preset.save",
+   :label "Save preset",
+   :params
+   "{name} stores the current input values as a preset (replacing one of that name)",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.properties",
+   :label "Inspect graph properties",
+   :params "{graph?, document?}",
+   :source "crates/engine/src/graph_property_commands.rs"}
+  {:id "graph.rename",
+   :label "Rename graph",
+   :params "{name, graph?, document?}",
+   :source "crates/engine/src/graph_property_commands.rs"}
+  {:id "graph.resource.add",
+   :label "Add resource to graph",
+   :params
+   "{resource, document? (source package), at? [x,y]} adds a bitmap or SVG node; assets from another package are copied into Resources",
+   :source "crates/engine/src/resource_commands.rs"}
+  {:id "graph.seed",
+   :label "Random seed",
+   :params "{seed, graph?, document?}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.select",
+   :label "Select nodes",
+   :params "{ids, add?: bool}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.selectDownstream",
+   :label "Select downstream nodes",
+   :params "{ids?}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.selectUpstream",
+   :label "Select upstream nodes",
+   :params "{ids?}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.size",
+   :label "Graph size",
+   :params
+   "{graph?, document?, width, height} in pixels (powers of two, 16..8192) or {log2: [w, h]}",
+   :source "crates/engine/src/graph_cmds.rs"}
+  {:id "graph.templates",
+   :label "Graph templates",
+   :params "{} lists the templates for file.new",
+   :source "crates/engine/src/file_cmds.rs"}
+  {:id "graph.wire.delete",
+   :label "Delete links",
+   :params
+   "{function?: FunctionGraphTarget, pattern?: owner, wires: [{to, toPort}, ...]} deletes the wires feeding those inputs, in one undo step",
+   :source "crates/engine/src/wire_cmds.rs"}
+  {:id "graph.wire.insertDot",
+   :label "Insert reroute dot",
+   :params
+   "{to, toPort, at? [x, y] (graph point, default: midway)} splits the wire feeding to.toPort with a Dot node there, selected",
+   :source "crates/engine/src/wire_cmds.rs"}
+  {:id "graph.wire.swap",
+   :label "Swap links",
+   :params
+   "{function?: FunctionGraphTarget, pattern?: owner, wires: [{to, toPort}, {to, toPort}]} exchanges the sources of exactly two connected inputs in one undo step",
+   :source "crates/engine/src/wire_cmds.rs"}
+  {:id "library.add",
+   :label "Add library entry",
+   :params
+   "{entry (id from library.tree), at? [x, y], snapToGrid?, function?: FunctionGraphTarget, pattern?: owner node id} adds a library entry to the open graph (function entries to a Function canvas)",
+   :source "crates/engine/src/node_library_commands.rs"}
+  {:id "library.cache.clear",
+   :label "Clear library preview cache",
+   :params
+   "{} requests background disk cleanup and discards loaded library thumbnails; visible previews rebuild on demand in the app",
+   :source "crates/engine/src/library_cache_commands.rs"}
+  {:id "library.cache.configure",
+   :label "Library preview cache preferences",
+   :params
+   "{diskMib?: 0..65536, maxPreviews?: 1..65536}; 0 MiB disables persistence; {} reads preferences; does not modify packages",
+   :source "crates/engine/src/library_cache_commands.rs"}
+  {:id "library.function.add",
+   :label "Add library function",
+   :params
+   "{graph, package? (sbs://functions.sbs), function?: FunctionGraphTarget, at?, snapToGrid?} adds a function instance to the active Function or processor canvas",
+   :source "crates/engine/src/function_library_commands.rs"}
+  {:id "library.functions",
+   :label "List library functions",
+   :params
+   "{filter?} lists reusable SBS functions with source paths and interfaces",
+   :source "crates/engine/src/function_library_commands.rs"}
+  {:id "library.list",
+   :label "Library",
+   :params
+   "{filter?, category?} every node definition: id, label, category, inputs, outputs, parameters",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "library.reload",
+   :label "Reload library",
+   :params "{} reads the SBS library folder again",
+   :source "crates/engine/src/node_library_commands.rs"}
+  {:id "library.tree",
+   :label "Library categories",
+   :params
+   "{filter?, category? (Top or Top/Sub), canvas? (material|function|pattern)} the library tree and its entries: id, label, category, type, canvas, missing (not addable yet), warning",
+   :source "crates/engine/src/node_library_commands.rs"}
+  {:id "package.activate",
+   :label "Open package",
+   :params
+   "{document} activates an open package without losing edits or history",
+   :source "crates/engine/src/package_commands.rs"}
+  {:id "package.close",
+   :label "Close package",
+   :params
+   "{document?, discard?: bool} closes a package; modified packages require explicit discard",
+   :source "crates/engine/src/package_commands.rs"}
+  {:id "package.closeAll",
+   :label "Close all packages",
+   :params
+   "{discard?: bool} closes all packages; modified packages require explicit discard",
+   :source "crates/engine/src/package_commands.rs"}
+  {:id "session.environment",
+   :label "Evaluation environment",
+   :params
+   "{timeSeconds?: nonnegative float, uvTile?: [int, int], normalFormat?: int} updates host values; {} reads them; does not modify the package",
+   :source "crates/engine/src/evaluation_environment_commands.rs"}
+  {:id "session.history",
+   :label "History preferences",
+   :params
+   "{undoLimit?: 1..10000} sets retained steps per package; {} reads preferences; does not modify packages",
+   :source "crates/engine/src/document_history_commands.rs"}
+  {:id "session.inspect",
+   :label "Inspect",
+   :params
+   "{graph?} the package, the open graph (nodes, wires, parameters, errors, timings), views and history",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "view.2d",
+   :label "View output in 2D view",
+   :params
+   "{node?, port?, tiled?, channel? (rgba|r|g|b|a), histogram?}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "view.3d",
+   :label "3D view settings",
+   :params
+   "{scene? (cube|cylinder|plane|sphere|material_ball|rounded_cube|torus), tiling?, yaw?, pitch?, distance?, target? ([x, y, z] orbit point in mesh radii from its center, within the pan limit preference), environment? (studio|sunset|overcast|night), envRotation?, exposure?, heightScale? (displacement depth in mesh radii, 0..0.5), heightLevel? (height that stays on the surface, 0..1; 0 = rises out), normalYFlip? (DirectX normal maps; default true/DirectX), axis?, grid?, transparency? (see through where alpha < 1), alphaView? (show the alpha channel)}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "view.3d.assign",
+   :label "View output in 3D view",
+   :params
+   "{graph?: index or name, node?: selected node, port?: index or identifier, channel: baseColor|normal|roughness|metallic|height|ambientOcclusion|emissive|opacity, reset?: bool}",
+   :source "crates/engine/src/material_preview_commands.rs"}
+  {:id "view.3d.clear",
+   :label "Clear material assignments",
+   :params
+   "{} clears the material without resetting the scene or camera",
+   :source "crates/engine/src/material_preview_commands.rs"}
+  {:id "view.3d.loadMesh",
+   :label "Load mesh...",
+   :params
+   "{path} shows an OBJ, glTF or GLB mesh in the 3D view (scene \"custom\")",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "view.3d.outputs",
+   :label "View outputs in 3D view",
+   :params
+   "{graph?: index or name, reset?: bool} assigns image outputs by usage; reset clears other assignments without moving the camera",
+   :source "crates/engine/src/material_preview_commands.rs"}
+  {:id "view.3d.reset",
+   :label "Reset scene",
+   :params "{}",
+   :source "crates/engine/src/view_cmds.rs"}
+  {:id "view.previewSize",
+   :label "Preview size",
+   :params
+   "{size: 64..8192, or 0 for full size} caps node outputs while editing",
+   :source "crates/engine/src/view_cmds.rs"}],
+ :mcp
+ [{:name "session_inspect",
+   :description
+   "\"The whole session as JSON: package, graphs, the open graph's nodes (definition, parameters, base \\\n        parameters, ports, cook errors, timings, mean values), connections, frames, comments, pins, exposed inputs, views and history.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "command_list",
+   :description
+   "List engine commands: id, label, menu path, shortcut, params doc and whether it can run now.",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "command_run",
+   :description
+   "\"Run an engine command by id with JSON params (see command_list). Runs with defaults, never opens a \\\n        dialog. Commands given host paths are disabled: use package_open, package_save, bitmap_import and outputs_export.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "command_batch",
+   :description
+   "\"Run several commands in order: steps [{id, params}]. Stops at the first error. Returns {completed, \\\n        results, failed: {index, id, error} | null}; a failed batch is a tool error.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "library_list",
+   :description
+   "\"The node library: every node's id, label, category, input and output ports and parameters (id, \\\n        default, range, enum options). Filter by text or category.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "graph_new",
+   :description
+   "Add a new graph to the package from a template and open it. Returns {graph, name}.",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "node_add",
+   :description
+   "Add a node to the open graph (optionally wired from another node's output). Returns {id}.",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "node_connect",
+   :description
+   "Wire an output port of one node into an input port of another (replacing what fed that input).",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "node_param",
+   :description "Set one parameter of a node.",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "package_open",
+   :description
+   "Open an .sbs or .mcraft package (path relative to the read root). Returns the session; `package.warnings` lists unsupported content (missing nodes are kept as placeholders).",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "package_save",
+   :description
+   "Save the package (path relative to the write root; omit to save to its own file). Writes .sbs XML with adjacent resources/ or a self-contained .mcraft ZIP. In bridge mode, saving without a path runs File > Save and returns an error while a dialog or prompt blocks it.",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "bitmap_import",
+   :description
+   "\"Embed an image (path relative to the read root) as a bitmap resource. Returns its name, for a \\\n        `bitmap` node's `resource` parameter.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "outputs_export",
+   :description
+   "\"Cook a graph at full size and write every output (base color, normal, roughness, …) into a folder \\\n        relative to the write root. Returns the written files.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "material_export",
+   :description
+   "\"Cook a graph at full size and write it as a portable .mcmat material (cooked maps, exposed inputs, \\\n        source package) to a path relative to the write root, for TextureCraft. Optional graph, size and exposed input values. \\\n        Returns {path, bytes}.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "view_render",
+   :description
+   "\"Headless: render the material on the 3D view's scene, or a node's output (view 2d), as a PNG up to \\\n        2048 px a side. In bridge mode use view_screenshot.\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "view_screenshot",
+   :description "Bridge mode: PNG of the live app's 3D or 2D view.",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "ui_screenshot",
+   :description
+   "Bridge mode: PNG of the whole app window (downscaled to 2048 px a side at most).",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "ui_inspect",
+   :description
+   "Bridge mode: the app's UI state (panels, windows, graph view camera, node rectangles on screen, toasts).",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "ui_menu_invoke",
+   :description
+   "Bridge mode: activate a menu item by id like a click (may open a window); returns an error while a dialog or prompt blocks it. ui.menu.list lists ids and which are enabled.",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}
+  {:name "ui_input",
+   :description
+   "\"Bridge mode: synthesize mouse, keyboard and text input in the app window (clicks, drags between \\\n        node ports, scrolling, shortcuts, typing). Positions are window points (see ui_inspect for node rectangles).\"",
+   :source "crates/automation/src/server/material_craft_mcp.rs"}],
+ :control
+ ["command.list"
+  "command.run"
+  "ping"
+  "session.inspect"
+  "ui.input"
+  "ui.inspect"
+  "ui.menu.invoke"
+  "ui.menu.list"
+  "ui.resize"
+  "ui.screenshot"
+  "ui.set"
+  "view.screenshot"]}
