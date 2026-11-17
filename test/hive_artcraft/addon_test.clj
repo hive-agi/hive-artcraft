@@ -197,7 +197,7 @@
     (is (not (contains? (:params spec) "command")))
     (is (= (mapv :app (read-text ((:apps verbs) {:command "artcraft apps"})))
            (mapv :app (read-text ((handler instance) {"command" "apps"})))))
-    (is (= {:engine 519 :mcp 25 :control 24}
+    (is (= {:engine 793 :mcp 33 :control 28}
            (select-keys (read-text ((:catalog verbs) {:command "artcraft catalog" :app "vectorcraft"})) [:engine :mcp :control])))
     (protocol/shutdown! instance)
     (is (nil? (get (cmds/get-commands addon/host-tool) "artcraft")) "shutdown! retracts the contribution")))
@@ -208,7 +208,7 @@
         theirs ((:handler (first (protocol/tools direct))) {"command" "catalog"})
         ours ((handler instance) {"app" "vectorcraft" "command" "catalog"})]
     (is (= theirs ours))
-    (is (= {:engine 519 :mcp 25 :control 24} (select-keys (read-text ours) [:engine :mcp :control])))
+    (is (= {:engine 793 :mcp 33 :control 28} (select-keys (read-text ours) [:engine :mcp :control])))
     (is (= ((:handler (first (protocol/tools direct))) {"command" "catalog" "query" "control"})
            ((handler instance) {:app "vectorcraft" :command "catalog" :query "control"})))
     (protocol/shutdown! instance)))
@@ -217,7 +217,7 @@
   (let [ours (read-text ((handler (running)) {"app" "photocraft" "command" "catalog"}))
         theirs (:ok ((:handler (first (protocol/tools (photocraft/addon-ctor {})))) {"command" "catalog"}))]
     (is (= theirs ours))
-    (is (= 271 (count (:commands ours))))))
+    (is (= 389 (count (:commands ours))))))
 
 (deftest mounted-calls-refuse-without-a-running-app
   (let [h (handler (running))]
