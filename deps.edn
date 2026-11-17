@@ -6,8 +6,8 @@
         io.github.hive-agi/hive-dsl {:mvn/version "0.5.36"}
         metosin/malli {:mvn/version "0.20.2"}
         io.github.hive-agi/hive-schemas {:mvn/version "0.1.40"}
-        io.github.hive-agi/hive-photocraft {:mvn/version "0.1.1"}
-        io.github.hive-agi/hive-vectorcraft {:mvn/version "0.1.1"}}
+        io.github.hive-agi/hive-photocraft {:mvn/version "0.1.4"}
+        io.github.hive-agi/hive-vectorcraft {:mvn/version "0.1.4"}}
  :aliases {:dev {:extra-paths ["test" "dev"]
                  :extra-deps {nrepl/nrepl {:mvn/version "1.8.0"}
                               cider/cider-nrepl {:mvn/version "0.62.2"}

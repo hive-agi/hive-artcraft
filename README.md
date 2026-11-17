@@ -44,7 +44,7 @@ invisible to that client until it reconnected. The addon is meant to be hot-inje
 creative app is in use, not loaded at hive-mcp startup.
 
 This release mounts **photocraft** and **vectorcraft**. It depends on the published
-`io.github.hive-agi/hive-photocraft` and `io.github.hive-agi/hive-vectorcraft` (0.1.1) and forwards
+`io.github.hive-agi/hive-photocraft` and `io.github.hive-agi/hive-vectorcraft` (0.1.4) and forwards
 calls to their own tool handlers. Their code is not copied.
 
 **lightcraft** (port 7980, `LIGHTCRAFT_CONTROL_PORT`) and **designcraft** (port 7981,
@@ -80,7 +80,7 @@ Every call goes through the host `code` tool:
 `artcraft` was contributed sends it that way, and it is decoded when it parses to a JSON object.
 
 `artcraft catalog app=vectorcraft` returns exactly what hive-vectorcraft's own `vectorcraft` tool
-returns (519 engine commands, 25 MCP tools, 24 control methods at revision 65c5953). A test checks this.
+returns (793 engine commands, 33 MCP tools, 28 control methods at revision 0f8040e). A test checks this.
 
 ### Configuration
 
