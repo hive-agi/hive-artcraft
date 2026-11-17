@@ -66,11 +66,13 @@
            (x/strip-arm "noundo\n  \"a.b\"") (x/strip-arm "\"a.b\"")))))
 
 (deftest catalogs-reproduce-from-the-clones
-  (doseq [[id {:keys [clone]}] apps
-          :when (.isDirectory (io/file clone))]
-    (testing id
-      (is (= (edn/read-string (slurp (io/resource (str "hive_artcraft/catalogs/" id ".edn"))))
-             (x/extract clone))))))
+  (let [present (filter (fn [[_ {:keys [clone]}]] (.isDirectory (io/file clone))) apps)]
+    (if (empty? present)
+      (is (empty? present) "no reference clone checked out: reproduction skipped")
+      (doseq [[id {:keys [clone]}] present]
+        (testing id
+          (is (= (edn/read-string (slurp (io/resource (str "hive_artcraft/catalogs/" id ".edn"))))
+                 (x/extract clone))))))))
 
 (deftest apps-port-resolution
   (doseq [[id {:keys [port env]}] apps]

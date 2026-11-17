@@ -221,10 +221,14 @@
   (is (= #{"ui.command" "ui.commands" "ui.inspect" "ui.state"} (set (filter #{"ui.command" "ui.commands" "ui.inspect" "ui.state"} (:control pdf-catalog))))))
 
 (deftest catalogs-reproduce-from-the-clones
-  (when (.isDirectory (io/file extract-pdfcraft/default-root))
-    (is (= pdf-catalog (extract-pdfcraft/extract extract-pdfcraft/default-root))))
-  (when (.isDirectory (io/file extract-studio/default-root))
-    (is (= studio-catalog (extract-studio/extract extract-studio/default-root)))))
+  (let [pdf? (.isDirectory (io/file extract-pdfcraft/default-root))
+        studio? (.isDirectory (io/file extract-studio/default-root))]
+    (when pdf?
+      (is (= pdf-catalog (extract-pdfcraft/extract extract-pdfcraft/default-root))))
+    (when studio?
+      (is (= studio-catalog (extract-studio/extract extract-studio/default-root))))
+    (when-not (or pdf? studio?)
+      (is (not (or pdf? studio?)) "no reference clone checked out: reproduction skipped"))))
 
 (deftest studio-has-no-control-surface
   (let [h (handler (running {}))
