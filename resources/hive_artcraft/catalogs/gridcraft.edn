@@ -1,0 +1,1909 @@
+{:reference-revision "d60709a1738d4f02c7f507848441306c0aacf692",
+ :engine
+ [{:id "app.commands",
+   :label "List Commands",
+   :params "{search?} → ids, labels, params",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "arrange.align",
+   :label "Align",
+   :params
+   "{kind: chart|image|shape|slicer|equation|control, ids: [..], align: left|center|right|top|middle|bottom}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "arrange.bringForward",
+   :label "Bring Forward",
+   :params
+   "{kind: chart|image|shape|slicer|equation|control, id, toFront?: bool}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "arrange.group",
+   :label "Group",
+   :params
+   "{kind, ids} (moves objects together: aligns their anchors to the first)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "arrange.rotate",
+   :label "Rotate",
+   :params
+   "{kind: shape, id} (swaps width/height for a 90° turn; `flip` is rejected: shapes have no flip state)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "arrange.selectionPane",
+   :label "Selection Pane",
+   :params "{} → objects on the sheet in stacking order",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "arrange.sendBackward",
+   :label "Send Backward",
+   :params
+   "{kind: chart|image|shape|slicer|equation|control, id, toBack?: bool}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "automate.allScripts",
+   :label "All Scripts",
+   :params "{} → saved scripts",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "automate.deleteScript",
+   :label "Delete Script",
+   :params "{name}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "automate.newScript",
+   :label "New Script",
+   :params "{name, commands: [{command, params}] }",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "automate.recordActions",
+   :label "Record Actions",
+   :params "{stop?: bool, name?: script name when stopping}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "automate.runScript",
+   :label "Run Script",
+   :params
+   "{name, trusted?: bool (runs a script from an untrusted workbook this once)} — refuses scripts in a workbook opened from a file until it is trusted, and steps that reach outside the workbook (file.*, link.*, any `path` param)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "automate.stopAction",
+   :label "Stop Action",
+   :params
+   "{} → {stopped: bool}: stops an action left running on the active workbook (an open undo group, such as a debugger's) and puts back the workbook and its undo history as they were when it began",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "automate.trustScripts",
+   :label "Trust Scripts",
+   :params
+   "{trusted?: bool (default true)} → {trusted}: lets this workbook's scripts run for the rest of the session",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "cell.get",
+   :label "Get Cell",
+   :params
+   "{cell?, sheet?} → value, formula, display text, style, comment, link, python {code, output, typeName, preview, stale}",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "cell.set",
+   :label "Enter Cell",
+   :params
+   "{cell?: \"B2\", input: \"text, number or =formula\", sheet?, array?: bool}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "cell.toggleCheckbox",
+   :label "Toggle Checkbox",
+   :params "{cell?}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.addElement",
+   :label "Add Chart Element",
+   :params
+   "{chart?, element: title|legend|dataLabels|dataTable|gridlines|axisTitles|smooth|trendline, on?: bool, position?: bottom|top|left|right; dataTable: dataTableKeys?: bool, dataTableHorizontalBorder?: bool, dataTableVerticalBorder?: bool, dataTableOutline?: bool; trendline: series?: index (default all), type?: linear|exponential|linearForecast|movingAverage|logarithmic|power|polynomial, order?: 2..6, period?: 2..255, forward?, backward?, displayEquation?, displayRSquared?}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.changeColors",
+   :label "Change Colors",
+   :params
+   "{chart?, palette: colorful|monochrome|accent1..accent6 | colors: [hex…]}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.changeType",
+   :label "Change Chart Type…",
+   :params "{chart?, type, subtype?}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.delete",
+   :label "Delete Chart",
+   :params "{chart?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "chart.formatSelection",
+   :label "Format Selection",
+   :params "{chart?, series?: index, color?: hex}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.move",
+   :label "Move Chart…",
+   :params "{chart?, sheet?: name (moves to that sheet), at?: \"B2\"}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.quickLayout",
+   :label "Quick Layout",
+   :params "{chart?, layout: 1..6}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.selectData",
+   :label "Select Data…",
+   :params
+   "{chart?, range?: \"Sheet1!A1:D7\", byRows?: bool, categories?: \"Sheet1!A2:A7\" (Horizontal (Category) Axis Labels for every series; \"\" clears), removeSeries?: [index…]}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.set",
+   :label "Chart Properties",
+   :params
+   "{chart?: id, type?, subtype?, title?, legend?: none|bottom|top|left|right, dataLabels?, gridlines?, dataTable?: bool, dataTableKeys?: bool, dataTableHorizontalBorder?: bool, dataTableVerticalBorder?: bool, dataTableOutline?: bool (data tables: column/bar/line/area and compatible combo charts), quartiles?: exclusive|inclusive, style?, holeSize?, firstSliceAngle?, xTitle?, yTitle?, at?, width?, height?, dx?, dy?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "chart.shapeFill",
+   :label "Shape Fill",
+   :params "{chart? | kind: shape, id?, series?, color: hex}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.shapeOutline",
+   :label "Shape Outline",
+   :params "{kind: shape, id?, color: hex}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "chart.switchRowColumn",
+   :label "Switch Row/Column",
+   :params "{chart?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "control.assign",
+   :label "Assign Action",
+   :params
+   "{id, macro?: name, input?: \"selection\" | \"B2:D9\", output?: \"F2\" | command?: id, params?: {..} | clear?: true} sets what a button runs → the control",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "control.format",
+   :label "Format Control",
+   :params
+   "{id, text?, name?, link?: \"$B$1\" | \"\" (no link), min?, max?, step?, page?, value?, horizontal?, print?, locked?} → the control (as control.list)",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "control.list",
+   :label "Form Controls",
+   :params
+   "{} → the active sheet's controls: [{id, kind, name, text, at, link?, value, min, max, step, page, horizontal, action?}]",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "control.press",
+   :label "Press Button",
+   :params
+   "{id, approve?: bool, onConflict?, overwrite?} runs a button's macro or command (through the macro policy, with the workbook's trust; a workbook from a file asks first) → what the macro or command returned",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "control.setValue",
+   :label "Change Control Value",
+   :params
+   "{id, value} clamps the value to min..max, snaps it to the step, and writes it to the linked cell → {value}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "data.advancedFilter",
+   :label "Advanced…",
+   :params
+   "{range? (list with headers; default current region), criteria?: \"H1:I3\" (omitted/blank matches all rows; header row of field names; rows OR'ed, columns AND'ed; \">100\", \"=abc\", \"a*\", \"<>\"; blank-headed formula cells are computed criteria for the first data row), copyTo?: \"K1\" (else filter in place by hiding rows), unique?: bool}",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.analysisToolPak",
+   :label "Data Analysis…",
+   :params
+   "{tool: anovaSingle|anovaTwoFactorWith|anovaTwoFactorWithout|correlation|covariance|descriptive|exponentialSmoothing|fTest|fourierAnalysis|histogram|movingAverage|randomNumberGeneration|rankPercentile|regression|sampling|tTestPaired|tTestEqual|tTestUnequal|zTest (or the tool's label), output?: \"E1\" (top-left of the report; default a new sheet), newSheet?: name, outputTo?: range|newSheet (picks between the two), overwrite?: bool (else non-empty output cells are refused), labels?: bool (first row/column holds names), groupedBy?: columns|rows, …tool params} — range tools take `range`; descriptive: summary? (default true), confidence?: 95, kthLargest?, kthSmallest?; histogram: bins?: range (default evenly spaced), pareto?, cumulative?; regression: inputY, inputX, constantZero?, confidence?: 95, residuals?, standardizedResiduals?, normalProbability?; movingAverage: interval? (3), standardErrors?; exponentialSmoothing: damping? (0.3), standardErrors?; t-tests and fTest: range1, range2, alpha? (0.05), hypothesizedDifference? (0); anovaSingle: alpha?; anovaTwoFactorWithout: range, labels? (the first row holds column names and the first column row names), alpha?; anovaTwoFactorWith: range (first row and column hold labels), rowsPerSample, alpha?; zTest: range1, range2, variance1, variance2 (known variances), alpha?, hypothesizedDifference?; fourierAnalysis: range (one row or column of 2^k numbers or complex text, at most 4096), inverse?; randomNumberGeneration: variables? (1), count (per variable; not for patterned), distribution: uniform{from, to} | normal{mean, standardDeviation} | bernoulli{p} | binomial{p, trials} | poisson{lambda} | patterned{from, to, step, repeatEach, repeatSequence} | discrete{valueRange: two columns of value and probability}, seed? (whole number, not for patterned; the same seed repeats the numbers; the result reports the seed used), at most 1,000,000 numbers; sampling: range, method?: periodic|random, period (periodic), samples (random, with replacement), seed?. Writes static values. No `tool` → {tools} (the menu opens the dialog).",
+   :source "crates/engine/src/cmd/analysis.rs"}
+  {:id "data.circleInvalid",
+   :label "Circle Invalid Data",
+   :params
+   "{} → {invalid: [cell], truncated: bool (true when the 100,000-cell scan allowance ended before every range was checked)}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.clearFilter",
+   :label "Clear",
+   :params "{}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.consolidate",
+   :label "Consolidate…",
+   :params
+   "{sources: [\"Sheet2!A1:C10\", ..], destination?: \"A1\" (default active cell), function?: sum|count|countNums|average|max|min|product, topRow?: bool, leftColumn?: bool (consolidate by labels; else by position)}",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.dataTable",
+   :label "Data Table…",
+   :params
+   "{range: \"D2:E10\", rowInput?: \"B1\", columnInput?: \"B2\"} one-variable (values down the first column with columnInput, or across the top row with rowInput; formulas in the other edge) or two-variable (formula in the top-left corner). Computes every result by substitution and writes static values (a snapshot, not a live {=TABLE()}); ≤100,000 cells.",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.filter",
+   :label "Filter",
+   :params "{range?} toggles AutoFilter on the current region",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.filterBy",
+   :label "Filter Column",
+   :params
+   "{column: \"B\" (or 0-based offset), values?: [..], blanks?: bool, custom?: {op: \">\", value: \"10\", op2?, value2?, and?}, top?: {count, bottom?, percent?}, aboveAverage?: bool, clear?: bool}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.flashFill",
+   :label "Flash Fill",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.forecastSheet",
+   :label "Forecast Sheet",
+   :params
+   "{timeline?: \"A2:A25\", values?: \"B2:B25\" (default: the first two columns of `range`, the selection or the current region; a text first cell is the header), end?: timeline value or date text | periods?: n (default: a third of the history, at least 1; ≤10,000 and history × periods ≤ 500,000, or with a forecastStart inside the history (hindcast rows are forecast too) (the greater of the fitted rows and fitted slots × (periods + rows from forecastStart on, that row included)) ≤ 500,000; history ≤ 10,000 rows), forecastStart?: a timeline value or date text on the history, before its last point (hindcast: the model is fit to the points before it, the forecast columns start there and run over the actuals; default and the last point: forecast after the history), confidenceInterval?: bool (default true), confidence?: 0.95 or 95, seasonality?: \"auto\" | 0 (none) | 2–8,760, fillMissing?: interpolate|zeros, aggregate?: average|count|counta|max|median|min|sum, statistics?: bool, chart?: line|column} → {sheet, table, chart, history, periods}. Inserts a sheet before the active one: timeline, values, Forecast (FORECAST.ETS), Lower/Upper Confidence Bound (FORECAST.ETS.CONFINT), optional FORECAST.ETS.STAT table, and a chart.",
+   :source "crates/engine/src/cmd/forecast.rs"}
+  {:id "data.fromTableRange",
+   :label "From Table/Range",
+   :params
+   "{range?} → copies the table/range to a new sheet as a table",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "data.fromTextCsv",
+   :label "From Text/CSV",
+   :params
+   "{path | text, delimiter?: \",\", sheet?: new sheet name} → imports into a new sheet as a table",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "data.getData",
+   :label "Get Data",
+   :params
+   "{path | text} (CSV/TSV/JSON array of objects) → new sheet table",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "data.goalSeek",
+   :label "Goal Seek…",
+   :params
+   "{set: \"B5\" (formula cell), to: number, changing: \"B2\" (constant cell)} → {value, result, iterations, converged}. Secant search with bisection once the answer is bracketed; stops within Maximum Change (0.001) or after Maximum Iterations (100) from File › Options › Formulas. Writes the found value into `changing`.",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.group",
+   :label "Group",
+   :params
+   "{rows?: \"2:5\" | cols?: \"B:C\" | by?: rows|cols (the selection's rows or columns; a block of cells groups rows by default), sheet?}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.hideDetail",
+   :label "Hide Detail",
+   :params
+   "{rows? | cols? | by?, level?: 1-7} (the innermost group, or the one at `level`, holding the lines or summarised by them)",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.outlineSettings",
+   :label "Outline Settings",
+   :params
+   "{sheet?, summaryBelow?: bool, summaryRight?: bool} (summary rows below their detail, summary columns right of it; off puts them above / left) → {summaryBelow, summaryRight}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.queriesConnections",
+   :label "Queries & Connections",
+   :params "{} → imported tables",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "data.reapply",
+   :label "Reapply",
+   :params "{}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.refreshAll",
+   :label "Refresh All",
+   :params
+   "{replace?} refreshes every PivotTable → {refreshed, errors}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "data.removeDuplicates",
+   :label "Remove Duplicates",
+   :params "{range?, columns?: [\"A\",\"C\"], header?: bool}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.scenarioAdd",
+   :label "Add Scenario",
+   :params
+   "{name, changing: \"B2:B4\" or \"B2,B4\" (≤32 cells, active sheet), values?: [..] (default: the cells' current values), comment?, replace?: bool}",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.scenarioDelete",
+   :label "Delete Scenario",
+   :params "{name}",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.scenarioManager",
+   :label "Scenario Manager…",
+   :params
+   "{sheet?} → {scenarios: [{name, sheet, changing, values, comment}]} (scenarios of the active sheet; `sheet: \"*\"` lists all)",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.scenarioShow",
+   :label "Show Scenario",
+   :params
+   "{name} writes the scenario's values into its changing cells",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.scenarioSummary",
+   :label "Scenario Summary",
+   :params
+   "{resultCells?: \"B10\" or \"B10:B12,D4\"} inserts a \"Scenario Summary\" sheet: changing cells and result cells for the current values and each scenario",
+   :source "crates/engine/src/cmd/whatif.rs"}
+  {:id "data.showDetail",
+   :label "Show Detail",
+   :params "{rows? | cols? | by?, level?: 1-7}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.showLevels",
+   :label "Show Outline Levels",
+   :params
+   "{rows?: 1-8, cols?: 1-8} (1 shows only the top-level summaries, as the outline's level buttons)",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.solver",
+   :label "Solver…",
+   :params
+   "{objective: \"B10\" (formula cell), goal?: max|min|value (default max), value?: number (for goal value), variables: \"B2:B4,D1\" (≤200 constant cells, same sheet), constraints?: [\"B5 <= 10\", \"B2:B4 >= C2:C4\", \"B2 int\", \"B3 bin\", {lhs: \"B6\", op: \"=\", rhs: 3 | \"C6\"}], nonNegative?: bool (default true: variables without a lower bound get 0), method?: grg|simplex|evolutionary (default grg), populationSize?: 100, mutationRate?: 0.075, randomSeed?: 0 (a fixed seed, so runs repeat), convergence?: 0.0001, generationsWithoutImprovement?: 50, requireBounds?: bool (default true: every variable needs both bounds; false searches within ±100 of the start) (Evolutionary options), keep?: bool (default true; false restores the original values), saveModel?: bool (default true: hidden names, solver_* as Excel names them, with the options; the evaluation limit and generations without improvement, which Excel lacks, as gridcraft_solver_evals and gridcraft_solver_stall), maxEvaluations?: 20000 (at most 200000), integerOptimality?: percent (default 0), saved?: bool (solve the sheet's saved model; other params override), reports?: [answer|sensitivity|limits] (written on new sheets when a solution is found)} → {status: optimal|converged|cannotImprove|iterationLimit|infeasible|unbounded|notLinear, message, objective, values: {cell: value}, original: {cell: value}, model: the model as params, evaluations, changed, reports?: [sheet names], skippedReports?: [{report: \"sensitivity\", reason}] (a Sensitivity report left out because the run did not reach an optimum or the values are not one; the solve and the other reports still apply)}. No `objective` → {model: the saved model} (the menu opens the dialog).",
+   :source "crates/engine/src/cmd/solver.rs"}
+  {:id "data.solverLoadModel",
+   :label "Load Model",
+   :params
+   "{from: \"H1:H6\" (a range on the active sheet; one cell reads down to the first cell without a formula; a range needs a formula in every cell up to its last formula, and may end in empty cells)} → {model}. Reads a model written by Save Model and makes it the sheet's Solver model. The model must end with its options row ({…}), which Save Model writes last; a model cut short (a cell before the options row without a formula, or the options row cleared) is refused and the sheet's model stays as it was.",
+   :source "crates/engine/src/cmd/solver.rs"}
+  {:id "data.solverReport",
+   :label "Solver Reports",
+   :params
+   "{reports: [answer|sensitivity|limits], values?: {cell: number} (the solution; default the variable cells' current values), original?: {cell: number} (the values before solving; default `values`), message?: text (the result line), skipNotOptimal?: bool (default false: a Sensitivity report for values that are not optimal refuses the call; true leaves it out and writes the others), model?: data.solver params (default the sheet's saved model, with any data.solver params given here over it)} → {sheets: [names], skippedReports?: [{report, reason}]}. Writes Answer, Sensitivity and Limits reports on new sheets before the model's sheet; Sensitivity and Limits need Simplex LP or GRG Nonlinear and no integer constraints, and Sensitivity a Max or Min objective. data.solver's result can be passed as is.",
+   :source "crates/engine/src/cmd/solver.rs"}
+  {:id "data.solverReset",
+   :label "Reset All",
+   :params
+   "{} → {removed, masked}. Removes the active sheet's Solver model. A model read from workbook-level names stays for the other sheets and is masked on this one by an empty sheet-level solver_opt (masked: true).",
+   :source "crates/engine/src/cmd/solver.rs"}
+  {:id "data.solverSaveModel",
+   :label "Save Model",
+   :params
+   "{to: \"H1\" (the first cell, on the model's sheet), model?: data.solver params (default the sheet's saved model), overwrite?: false} → {range}. Writes the model down a column as formulas: =MAX(objective), =MIN(objective) or =objective=value; =COUNT(variables); one =AND(relation) per constraint (=AND(x=INT(x)) for integer, =AND((x=0)+(x=1)) for binary), which shows TRUE while it holds; and the options as an array constant {method (1 GRG Nonlinear, 2 Simplex LP, 3 Evolutionary), non-negative (1 yes, 2 no), population size, mutation rate, random seed, require bounds (1 yes, 2 no), convergence, generations without improvement, maximum evaluations, integer optimality %}, which spills into the cells to its right. Refused, with the sheet unchanged, when the model's cells, content, another formula's spilled values, merged cells or a table are in the way of the options' spill, or it would run off the sheet, and when the column would cover another formula's spilled values. A column that holds a value or a formula (a model saved there before included) is replaced only with overwrite: true; without it the command is refused (\"already holds data\"), as Excel asks first. One undo step.",
+   :source "crates/engine/src/cmd/solver.rs"}
+  {:id "data.sort",
+   :label "Sort…",
+   :params
+   "{range?, header?: bool, keys: [{column: \"B\", order: asc|desc, by?: values|cellColor|fontColor, customList?: [..]}], orientation?: rows|columns, matchCase?}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.sortAscending",
+   :label "Sort A to Z",
+   :params "{range?, column?: \"B\"}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.sortDescending",
+   :label "Sort Z to A",
+   :params "{range?, column?}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.subtotal",
+   :label "Subtotal",
+   :params
+   "{range?, groupBy: \"A\", function?: sum|count|average|max|min|product, columns: [\"C\"], header?: true}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.textToColumns",
+   :label "Text to Columns",
+   :params
+   "{range?, delimiters?: [\",\", \"\\t\", \" \", \";\"], other?: \"|\", fixedWidths?: [5, 10], treatConsecutive?: bool, textQualifier?: \"\\\"\", destination?: \"B1\"}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.ungroup",
+   :label "Ungroup",
+   :params "{rows? | cols? | by?: rows|cols, sheet?}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.validate",
+   :label "Check Value Against Validation",
+   :params "{cell?, input} → {ok, message?}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "data.validation",
+   :label "Data Validation…",
+   :params
+   "{range?, type: any|whole|decimal|list|date|time|textLength|custom, operator?: between|notBetween|equal|notEqual|greater|less|greaterOrEqual|lessOrEqual, formula1, formula2?, ignoreBlank?, dropdown?, inputTitle?, inputMessage?, errorStyle?: stop|warning|information, errorTitle?, errorMessage?, clear?: bool}",
+   :source "crates/engine/src/cmd/data.rs"}
+  {:id "document.inspect",
+   :label "Inspect Workbook",
+   :params
+   "{} → sheets, selection, names, tables, charts, dirty, trust (local|fromFile), history",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "draw.eraser",
+   :label "Eraser",
+   :params "{on?: bool}",
+   :source "crates/engine/src/cmd/draw.rs"}
+  {:id "draw.inkToShape",
+   :label "Ink to Shape",
+   :params
+   "{id?} converts an ink stroke (default: the last) into a rectangle, ellipse, triangle or line",
+   :source "crates/engine/src/cmd/draw.rs"}
+  {:id "draw.lasso",
+   :label "Lasso Select",
+   :params "{} (selects ink by dragging; same as Select Objects)",
+   :source "crates/engine/src/cmd/draw.rs"}
+  {:id "draw.pen",
+   :label "Pen",
+   :params "{on?: bool, color?: hex, width?: 2}",
+   :source "crates/engine/src/cmd/draw.rs"}
+  {:id "draw.stroke",
+   :label "Ink Stroke",
+   :params
+   "{points: [[x,y],…] in sheet points, color?: hex, width?: 2}",
+   :source "crates/engine/src/cmd/draw.rs"}
+  {:id "edit.autoFill",
+   :label "AutoFill",
+   :params
+   "{source: \"A1:A2\", target: \"A1:A10\", mode?: series|alternate|copy|formats|values|extend|days|weekdays|months|years}: the fill-handle drag (alternate = Ctrl+drag: a lone number counts up, any other series copies; values = Fill Without Formatting: the series, targets keep their formats; extend = Fill Series: the series, and a lone number counts up; days, weekdays, months, years = Fill Days, Fill Weekdays, Fill Months, Fill Years: dates step by one unit, or by the difference between the first two dates in that unit, and weekdays skip Saturday and Sunday)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.beginEdit",
+   :label "Edit Cell",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clearAll",
+   :label "Clear All",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clearClipboard",
+   :label "Cancel Copy",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clearComments",
+   :label "Clear Comments and Notes",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clearContents",
+   :label "Clear Contents",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clearFormats",
+   :label "Clear Formats",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.clearHyperlinks",
+   :label "Clear Hyperlinks",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.copy",
+   :label "Copy",
+   :params
+   "{range?, html?: bool} → {range, text, html?} (html: a styled HTML table, only when requested and small enough)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.cut",
+   :label "Cut",
+   :params
+   "{range?, html?: bool} → {range, text, html?} (html: a styled HTML table, only when requested and small enough)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fillDown",
+   :label "Fill Down",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fillLeft",
+   :label "Fill Left",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fillRight",
+   :label "Fill Right",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fillSeries",
+   :label "Series…",
+   :params
+   "{range?, direction?: columns|rows, type?: linear|growth|date|autofill, step?: 1, stop?, dateUnit?: day|weekday|month|year}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.fillUp",
+   :label "Fill Up",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.find",
+   :label "Find…",
+   :params
+   "{what, matchCase?, wholeCell?, lookIn?: formulas|values, byColumns?, all?: bool, within?: sheet|workbook|selection} (selection: only the selected cells; Find Next keeps them selected and moves the active cell)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.flashFill",
+   :label "Flash Fill",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.formatPainter",
+   :label "Format Painter",
+   :params
+   "{sticky?: bool} — first call picks up the selection's formats; with {apply: \"C3:D4\"} pastes them",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.goTo",
+   :label "Go To…",
+   :params
+   "{reference: \"B5\" | \"Sheet2!A1:C3\" | name | \"Sheet2!Name\" | \"B14:C22,F19:G30\" | \"Price, Type\", record?: bool} (record: keep a reference without names among the recent ones) or {list: true} → {names, recent}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.goToSpecial",
+   :label "Go To Special…",
+   :params
+   "{kind: blanks|constants|formulas|comments|lastCell|currentRegion|visible|conditionalFormats|dataValidation|errors|numbers|text}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.paste",
+   :label "Paste",
+   :params
+   "{at?: \"C3\", text?: \"tab-separated text from the system clipboard\", html?: \"the clipboard's HTML flavour; cells the source recorded as numbers (x:num, sdval) stay numbers\"}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.pasteSpecial",
+   :label "Paste Special…",
+   :params
+   "{what: all|formulas|values|formats|comments|validation|allExceptBorders|columnWidths|formulasAndNumberFormats|valuesAndNumberFormats, operation?: none|add|subtract|multiply|divide, skipBlanks?, transpose?, link?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.redo",
+   :label "Redo",
+   :params "{steps?: 1}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.replace",
+   :label "Replace…",
+   :params
+   "{what, with, matchCase?, wholeCell?, all?: true, within?: sheet|workbook|selection} → {replaced, skipped?} (in a Python cell the code is edited; skipped counts Python cells whose code would no longer fit)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.selectAll",
+   :label "Select All",
+   :params "{} (current region first, then the whole sheet)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "edit.undo",
+   :label "Undo",
+   :params "{steps?: 1}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "equation.edit",
+   :label "Edit Equation",
+   :params "{id, latex}",
+   :source "crates/engine/src/cmd/equation.rs"}
+  {:id "file.close",
+   :label "Close",
+   :params
+   "{force?: bool, document?: bool} (closes the active window, or with `document` the workbook and all its windows; the workbook closes with its last window)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.exportCsv",
+   :label "Export as CSV",
+   :params
+   "{path, sheet?, values?: bool} → {path, bytes}: writes the cells as displayed, like Excel's Save As CSV; `values: true` writes raw values instead (full-precision numbers, ISO 8601 dates and times, TRUE/FALSE)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.exportHtml",
+   :label "Save as Web Page",
+   :params "{path}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.exportPdf",
+   :label "Export as PDF",
+   :params
+   "{path?, sheets?: active|all, range?: \"A1:F40\" (active sheet), fitToPage?: bool} → {pages, bytes, path} or {pages, bytes, base64} when no path. Honours each sheet's Page Setup.",
+   :source "crates/engine/src/cmd/print.rs"}
+  {:id "file.new",
+   :label "New Workbook",
+   :params "{sample?: \"budget\"|\"sales\"|\"grades\"}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.open",
+   :label "Open…",
+   :params
+   "{path} | {name, base64}, plus {password} for a password-protected workbook and {csvAsText?: bool} to keep every csv/tsv/txt field as text, with no number or date conversion (xlsx, xlsm, xls import, xlsb and ods data import, csv, tsv, txt, json)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.options",
+   :label "Options",
+   :params
+   "{} → {calculation: {mode, iterative, maxIterations, maxChange, precisionAsDisplayed}} for the active workbook (the interface opens File › Options; change settings with their own commands, e.g. formulas.calculationOptions, view.theme, app.language.set)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.print",
+   :label "Print…",
+   :params
+   "{path?, sheets?: active|all, range?, fitToPage?: bool} → {pages, bytes, base64} — the PDF the UI hands to the system print dialog",
+   :source "crates/engine/src/cmd/print.rs"}
+  {:id "file.printPreview",
+   :label "Print Preview",
+   :params
+   "{page? (1-based), sheets?: active|all, range?, fitToPage?} → {pages, pageList: [{page, sheet, range, rows, columns, scale, paper, orientation, pageOrder, width, height}]} in print order",
+   :source "crates/engine/src/cmd/print.rs"}
+  {:id "file.properties",
+   :label "Properties",
+   :params
+   "{title?, subject?, author?, company?, keywords?, description?}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.save",
+   :label "Save",
+   :params
+   "{path?} (xlsx by default; .csv/.tsv/.json/.html/.pdf by extension)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.saveAs",
+   :label "Save As…",
+   :params
+   "{path} (.xlsx, .csv, .tsv, .json, .html, or .pdf: a PDF of the active sheet)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.saveBytes",
+   :label "Encode Workbook",
+   :params "{format?: xlsx|csv|tsv|json|html} → {base64}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "formulas.autoSum",
+   :label "AutoSum",
+   :params "{function?: SUM|AVERAGE|COUNT|MAX|MIN, range?}",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.calculateNow",
+   :label "Calculate Now",
+   :params "{}",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.calculateSheet",
+   :label "Calculate Sheet",
+   :params "{}",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.calculationOptions",
+   :label "Calculation Options",
+   :params
+   "{mode?: automatic|automaticExceptTables|manual, iterative?: bool (Enable iterative calculation), maxIterations?: 1–32767 (100), maxChange?: number (0.001), precisionAsDisplayed?: bool (Set precision as displayed: numbers are stored as their format shows them; turning it on rounds every number constant permanently)} → the settings. File › Options › Formulas › Calculation options; stored in the workbook.",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.convertToNumber",
+   :label "Convert to Number",
+   :params
+   "{range?} → {converted} (numbers stored as text in the range or selection become numbers)",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.createFromSelection",
+   :label "Create from Selection",
+   :params
+   "{range?, top?: true, left?: false, bottom?: false, right?: false, replace?: false (existing names are kept and listed in `skipped`), force?: false (labels of the shape GridCraft keeps its own data in, `_gc_<key>_<n>` and `_sc_<key>`, are listed in `skipped` unless force is true)}",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.dateTime",
+   :label "Date & Time",
+   :params "{}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.defineName",
+   :label "Define Name…",
+   :params
+   "{name, refersTo?: \"=Sheet1!$A$1:$A$10\" (default: the selection), scope?: \"Workbook\"|sheet name, comment?, oldName?, oldScope?, force?: bool} (oldName: edit that name (Name Manager › Edit); a new name also renames it in formulas; a hidden name GridCraft keeps its own data in, `_gc_<key>_<n>` or `_sc_<key>`, is refused unless force is true)",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.deleteName",
+   :label "Delete Name",
+   :params
+   "{name, scope?: \"Workbook\"|sheet name (default: every scope), force?: bool} (a hidden name GridCraft keeps its own data in, `_gc_<key>_<n>` or `_sc_<key>`, is refused unless force is true)",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.errorChecking",
+   :label "Error Checking",
+   :params "{} → cells with errors",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.evaluate",
+   :label "Evaluate",
+   :params
+   "{formula: \"=SUM(A1:A3)\", cell?} → value without changing the sheet; a formula that couldn't be entered in a cell is an error",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.evaluateFormula",
+   :label "Evaluate Formula",
+   :params "{cell?, formula?} → steps",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.financial",
+   :label "Financial",
+   :params "{}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.functions",
+   :label "List Functions",
+   :params
+   "{category?, search?} → [{name, category, signature, description}]",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.insertFunction",
+   :label "Insert Function…",
+   :params
+   "{name?: \"VLOOKUP\"} (UI opens the dialog; with a name, starts the formula in the active cell)",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.logical",
+   :label "Logical",
+   :params "{}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.lookupReference",
+   :label "Lookup & Reference",
+   :params "{}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.mathTrig",
+   :label "Math & Trig",
+   :params "{}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.moreFunctions",
+   :label "More Functions",
+   :params
+   "{category?: Statistical|Engineering|Information|Database|Compatibility|Web|Cube}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.nameManager",
+   :label "Name Manager",
+   :params "{} → names with values",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.pasteName",
+   :label "Paste Names…",
+   :params
+   "{name?: \"Sales\" (one of the names listed; OK: puts the name at the caret of the cell being edited, or starts `=Sales` in the active cell), list?: true (Paste List: writes each name and what it refers to in two columns, from `at`), at?: cell (default the active cell)} → {names: [{name, refersTo}]}: the names the Paste Name dialog lists (workbook names and the active sheet's own, hidden names left out, in alphabetical order). With neither nothing changes; the menu opens the dialog.",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.recentlyUsed",
+   :label "Recently Used",
+   :params
+   "{} → the functions most recently entered in formulas, newest first",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.removeArrows",
+   :label "Remove Arrows",
+   :params "{}",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.selectDependents",
+   :label "Select Dependents",
+   :params "{cell?, all?: true = every level (Ctrl+Shift+])}",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.selectPrecedents",
+   :label "Select Precedents",
+   :params
+   "{cell?, all?: true = every level (Ctrl+Shift+[)} → selects the precedent cells",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.showFormulas",
+   :label "Show Formulas",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.text",
+   :label "Text",
+   :params "{}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.traceDependents",
+   :label "Trace Dependents",
+   :params "{cell?} → cells",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.traceError",
+   :label "Trace Error",
+   :params
+   "{cell?} → {sheet, cell, error, source: {sheet, cell}, arrows: [{from: {sheet, range}, to: {sheet, cell}, kind: \"error\"|\"precedent\"}], truncated}: from the cell, follows the first reference that shows the same error (in a range, its first cell showing it) back to the cell the error starts in, `source`. `error` arrows link the cells on the way; `precedent` arrows lead from the source's own references into it. A cell without an error gives `error` and `source` null and no arrows. A chain longer than 10,000 links stops there with `truncated` true and `source` null.",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.tracePrecedents",
+   :label "Trace Precedents",
+   :params "{cell?} → ranges",
+   :source "crates/engine/src/cmd/formulas.rs"}
+  {:id "formulas.useInFormula",
+   :label "Use in Formula",
+   :params "{name} (inserts the name into the cell being edited)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "formulas.watchWindow",
+   :label "Watch Window",
+   :params
+   "{add?: \"Sheet1!B5\", remove?: \"…\"} → watched cells with current values",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "history.list",
+   :label "Undo History",
+   :params "{} → undo/redo labels, grouping (an undo group is open)",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "home.accounting",
+   :label "Accounting Number Format",
+   :params "{range?, symbol?: \"$\"}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.addIns",
+   :label "Add-ins",
+   :params
+   "{} → GridCraft extends through MCP and scripts instead of add-ins",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "home.alignBottom",
+   :label "Bottom Align",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.alignCenter",
+   :label "Center",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.alignLeft",
+   :label "Align Left",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.alignMiddle",
+   :label "Middle Align",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.alignRight",
+   :label "Align Right",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.alignTop",
+   :label "Top Align",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.autofitColumnWidth",
+   :label "AutoFit Column Width",
+   :params "{sheet?, cols?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.autofitRowHeight",
+   :label "AutoFit Row Height",
+   :params "{sheet?, rows?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.bold",
+   :label "Bold",
+   :params "{range?, on?: bool}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.borders",
+   :label "Borders",
+   :params
+   "{range?, preset: bottom|top|left|right|none|all|outside|thickOutside|thickBottom|doubleBottom|topBottom|topThickBottom|topDoubleBottom|insideHorizontal|insideVertical|inside|diagonalDown|diagonalUp, style?: thin|medium|thick|dashed|dotted|double|hair…, color?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.cellStyle",
+   :label "Cell Styles",
+   :params
+   "{range?, name: \"Good\"|\"Bad\"|\"Neutral\"|\"Heading 1\"|\"Title\"|\"Total\"|\"Accent1\"…|\"Normal\"}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.clearRules",
+   :label "Clear Rules",
+   :params "{range?|sheet: true}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "home.columnWidth",
+   :label "Column Width…",
+   :params
+   "{sheet?, cols?: \"B:D\" | \"B:B,D:F\" | \"Sheet2!B:D\", width: 64 (pixels) | chars: 8.43}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.comma",
+   :label "Comma Style",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.conditionalFormat",
+   :label "Conditional Formatting",
+   :params
+   "{range?, rule: {type: cellIs|expression|containsText|beginsWith|endsWith|blanks|noBlanks|errors|noErrors|duplicate|unique|top10|aboveAverage|timePeriod|colorScale|dataBar|iconSet, operator?, value?, value2?, formula?, text?, rank?, bottom?, percent?, below?, period?, colors?: [..], color?, set?, style?: {font?: {bold?, italic?, color?}, fill?: \"#FFC7CE\" | {pattern?, fg?, bg?}, borders?, num_fmt?} (colours \"#RRGGBB\") | preset?: lightRedFill|redText|yellowFill|greenFill|redBorder|lightRedFillDarkRedText…}; a text `value` is matched as text, or kept when already a quoted literal}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "home.decreaseDecimal",
+   :label "Decrease Decimal",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.decreaseFontSize",
+   :label "Decrease Font Size",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.decreaseIndent",
+   :label "Decrease Indent",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.defaultWidth",
+   :label "Default Width…",
+   :params "{sheet?, width: 64 (pixels)}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.deleteCells",
+   :label "Delete Cells…",
+   :params "{range?, shift: left|up|row|column}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.deleteColumns",
+   :label "Delete Sheet Columns",
+   :params "{cols?}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.deleteRows",
+   :label "Delete Sheet Rows",
+   :params "{rows?}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.deleteSheet",
+   :label "Delete Sheet",
+   :params "{sheet?}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.doubleUnderline",
+   :label "Double Underline",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.drawBorder",
+   :label "Draw Border",
+   :params "{range, edge: top|bottom|left|right|grid, style?, color?}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "home.fillColor",
+   :label "Fill Color",
+   :params "{range?, color: \"#FFFF00\" | \"none\" | {theme, tint}}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.fontColor",
+   :label "Font Color",
+   :params
+   "{range?, color: \"#C00000\" | \"auto\" | {theme: 4, tint: -0.25}}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.fontName",
+   :label "Font",
+   :params "{range?, name: \"Calibri\"}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.fontSize",
+   :label "Font Size",
+   :params "{range?, size: 11}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.formatAsTable",
+   :label "Format as Table",
+   :params
+   "{range?, style: \"TableStyleMedium2\", header?} (inside a table: restyles it)",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "home.formatCells",
+   :label "Format Cells…",
+   :params
+   "{range?, style: {font?, fill?, borders?, align?: {reading_order?: Context|LeftToRight|RightToLeft|null, ...}, numFmt?, protection?}} (partial Style JSON merged in; null clears reading_order)",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.hideColumns",
+   :label "Hide Columns",
+   :params "{sheet?, cols?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.hideRows",
+   :label "Hide Rows",
+   :params "{sheet?, rows?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.increaseDecimal",
+   :label "Increase Decimal",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.increaseFontSize",
+   :label "Increase Font Size",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.increaseIndent",
+   :label "Increase Indent",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.insertCells",
+   :label "Insert Cells…",
+   :params "{range?, shift: right|down|row|column}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.insertColumns",
+   :label "Insert Sheet Columns",
+   :params "{cols?: \"B:C\"}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.insertCopiedCells",
+   :label "Insert Copied Cells",
+   :params
+   "{at?: \"B3\", shift?: down|right}: inserts the copied cells at `at` (the active cell) and pastes them there. Whole copied rows or columns insert whole rows or columns; other blocks shift the cells at `at` down (default) or right. A cut of whole rows or columns moves them (Insert Cut Cells)",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.insertRows",
+   :label "Insert Sheet Rows",
+   :params "{rows?: \"3:5\", count?}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.insertSheet",
+   :label "Insert Sheet",
+   :params "{name?, before?: index}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "home.italic",
+   :label "Italic",
+   :params "{range?, on?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.justify",
+   :label "Justify",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.lockCell",
+   :label "Lock Cell",
+   :params "{range?, on?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.manageRules",
+   :label "Manage Rules…",
+   :params "{delete?: index, moveUp?: index, moveDown?: index}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "home.mergeAcross",
+   :label "Merge Across",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.mergeCells",
+   :label "Merge Cells",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.mergeCenter",
+   :label "Merge & Center",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.newCellStyle",
+   :label "New Cell Style…",
+   :params "{name, fromCell?: \"A1\" (default: active cell)}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "home.numberFormat",
+   :label "Number Format",
+   :params
+   "{range?, format: \"General\"|\"Number\"|\"Currency\"|\"Accounting\"|\"Short Date\"|\"Long Date\"|\"Time\"|\"Percentage\"|\"Fraction\"|\"Scientific\"|\"Text\" | code: \"0.00\"}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.orientation",
+   :label "Orientation",
+   :params
+   "{range?, angle: -90..90 | \"vertical\" | \"counterclockwise\" | \"clockwise\" | \"up\" | \"down\" | 0}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.percent",
+   :label "Percent Style",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.rowHeight",
+   :label "Row Height…",
+   :params
+   "{sheet?, rows?: \"2:5\" | \"2:2,4:5\" | \"Sheet2!2:5\", height: 20 (pixels) | points: 15}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.shrinkToFit",
+   :label "Shrink to Fit",
+   :params "{range?, on?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.strikethrough",
+   :label "Strikethrough",
+   :params "{range?, on?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.subscript",
+   :label "Subscript",
+   :params "{range?, on?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.superscript",
+   :label "Superscript",
+   :params "{range?, on?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.underline",
+   :label "Underline",
+   :params
+   "{range?, on?, style?: single|double|singleAccounting|doubleAccounting}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.unhideColumns",
+   :label "Unhide Columns",
+   :params "{sheet?, cols?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.unhideRows",
+   :label "Unhide Rows",
+   :params "{sheet?, rows?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.unmergeCells",
+   :label "Unmerge Cells",
+   :params "{range?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "home.wrapText",
+   :label "Wrap Text",
+   :params "{range?, on?}",
+   :source "crates/engine/src/cmd/format.rs"}
+  {:id "insert.button",
+   :label "Button",
+   :params
+   "{at?: \"B2\" (or cell), dx?, dy?, width?, height?, text?, macro?: name, input?: \"selection\" | \"B2:D9\", output?: \"F2\", command?: id, params?: {..}} places a button; pressing it runs the macro or the command → {control: id}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "insert.chart",
+   :label "Insert Chart",
+   :params
+   "{range?, type?: column|bar|line|pie|doughnut|area|scatter|bubble|radar|combo|histogram|waterfall|funnel|treemap|sunburst|boxWhisker|stock, subtype?: clustered|stacked|stacked100|markers, title?, at?: \"H2\", width?, height?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.chartRecommendations",
+   :label "Chart Recommendations",
+   :params
+   "{range?} → [{type, subtype, label}] chart types that suit the data's shape, best first",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.checkbox",
+   :label "Checkbox",
+   :params
+   "{range?} (TRUE/FALSE and empty cells draw as checkboxes, empty ones become FALSE, other values show as they are; click or Space toggles; Delete unchecks, then removes; Clear Formats removes and keeps the values)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "insert.equation",
+   :label "Equation",
+   :params
+   "{latex: \"x^2\", cell?|at?: \"B2\", size?: 11 (points), color?: hex|\"auto\"}",
+   :source "crates/engine/src/cmd/equation.rs"}
+  {:id "insert.icons",
+   :label "Icons",
+   :params
+   "{name: chart|table|sum|filter|lock|comment|picture|book|folder|search|calc|check|… , at?, size?: 48, color?: hex}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.link",
+   :label "Link",
+   :params
+   "{cell?, target: \"https://…\" | \"Book.xlsx\" | \"Sheet2!A1\" | \"mailto:…\", text?, tooltip?, remove?: bool}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.picture",
+   :label "Picture",
+   :params
+   "{path? | base64?: \"...\", mime?, at?: \"B2\", width?, height?, alt?, mode?: moveOnly|moveAndSize|absolute, placement?: cell|overCells}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.pivotChart",
+   :label "PivotChart",
+   :params
+   "{pivot?: name | id | a cell of the report (\"Sheet2!B5\"; default: the PivotTable at the active cell), type?: column|bar|line|pie|area|… (default column), subtype?, title?, at?: \"H2\", width?, height?} adds a chart bound to the PivotTable's report: categories are the innermost row items, series the column items × value fields; it follows refreshes and layout changes → {chart, pivot, series}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "insert.pivotTable",
+   :label "PivotTable",
+   :params
+   "{source?: \"Sheet1!$A$1:$E$200\" | table name (default: the table or current region of the selection), destination?: \"new\" (default: new sheet before the current one, report at A3) | \"Sheet1!H3\", name?, rows?: [field | {field, group?: years|quarters|months|days}], columns?: [..], values?: [field | {field, func?, name?}], filters?: [field], replace?: bool} → {id, name, sheet, anchor, fields}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "insert.recommendedCharts",
+   :label "Recommended Charts",
+   :params
+   "{range?, type?, subtype?} (no type: the first of insert.chartRecommendations; the ribbon button opens the dialog)",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.recommendedPivotTables",
+   :label "Recommended PivotTables",
+   :params
+   "{source?, apply?: index, destination?} → suggestions [{index, title, rows, columns, values}]; with apply, creates that one",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "insert.shape",
+   :label "Shapes",
+   :params
+   "{kind: rectangle|roundedRectangle|ellipse|triangle|line|arrow|textBox, at?, width?, height?, text?, fill?, line?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.slicer",
+   :label "Slicer",
+   :params
+   "{table?, column?: \"Region\", columns?: 1, at?: \"H2\", width?, height?}",
+   :source "crates/engine/src/cmd/slicer.rs"}
+  {:id "insert.slider",
+   :label "Slider",
+   :params
+   "{at?: \"B2\" (or cell), dx?, dy?, width?, height?, link?: \"$B$1\" | \"Sheet2!$B$1\", min?: 0, max?: 100, step?: 1, page?: 10, value?, horizontal?: true} whole numbers, 0 ≤ min < max ≤ 30000, 1 ≤ step ≤ max − min, page ≥ step → {control: id}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "insert.sparkline",
+   :label "Sparklines",
+   :params
+   "{range: \"B2:M2\", location: \"N2\", type?: line|column|winLoss, markers?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.spinButton",
+   :label "Spin Button",
+   :params
+   "{at?: \"B2\" (or cell), dx?, dy?, width?, height?, link?: \"$B$1\", min?: 0, max?: 100, step?: 1, value?} whole numbers, 0 ≤ min < max ≤ 30000, 1 ≤ step ≤ max − min → {control: id}",
+   :source "crates/engine/src/cmd/controls.rs"}
+  {:id "insert.symbol",
+   :label "Symbol",
+   :params
+   "{char: \"€\"} (inserted at the end of the active cell's text)",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.table",
+   :label "Table",
+   :params
+   "{range?, header?: true, style?: \"TableStyleMedium2\", name?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.textBox",
+   :label "Text Box",
+   :params "{at?, width?, height?, text?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "insert.wordArt",
+   :label "WordArt",
+   :params
+   "{style?: preset name or 0-based index (Classic, Midnight, Sunrise, Lagoon, Ember, Mint Outline, Ink Stamp, Orchid, Graphite, Lime Pop), text?, at?, width?, height?, fontSize?, bold?, italic?, fill?: hex, outline?: hex|false, outlineWidth?, shadow?: hex|bool}",
+   :source "crates/engine/src/cmd/wordart.rs"}
+  {:id "link.open",
+   :label "Open Hyperlink",
+   :params
+   "{url?: \"https://…\" | \"mailto:…\" | \"Sheet2!A1\", cell?} (default: the cell's link); a reference selects; a web or e-mail address is an error unless the host allows it: the user opens those by clicking the link and confirming; any scheme but http, https and mailto is always an error",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "macro.check",
+   :label "Check Macro",
+   :params
+   "{name, inputs?, output?: \"F2\" (as macro.run), onConflict?, overwrite?, timeLimit?: seconds} validates the inputs and dry-runs the macro on the workbook (then puts everything back) → {ok (macro.run with these parameters would go ahead without a question), errors?, needsApproval?, onConflict, inputs, output?, conflicts, footprint}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.debug",
+   :label "Step Into",
+   :params
+   "{action: start|step|continue|runTo|stop|state, name, inputs?, output?, overwrite?, approve?, timeLimit?: seconds per action (start, as macro.run), step: path (runTo), keep?: bool (stop), breakpoints?: [\"3\", \"2.1\"] (steps of the macro), breakpointsOnly?: bool (the list replaces the steps' own breakpoints)} debugs a macro one step at a time; stop keeps the changes as one undo step or rolls them back. Runs on its own, never as a step of a script or macro. Until it finishes or stops, its workbook runs only macro.debug, queries, selection and sheet changes, Go To, Find, Copy, zoom, Switch Window, Close and Stop Action (other workbooks stay editable) → {state: paused|finished|stopped|failed, current: {step, kind, command?, params?, iteration?}, lastParams, executed, changed (at most 500), changedCells, atBreakpoint?, shifted?, wroteFiles?, message?, error?}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.delete",
+   :label "Delete Macro",
+   :params "{name}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.get",
+   :label "Get Macro",
+   :params
+   "{name} → the macro: {v, name, description, shortcut?, inputs, steps, output, permissions}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.list",
+   :label "List Macros",
+   :params
+   "{} → [{name, description, shortcut?, steps, inputs: [names], onConflict, permissions}]",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.record",
+   :label "Record Macro",
+   :params
+   "{stop?: bool, cancel?: bool (ends a recording without saving it), relative?: bool (default true; when starting), name?, shortcut?: \"Ctrl+Shift+M\" | \"M\", description?} toggles recording; when starting, the name (new and valid) and the shortcut (free) are checked and kept for the save, and without a name the macro gets the next MacroN; when stopping, a name or description given then wins (a taken name gets a suffix); with relative references the selection when it starts is the example input → {recording, name?, relative?, input?} or {recording: false, saved, steps, dropped, skipped, inputs, shortcutDropped? (the shortcut another macro took while recording)}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.rename",
+   :label "Rename Macro",
+   :params "{name, to}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.run",
+   :label "Run Macro",
+   :params
+   "{name, inputs?: {Input: \"B2:D9\"} | \"B2:D9\", output?: \"F2\" (instead of the macro's output anchor), onConflict?: ask|fail|overwrite|shiftDown|shiftRight, overwrite?: bool, approve?: bool, timeLimit?: seconds} runs as one undo step; any error rolls it all back → {macro, ran, inputs, stopped?, shifted?}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "macro.save",
+   :label "Save Macro",
+   :params
+   "{macro: {name, description?, shortcut?, inputs?: [{name, kind: cell|range, rows: [min, max], cols: [min, max], header, colTypes: [number|text|date|bool|any], nonEmpty, defaultRef?}], steps: [{type: command, id, params, enabled?, breakpoint?, note?} | {type: repeat, over, of: rows|columns, max, body} | {type: if, cell, op: eq|ne|gt|ge|lt|le|empty|notEmpty|contains, value, then, else} | {type: stop, message, rollback?}], output?: {anchor?, onConflict: ask|fail|overwrite|shiftDown|shiftRight}, permissions?: [command ids]} (or those fields at the top level), replace?: bool (default false: saving over a macro with the name is refused)} → {name, steps}",
+   :source "crates/engine/src/cmd/macros.rs"}
+  {:id "object.delete",
+   :label "Delete Object",
+   :params "{kind: chart|image|shape|slicer|equation|control, id}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "object.move",
+   :label "Move Object",
+   :params
+   "{kind: chart|image|shape|slicer|equation|control, id, at?: \"C3\", dx?, dy?, width?, height? (each at most 10,000 points, or the object's current size when a file made it larger)}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "object.setAnchorMode",
+   :label "Object Properties",
+   :params
+   "{kind: chart|image|shape|slicer|equation|control, id, mode: moveAndSize|moveOnly|absolute}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "pageLayout.background",
+   :label "Background",
+   :params "{path? | clear?: bool} (sheet background picture)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "pageLayout.breaks",
+   :label "Breaks",
+   :params "{insert?: bool, remove?: bool, reset?: bool, cell?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.headerFooter",
+   :label "Header & Footer",
+   :params
+   "{sheet?, header?: \"&C&P\", footer?: \"&CPage &P of &N\", differentFirst?: bool, differentOddEven?: bool, scaleWithDoc?: bool, alignWithMargins?: bool, firstHeader?, firstFooter?, evenHeader?, evenFooter?} or one section: {sheet?, page?: odd|even|first, part: header|footer, section: left|center|right, text: \"Page &[Page] of &[Pages]\"} (field names or codes) → {header, footer, differentFirst, differentOddEven, scaleWithDoc, alignWithMargins, firstHeader, firstFooter, evenHeader, evenFooter}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.margins",
+   :label "Margins",
+   :params
+   "{preset?: normal|wide|narrow, left?, right?, top?, bottom?, header?, footer? (inches)}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.orientation",
+   :label "Orientation",
+   :params "{orientation: portrait|landscape}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.pageSetup",
+   :label "Page Setup…",
+   :params
+   "{sheet?, orientation?: portrait|landscape, paper?: Letter|Legal|A4|A3|A5|A6|Tabloid|Executive|Ledger|B4|B5|B6|B4 (ISO)|B5 (ISO)|B6 (ISO)|Japanese Postcard|Japanese Double Postcard|Japanese Envelope #3|Japanese Envelope #4|Japanese Envelope Kaku #2|Japanese Envelope Kaku #3 (B4/B5/B6 are the JIS sizes), margins?: {left,right,top,bottom,header,footer} (inches; also accepted as top-level keys), scale?: 10..400, fitWidth?, fitHeight? (pages; 0 = automatic), fitToPage?: bool, centerH?, centerV?, gridlines?, headings?, header?: \"&L&A&RPage &P of &N\", footer?, printArea?: \"A1:F50\" (\"\" clears), titleRows?: \"1:2\", titleCols?: \"A:A\", rowBreaks?: [46, 91], colBreaks?: [\"K\"], pageOrder?: downThenOver|overThenDown} → the sheet's print settings",
+   :source "crates/engine/src/cmd/print.rs"}
+  {:id "pageLayout.printArea",
+   :label "Set Print Area",
+   :params "{range?, clear?: bool}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.printGridlines",
+   :label "Print Gridlines",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.printHeadings",
+   :label "Print Headings",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.printTitles",
+   :label "Print Titles",
+   :params "{rows?: \"1:1\", cols?: \"A:A\"}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.scaleToFit",
+   :label "Scale to Fit",
+   :params "{scale?: 100, width?: pages, height?: pages}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.size",
+   :label "Size",
+   :params
+   "{paper: Letter|Legal|A4|A3|A5|A6|Tabloid|Executive|Ledger|B4|B5|B6|B4 (ISO)|B5 (ISO)|B6 (ISO)|Japanese Postcard|Japanese Double Postcard|Japanese Envelope #3|Japanese Envelope #4|Japanese Envelope Kaku #2|Japanese Envelope Kaku #3 (B4/B5/B6 are the JIS sizes)}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.theme",
+   :label "Themes",
+   :params
+   "{name: Craft|Slate|Meadow|Ember|Ocean|Orchid|Graphite, colors?: [12 hex], majorFont?, minorFont?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "pageLayout.themeColors",
+   :label "Colors",
+   :params "{name: theme name | colors: [12 hex]}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "pageLayout.themeEffects",
+   :label "Effects",
+   :params "{name} (chart effects preset; stored with the theme name)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "pageLayout.themeFonts",
+   :label "Fonts",
+   :params "{major, minor}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "pivot.addField",
+   :label "Add Field",
+   :params
+   "{pivot?, field, area: rows|columns|values|filters, func?: sum|count|average|max|min|product|countNumbers|stdDev|stdDevP|var|varP, name?, position?: index, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.calculatedField",
+   :label "Calculated Field",
+   :params
+   "{pivot?, name, formula?: \"=Sales*0.1\" (fields bare or 'quoted'; evaluated on each cell's sums), delete?: bool, values?: bool (add a new field to Values, default true)} adds, changes or deletes a calculated field; without `name` opens the dialog → {name, formula, calculatedFields}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.changeSource",
+   :label "Change Data Source",
+   :params
+   "{pivot?, source: \"Sheet1!$A$1:$E$300\" | table name, replace?} (fields missing from the new source are removed)",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.collapse",
+   :label "Expand/Collapse Field",
+   :params
+   "{pivot?, field, items?: [labels] (default: all), collapse?: true, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.delete",
+   :label "Delete PivotTable",
+   :params "{pivot?} clears the report and removes the PivotTable",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.fieldList",
+   :label "Field List",
+   :params "{pivot?} (same as pivot.fields)",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.fields",
+   :label "PivotTable Fields",
+   :params
+   "{pivot?} → source fields (name, numeric, date, samples, areas) and the current layout",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.filter",
+   :label "Filter Items",
+   :params
+   "{pivot?, field, selected: [\"East\", ..] | null (all), replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.grandTotals",
+   :label "Grand Totals",
+   :params
+   "{pivot?, mode?: off|on|rows|columns, rows?: bool, cols?: bool}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.group",
+   :label "Group Field",
+   :params
+   "{pivot?, field, by: years|quarters|months|days|none, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.layout",
+   :label "PivotTable Layout",
+   :params
+   "{pivot?, layout?: compact|outline|tabular, grandTotalsRows?: bool, grandTotalsCols?: bool, subtotals?: bool|top|bottom|none, style?: \"PivotStyleLight16\", showHeaders?: bool, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.list",
+   :label "PivotTables",
+   :params "{} → every PivotTable in the workbook",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.moveField",
+   :label "Move Field",
+   :params
+   "{pivot?, field (\"Σ Values\" moves the value fields between rows and columns; in columns it stays after the last field), from: rows|columns|values|filters, to: rows|columns|values|filters, position?: index, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.options",
+   :label "PivotTable Options",
+   :params
+   "{pivot?, enableShowDetails?: bool (Data › Enable show details: off, Show Details and double-clicking a value cell list no records)} → {enableShowDetails}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.refresh",
+   :label "Refresh",
+   :params "{pivot?, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.removeField",
+   :label "Remove Field",
+   :params
+   "{pivot?, field (or value caption), area?: rows|columns|values|filters, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.reportLayout",
+   :label "Report Layout",
+   :params "{pivot?, layout: compact|outline|tabular}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.showDetails",
+   :label "Show Details",
+   :params
+   "{cell?: \"B5\" (a value, subtotal or grand total cell of a PivotTable on the active sheet; default: the active cell)} puts the source records behind that value on a new sheet before the current one → {sheet, records}. An error when the PivotTable's Enable show details option is off (`pivot.options` `{enableShowDetails: true}` turns it on).",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.sort",
+   :label "Sort Field",
+   :params "{pivot?, field, order: asc|desc|none, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.style",
+   :label "PivotTable Styles",
+   :params "{pivot?, style: \"PivotStyleMedium9\"}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.subtotals",
+   :label "Subtotals",
+   :params "{pivot?, mode: none|top|bottom}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "pivot.valueSettings",
+   :label "Value Field Settings",
+   :params
+   "{pivot?, field: caption or source field | index: n, func?, name?, showAs?: normal|percentOfGrandTotal|percentOfColumnTotal|percentOfRowTotal|runningTotal|rank, numberFormat?: \"#,##0\" | null, replace?}",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "python.output",
+   :label "Python Output",
+   :params
+   "{cell?, mode?: object|value} sets the return type of a Python cell (default: the active cell): `object` (a Python object) or `value` (an Excel value). Without `mode` it switches to the other one. The cell keeps its code; a cached result of the old return type goes, as with `python.set`, so the cell shows #BLOCKED! until it runs",
+   :source "crates/engine/src/cmd/python.rs"}
+  {:id "python.set",
+   :label "Set Python Code",
+   :params
+   "{cell?, code, output?: object|value} makes the cell (default: the active cell) a Python cell with this code; the code must fit in Excel's 8,192-character formula once written as PY(…). `output` is the return type: `value` (an Excel value, the default) or `object` (a Python object)",
+   :source "crates/engine/src/cmd/python.rs"}
+  {:id "range.fill",
+   :label "Fill Range With Input",
+   :params
+   "{range?, input}: enters the same input in every selected cell (relative formulas adjust)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "range.move",
+   :label "Drag and Drop",
+   :params
+   "{range?, to: \"C3\", overwrite?: bool} (drag the selection's border: a cut and paste that asks before replacing data unless overwrite)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "range.setValues",
+   :label "Set Values",
+   :params
+   "{range?: \"A1\", values: [[...]] (rows of numbers/strings/bools/null; strings starting with = are formulas), parse?: bool (default true: a string goes through typed input, so \"05.04.2026\" becomes a date and \"2.500\" a number, by en-US rules; false stores every other string as the text it is, so a dd.mm.yyyy date or a thousands separator survives, a leading ' is kept and an empty string clears the cell)} → {cells, convertedCount, converted: [{cell, input, stored}] (up to 20 of the strings typed input read as a number, date, time, boolean or error, so a script can notice)}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "review.addToDictionary",
+   :label "Add to Dictionary",
+   :params "{word}",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "review.changeSpelling",
+   :label "Change",
+   :params "{cell, word, to, all?: bool}",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "review.checkAccessibility",
+   :label "Check Accessibility",
+   :params "{} → issues",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.convertToComments",
+   :label "Convert to Comments",
+   :params "{} (every note in the workbook) → {converted}",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.deleteComment",
+   :label "Delete Comment",
+   :params "{cell?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "review.newComment",
+   :label "New Comment",
+   :params "{cell?, text, author?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "review.newNote",
+   :label "New Note",
+   :params "{cell?, text, author?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "review.nextComment",
+   :label "Next Comment",
+   :params "{} → {sheet, cell}",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.previousComment",
+   :label "Previous Comment",
+   :params "{} → {sheet, cell}",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.protectSheet",
+   :label "Protect Sheet…",
+   :params
+   "{password?, formatCells?, formatColumns?, formatRows?, insertRows?, insertColumns?, deleteRows?, deleteColumns?, sort?, autofilter?}",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.protectWorkbook",
+   :label "Protect Workbook",
+   :params
+   "{on?: bool (default: toggle), password?} (structure protection; unprotecting needs the password when one was set)",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.replyComment",
+   :label "Reply",
+   :params "{cell?, text, author?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "review.resolveComment",
+   :label "Resolve Thread",
+   :params "{cell?, resolved?: true}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "review.showAllNotes",
+   :label "Show All Notes",
+   :params "{on?: bool}",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.showComments",
+   :label "Show Comments",
+   :params "{on?: bool} (toggles the Comments pane)",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.showNote",
+   :label "Show/Hide Note",
+   :params "{cell?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "review.spelling",
+   :label "Spelling",
+   :params
+   "{range?, sheet?} → misspelled words with cells and suggestions",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "review.thesaurus",
+   :label "Thesaurus",
+   :params
+   "{word} → related words (words sharing the stem in the dictionary)",
+   :source "crates/engine/src/cmd/spelling.rs"}
+  {:id "review.unprotectSheet",
+   :label "Unprotect Sheet",
+   :params "{password?}",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "review.workbookStatistics",
+   :label "Workbook Statistics",
+   :params "{}",
+   :source "crates/engine/src/cmd/review.rs"}
+  {:id "selection.column",
+   :label "Select Entire Column",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.currentRegion",
+   :label "Select Current Region",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.move",
+   :label "Move Selection",
+   :params
+   "{dr, dc, extend?: bool, jump?: bool (Ctrl+arrow), page?: bool}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.next",
+   :label "Next Cell in Selection",
+   :params
+   "{forward?: true, byRow?: false} (Enter/Tab inside a selection)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.nextCorner",
+   :label "Next Corner of Selection",
+   :params
+   "{} (the active cell moves clockwise to the next corner of the selected area, which stays selected)",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.row",
+   :label "Select Entire Row",
+   :params "{}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.set",
+   :label "Select",
+   :params "{range: \"A1:B2,D4\" | cell, active?: \"A1\", sheet?}",
+   :source "crates/engine/src/cmd/edit.rs"}
+  {:id "selection.stats",
+   :label "Selection Statistics",
+   :params "{} → count, sum, average, min, max",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "shape.setText",
+   :label "Edit Text Box",
+   :params "{id: textBox id, text: string}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "sheet.activate",
+   :label "Activate Sheet",
+   :params "{sheet: index | name}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.hide",
+   :label "Hide Sheet",
+   :params "{sheet?}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.move",
+   :label "Move or Copy Sheet…",
+   :params "{sheet?, to: index, copy?: bool}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.moveColumns",
+   :label "Move Columns",
+   :params "{cols?: \"B:C\", before: zero-based column index}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.next",
+   :label "Next Sheet",
+   :params "{}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.previous",
+   :label "Previous Sheet",
+   :params "{}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.read",
+   :label "Read Range",
+   :params
+   "{range?: \"A1:D10\" (default: used range), sheet?, formulas?: bool, formatted?: bool} → rows of values",
+   :source "crates/engine/src/cmd/inspect.rs"}
+  {:id "sheet.rename",
+   :label "Rename Sheet",
+   :params "{sheet?, name}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.tabColor",
+   :label "Tab Color",
+   :params "{sheet?, color: \"#FF0000\"|\"none\"}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "sheet.unhide",
+   :label "Unhide Sheet…",
+   :params "{sheet}",
+   :source "crates/engine/src/cmd/sheet.rs"}
+  {:id "slicer.clear",
+   :label "Clear Slicer Filter",
+   :params "{slicer?: id}",
+   :source "crates/engine/src/cmd/slicer.rs"}
+  {:id "slicer.delete",
+   :label "Delete Slicer",
+   :params "{slicer?: id}",
+   :source "crates/engine/src/cmd/slicer.rs"}
+  {:id "slicer.selectAll",
+   :label "Clear Slicer Filter",
+   :params "{slicer?: id}",
+   :source "crates/engine/src/cmd/slicer.rs"}
+  {:id "slicer.toggle",
+   :label "Toggle Slicer Value",
+   :params "{slicer?: id, value: \"East\", multi?: false}",
+   :source "crates/engine/src/cmd/slicer.rs"}
+  {:id "table.bandedColumns",
+   :label "Banded Columns",
+   :params "{table?, on?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.bandedRows",
+   :label "Banded Rows",
+   :params "{table?, on?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.convertToRange",
+   :label "Convert to Range",
+   :params "{table?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.firstColumn",
+   :label "First Column",
+   :params "{table?, on?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.headerRow",
+   :label "Header Row",
+   :params "{table?, on?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.insertSlicer",
+   :label "Insert Slicer",
+   :params
+   "{table?, column?: \"Region\", columns?: 1, at?, width?, height?}",
+   :source "crates/engine/src/cmd/slicer.rs"}
+  {:id "table.lastColumn",
+   :label "Last Column",
+   :params "{table?, on?}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.removeDuplicates",
+   :label "Remove Duplicates",
+   :params "{table?, columns?}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "table.rename",
+   :label "Table Name",
+   :params "{table?, name}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.resize",
+   :label "Resize Table",
+   :params "{table?, range: \"A1:F20\"}",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "table.style",
+   :label "Table Styles",
+   :params "{table?, style}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.summarizePivot",
+   :label "Summarize with PivotTable",
+   :params
+   "{table?, destination?} creates a PivotTable from the table",
+   :source "crates/engine/src/cmd/pivot.rs"}
+  {:id "table.totalFunction",
+   :label "Totals Function",
+   :params
+   "{table?, column: \"Sales\", function: sum|average|count|countNums|max|min|stdDev|var|none}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "table.totalRow",
+   :label "Total Row",
+   :params "{table?, on?: bool}",
+   :source "crates/engine/src/cmd/insert.rs"}
+  {:id "view.arrangeAll",
+   :label "Arrange All",
+   :params
+   "{arrange?: tiled|horizontal|vertical|cascade, activeWorkbook?: bool} → {arrange, windows}: lays out the visible windows (tiled by default; `activeWorkbook` only the active workbook's), the active window first",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.customViews",
+   :label "Custom Views…",
+   :params "{save?: name, show?: name, delete?: name} → list",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.formulaBar",
+   :label "Formula Bar",
+   :params "{on?: bool}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.freezeFirstColumn",
+   :label "Freeze First Column",
+   :params "{sheet?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.freezePanes",
+   :label "Freeze Panes",
+   :params
+   "{sheet?, cell?: \"B2\" (rows above and columns left of it freeze); without `cell`, unfreezes a frozen sheet}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.freezeTopRow",
+   :label "Freeze Top Row",
+   :params "{sheet?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.gridlines",
+   :label "Gridlines",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.headings",
+   :label "Headings",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.hideWindow",
+   :label "Hide",
+   :params "{window?, doc?} (the active window by default)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.macros",
+   :label "Macros",
+   :params "{} → scripts",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.newWindow",
+   :label "New Window",
+   :params
+   "{} → {window, doc, title}: opens another window on the active workbook (the same workbook: saving from either window saves it)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.normal",
+   :label "Normal",
+   :params "{sheet?} → {view} (per sheet, saved with the file)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.pageBreakPreview",
+   :label "Page Break Preview",
+   :params "{sheet?} → {view} (per sheet, saved with the file)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.pageLayout",
+   :label "Page Layout",
+   :params
+   "{sheet?} → {view}: pages on paper with rulers; headers and footers are edited in place (per sheet, saved with the file)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.rightToLeft",
+   :label "Sheet Right-to-Left",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.ruler",
+   :label "Ruler",
+   :params
+   "{on?} → {on}: rulers in Page Layout view (an application option)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.showHorizontalScrollBar",
+   :label "Show Horizontal Scroll Bar",
+   :params "{on?} (this workbook; toggles without `on`)",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.showObjects",
+   :label "Show Objects",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.showOutlineSymbols",
+   :label "Show Outline Symbols",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.showSheetTabs",
+   :label "Show Sheet Tabs",
+   :params
+   "{on?} (File › Options › Advanced, this workbook; toggles without `on`)",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.showVerticalScrollBar",
+   :label "Show Vertical Scroll Bar",
+   :params "{on?} (this workbook; toggles without `on`)",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.showZeros",
+   :label "Show Zeros",
+   :params "{on?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.split",
+   :label "Split",
+   :params
+   "{} (toggles a split at the active cell; shown as frozen panes in this version)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.statusBar",
+   :label "Customize Status Bar",
+   :params
+   "{average?, count?, numericalCount?, minimum?, maximum?, sum?: bool (the statistics shown for a selection; returns all six)}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.switchWindows",
+   :label "Switch Windows",
+   :params
+   "{window?, doc?} → open windows [{window, doc, index, title, dirty, active, hidden}]; with `window` (an id from the list), or `doc` (a workbook id: its most recent window), shows and activates that window first",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.unfreezePanes",
+   :label "Unfreeze Panes",
+   :params "{sheet?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.unhideWindow",
+   :label "Unhide…",
+   :params
+   "{window?, doc?, index?} (the most recently hidden window by default)",
+   :source "crates/engine/src/cmd/extra.rs"}
+  {:id "view.zoom",
+   :label "Zoom",
+   :params "{percent: 10..400}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoom100",
+   :label "100%",
+   :params "{}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "view.zoomToSelection",
+   :label "Zoom to Selection",
+   :params "{viewWidth?, viewHeight?}",
+   :source "crates/engine/src/cmd/view.rs"}
+  {:id "window.activate",
+   :label "Switch Window",
+   :params
+   "{window} | {doc} | {index} (a window id, a workbook id, or the workbook's position in the list)",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "window.close",
+   :label "Close Window",
+   :params
+   "{window?, doc?, force?: bool} → {closed, document}: closes a window (the active one by default); its workbook closes with its last window, asking first when it has unsaved changes unless `force`",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "window.list",
+   :label "Windows",
+   :params "{} → [{window, doc, index, title, dirty, active, hidden}]",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "wordArt.set",
+   :label "Format WordArt",
+   :params
+   "{id: WordArt id, style?, text?, fontSize?, bold?, italic?, fill?: hex, outline?: hex|false, outlineWidth?, shadow?: hex|bool}",
+   :source "crates/engine/src/cmd/wordart.rs"}],
+ :mcp
+ [{:name "execute_command",
+   :title "Execute command",
+   :description
+   "\"Run ANY GridCraft command by id with JSON params — every ribbon/menu action is a command. Find ids and parameter \\\n             docs with list_commands. Examples: {\\\"command\\\":\\\"cell.set\\\",\\\"params\\\":{\\\"cell\\\":\\\"B2\\\",\\\"input\\\":\\\"=SUM(A1:A9)\\\"}}; \\\n             {\\\"command\\\":\\\"home.bold\\\",\\\"params\\\":{\\\"range\\\":\\\"A1:C1\\\"}}; {\\\"command\\\":\\\"sheet.insert\\\"}; \\\n             {\\\"command\\\":\\\"data.removeDuplicates\\\",\\\"params\\\":{\\\"range\\\":\\\"A1:C20\\\"}}. Most commands act on the current selection \\\n             when `range` is omitted. Programmatic calls never open dialogs: missing required params give an error.\"",
+   :input-schema-source
+   "obj(\n                json!({\"command\": string(\"Command id, e.g. \\\"cell.set\\\", \\\"home.fillColor\\\", \\\"insert.chart\\\"\"), \"params\": params_schema()}),\n                &[\"command\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "list_windows",
+   :title "List windows",
+   :description
+   "\"List the open windows: window id, workbook (`doc`) id, title (\\\"Book1\\\", or \\\"Book1:2\\\" for a workbook's second \\\n             window), unsaved changes, active and hidden. Pass a `window` or `doc` id to other tools to act there.\"",
+   :input-schema-source "empty()",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "list_commands",
+   :title "List commands",
+   :description
+   "\"List GridCraft commands: id, label, ribbon path, shortcut, a parameter description (`params`) and whether it can run \\\n             right now. Use it to discover what execute_command can do (e.g. search \\\"sort\\\", \\\"border\\\", \\\"chart\\\", \\\"sheet\\\").\"",
+   :input-schema-source
+   "obj(json!({\"search\": string(\"Case-insensitive substring matched against id, label and ribbon path\")}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "inspect_workbook",
+   :title "Inspect workbook",
+   :description
+   "\"Summary of the active workbook: title, path, dirty flag, sheets (name, used range, cell count, tables, charts, merges, \\\n             filters, freeze panes), defined names, current selection and active cell, calculation mode and undo/redo history.\"",
+   :input-schema-source "empty()",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "read_range",
+   :title "Read range",
+   :description
+   "\"Read cell values from a range as rows (2-D array). Numbers/booleans/strings are returned as JSON values, empty cells as \\\n             null, errors as {\\\"error\\\":\\\"#DIV/0!\\\"}. Without `range`, reads the sheet's used range. formulas:true returns formula \\\n             text (\\\"=SUM(B2:B4)\\\") for formula cells; formatted:true returns the displayed text (\\\"$1,234.00\\\", \\\"12%\\\").\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"range\": string(RANGE),\n                    \"sheet\": string(\"Sheet name (default: the active sheet)\"),\n                    \"formulas\": boolean(\"Return formulas instead of computed values for formula cells\"),\n                    \"formatted\": boolean(\"Return display text with number formats applied\"),\n                }),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "write_range",
+   :title "Write range",
+   :description
+   "\"Write a 2-D array of values starting at the top-left cell of `range` (rows of cells). Numbers, booleans, null (clears) \\\n             and strings are accepted; strings starting with = are formulas (\\\"=SUM(B2:B4)\\\"), other strings are parsed like typed \\\n             input (\\\"12%\\\", \\\"1/2/2024\\\", \\\"$5\\\") unless `parse` is false, which stores them as the text they are. The result's \\\n             `converted` lists the strings that were read as something else. One undo step. Example: {\\\"range\\\":\\\"A1\\\",\\\"values\\\":[[\\\"Item\\\",\\\"Cost\\\"],[\\\"Rent\\\",1200]]}.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"range\": string(\"Top-left cell or range, e.g. \\\"A1\\\" or \\\"Sheet2!B3\\\"\"),\n                    \"values\": {\"type\": \"array\", \"description\": \"Rows of cell values\", \"items\": {\"type\": \"array\", \"items\": {\"type\": [\"string\", \"number\", \"boolean\", \"null\"]}}},\n                    \"parse\": boolean(\"Read strings not starting with = like typed input, so \\\"05.04.2026\\\" becomes a date (default true); false stores them as the text they are, and \\\"\\\" clears the cell\"),\n                }),\n                &[\"range\", \"values\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "set_cell",
+   :title "Set cell",
+   :description
+   "\"Enter one cell exactly as if typed: a number, text, or a formula starting with = (\\\"=AVERAGE(B2:B9)\\\"). \\\n             Dependent cells recalculate. Returns the command result; use get_cell to read the computed value.\"",
+   :input-schema-source
+   "obj(\n                json!({\"cell\": string(\"Cell, e.g. \\\"B7\\\" or \\\"Sheet2!C3\\\"\"), \"input\": {\"type\": [\"string\", \"number\", \"boolean\"], \"description\": \"Typed input: number, text or =formula\"}}),\n                &[\"cell\", \"input\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "get_cell",
+   :title "Get cell",
+   :description
+   "Details of one cell: computed value and type, formula, display text, raw input, spill range, style, merge, comment and hyperlink.",
+   :input-schema-source
+   "obj(json!({\"cell\": string(\"Cell, e.g. \\\"B7\\\" or \\\"Sheet2!C3\\\"\")}), &[\"cell\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "evaluate_formula",
+   :title "Evaluate formula",
+   :description
+   "\"Evaluate a formula against the active sheet WITHOUT changing any cell, e.g. \\\"=SUM(B2:B10)/COUNT(B2:B10)\\\" or \\\n             \\\"=VLOOKUP(\\\\\\\"x\\\\\\\",A:B,2,FALSE)\\\". `cell` sets the formula's position for relative references and ROW()/COLUMN(). \\\n             Use English function names and `,` between arguments; a formula that couldn't be entered in a cell is an error saying why.\"",
+   :input-schema-source
+   "obj(\n                json!({\"formula\": string(\"Formula text, with or without the leading =\"), \"cell\": string(\"Evaluate as if in this cell (default: active cell)\")}),\n                &[\"formula\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "select",
+   :title "Select",
+   :description
+   "\"Set the selection (what commands without a `range` param act on). Multiple areas with commas: \\\"A1:B2,D4\\\". \\\n             A \\\"Sheet2!A1\\\" prefix switches sheets.\"",
+   :input-schema-source
+   "obj(\n                json!({\"range\": string(RANGE), \"active\": string(\"Active cell inside the selection (default: top-left of the last area)\")}),\n                &[\"range\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "format_range",
+   :title "Format range",
+   :description
+   "\"Apply several formats to a range in one call: bold, italic, underline, font name/size, font color, fill color, number \\\n             format, horizontal alignment, wrap, borders. Colors are \\\"#RRGGBB\\\" (fontColor also \\\"auto\\\", fillColor also \\\"none\\\"). \\\n             numberFormat is a name (General, Number, Currency, Accounting, Comma, Percentage, Short Date, Long Date, Time, Fraction, \\\n             Scientific, Text) or a format code (\\\"#,##0.00\\\", \\\"0%\\\", \\\"yyyy-mm-dd\\\"). Each property runs one command; the result \\\n             lists them.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"range\": string(RANGE),\n                    \"bold\": boolean(\"Bold on/off\"),\n                    \"italic\": boolean(\"Italic on/off\"),\n                    \"underline\": boolean(\"Single underline on/off\"),\n                    \"fontName\": string(\"Font family, e.g. \\\"Calibri\\\"\"),\n                    \"fontSize\": {\"type\": \"number\", \"minimum\": 1, \"maximum\": 409, \"description\": \"Font size in points\"},\n                    \"fontColor\": color(\"Text color \\\"#RRGGBB\\\" or \\\"auto\\\"\"),\n                    \"fillColor\": color(\"Background color \\\"#RRGGBB\\\" or \\\"none\\\"\"),\n                    \"numberFormat\": string(\"Number format name or code\"),\n                    \"horizontalAlign\": enumeration(\"Horizontal alignment\", &[\"left\", \"center\", \"right\", \"justify\"]),\n                    \"wrapText\": boolean(\"Wrap text on/off\"),\n                    \"borders\": {\n                        \"description\": \"A border preset name, or {preset, style?, color?}\",\n                        \"oneOf\": [\n                            enumeration(\"Border preset\", BORDER_PRESETS),\n                            obj(json!({\n                                \"preset\": enumeration(\"Border preset\", BORDER_PRESETS),\n                                \"style\": string(\"thin|medium|thick|dashed|dotted|double|hair…\"),\n                                \"color\": color(\"Border color \\\"#RRGGBB\\\"\"),\n                            }), &[\"preset\"]),\n                        ],\n                    },\n                }),\n                &[\"range\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "insert_chart",
+   :title "Insert chart",
+   :description
+   "Insert a chart from a data range (first row/column used as series names and categories, like Excel). Returns the chart id.",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"range\": string(\"Source data range including headers, e.g. \\\"A1:C6\\\"\"),\n                    \"type\": enumeration(\"Chart type\", CHART_TYPES),\n                    \"subtype\": enumeration(\"Variant (optional)\", &[\"clustered\", \"stacked\", \"stacked100\", \"markers\"]),\n                    \"title\": string(\"Chart title\"),\n                    \"at\": string(\"Top-left anchor cell (default: right of the data)\"),\n                }),\n                &[\"range\", \"type\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "create_table",
+   :title "Create table",
+   :description
+   "Format a range as an Excel table (structured references, banded rows, filter buttons). The first row is the header by default.",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"range\": string(\"Range including the header row, e.g. \\\"A1:D20\\\"\"),\n                    \"style\": string(\"Table style, e.g. \\\"TableStyleMedium2\\\" (default), \\\"TableStyleLight9\\\"\"),\n                    \"header\": boolean(\"First row holds headers (default true)\"),\n                    \"name\": string(\"Table name (default Table1, Table2…)\"),\n                }),\n                &[\"range\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "sort_range",
+   :title "Sort range",
+   :description
+   "\"Sort a range by one or more columns. keys: [{\\\"column\\\":\\\"B\\\",\\\"order\\\":\\\"desc\\\"}, …] or just [\\\"B\\\"]. Without `range` the \\\n             current region around the selection is sorted; header detection follows Excel unless `header` is given.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"range\": string(RANGE),\n                    \"keys\": {\n                        \"type\": \"array\",\n                        \"minItems\": 1,\n                        \"description\": \"Sort levels, most significant first\",\n                        \"items\": {\"oneOf\": [\n                            string(\"Column letter, e.g. \\\"B\\\" (ascending)\"),\n                            obj(json!({\"column\": string(\"Column letter, e.g. \\\"B\\\"\"), \"order\": enumeration(\"Sort order\", &[\"asc\", \"desc\"])}), &[\"column\"]),\n                        ]},\n                    },\n                    \"header\": boolean(\"The first row is a header (kept in place)\"),\n                }),\n                &[\"keys\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "filter",
+   :title "Filter",
+   :description
+   "\"Filter rows by a column (turns on AutoFilter on the current region, or `range`, when needed). Give `values` (keep rows whose \\\n             cell text is one of them), `custom` ({op:\\\">\\\", value:\\\"10\\\", op2?, value2?, and?}), `top` ({count, bottom?, percent?}), or \\\n             clear:true to remove this column's filter.\"",
+   :input-schema-source
+   "obj(\n                json!({\n                    \"column\": string(\"Column letter, e.g. \\\"C\\\"\"),\n                    \"range\": string(\"Data range to filter (default: the current region of the selection)\"),\n                    \"values\": {\"type\": \"array\", \"items\": {\"type\": [\"string\", \"number\", \"boolean\"]}, \"description\": \"Values to keep\"},\n                    \"custom\": {\"type\": \"object\", \"description\": \"Custom criteria: {op: \\\"=\\\"|\\\"<>\\\"|\\\">\\\"|\\\">=\\\"|\\\"<\\\"|\\\"<=\\\"|\\\"beginsWith\\\"|\\\"contains\\\"…, value, op2?, value2?, and?: bool}\"},\n                    \"top\": {\"type\": \"object\", \"description\": \"Top/bottom N: {count, bottom?: bool, percent?: bool}\"},\n                    \"blanks\": boolean(\"Also keep blank cells\"),\n                    \"clear\": boolean(\"Clear this column's filter\"),\n                }),\n                &[\"column\"],\n            )",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "open_workbook",
+   :title "Open workbook",
+   :description
+   "Open a workbook file (.xlsx, .xlsm, .xls, .xlsb, .ods, .csv, .tsv, .txt, .json) and make it active. Excel 97-2003 .xls imports values, formulas and number formats; XLSB and ODS import worksheet data and cached formula values only; check the returned warnings.",
+   :input-schema-source
+   "obj(json!({\"path\": string(\"File path\")}), &[\"path\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "save_workbook",
+   :title "Save workbook",
+   :description
+   "\"Save the active workbook. The format follows the extension (.xlsx default; .csv/.tsv save the active sheet; .json; .html). \\\n             Without `path` saves to the workbook's current file.\"",
+   :input-schema-source
+   "obj(json!({\"path\": string(\"Destination path\")}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "new_workbook",
+   :title "New workbook",
+   :description
+   "Create a new workbook and make it active: blank, or a built-in sample (\"budget\", \"sales\", \"grades\").",
+   :input-schema-source
+   "obj(json!({\"sample\": enumeration(\"Sample workbook\", &[\"budget\", \"sales\", \"grades\"])}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "undo",
+   :title "Undo",
+   :description "Undo the last change(s) to the active workbook.",
+   :input-schema-source
+   "obj(json!({\"steps\": int(\"Number of steps (default 1)\")}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "redo",
+   :title "Redo",
+   :description "Redo the last undone change(s).",
+   :input-schema-source
+   "obj(json!({\"steps\": int(\"Number of steps (default 1)\")}), &[])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "screenshot",
+   :title "Screenshot",
+   :description
+   "Save a PNG screenshot of the GridCraft window to `path`. Desktop app only (`gridcraft-cli mcp --connect 7979`).",
+   :input-schema-source
+   "obj(json!({\"path\": string(\"Output PNG path\")}), &[\"path\"])",
+   :source "crates/mcp/src/tools.rs"}
+  {:name "list_functions",
+   :title "List functions",
+   :description
+   "List worksheet functions: name, category, signature and description. Filter with `search` (name or description) or `category`.",
+   :input-schema-source
+   "obj(\n                json!({\"search\": string(\"Substring of the name or description\"), \"category\": string(\"Category, e.g. \\\"Math & Trig\\\", \\\"Lookup & Reference\\\"\")}),\n                &[],\n            )",
+   :source "crates/mcp/src/tools.rs"}],
+ :control
+ ["app.open"
+  "app.quit"
+  "app.save"
+  "cell.get"
+  "document.inspect"
+  "engine.commands"
+  "engine.execute"
+  "engine.journal"
+  "sheet.read"
+  "ui.backstage"
+  "ui.cell.click"
+  "ui.cell.drag"
+  "ui.click"
+  "ui.dialog"
+  "ui.dialog.cancel"
+  "ui.dialog.confirm"
+  "ui.dialog.set"
+  "ui.drag"
+  "ui.edit.begin"
+  "ui.edit.cancel"
+  "ui.edit.commit"
+  "ui.edit.text"
+  "ui.focus"
+  "ui.inspect"
+  "ui.key"
+  "ui.move"
+  "ui.object.select"
+  "ui.pythonMode"
+  "ui.resize"
+  "ui.ribbon"
+  "ui.screenshot"
+  "ui.set"
+  "ui.text"
+  "window.list"]}
