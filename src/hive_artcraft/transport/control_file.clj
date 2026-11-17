@@ -69,28 +69,38 @@
       (not (and (string? token) (seq token))) (refuse path "holds no token")
       :else {:ok {:port port :token (->Redacted token)}})))
 
+(defn read-trusted-file
+  "Read a small secret file as text: refuse a symlink, a non-regular file, a file another user owns
+   or can access, and one over control-file-max. Every refusal names `path` and ends with `advice`;
+   a missing file says `missing` (`path: missing advice`). Never returns or reports the contents
+   in a refusal."
+  [path advice missing]
+  (let [p (Paths/get ^String (expand-home path) (make-array String 0))
+        nofollow (into-array LinkOption [LinkOption/NOFOLLOW_LINKS])
+        refuse (fn [problem] (core/refusal :artcraft/control-file-refused (str path ": " problem ". " advice)))]
+    (try
+      (let [attrs ^PosixFileAttributes (Files/readAttributes p PosixFileAttributes ^"[Ljava.nio.file.LinkOption;" nofollow)]
+        (cond
+          (.isSymbolicLink attrs) (refuse "is a symbolic link, which could point at another user's file")
+          (not (.isRegularFile attrs)) (refuse "is not a regular file")
+          :else
+          (if-let [problem (control-file-problem (.getName (.owner attrs)) (System/getProperty "user.name")
+                                                 (PosixFilePermissions/toString (.permissions attrs)))]
+            (refuse problem)
+            (if-let [text (read-capped p)]
+              {:ok text}
+              (refuse (str "is too large for a control file (over " (quot control-file-max 1024) " KiB)"))))))
+      (catch java.nio.file.NoSuchFileException _
+        (core/refusal :artcraft/control-file-missing (str path ": " missing " " advice)))
+      (catch Exception e
+        (core/refusal :artcraft/control-file-refused (str path ": " (.getSimpleName (class e)) ". " advice))))))
+
 (defn read-control-file
   "Read {port, token} from the app's control file; refuse a symlink, a non-regular file, a file
    another user owns or can access, and an oversized one. The token comes back as a Redacted box."
   [path]
-  (let [p (Paths/get ^String (expand-home path) (make-array String 0))
-        nofollow (into-array LinkOption [LinkOption/NOFOLLOW_LINKS])]
-    (try
-      (let [attrs ^PosixFileAttributes (Files/readAttributes p PosixFileAttributes ^"[Ljava.nio.file.LinkOption;" nofollow)]
-        (cond
-          (.isSymbolicLink attrs) (refuse path "is a symbolic link, which could point at another user's file")
-          (not (.isRegularFile attrs)) (refuse path "is not a regular file")
-          :else
-          (if-let [problem (control-file-problem (.getName (.owner attrs)) (System/getProperty "user.name")
-                                                 (PosixFilePermissions/toString (.permissions attrs)))]
-            (refuse path problem)
-            (if-let [text (read-capped p)]
-              (parse-endpoint path text)
-              (refuse path (str "is too large for a control file (over " (quot control-file-max 1024) " KiB)"))))))
-      (catch java.nio.file.NoSuchFileException _
-        (core/refusal :artcraft/control-file-missing (str path ": no such file; is the app running? " advice)))
-      (catch Exception e
-        (core/refusal :artcraft/control-file-refused (str path ": " (.getSimpleName (class e)) ". " advice))))))
+  (let [text (read-trusted-file path advice "no such file; is the app running?")]
+    (if (:error text) text (parse-endpoint path (:ok text)))))
 
 (defn rpc-request
   "JSON-RPC 2.0 envelope for one validated {:id :method :params} control request."
@@ -148,6 +158,8 @@
 
 (m/=> expand-home [:=> [:cat :string] :string])
 (m/=> control-file-problem [:=> [:cat :string :string :string] [:maybe :string]])
+(m/=> read-trusted-file [:=> [:cat :string :string :string]
+                         [:or [:map [:ok :string]] [:map [:error [:map [:kind :keyword] [:hint :string]]]]]])
 (m/=> read-control-file [:=> [:cat :string]
                          [:or [:map [:ok [:map [:port [:int {:min 1 :max 65535}]] [:token [:fn #(instance? Redacted %)]]]]]
                           [:map [:error [:map [:kind :keyword] [:hint :string]]]]]])

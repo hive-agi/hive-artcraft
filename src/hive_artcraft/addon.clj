@@ -42,7 +42,7 @@
                   {:module module :port port-res :error (:error entries)}
                   {:module module :port port-res
                    :ok {:catalog (:ok entries)
-                        :transport (service/resolve-transport module app-cfg port-res)}})))))
+                        :transport (service/resolve-transport module app-cfg port-res getenv)}})))))
 
 (defn app-row
   "One line of `artcraft command=apps`."
