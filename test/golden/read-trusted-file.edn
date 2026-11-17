@@ -1,0 +1,10 @@
+{:good {:ok-len 65},
+ :missing
+ {:error
+  {:kind :artcraft/control-file-missing,
+   :hint "/nonexistent/film.token: missing. advice"}},
+ :open
+ {:error
+  {:kind :artcraft/control-file-refused,
+   :hint
+   "<tmp>/film.token: other users have access to it (mode rw-r--r--; the app writes it rw-------). advice"}}}

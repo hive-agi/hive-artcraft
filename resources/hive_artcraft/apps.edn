@@ -78,6 +78,11 @@
   :app/transport :port
   :app/default-port 9876
   :app/port-env "FILMCRAFT_CONTROL_PORT"
+  ;; FilmCraft's control port only listens when FILMCRAFT_CONTROL_TOKEN (64 hex) is set, and every
+  ;; request must carry it as a top-level "token" (craft-libs control-protocol). Default reference;
+  ;; override with :apps {"filmcraft" {:token-ref {:scheme :file :path ...}}}. Read per request,
+  ;; never logged or returned.
+  :app/token-ref {:scheme :env :name "FILMCRAFT_CONTROL_TOKEN"}
   ;; Derived by dev/extract_filmcraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/filmcraft.edn"
   :app/upstream "https://github.com/storytold/filmcraft"}

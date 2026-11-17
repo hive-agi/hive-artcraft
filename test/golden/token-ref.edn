@@ -1,0 +1,4 @@
+{:file-app nil,
+ :film-default {:scheme :env, :name "FILMCRAFT_CONTROL_TOKEN"},
+ :film-override {:scheme :file, :path "/x"},
+ :vector-style nil}

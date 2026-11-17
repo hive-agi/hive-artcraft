@@ -1,0 +1,17 @@
+{:env {:ok "#<redacted>", :len 64},
+ :file {:ok "#<redacted>", :len 64},
+ :open-file
+ {:error
+  {:kind :artcraft/token-refused,
+   :hint
+   "<tmp>/film.token: other users have access to it (mode rw-r--r--; the app writes it rw-------). Keep the token in a regular file only you can read, e.g. `umask 077; python3 -c 'import secrets;print(secrets.token_hex(32))' > ~/.private/filmcraft-control.token`."}},
+ :short
+ {:error
+  {:kind :artcraft/token-refused,
+   :hint
+   "The environment variable FILMCRAFT_CONTROL_TOKEN does not hold 64 hex characters, which the app's control port requires."}},
+ :unset
+ {:error
+  {:kind :artcraft/token-missing,
+   :hint
+   "FILMCRAFT_CONTROL_TOKEN is not set in the hive JVM's environment; export the token the app was started with before starting hive, or use :token-ref {:scheme :file :path ...}."}}}

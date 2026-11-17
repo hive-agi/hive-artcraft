@@ -10,11 +10,22 @@
    :none         - no external control surface (e.g. Tauri IPC). Catalog only; calls refuse."
   [:enum :port :control-file :none])
 
+(def TokenRef
+  "Where a control token lives, never the token itself: an environment variable of the hive JVM
+   named <APP>_CONTROL_TOKEN (so a config cannot point the channel at an unrelated secret), or a
+   file only the user can access. The value is read at send time, per request."
+  [:or
+   [:map [:scheme [:= :env]] [:name [:re #"^[A-Z][A-Z0-9_]*_CONTROL_TOKEN$"]]]
+   [:map [:scheme [:= :file]] [:path [:re #"\S"]]]])
+
 (def AppModule
   "One Crafting App, as data. :mount delegates every command to an existing hive addon's tool
    handler; :native is served by hive-artcraft from its catalog resource and transport shape.
    :port-requires names AppConfig keys a delegate needs before a port may be handed to it
-   (PhotoCraft's control channel needs :token-ref)."
+   (PhotoCraft's control channel needs :token-ref). :app/token-ref marks a :native :port app
+   whose control port authenticates every request (FilmCraft): it is the default reference,
+   :apps {\"<id>\" {:token-ref ...}} overrides it, and the socket transport adds the resolved
+   value to each request as a top-level \"token\" field."
   [:and
    [:map
     [:app/id [:re #"^[a-z][a-z0-9-]*$"]]
@@ -27,13 +38,16 @@
     [:app/port-env {:optional true} [:re #"^[A-Z][A-Z0-9_]*$"]]
     [:app/mount {:optional true} [:map [:ctor qualified-symbol?] [:addon-id :string]
                                   [:port-requires {:optional true} [:vector :keyword]]]]
+    [:app/token-ref {:optional true} TokenRef]
     [:app/upstream {:optional true} :string]]
    [:fn {:error/message ":port apps declare :app/default-port and :app/port-env"}
     #(or (not= :port (:app/transport %)) (boolean (and (:app/default-port %) (:app/port-env %))))]
    [:fn {:error/message ":mount apps declare :app/mount {:ctor :addon-id}"}
     #(or (not= :mount (:app/kind %)) (contains? % :app/mount))]
    [:fn {:error/message ":native apps declare :app/catalog-resource"}
-    #(or (not= :native (:app/kind %)) (contains? % :app/catalog-resource))]])
+    #(or (not= :native (:app/kind %)) (contains? % :app/catalog-resource))]
+   [:fn {:error/message ":app/token-ref is for :native :port apps; a :mount delegate takes :token-ref in its :apps config"}
+    #(or (not (contains? % :app/token-ref)) (and (= :native (:app/kind %)) (= :port (:app/transport %))))]])
 
 (def AppConfig
   "Per-app override under the addon config's :apps {\"<app-id>\" {...}}."

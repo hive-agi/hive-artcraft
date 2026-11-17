@@ -6,6 +6,7 @@
    :none has no external control surface and refuses with the remedy."
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [malli.core :as m]
             [hive-artcraft.schema :as schema]
             [hive-artcraft.core :as core]
@@ -40,20 +41,44 @@
     :none (str (:app/label module) " has no external control surface (its commands are in-process IPC);"
                " it is catalog-only. Drive it through its own UI, or ask upstream for an automation surface.")))
 
+(defn token-ref
+  "The TokenRef a :port app's requests must carry: :apps {\"<id>\" {:token-ref ...}} wins over the
+   module's :app/token-ref default; nil for an app whose port does not authenticate."
+  [module app-cfg]
+  (when (= :port (:app/transport module))
+    (or (:token-ref app-cfg) (:app/token-ref module))))
+
+(defn token-remedy
+  "How to give an authenticating :port app and the hive JVM the same control token."
+  [module]
+  (let [id (:app/id module)
+        ref (:app/token-ref module)
+        env (if (= :env (:scheme ref)) (:name ref) (str (str/upper-case id) "_CONTROL_TOKEN"))]
+    (str "Start the app with a token and give hive the same one: `export " env
+         "=\"$(python3 -c 'import secrets;print(secrets.token_hex(32))')\"` then `" id " --control "
+         (:app/default-port module) "` from a shell whose environment the hive JVM inherits, or keep the token"
+         " in a file only you can read and set :apps {\"" id "\" {:token-ref {:scheme :file :path \"~/.private/"
+         id "-control.token\"}}}.")))
+
 (defn resolve-transport
-  "Injected :transport wins; a :port app gets a loopback socket on its resolved port; a :control-file
-   app with a configured :control-file gets the control-file transport; anything else gets nil."
-  [module app-cfg port-res]
-  (or (:transport app-cfg)
-      (case (:app/transport module)
-        :port (when port-res
-                (socket/socket-transport (cond-> {:port (:port port-res)}
-                                           (:control-host app-cfg) (assoc :host (:control-host app-cfg)))))
-        :control-file (when (:control-file app-cfg)
-                        (control-file/control-file-transport
-                         (cond-> {:control-file (:control-file app-cfg)}
-                           (:control-host app-cfg) (assoc :host (:control-host app-cfg)))))
-        nil)))
+  "Injected :transport wins; a :port app gets a loopback socket on its resolved port (carrying its
+   token-ref and `getenv` when its port authenticates); a :control-file app with a configured
+   :control-file gets the control-file transport; anything else gets nil."
+  ([module app-cfg port-res] (resolve-transport module app-cfg port-res nil))
+  ([module app-cfg port-res getenv]
+   (or (:transport app-cfg)
+       (case (:app/transport module)
+         :port (when port-res
+                 (let [ref (token-ref module app-cfg)]
+                   (socket/socket-transport (cond-> {:port (:port port-res)}
+                                              (:control-host app-cfg) (assoc :host (:control-host app-cfg))
+                                              ref (assoc :token-ref ref)
+                                              (and ref getenv) (assoc :getenv getenv)))))
+         :control-file (when (:control-file app-cfg)
+                         (control-file/control-file-transport
+                          (cond-> {:control-file (:control-file app-cfg)}
+                            (:control-host app-cfg) (assoc :host (:control-host app-cfg)))))
+         nil))))
 
 (defn catalog
   "Describe the app's pinned vocabulary; query selects engine, mcp, control, unexpanded or one
@@ -74,10 +99,16 @@
 (defn doctor
   "Report catalog size (and any unexpanded static-extraction gap), transport shape, whether a
    transport is live, and the remedy. A :control-file transport also reports whether its file is
-   readable and trusted (never the token)."
+   readable and trusted, and an authenticating :port transport whether its token resolves (never
+   the token): with none configured it says so and how to fix it."
   [module entries transport port-res]
   (let [file (when (= :control-file (:app/transport module)) (get-in transport [:config :control-file]))
-        probe (when file (control-file/read-control-file file))]
+        probe (when file (control-file/read-control-file file))
+        tref (when (= :port (:app/transport module))
+               (or (get-in transport [:config :token-ref]) (:app/token-ref module)))
+        tprobe (when (and tref (get-in transport [:config :token-ref]))
+                 (socket/read-token tref (or (get-in transport [:config :getenv]) #(System/getenv ^String %))))
+        token-hint (when (:error tprobe) (str (get-in tprobe [:error :hint]) " " (token-remedy module)))]
     {:ok (cond-> {:app (:app/id module)
                   :shape (:app/transport module)
                   :catalog (cond-> {:engine (count (:engine entries)) :control (count (:control entries))}
@@ -90,12 +121,18 @@
                   :port port-res
                   :transport (if transport :ready :absent)
                   :hint (cond (:error probe) (get-in probe [:error :hint])
+                              token-hint token-hint
                               transport "Transport ready; calls go to the running app."
                               :else (shape-remedy module port-res))}
            (= :none (:app/transport module)) (assoc :status :no-control-surface)
            file (assoc :control-file {:path file
                                       :status (if (:error probe) (get-in probe [:error :kind]) :trusted)
-                                      :port (get-in probe [:ok :port])}))}))
+                                      :port (get-in probe [:ok :port])})
+           tref (assoc :token (cond-> {:ref tref
+                                       :status (cond (nil? tprobe) :unchecked
+                                                     (:error tprobe) (get-in tprobe [:error :kind])
+                                                     :else :configured)}
+                                token-hint (assoc :fix (token-remedy module)))))}))
 
 (defn- send!
   [module transport built port-res]
@@ -106,8 +143,10 @@
     (nil? transport) (core/refusal :artcraft/no-transport (shape-remedy module port-res))
     :else (try (core/response-line (:app/id module) (port/send-request transport (:ok built)))
                (catch Exception e
-                 (core/refusal :artcraft/transport-failed
-                               (str "Check that " (:app/id module) " is running with --control: " (ex-message e)))))))
+                 (if (:refusal? (ex-data e))
+                   (core/refusal (:kind (ex-data e)) (str (ex-message e) " " (token-remedy module)))
+                   (core/refusal :artcraft/transport-failed
+                                 (str "Check that " (:app/id module) " is running with --control: " (ex-message e))))))))
 
 (defn ui-command-request
   "A :control-file app has no engine.execute: an engine command becomes ui.command {id}
@@ -137,7 +176,11 @@
 
 (m/=> load-catalog [:=> [:cat schema/AppModule] (schema/envelope schema/Catalog)])
 (m/=> shape-remedy [:=> [:cat schema/AppModule [:maybe schema/PortResolution]] :string])
-(m/=> resolve-transport [:=> [:cat schema/AppModule :map [:maybe schema/PortResolution]] :any])
+(m/=> token-ref [:=> [:cat schema/AppModule :map] [:maybe :map]])
+(m/=> token-remedy [:=> [:cat schema/AppModule] :string])
+(m/=> resolve-transport [:function
+                         [:=> [:cat schema/AppModule :map [:maybe schema/PortResolution]] :any]
+                         [:=> [:cat schema/AppModule :map [:maybe schema/PortResolution] [:maybe ifn?]] :any]])
 (m/=> catalog [:=> [:cat schema/AppModule schema/Catalog [:maybe :string]] (schema/envelope :any)])
 (m/=> doctor [:=> [:cat schema/AppModule schema/Catalog :any [:maybe schema/PortResolution]] (schema/envelope :map)])
 (m/=> ui-command-request [:=> [:cat (schema/envelope schema/Request)] (schema/envelope schema/Request)])
