@@ -13,6 +13,8 @@
             [hive-artcraft.fixtures :as fx]
             [hive-vectorcraft.addon :as vectorcraft]
             [hive-photocraft.addon :as photocraft]
+            [hive-photocraft.transport :as photo-transport]
+            [hive-vectorcraft.port :as vector-port]
             [hive-addon.registry.commands :as cmds]))
 
 (def vc-module (get-in (registry/load-registry) [:ok :by-id "vectorcraft"]))
@@ -59,9 +61,23 @@
    :pred #(vector? (:content %)) :num-tests 30
    :mutations [["lose-error" (fn [r] {:content [{:type "text" :text (pr-str r)}]})]]})
 
+(deftrifecta with-request-defaults-contract mount/with-request-defaults
+  {:golden-path "test/golden/with-request-defaults.edn"
+   :cases {:call-omitted {"command" "call" "engine_command" "file.new"}
+           :control-omitted {"command" "control" "method" "ui.inspect"}
+           :supplied {"command" "call" "engine_command" "file.new" "id" "req-7" "params" {"w" 10}}
+           :supplied-nil {"command" "control" "method" "ui.inspect" "id" nil "params" nil}
+           :catalog {"command" "catalog" "query" "engine"}}
+   :gen (gen/fmap #(assoc % "command" "call") (gen/map (gen/elements ["engine_command" "query"]) gen/string-alphanumeric))
+   :pred #(and (= 0 (get % "id")) (= {} (get % "params"))) :num-tests 30
+   :mutations [["identity" identity]
+               ["clobber" (fn [a] (assoc a "id" 0 "params" {}))]]})
+
 (deftrifecta forward-contract mount/forward
   {:golden-path "test/golden/forward.edn"
    :cases {:echo [{:tool {:handler (fn [a] {:ok a})}} {"app" "x" "command" "doctor"}]
+           :call-defaults [{:tool {:handler (fn [a] {:ok a})}} {"app" "x" "command" "call" "engine_command" "file.new"}]
+           :control-supplied [{:tool {:handler (fn [a] {:ok a})}} {"app" "x" "command" "control" "method" "ui.inspect" "id" 3 "params" {"a" 1}}]
            :throws [{:tool {:handler (fn [_] (throw (ex-info "boom" {})))}} {"command" "doctor"}]}
    :apply? true :gen (gen/tuple (gen/return {:tool {:handler (fn [a] {:ok a})}}) (gen/return {"app" "x"}))
    :pred #(= "{}" (text %)) :num-tests 20
@@ -208,6 +224,42 @@
     (is (:isError (h {"app" "vectorcraft" "command" "call" "engine_command" "shape.rectangle"})))
     (is (:isError (h {"app" "photocraft" "command" "control" "method" "ui.inspect"})))
     (is (:isError (h {"app" "vectorcraft" "command" "call" "engine_command" "no.such"})))))
+
+(defn recording-mounts
+  "Shipped registry with both delegates handed a recording transport through :apps config;
+   returns the dispatch handler and the requests each delegate put on the wire."
+  []
+  (let [pc (atom []) vc (atom [])
+        pc-t (reify photo-transport/ControlTransport
+               (send-request [_ req] (swap! pc conj req) {"jsonrpc" "2.0" "id" (get req "id") "result" {}}))
+        vc-t (reify vector-port/ControlTransport
+               (send-request [_ req] (swap! vc conj req) {:ok true :result {}}))]
+    {:handler (handler (running {:apps {"photocraft" {:transport pc-t} "vectorcraft" {:transport vc-t}}}))
+     :photocraft pc :vectorcraft vc}))
+
+(deftest mounted-photocraft-gets-request-defaults
+  (let [{h :handler sent :photocraft} (recording-mounts)]
+    (is (not (:isError (h {"app" "photocraft" "command" "call" "engine_command" "file.new"}))))
+    (is (not (:isError (h {"app" "photocraft" "command" "control" "method" "ui.inspect"}))))
+    (is (= [{"id" 0 "method" "engine.execute" "params" {"command" "file.new" "params" {}}}
+            {"id" 0 "method" "ui.inspect" "params" {}}]
+           @sent))))
+
+(deftest mounted-photocraft-keeps-supplied-id-and-params
+  (let [{h :handler sent :photocraft} (recording-mounts)]
+    (h {"app" "photocraft" "command" "call" "engine_command" "layer.new.layer" "id" 7 "params" {"name" "a"}})
+    (h {:app "photocraft" :command "control" :method "ui.inspect" :id "req-1" :params "{\"depth\": 2}"})
+    (is (= [{"id" 7 "method" "engine.execute" "params" {"command" "layer.new.layer" "params" {"name" "a"}}}
+            {"id" "req-1" "method" "ui.inspect" "params" {"depth" 2}}]
+           @sent))))
+
+(deftest mounted-vectorcraft-same-defaults-and-pass-through
+  (let [{h :handler sent :vectorcraft} (recording-mounts)]
+    (h {"app" "vectorcraft" "command" "call" "engine_command" "shape.rectangle"})
+    (h {"app" "vectorcraft" "command" "call" "engine_command" "shape.rectangle" "id" 5 "params" {"w" 10}})
+    (is (= [{:id 0 :method "engine.execute" :params {:command "shape.rectangle" :params {}}}
+            {:id 5 :method "engine.execute" :params {:command "shape.rectangle" :params {"w" 10}}}]
+           @sent))))
 
 (deftest per-app-port-reaches-the-delegate
   (let [instance (running {:apps {"vectorcraft" {:control-port 1}}})

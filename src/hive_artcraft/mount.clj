@@ -48,11 +48,24 @@
     (and (map? reply) (contains? reply :ok)) {:content [{:type "text" :text (pr-str (:ok reply))}]}
     :else {:content [{:type "text" :text (pr-str reply)}]}))
 
+(def request-defaults
+  "What a call/control request carries when the caller omits it: request id 0 and empty params.
+   Native dispatch and mounted forwarding share it, so every app sees the same request shape."
+  {"id" 0 "params" {}})
+
+(defn with-request-defaults
+  "Fill in `id` and `params` for a call/control request when the caller left them out; a
+   supplied value (nil included) is kept as given. Other commands pass through unchanged."
+  [args]
+  (if (#{"call" "control"} (get args "command"))
+    (merge request-defaults args)
+    args))
+
 (defn forward
-  "Send string-keyed tool args (minus \"app\") to the mounted tool's own handler."
+  "Send string-keyed tool args (minus \"app\", with request defaults) to the mounted tool's own handler."
   [mounted args]
   (try
-    (tool-result ((get-in mounted [:tool :handler]) (dissoc args "app")))
+    (tool-result ((get-in mounted [:tool :handler]) (with-request-defaults (dissoc args "app"))))
     (catch Exception e
       (tool-result {:error {:kind :artcraft/delegate-failed
                             :hint (str "The mounted tool threw: " (ex-message e))}}))))
@@ -66,5 +79,6 @@
 (m/=> mount-config [:=> [:cat schema/AppModule :map [:maybe schema/PortResolution]] :map])
 (m/=> mount! [:=> [:cat schema/AppModule :map] (schema/envelope [:map [:addon :any] [:tool :map]])])
 (m/=> tool-result [:=> [:cat :any] schema/ToolResult])
+(m/=> with-request-defaults [:=> [:cat [:map-of :string :any]] [:map-of :string :any]])
 (m/=> forward [:=> [:cat :map :map] schema/ToolResult])
 (m/=> unmount! [:=> [:cat [:maybe :map]] :nil])
