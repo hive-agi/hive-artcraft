@@ -97,4 +97,44 @@
   ;; Derived by dev/extract_effectcraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/effectcraft.edn"
   :app/upstream "https://github.com/storytold/effectcraft"}
+
+ {:app/id "deckcraft"
+  :app/label "DeckCraft"
+  :app/summary "Presentations (PowerPoint-style). Native: `deckcraft --control PORT`; upstream docs use 7979/7990, which collide, so hive defaults to 7983."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7983
+  :app/port-env "DECKCRAFT_CONTROL_PORT"
+  ;; docs/control-protocol.md:1-21 describes no authentication (loopback only, bounded
+  ;; connections), so no :app/token-ref.
+  ;; Derived by dev/extract_deckcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/deckcraft.edn"
+  :app/upstream "https://github.com/storytold/deckcraft"}
+
+ {:app/id "gridcraft"
+  :app/label "GridCraft"
+  :app/summary "Spreadsheets (Excel-style). Native: `gridcraft --control PORT`. Its port requires a first-line auth {token} handshake on every connection, which no hive-artcraft transport sends yet: live calls are refused by the app until one does."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7985
+  :app/port-env "GRIDCRAFT_CONTROL_PORT"
+  ;; docs/control-protocol.md:9-30: the FIRST line of every connection must be
+  ;; {"id":0,"method":"auth","params":{"token":...}}; the token is GRIDCRAFT_CONTROL_TOKEN (>= 16
+  ;; chars) or a 0600 file $XDG_RUNTIME_DIR/gridcraft/control-<port>.token. That is neither
+  ;; filmcraft's top-level "token" (what :app/token-ref makes the socket transport send) nor
+  ;; pdfcraft's {port, token} control file, so no :app/token-ref here: it would put the wrong
+  ;; wire shape on the port. Needs a handshake transport.
+  ;; Derived by dev/extract_gridcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/gridcraft.edn"
+  :app/upstream "https://github.com/storytold/gridcraft"}
+
+ {:app/id "anicraft"
+  :app/label "AniCraft"
+  :app/summary "2D animation (Animate-style). Catalog-only: its automation is `anicraft-cli mcp`/`serve` on the child's stdin/stdout, with no external control surface a running app exposes."
+  :app/kind :native
+  :app/transport :none
+  ;; Derived by dev/extract_anicraft.clj (CommandSpec registry + stdio MCP tools); :reference-revision
+  ;; pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/anicraft.edn"
+  :app/upstream "https://github.com/storytold/anicraft"}
 ]

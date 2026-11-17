@@ -177,7 +177,8 @@
 (deftest apps-lists-mounts-and-natives
   (let [instance (running)
         rows (read-text ((handler instance) {"command" "apps"}))
-        shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"]]
+        shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"
+                 "deckcraft" "gridcraft" "anicraft"]]
     (is (= shipped (mapv :app rows)))
     (is (every? #(= :mounted (:status %)) rows))
     (is (= {"photocraft" "hive.photocraft" "vectorcraft" "hive.vectorcraft"}
@@ -192,7 +193,8 @@
     (is (= "code" addon/host-tool))
     (is (= "hive.artcraft" (:addon spec)))
     (is (= #{:apps :catalog :doctor :call :control} (set (keys verbs))))
-    (is (= ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"]
+    (is (= ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"
+                 "deckcraft" "gridcraft" "anicraft"]
            (get-in spec [:params "app" :enum])))
     (is (not (contains? (:params spec) "command")))
     (is (= (mapv :app (read-text ((:apps verbs) {:command "artcraft apps"})))
