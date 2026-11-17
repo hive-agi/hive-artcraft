@@ -1,14 +1,14 @@
 {"effectcraft"
  {:app "effectcraft",
-  :revision "ef74d82902ba486891b02afa87e42963cc9b84cc",
-  :engine 652,
+  :revision "4c38f78307e21a07021333c8a109e6fc49d66c3b",
+  :engine 680,
   :mcp 36,
   :control 24,
-  :unexpanded 82},
+  :unexpanded 98},
  "filmcraft"
  {:app "filmcraft",
-  :revision "6c3948a36c80e4996d924766ba7157eec4fca85e",
-  :engine 181,
+  :revision "93a88a839aae370740b09434fdec410abb8c24ca",
+  :engine 192,
   :mcp 17,
-  :control 23,
-  :unexpanded 466}}
+  :control 24,
+  :unexpanded 447}}

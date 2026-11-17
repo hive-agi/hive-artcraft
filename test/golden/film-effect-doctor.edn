@@ -2,11 +2,11 @@
  {:app "effectcraft",
   :shape :port,
   :catalog
-  {:engine 652,
+  {:engine 680,
    :control 24,
-   :unexpanded 82,
+   :unexpanded 98,
    :unexpanded-hint
-   "The static catalog does not expand 8 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
+   "The static catalog does not expand 10 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
   :port {:port 9877, :source :default},
   :transport :ready,
   :hint "Transport ready; calls go to the running app."},
@@ -14,11 +14,11 @@
  {:app "filmcraft",
   :shape :port,
   :catalog
-  {:engine 181,
-   :control 23,
-   :unexpanded 466,
+  {:engine 192,
+   :control 24,
+   :unexpanded 447,
    :unexpanded-hint
-   "The static catalog does not expand 43 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
+   "The static catalog does not expand 42 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
   :port {:port 9876, :source :default},
   :transport :ready,
   :hint "Transport ready; calls go to the running app."}}

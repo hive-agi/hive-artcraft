@@ -1,12 +1,12 @@
 {"pdfcraft"
  {:app "pdfcraft",
-  :revision "a8cd797a917b1007544575c7280c9a0ce6a17e8f",
-  :engine 201,
-  :mcp 149,
+  :revision "271e479c53723b1b294c866d5cb2f27604601b29",
+  :engine 220,
+  :mcp 176,
   :control 17},
  "studio"
  {:app "studio",
-  :revision "7a2935cf9e3922e90e4ed5f3556b1cb107013148",
-  :engine 67,
+  :revision "69f53c2f0358a91a5e35e5a7b3a91677320c3112",
+  :engine 69,
   :mcp 0,
   :control 0}}
