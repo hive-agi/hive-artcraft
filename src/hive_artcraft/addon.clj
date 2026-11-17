@@ -57,18 +57,17 @@
     (:transport ok) (assoc :transport :ready)
     error (assoc :hint (:hint error))))
 
-(defn- params-of [args] (if (contains? args "params") (get args "params") {}))
-(defn- id-of [args] (if (contains? args "id") (get args "id") 0))
-
 (defn dispatch-native
-  "Serve a :native app's command from its catalog and transport."
+  "Serve a :native app's command from its catalog and transport; call/control get the same
+   id/params defaults as mounted apps (mount/with-request-defaults)."
   [{:keys [module port ok]} args]
-  (let [{:keys [catalog transport]} ok]
+  (let [{:keys [catalog transport]} ok
+        args (mount/with-request-defaults args)]
     (case (get args "command")
       "catalog" (service/catalog module catalog (get args "query"))
       "doctor" (service/doctor module catalog transport port)
-      "call" (service/call module catalog transport port (get args "engine_command") (params-of args) (id-of args))
-      "control" (service/control module catalog transport port (get args "method") (params-of args) (id-of args)))))
+      "call" (service/call module catalog transport port (get args "engine_command") (get args "params") (get args "id"))
+      "control" (service/control module catalog transport port (get args "method") (get args "params") (get args "id")))))
 
 (defn dispatch
   "Route one `artcraft` call over the mounted apps; always answers an MCP tool result."

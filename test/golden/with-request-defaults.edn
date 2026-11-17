@@ -1,0 +1,12 @@
+{:call-omitted
+ {"id" 0, "params" {}, "command" "call", "engine_command" "file.new"},
+ :catalog {"command" "catalog", "query" "engine"},
+ :control-omitted
+ {"id" 0, "params" {}, "command" "control", "method" "ui.inspect"},
+ :supplied
+ {"id" "req-7",
+  "params" {"w" 10},
+  "command" "call",
+  "engine_command" "file.new"},
+ :supplied-nil
+ {"id" nil, "params" nil, "command" "control", "method" "ui.inspect"}}

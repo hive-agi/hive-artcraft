@@ -1,4 +1,14 @@
-{:echo {:content [{:type "text", :text "{\"command\" \"doctor\"}"}]},
+{:call-defaults
+ {:content
+  [{:type "text",
+    :text
+    "{\"id\" 0, \"params\" {}, \"command\" \"call\", \"engine_command\" \"file.new\"}"}]},
+ :control-supplied
+ {:content
+  [{:type "text",
+    :text
+    "{\"id\" 3, \"params\" {\"a\" 1}, \"command\" \"control\", \"method\" \"ui.inspect\"}"}]},
+ :echo {:content [{:type "text", :text "{\"command\" \"doctor\"}"}]},
  :throws
  {:isError true,
   :content
