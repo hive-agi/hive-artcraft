@@ -104,6 +104,31 @@ PhotoCraft authenticates its control channel, so it only gets a port when a `:to
 configured. Without one, its calls refuse with the fix instead of failing on the socket. Keep every
 control port on loopback.
 
+#### FilmCraft: control token
+
+FilmCraft's `--control` port only listens when `FILMCRAFT_CONTROL_TOKEN` (64 hex characters) is set,
+and every request must carry that value as a top-level `"token"`. Otherwise the app replies with an
+auth error and closes the connection. Launch it with a fresh token:
+
+```sh
+export FILMCRAFT_CONTROL_TOKEN="$(python3 -c 'import secrets;print(secrets.token_hex(32))')"
+filmcraft --control 9876
+```
+
+The filmcraft module defaults to `:token-ref {:scheme :env :name "FILMCRAFT_CONTROL_TOKEN"}`, so a hive
+JVM started from a shell holding the same export needs no config. Otherwise, keep the token in a file
+only you can read (regular file, mode 600, not a symlink) and point hive at it:
+
+```clojure
+:addons {"hive.artcraft" {:apps {"filmcraft" {:control-port 9876
+                                              :token-ref {:scheme :file :path "/home/me/.private/filmcraft-control.token"}}}}}
+```
+
+The token is read on every request, so a token exported or rotated later is picked up without a
+restart. It is never logged, returned or put in an error, and any echo of it in a reply is replaced
+by `<redacted>`. `artcraft doctor app=filmcraft` reports `:token {:status ...}`; when no token
+resolves, it shows the fix. Apps without a `:token-ref` are sent the request exactly as before.
+
 ## Adding a Crafting App
 
 An app is **one module map** appended to `resources/hive_artcraft/apps.edn`. A `:native` app also
@@ -123,6 +148,7 @@ needs **one catalog resource**. Neither the shared code nor the tool schema chan
 | `:app/port-env` | for `:port` | env override, `<APP>_CONTROL_PORT` |
 | `:app/catalog-resource` | for `:native` | classpath EDN satisfying `schema/Catalog` |
 | `:app/mount` | for `:mount` | `{:ctor ns/addon-ctor :addon-id "hive.x" :port-requires [:token-ref]}` |
+| `:app/token-ref` | no (`:native` `:port` only) | default token reference `{:scheme :env :name "<APP>_CONTROL_TOKEN"}` or `{:scheme :file :path ...}` for a port that authenticates every request (filmcraft); `:apps {"<app>" {:token-ref ...}}` overrides it |
 | `:app/upstream` | no | upstream repository URL |
 
 Per-app runtime config (`schema/AppConfig`, under `:apps {"<id>" {...}}`) accepts:
@@ -136,7 +162,7 @@ module and the reason.
 
 | shape | apps | behaviour |
 |---|---|---|
-| `:port` | vectorcraft, lightcraft, designcraft, filmcraft, effectcraft (photocraft adds a token) | **live**: `<app> --control PORT`, one JSON line `{id, method:"engine.execute", params:{command, params}}` per request, over loopback (`hive-artcraft.transport.socket`) |
+| `:port` | vectorcraft, lightcraft, designcraft, filmcraft, effectcraft (photocraft adds a token) | **live**: `<app> --control PORT`, one JSON line `{id, method:"engine.execute", params:{command, params}}` per request, over loopback (`hive-artcraft.transport.socket`). An app with a `:token-ref` (filmcraft) also gets a top-level `"token"` on each line |
 | `:control-file` | pdfcraft | **live** once `:apps {"pdfcraft" {:control-file "~/.pdfcraft-control.json"}}` is set: `pdfcraft --control <FILE>` listens on a random loopback port and writes `{port, token}` to FILE. Each request re-reads the file (it must be a regular file you own, mode 600, not a symlink, under 64 KiB), sends JSON-RPC `auth {token}` first, then one `ui.*` request (`hive-artcraft.transport.control-file`). `call` maps `engine_command` to `ui.command {id}`, and `control` sends catalogued `ui.*` methods (`ui.commands`, `ui.inspect`, `ui.state`...). The token is never logged or returned: it prints as `#<redacted>`. Without `:control-file`, calls refuse with `:artcraft/no-transport` |
 | `:none` | studio (ArtCraft, Tauri IPC) | catalog only (its `#[tauri::command]` fns); doctor reports `:status :no-control-surface` with a remedy; `call`/`control` refuse with `:artcraft/unsupported-shape` |
 
