@@ -178,7 +178,8 @@
   (let [instance (running)
         rows (read-text ((handler instance) {"command" "apps"}))
         shipped ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"
-                 "deckcraft" "gridcraft" "anicraft" "cadcraft" "figcraft" "wordcraft"]]
+                 "deckcraft" "gridcraft" "anicraft" "cadcraft" "figcraft" "wordcraft"
+                 "soundcraft" "materialcraft" "texturecraft"]]
     (is (= shipped (mapv :app rows)))
     (is (every? #(= :mounted (:status %)) rows))
     (is (= {"photocraft" "hive.photocraft" "vectorcraft" "hive.vectorcraft"}
@@ -194,7 +195,8 @@
     (is (= "hive.artcraft" (:addon spec)))
     (is (= #{:apps :catalog :doctor :call :control} (set (keys verbs))))
     (is (= ["photocraft" "vectorcraft" "lightcraft" "designcraft" "pdfcraft" "studio" "filmcraft" "effectcraft"
-                 "deckcraft" "gridcraft" "anicraft" "cadcraft" "figcraft" "wordcraft"]
+                 "deckcraft" "gridcraft" "anicraft" "cadcraft" "figcraft" "wordcraft"
+                 "soundcraft" "materialcraft" "texturecraft"]
            (get-in spec [:params "app" :enum])))
     (is (not (contains? (:params spec) "command")))
     (is (= (mapv :app (read-text ((:apps verbs) {:command "artcraft apps"})))

@@ -185,4 +185,50 @@
   ;; Derived by dev/extract_wordcraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/wordcraft.edn"
   :app/upstream "https://github.com/storytold/wordcraft"}
+ {:app/id "soundcraft"
+  :app/label "SoundCraft"
+  :app/summary "Digital audio workstation (Pro Tools-style). Native: `soundcraft --control PORT`. The static catalog lists cmd! commands; wrapper macros (toggle!, flag!, radio!, option!) are counted under :unexpanded. Its MCP tools are served by `soundcraft-cli mcp`, not by the app."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7987
+  :app/port-env "SOUNDCRAFT_CONTROL_PORT"
+  ;; docs/control-protocol.md:27-37 (Wire format): newline JSON on 127.0.0.1, engine.execute
+  ;; {command, params}; no authentication, so no :app/token-ref.
+  ;; Derived by dev/extract_soundcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/soundcraft.edn"
+  :app/upstream "https://github.com/storytold/soundcraft"}
+
+ {:app/id "materialcraft"
+  :app/label "MaterialCraft"
+  :app/summary "Node-based material authoring (Designer-style). Native: `materialcraft --control PORT`. Its port requires a first-line auth {token} handshake on every connection, which no hive-artcraft transport sends yet: live calls are refused by the app until one does."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7988
+  :app/port-env "MATERIALCRAFT_CONTROL_PORT"
+  ;; docs/control-protocol.md:12-24: the FIRST request must be {"method":"auth","params":{"token":...}};
+  ;; the token is MATERIALCRAFT_CONTROL_TOKEN (16-1024 printable ASCII) or the 0600 file
+  ;; <temp>/materialcraft-control-<port>.token (std::env::temp_dir, crates/automation/src/security.rs:28),
+  ;; one attempt within 10 s. Same handshake as gridcraft (different token path), so no :app/token-ref.
+  ;; Engine commands go as command.run {id, params} on this port, not engine.execute.
+  ;; Derived by dev/extract_materialcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/materialcraft.edn"
+  :app/upstream "https://github.com/storytold/materialcraft"}
+
+ {:app/id "texturecraft"
+  :app/label "TextureCraft"
+  :app/summary "3D texture painting (Painter-style). Native: `texturecraft --control PORT`. Its port requires a first-line auth {token} handshake on every connection, which no hive-artcraft transport sends yet: live calls are refused by the app until one does."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7989
+  :app/port-env "TEXTURECRAFT_CONTROL_PORT"
+  ;; docs/control-protocol.md:69-95: the first request on every connection must be
+  ;; {"id":0,"method":"auth","params":{"token":...}}; the token is TEXTURECRAFT_CONTROL_TOKEN
+  ;; (16-1024 printable ASCII) or a random 256-bit token the app writes to
+  ;; <temp>/texturecraft-control-<port>.token ($TMPDIR or /tmp), owner-only. That file holds the
+  ;; bare token, not pdfcraft's {port, token} JSON, and the port is the one given to --control, so
+  ;; :transport :control-file does not fit; no :app/token-ref either (wrong wire shape).
+  ;; Engine commands go as command.run {id, params} on this port, not engine.execute.
+  ;; Derived by dev/extract_texturecraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/texturecraft.edn"
+  :app/upstream "https://github.com/storytold/texturecraft"}
 ]

@@ -1,0 +1,19 @@
+{"materialcraft"
+ {:app "materialcraft",
+  :revision "60cb2a13a481a490904a90f61d8583d354d83d54",
+  :engine 121,
+  :mcp 20,
+  :control 12},
+ "soundcraft"
+ {:app "soundcraft",
+  :revision "b47a58653c291f320179d20db3eafb40e70b88a7",
+  :engine 388,
+  :mcp 17,
+  :control 17,
+  :unexpanded 95},
+ "texturecraft"
+ {:app "texturecraft",
+  :revision "9c1b9cbc7b1e5541cffa03b80a8fa6bd1366a54d",
+  :engine 178,
+  :mcp 22,
+  :control 15}}
