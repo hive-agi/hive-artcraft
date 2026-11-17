@@ -1,1878 +1,2007 @@
-{:reference-revision "ef74d82902ba486891b02afa87e42963cc9b84cc",
+{:reference-revision "4c38f78307e21a07021333c8a109e6fc49d66c3b",
  :engine
  [{:id "anim.addKeyframe",
    :label "Add Keyframe",
    :params "{} — keys the selected properties at the CTI",
-   :source "crates/engine/src/commands/animation.rs"}
+   :source "crates/engine/src/cmd/animation.rs"}
   {:id "anim.applyBuiltinPreset",
    :label "Apply Built-in Animation Preset",
    :params "{preset: id|name (see anim.builtinPresets), layers?}",
-   :source "crates/engine/src/commands/anim_presets.rs"}
+   :source "crates/engine/src/cmd/anim_presets.rs"}
   {:id "anim.applyPreset",
    :label "Apply Animation Preset...",
-   :params "{path | preset, layers?}",
-   :source "crates/engine/src/commands/animation.rs"}
+   :params
+   "{path | preset, layers?} — saved effects and text animators are added to each layer, with their keys at the CTI",
+   :source "crates/engine/src/cmd/animation.rs"}
   {:id "anim.applyRecentPreset",
    :label "Recent Animation Presets",
    :params "{index? | path?, layers?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "anim.builtinPresets",
    :label "Built-in Animation Presets",
    :params "{category?}",
-   :source "crates/engine/src/commands/anim_presets.rs"}
+   :source "crates/engine/src/cmd/anim_presets.rs"}
   {:id "anim.clearRecentPresets",
    :label "Clear Recent Presets",
    :params "{}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "anim.reveal",
    :label "Reveal Properties",
    :params "{kind: keyframes|animation|modified}",
-   :source "crates/engine/src/commands/animation.rs"}
+   :source "crates/engine/src/cmd/animation.rs"}
   {:id "anim.savePreset",
    :label "Save Animation Preset...",
    :params
-   "{path (.ecpreset), name?} — saves the selected properties/effects",
-   :source "crates/engine/src/commands/animation.rs"}
+   "{path (.ecpreset), name?} — saves the selected properties/effects; a text animator with a selected property is saved whole",
+   :source "crates/engine/src/cmd/animation.rs"}
   {:id "app.capabilities",
    :label "App Capabilities",
    :params
    "{} → version, command/effect counts, export formats, parity summary",
-   :source "crates/engine/src/commands/query.rs"}
+   :source "crates/engine/src/cmd/query.rs"}
   {:id "camera.analyze",
    :label "Analyze",
    :params
    "{layer?, effect?: uid|name|index, wait?: block until done}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.cancel",
    :label "Cancel",
    :params "{}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.create",
    :label "Create Camera",
    :params "{layer?, effect?}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.createFromSolve",
    :label "Create from Camera Solve",
    :params
    "{kind: text|solid|null|shadowCatcher|camera, points?: [id] (default: selected), target?: {center, normal, size?} (comp world), multiple?, layer?, effect?}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.deletePoints",
    :label "Delete Selected Points",
    :params
    "{points?: [id] (default: selected), layer?, effect?, wait?}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.dolly",
    :label "Dolly Camera",
    :params "{amount (px, + = forward), layer?, merge?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
+  {:id "camera.exportBlender",
+   :label "Export Scene to Blender...",
+   :params
+   "{path: .py, comp?, layer?, effect?, sensorWidth?: mm (default 36), unitScale?: Blender units per comp pixel (default 0.01), startFrame?: positive integer (default 1), includePoints?: true}",
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.fromModel",
    :label "Create Cameras from 3D Model",
    :params "{comp?, layers?: 3D model layers (default selected)}",
-   :source "crates/engine/src/commands/rig3d.rs"}
+   :source "crates/engine/src/cmd/rig3d.rs"}
   {:id "camera.fromView",
    :label "Create Camera from 3D View",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "camera.linkFocusToLayer",
    :label "Link Focus Distance to Layer",
    :params "{comp?, camera?, layer?}",
-   :source "crates/engine/src/commands/focus.rs"}
+   :source "crates/engine/src/cmd/focus.rs"}
   {:id "camera.linkFocusToPoi",
    :label "Link Focus Distance to Point of Interest",
    :params "{comp?, camera?}",
-   :source "crates/engine/src/commands/focus.rs"}
+   :source "crates/engine/src/cmd/focus.rs"}
   {:id "camera.orbit",
    :label "Orbit Camera",
    :params
    "{yaw|dx deg, pitch|dy deg, layer?, merge?} — current 3D view (camera layer in Active Camera)",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "camera.orbitNull",
    :label "Create Orbit Null",
    :params "{comp?, layer?: camera (default selected/active)}",
-   :source "crates/engine/src/commands/rig3d.rs"}
+   :source "crates/engine/src/cmd/rig3d.rs"}
   {:id "camera.pan",
    :label "Pan Camera",
    :params "{dx, dy (comp px), layer?, merge?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "camera.points",
    :label "3D Camera Tracker Points",
    :params
    "{layer?, effect?, time?: comp seconds} → visible solved points",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.selectPoints",
    :label "Select Track Points",
    :params "{points: [id], add?, toggle?}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.setFocusToLayer",
    :label "Set Focus Distance to Layer",
    :params "{comp?, camera?, layer?}",
-   :source "crates/engine/src/commands/focus.rs"}
+   :source "crates/engine/src/cmd/focus.rs"}
   {:id "camera.setGroundPlane",
    :label "Set Ground Plane and Origin",
    :params "{points?: [id] (default: selected), layer?, effect?}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.solveStatus",
    :label "3D Camera Tracker Status",
    :params "{layer?, effect?}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "camera.stereoRig",
    :label "Create Stereo 3D Rig",
    :params
    "{comp?, configuration?: stereoPair|centerRight|centerLeft, sceneDepth? (% of comp width, default 3), convergence?: bool, convergenceOf?: poi|zoom, zOffset?, view3d?: 3D Glasses view index (default 5 Balanced Colored Red Blue)}",
-   :source "crates/engine/src/commands/rig3d.rs"}
+   :source "crates/engine/src/cmd/rig3d.rs"}
   {:id "command.describe",
    :label "Describe Command",
    :params
    "{command} → id, label, menu, shortcut, params doc, JSON `schema`, enabled",
-   :source "crates/engine/src/commands/query.rs"}
+   :source "crates/engine/src/cmd/query.rs"}
   {:id "command.list",
    :label "List Commands",
    :params
    "{filter?, enabledOnly?, schemas? (add each command's params JSON Schema)}",
-   :source "crates/engine/src/commands/query.rs"}
+   :source "crates/engine/src/cmd/query.rs"}
   {:id "comp.activateRecent",
    :label "Activate Most Recent Composition in Hierarchy",
    :params "{comp?}",
-   :source "crates/engine/src/commands/nav_more.rs"}
+   :source "crates/engine/src/cmd/nav_more.rs"}
   {:id "comp.addMarker",
    :label "Add Marker",
    :params "{time?, comment?}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.close",
    :label "Close Composition",
    :params "{comp?}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.copyFrame",
    :label "Copy Frame to Clipboard",
    :params "{comp?, time?, scale?}",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   :source "crates/engine/src/cmd/comp_more.rs"}
   {:id "comp.cropToLayerBounds",
    :label "Crop Comp to Selected Layer(s) Bounds",
    :params "{layers?}",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   :source "crates/engine/src/cmd/comp_more.rs"}
   {:id "comp.cropToRegionOfInterest",
    :label "Crop Comp to Region of Interest",
    :params "{comp?}",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   :source "crates/engine/src/cmd/comp_more.rs"}
+  {:id "comp.deleteAllMarkers",
+   :label "Delete All Markers",
+   :params "{comp?}",
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.deletePreset",
    :label "Delete Composition Preset",
    :params "{name}",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   :source "crates/engine/src/cmd/comp_more.rs"}
   {:id "comp.info",
    :label "Composition Info",
    :params "{comp?}",
-   :source "crates/engine/src/commands/query.rs"}
+   :source "crates/engine/src/cmd/query.rs"}
   {:id "comp.new",
    :label "New Composition...",
    :params
    "{name?, width?, height?, frameRate?, duration? (s), startTime? (s) | startTimecode?, background? [r,g,b]|#hex, pixelAspect?, shutterAngle?, shutterPhase?, motionBlurSamples?, adaptiveSampleLimit? (16–256), preserveFrameRate?: bool, preserveResolution?: bool, renderer?: classic3D|advanced3D, anchor?, open?}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.open",
    :label "Open Composition",
    :params "{comp: id|name}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.openInEssentialGraphics",
    :label "Open in Essential Graphics",
    :params
    "{comp?} → makes it the Essential Graphics panel's Primary composition and shows the panel",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "comp.presets",
    :label "Composition Presets",
    :params "{}",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   :source "crates/engine/src/cmd/comp_more.rs"}
   {:id "comp.renderer",
    :label "Renderer",
    :params "{renderer?: advanced3d|classic3d (omit to read), value?}",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "comp.responsiveTime",
    :label "Responsive Design — Time",
    :params "{op: intro|outro|workArea}",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   :source "crates/engine/src/cmd/comp_more.rs"}
   {:id "comp.revealInProject",
    :label "Reveal Composition in Project",
    :params "{comp?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "comp.saveFrameAs",
    :label "File...",
    :params
-   "{path (.png; with queue: an output path or template), time?, scale?, queue?: bool (add a Render Queue item from the Frame Default templates instead of writing now)}",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   "{path (.png; with queue: an output path or template), time?, scale?, queue?: bool (add a Render Queue item from the Frame Default templates instead of writing now), transparent?: bool (default true)}",
+   :source "crates/engine/src/cmd/comp_more.rs"}
   {:id "comp.saveFrameAsExr",
    :label "ProEXR...",
    :params
    "{path (.exr), comp?, time?, scale?} → a multi-layer OpenEXR: composite R,G,B,A + `<layer>.R/G/B/A` per layer (linear, premultiplied)",
-   :source "crates/engine/src/commands/frame_export.rs"}
+   :source "crates/engine/src/cmd/frame_export.rs"}
   {:id "comp.saveFrameAsPsd",
    :label "Photoshop Layers...",
    :params
    "{path (.psd), comp?, time?, scale?} → a layered PSD: one layer per visible comp layer (blend mode, opacity) + the merged frame",
-   :source "crates/engine/src/commands/frame_export.rs"}
+   :source "crates/engine/src/cmd/frame_export.rs"}
   {:id "comp.savePreset",
    :label "Save Composition Preset",
    :params
    "{name, width, height, pixelAspect, frameRate} (replaces a saved preset with the same name)",
-   :source "crates/engine/src/commands/comp_more.rs"}
+   :source "crates/engine/src/cmd/comp_more.rs"}
+  {:id "comp.scale",
+   :label "Scale Composition",
+   :params
+   "{comp?, factor? (2 = twice the size) | width? | height? (the other side keeps the aspect ratio)}",
+   :source "crates/engine/src/cmd/comp_more.rs"}
   {:id "comp.setPosterTime",
    :label "Set Poster Time",
    :params "{}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.setSwitch",
    :label "Composition Switch",
    :params
    "{switch: hideShy|motionBlur|frameBlending|draft3d, value?}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.settings",
    :label "Composition Settings...",
    :params
    "{comp?, name?, width?, height?, anchor? 0-8 (resize anchor, 4 = center), frameRate?, duration?, startTime? (s) | startTimecode?, background?, shutterAngle?, shutterPhase?, motionBlurSamples?, adaptiveSampleLimit? (16–256), preserveFrameRate?: bool (nested or in the render queue it shows only its own frames), preserveResolution?: bool (nested, it renders at full size), pixelAspect?, renderer?: classic3D|advanced3D}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.trimToWorkArea",
    :label "Trim Comp to Work Area",
    :params "{comp?}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.vr.createEnvironment",
    :label "Create VR Environment...",
    :params "{comp?, size?: face pixels (1024), position?: [x,y,z]}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "comp.vr.environments",
    :label "VR Environments",
    :params
    "{} → [{output, name, cubeMap, faces: [{face, comp, camera}], view: [x, y, z]}]",
-   :source "crates/engine/src/commands/vr_editor.rs"}
+   :source "crates/engine/src/cmd/vr_editor.rs"}
   {:id "comp.vr.extractCubemap",
    :label "Extract Cubemap...",
    :params "{comp?, faceSize?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "comp.vr.setView",
    :label "VR View Orientation",
    :params
    "{comp? (an environment's output / cube map / face comp), orientation?: [x, y, z] degrees, pan?, tilt?, roll?} → turns the six face cameras together",
-   :source "crates/engine/src/commands/vr_editor.rs"}
+   :source "crates/engine/src/cmd/vr_editor.rs"}
   {:id "comp.workArea",
    :label "Set Work Area",
    :params "{start?, end?, set?: begin|end (at CTI)}",
-   :source "crates/engine/src/commands/comp.rs"}
+   :source "crates/engine/src/cmd/comp.rs"}
   {:id "comp.workAreaToSelection",
    :label "Set Work Area to Selected Layers",
    :params
    "{comp?, layers? (default the selected layers; the whole composition with none)}",
-   :source "crates/engine/src/commands/nav_more.rs"}
+   :source "crates/engine/src/cmd/nav_more.rs"}
   {:id "contentFill.set",
    :label "Content-Aware Fill Settings",
    :params
    "{method?: object|surface|edgeBlend, range?: workArea|entire, alphaExpansion? (px), lightingCorrection?: none|subtle|moderate|strong, referenceLayer?: layer|null, referenceTime? (s)}",
-   :source "crates/engine/src/commands/content_fill.rs"}
+   :source "crates/engine/src/cmd/content_fill.rs"}
   {:id "edit.clear",
    :label "Clear",
    :params "{layers?}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.copy",
    :label "Copy",
    :params
    "{layers?} (keyframes, effects or shape items when they are selected)",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.copyExpressionOnly",
    :label "Copy Expression Only",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.copyWithPropertyLinks",
    :label "Copy with Property Links",
    :params
    "{layers?} (selected properties, or layers, as expressions linking to the originals)",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.copyWithRelativePropertyLinks",
    :label "Copy with Relative Property Links",
    :params "{layers?} (like Copy with Property Links, using thisComp)",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.cut",
    :label "Cut",
    :params
    "{layers?} (keyframes, effects or shape items when they are selected)",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.deselectAll",
    :label "Deselect All",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.duplicate",
    :label "Duplicate",
-   :params "{layers?} (effects or shape items when they are selected)",
-   :source "crates/engine/src/commands/edit.rs"}
+   :params
+   "{layers?, merge?} (without layers: during a text edit the edited layer, else the selected effects, shape items or text animators, else the selected layers)",
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.editOriginal",
    :label "Edit Original...",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.extractWorkArea",
    :label "Extract Work Area",
    :params "{layers?}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.history",
    :label "History",
    :params "{steps?: n (undo n steps), redo?: n}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "edit.history.goto",
    :label "Go to History State",
    :params
    "{index? (from edit.history.list) | id? | steps? (negative = back along the line)}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.label",
    :label "Label",
    :params
    "{label: Red|Yellow|Aqua|…, layers?, keys?, target?: layers}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.liftWorkArea",
    :label "Lift Work Area",
    :params "{layers?}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.paste",
    :label "Paste",
    :params
    "{} (layers, keyframes at the CTI, effects, shape items into the selected shape layers, or property links / expressions)",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.pasteReversedKeyframes",
    :label "Paste Reversed Keyframes",
    :params "{layers?, prop?|path?, time?}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.pasteSvg",
    :label "Paste SVG as Shapes",
    :params
    "{svg: SVG markup, name?, comp?} → {layer, skipped} (Edit ▸ Paste runs it for SVG on the system clipboard)",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.pasteTextFormattingOnly",
    :label "Paste Text Formatting Only",
    :params
    "{layer?} (the copied text's formatting on the selected text or text layers)",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "edit.pasteTextMatchFormatting",
    :label "Paste Text and Match Formatting",
    :params "{text?} (the clipboard's text in the style at the caret)",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "edit.purge",
    :label "Purge",
    :params "{what?: all|memoryAndDisk|memory|disk|3d|image|snapshot}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.purgeUndo",
    :label "Undo",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.redo",
    :label "Redo",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.selectAll",
    :label "Select All",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.selectLabelGroup",
    :label "Select Label Group",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.splitLayer",
    :label "Split Layer",
    :params "{layers?}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "edit.undo",
    :label "Undo",
    :params "{}",
-   :source "crates/engine/src/commands/edit.rs"}
+   :source "crates/engine/src/cmd/edit.rs"}
   {:id "editor.state",
    :label "Editor State",
    :params "{}",
-   :source "crates/engine/src/commands/query.rs"}
+   :source "crates/engine/src/cmd/query.rs"}
   {:id "effect.apply",
    :label "Apply Effect",
    :params "{effect: id|name (e.g. Gaussian Blur), layers?}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.applyLast",
    :label "Last Effect",
    :params "{layers?}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.copy",
    :label "Copy Effects",
    :params
    "{layer?, effect? | effects?: [uid|name|index]} (default: the selected effects)",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.duplicate",
    :label "Duplicate Effect",
    :params "{layer?, effect}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.editDropdown",
    :label "Edit Dropdown Menu",
    :params "{layer, path?|prop?, items: [string]}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
+  {:id "effect.helpers.load",
+   :label "Load Plug-ins Through Helper...",
+   :params
+   "{path (a file or folder an installed helper accepts, e.g. a folder of .ofx plug-ins for an OpenFX helper; the menu asks for a folder)} → {loaded: [{id, name, category, helper}], errors}",
+   :source "crates/engine/src/cmd/effect.rs"}
+  {:id "effect.helpers.scan",
+   :label "Scan for Effect Helpers",
+   :params
+   "{retry?} → {paths, helpers, loaded, errors}: starts the effect helpers installed in helpers/ next to the app, helpers/ in the settings folder and EFFECTCRAFT_HELPER_PATH, and adds their effects; retry turns effects that kept stopping their helper back on",
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.paste",
    :label "Paste Effects",
    :params "{layers?} — adds the copied effects to the layers",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.pickColor",
    :label "Pick Effect Colour",
    :params
    "{layer?, effect?: index|uid|name, param: id (e.g. screenColour) | prop: uid, x, y (effect space), average?: bool (5×5), time?} — the colour of the effect's input there",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
+  {:id "effect.pickCryptomatte",
+   :label "Pick Cryptomatte",
+   :params
+   "{layer?, effect?: index|uid|name, x, y (effect space), mode?: replace|add|remove (default replace), scale? (preview resolution, default 1), time?, probeOnly?} → {name, hash, layer, selection, changed, selected} | {pending} — edits the Cryptomatte effect's Selection with the ID under the point",
+   :source "crates/engine/src/cmd/effect.rs"}
+  {:id "effect.plugins.install",
+   :label "Install Effect Plug-in...",
+   :params
+   "{path (.wasm plug-in: copied into the Plug-ins folder and loaded on every start) | folder (a plug-in bundle: every .wasm goes into the Plug-ins folder and every .jsx becomes a ScriptUI panel), bundle? (the menu: ask for a folder)}",
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.plugins.load",
    :label "Load Effect Plug-in...",
    :params
-   "{path (.wasm / .wat plug-in, API v1) | folder (loads every .wasm in it)}",
-   :source "crates/engine/src/commands/effect.rs"}
+   "{path (.wasm / .wat plug-in, WebAssembly ABI 1 or 2) | folder (loads every .wasm in it)}",
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.remove",
    :label "Remove Effect",
    :params "{layer?, effect: index|uid|name}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.removeAll",
    :label "Remove All",
    :params "{layers?}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.reorder",
    :label "Reorder Effect",
    :params "{layer?, effect, index}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.reset",
    :label "Reset Effect",
    :params "{layer?, effect}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.setLabel",
    :label "Effect Label",
    :params "{layer?, effect, label: name|index 0-16 (None clears)}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.swapTintColors",
    :label "Swap Tint Colors",
    :params
    "{comp?, layer?, effect?: index|uid|name} — swaps Tint's Map Black To and Map White To at the current layer time in one undo step",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "effect.toggle",
    :label "Toggle Effect",
    :params "{layer?, effect, value?}",
-   :source "crates/engine/src/commands/effect.rs"}
+   :source "crates/engine/src/cmd/effect.rs"}
   {:id "essential.addComment",
    :label "Add Comment",
    :params "{comp?, text?, group?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.addGroup",
    :label "Add Group",
    :params "{comp?, name?, index?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.addMedia",
    :label "Add Media Replacement",
    :params "{layer, name?, group?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.addMirror",
    :label "Add Mirror",
    :params "{comp?, control, name?, group?, index?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.addProperty",
    :label "Add Property to Essential Graphics",
    :params
    "{comp?, layer?, path?|prop?: uid (default: the selected properties), name?, group?: control id, index?, as?: font (Source Text font family/style/size) | scale (uniform Scale), mirror?: bool (a property already present is added as a mirror; default true)}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.canAdd",
    :label "Can Add Property to Essential Graphics",
    :params "{layer, path|prop, as?} → {ok, type?, reason?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.exportTemplate",
    :label "Essential Graphics Template...",
    :params "{comp?, path (.ectemplate), name?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.importTemplate",
    :label "Essential Graphics Template...",
    :params "{path (.ectemplate), comp?, addToComp?: bool}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.instance",
    :label "Essential Properties of a precomp layer",
    :params "{layer}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.linkProperty",
    :label "Link Property to Control",
    :params
    "{comp?, control, layer?, path?|prop? (default: the selected property)}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.list",
    :label "Essential Graphics controls",
    :params "{comp?, supported?: bool}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.move",
    :label "Move Control",
    :params "{comp?, control, group?: id (null = top level), index?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.pushToComp",
    :label "Push Override Values to Source",
    :params "{layer, control? (default: all overridden)}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.remove",
    :label "Remove Control",
    :params "{comp?, control}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.rename",
    :label "Rename Control",
    :params "{comp?, control, name}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.revert",
    :label "Revert",
    :params "{layer, control? (default: all overridden)}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.set",
    :label "Set Essential Property",
    :params "{layer, control: id|name, value | item (media)}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.setName",
    :label "Essential Graphics Name",
    :params "{comp?, name}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.setPrimary",
    :label "Primary Composition",
    :params "{comp}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.soloSupported",
    :label "Solo Supported Properties",
    :params "{on?}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.templateInfo",
    :label "Read a template's manifest",
    :params "{path}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "essential.unlinkProperty",
    :label "Unlink Property",
    :params
    "{comp?, control, layer?, path?|prop? (default: the selected property)}",
-   :source "crates/engine/src/commands/essential.rs"}
+   :source "crates/engine/src/cmd/essential.rs"}
   {:id "expr.errors",
    :label "Expression errors (the error bar)",
    :params "{comp?, time? (s)}",
-   :source "crates/engine/src/commands/expr_tools.rs"}
+   :source "crates/engine/src/cmd/expr_tools.rs"}
   {:id "expr.languageMenu",
    :label "Expression Language menu",
    :params "{}",
-   :source "crates/engine/src/commands/expr_tools.rs"}
+   :source "crates/engine/src/cmd/expr_tools.rs"}
   {:id "face.model.download",
    :label "Download Face Tracking Model",
    :params
    "{id, wait?} — the official model, verified (desktop; uses the system curl)",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "face.model.install",
    :label "Install Face Tracking Model",
    :params
    "{path: model file, id?, wait?} — verified against the registry's SHA-256",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "face.model.remove",
    :label "Remove Face Tracking Model",
    :params "{id}",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "face.model.select",
    :label "Use Face Tracking Model",
    :params
    "{id: classical|mediapipe-face, wait?} (face tracking uses it; wait: loaded before returning)",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "face.models",
    :label "Face Tracking Models",
    :params "{}",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "file.applyInterpretation",
    :label "Apply Interpretation",
-   :params "{items?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :params "{items?|item?}",
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.autoSave",
    :label "Auto-Save Now",
    :params "{}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
+  {:id "file.checkOutput",
+   :label "Check Output File",
+   :params
+   "{path} → {path, blocked, source?: footage|proxy|project, reason?}: whether an export may be written to path (it may not replace a file the project reads)",
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.clearRecent",
    :label "Clear Recent Projects",
    :params "{}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "file.clearRecentFootage",
    :label "Clear Recent Footage",
    :params "{}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "file.close",
    :label "Close",
    :params "{comp?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.closeProject",
    :label "Close Project",
    :params "{}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.collectFiles",
    :label "Collect Files...",
    :params "{folder}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.consolidateFootage",
    :label "Consolidate All Footage",
    :params "{}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.createProxy",
    :label "Create Proxy",
    :params
    "{kind: still|movie, comp?|item?, path?|output? (template), resolution? (default 0.5)}",
-   :source "crates/engine/src/commands/proxy.rs"}
+   :source "crates/engine/src/cmd/proxy.rs"}
   {:id "file.cycleBitDepth",
    :label "Cycle Project Bit Depth",
    :params "{}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.executeFile",
    :label "Execute File",
    :params "{path, confirmed?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
+  {:id "file.exportAep",
+   :label "Adobe After Effects Project...",
+   :params
+   "{path (.aep), allowLosses?: bool (export although parts cannot be exported), dryRun?: bool (only return the report)}",
+   :source "crates/engine/src/cmd/aep.rs"}
   {:id "file.exportLottie",
    :label "Lottie JSON...",
    :params
    "{comp?, path (.json or .lottie), includeExpressions?: bool, textAsShapes?: bool}",
-   :source "crates/engine/src/commands/lottie.rs"}
+   :source "crates/engine/src/cmd/lottie.rs"}
   {:id "file.exportTimeline",
    :label "Adobe Premiere Pro Project...",
    :params
-   "{comp?, path (Final Cut Pro XML .xml for Premiere Pro or .fcpxml .otio .edl .aaf .omf), format?: xml|fcpxml|otio|edl|aaf|omf, prerender?: none|unsupported|all, precomps?: nest|prerender}",
-   :source "crates/engine/src/commands/timeline.rs"}
+   "{comp?, path (Final Cut Pro XML .xml for Premiere Pro or .fcpxml .otio .edl .aaf .omf), format?: xml|fcpxml|otio|edl|aaf|omf, prerender?: none|unsupported|all, precomps?: nest|prerender, background?: bool (pre-render and write as a job, jobs.list / jobs.wait; returns {job})}",
+   :source "crates/engine/src/cmd/timeline.rs"}
   {:id "file.findMissing",
    :label "Find Missing",
    :params "{what: footage|effects|fonts}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.import",
    :label "File...",
    :params
-   "{paths: [string] (files or folders), sequence?: bool (the Sequence checkbox: true imports numbered stills of one run as one image sequence, one picked file bringing its whole run and several picked files that range; default: a numbered still brings its run, except dropped files (drag), which import as stills as in After Effects; folders' runs import as sequences; false imports stills and a folder's files individually), alphabetical?: bool (Force Alphabetical Order: every image of that type in the folder, by name), frameRate?: fps (image sequences; default Settings ▸ Import ▸ Sequence Footage), importAs?: footage|composition|compositionLayerSizes (Photoshop, PDF, Illustrator and EPS files), layer?: name|index (footage of one Photoshop layer), page?: number from 1 (PDF / Illustrator page), drag?: bool (dropped files: Settings ▸ Import ▸ Default Drag Import As; files import as stills unless sequence), addToComp?: bool (also add them to the active comp, at time?, index?, position? as in layer.addItem), background?: bool (probe the files in a background job, jobs.list / jobs.wait; returns {job})}",
-   :source "crates/engine/src/commands/file.rs"}
+   "{paths: [string] (files or folders), sequence?: bool (the Sequence checkbox: true imports numbered stills of one run as one image sequence, one picked file bringing its whole run and several picked files that range; default false: picked or dropped files import as stills, as in After Effects; folders' runs import as sequences; false imports stills and a folder's files individually), alphabetical?: bool (Force Alphabetical Order: every image of that type in the folder, by name), frameRate?: fps (image sequences; default Settings ▸ Import ▸ Sequence Footage), importAs?: footage|composition|compositionLayerSizes (Photoshop, PDF, Illustrator and EPS files), layer?: name|index (footage of one Photoshop layer), page?: number from 1 (PDF / Illustrator page), drag?: bool (dropped files: Settings ▸ Import ▸ Default Drag Import As; files import as stills unless sequence), addToComp?: bool (also add them to the active comp, at time?, index?, position? as in layer.addItem), newComp?: bool (make one new composition of the footage and solids imported, as file.newCompFromSelection with single; a layered file imported as a composition is that composition and gets no other; takes precedence over addToComp), background?: bool (probe the files in a background job, jobs.list / jobs.wait; returns {job})}",
+   :source "crates/engine/src/cmd/file.rs"}
+  {:id "file.importAep",
+   :label "Adobe After Effects Project...",
+   :params
+   "{path (.aep or .aepx), allowLosses?: bool (import although parts cannot be imported), dryRun?: bool (only return the report), applySettings?: bool (take over the file's project settings; default: when the project has no compositions)}",
+   :source "crates/engine/src/cmd/aep.rs"}
   {:id "file.importLottie",
    :label "Lottie...",
    :params "{path (.json or .lottie)}",
-   :source "crates/engine/src/commands/lottie.rs"}
+   :source "crates/engine/src/cmd/lottie.rs"}
   {:id "file.importMultiple",
    :label "Multiple Files...",
    :params "{paths: [string]}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.importPlaceholder",
    :label "Placeholder...",
    :params "{name?, width?, height?, frameRate?, duration? (s)}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.importProject",
    :label "EffectCraft Project...",
    :params
    "{path (.ecproj or .ecprojx)} — merges the project into a folder named after the file; returns {folder, items, comps, rootComps, primaryComp (the only root comp, else null), missingMedia, warnings}",
-   :source "crates/engine/src/commands/import_project.rs"}
+   :source "crates/engine/src/cmd/import_project.rs"}
   {:id "file.importRecent",
    :label "Import Recent Footage",
    :params "{index? | path?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "file.importSolid",
    :label "Solid...",
    :params "{name?, color?, width?, height?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.importTimeline",
    :label "Adobe Premiere Pro Project...",
    :params
    "{path (.xml Final Cut Pro XML from Premiere Pro or .fcpxml .otio .edl .aaf .omf), format?: auto|xml|fcpxml|otio|edl|aaf|omf, edlFrameRate?: number}",
-   :source "crates/engine/src/commands/timeline.rs"}
+   :source "crates/engine/src/cmd/timeline.rs"}
   {:id "file.importVanishingPoint",
    :label "Vanishing Point (.vpe)...",
    :params "{} (always disabled: undocumented format)",
-   :source "crates/engine/src/commands/vpe.rs"}
+   :source "crates/engine/src/cmd/vpe.rs"}
   {:id "file.incrementAndSave",
    :label "Increment and Save",
    :params "{}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.installScript",
    :label "Install Script File...",
    :params
    "{path (.jsx / .js)} → copies it to the Scripts folder; it appears in File ▸ Scripts",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "file.installScriptUIPanel",
    :label "Install ScriptUI Panel...",
    :params
    "{path (.jsx / .js)} → copies it to the ScriptUI Panels folder; it appears in the Window menu",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "file.interpretFootage",
    :label "Main...",
    :params
-   "{items?, frameRate?: fps|\"file\", alpha?: straight|premultiplied|ignore|guess, guessAlpha?, matteColor?, invertAlpha?, loop?, pixelAspect?, fields?: off|upper|lower, colorProfile?: srgb|rec709|rec2020|p3|auto, linearLight?, preserveRgb? (the file's values unconverted), overrideStart?: bool (false: Use Source File Timecode), startTimecode?: timecode|frame (Override Start)}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   "{items?|item?, frameRate?: fps|\"file\", alpha?: straight|premultiplied|ignore|guess, guessAlpha?, matteColor?|premulColor?, invertAlpha?, loop?, pixelAspect?, fields?: off|upper|lower, colorProfile?: srgb|rec709|rec2020|p3|auto, linearLight?, preserveRgb? (the file's values unconverted), overrideStart?: bool (false: Use Source File Timecode), startTimecode?: timecode|frame (Override Start), logConversion? (Cineon Settings of DPX and Cineon files), cineonUnits?: 10bit|8bit|float, convertedBlack?, convertedWhite?, pointUnits?: 10bit|8bit|float (the units of convertedBlack and convertedWhite; default cineonUnits, else the footage's Units), tenBitBlack?, tenBitWhite? (0..1023), currentGamma? (0.1..10), highlightRolloff? (0..100)}",
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.interpretProxy",
    :label "Proxy...",
    :params
-   "{items?|item?, alpha?, matteColor?, invertAlpha?, frameRate?, loop?, pixelAspect?, fields?, colorProfile?, linearLight?}",
-   :source "crates/engine/src/commands/proxy.rs"}
+   "{items?|item?, alpha?, guessAlpha?, matteColor?|premulColor?, invertAlpha?, frameRate?, loop?, pixelAspect?, fields?, colorProfile?, linearLight?, preserveRgb?, overrideStart?, startTimecode? (as file.interpretFootage), logConversion?, cineonUnits?, convertedBlack?, convertedWhite?, pointUnits?, tenBitBlack?, tenBitWhite?, currentGamma?, highlightRolloff? (Cineon Settings of DPX and Cineon proxies)}",
+   :source "crates/engine/src/cmd/proxy.rs"}
   {:id "file.newCompFromSelection",
    :label "New Comp from Selection...",
    :params
    "{duration? (s, for stills), single?: bool (one comp for all), dimensionsFrom?: index, sequence?: bool, overlap?: bool, overlapDuration? (s), transition?: off|dissolveFront|crossDissolve, addToRenderQueue?: bool} → {comps}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.newFromTemplate",
    :label "New Project from Template...",
    :params "{} → the Home screen's Templates tab",
-   :source "crates/engine/src/templates.rs"}
+   :source "crates/engine/src/home/templates.rs"}
   {:id "file.newProject",
    :label "New Project",
    :params "{}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.open",
    :label "Open Project...",
    :params "{path}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.openDemoProject",
    :label "Open Demo Project",
    :params "{}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.openRecent",
    :label "Open Recent",
    :params "{index? | path?}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "file.projectSettings",
    :label "Project Settings...",
    :params
-   "{bitDepth?: 8|16|32, colorEngine?: adobe|ocio, workingSpace?: none|srgb|rec709|rec2020|p3|acescg|aces2065, workingGamma?: 2.2|2.4 (with no working space), linearize?, blendLinear?, hdr?: clip|compand|toneMap, outputSpace?: srgb|rec709|rec2020|p3|rec2100pq|rec2100hlg, renderer?: gpu|software, timeDisplay?: timecode|frames|feet35|feet16}",
-   :source "crates/engine/src/commands/file.rs"}
+   "{bitDepth?: 8|16|32, colorEngine?: adobe|ocio, workingSpace?: none|srgb|rec709|rec2020|p3|acescg|aces2065, workingGamma?: 2.2|2.4 (with no working space), linearize?, blendLinear?, hdr?: clip|compand|toneMap, outputSpace?: srgb|rec709|rec2020|p3|rec2100pq|rec2100hlg, renderer?: gpu|software, timeDisplay?: timecode|frames|feet35|feet16, frameStart?: 0|1 (Frame Count: Start at 0 / Start at 1)}",
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.recoveryInfo",
    :label "Auto-Save Status",
    :params "{}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "file.reduceProject",
    :label "Reduce Project",
    :params "{} (keeps the selected comps and what they use)",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.relinkFootage",
    :label "Relink Missing Footage...",
    :params
    "{folder: string (recursive desktop search, no symlinks; max 100000 entries), dryRun?: bool (report only), wait?: bool (return results inline; otherwise jobs.list/jobs.wait)} — relinks only unique exact filenames with compatible metadata; preserves interpretation and sequence ranges. Reports high/low confidence and ambiguous, incompatible, unsupported or notFound items.",
-   :source "crates/engine/src/commands/relink.rs"}
+   :source "crates/engine/src/cmd/relink.rs"}
   {:id "file.reloadFootage",
    :label "Reload Footage",
-   :params "{items?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :params "{items?|item?}",
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.rememberInterpretation",
    :label "Remember Interpretation",
    :params "{item?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.removeUnusedFootage",
    :label "Remove Unused Footage",
    :params "{}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.replaceFootage",
    :label "File...",
    :params
-   "{path, item?, sequence?: bool (default true: a numbered still brings its image sequence), alphabetical?: bool}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   "{path, item?, sequence?: bool (a numbered still brings its image sequence; default: the item keeps its kind, so a still stays a still and a sequence stays a sequence), alphabetical?: bool}",
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.replaceWithLayeredComp",
    :label "With Layered Comp",
    :params "{item?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "file.replaceWithPlaceholder",
    :label "Placeholder...",
    :params "{item?, width?, height?, frameRate?, duration?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.replaceWithPrecomp",
    :label "Replace with Precomposition",
    :params "{item?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "file.replaceWithSolid",
    :label "Solid...",
    :params "{item?, color?, width?, height?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.revealInFinder",
    :label "Reveal in Finder",
    :params "{item?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.revert",
    :label "Revert",
    :params "{}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.runScript",
    :label "Run Script File...",
    :params
-   "{path (.jsx/.js JavaScript, or a .jsonl/.json command script) | name (an installed or sample script, see file.scripts.list) | steps: [{command, params}]}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   "{path (.jsx/.js JavaScript, or a .jsonl/.json command script) | name (an installed or sample script, see file.scripts.list) | recent: index (File ▸ Scripts ▸ Recent Script Files, 0 = the most recent) | steps: [{command, params}]}",
+   :source "crates/engine/src/cmd/file_more.rs"}
+  {:id "file.runShutdownScripts",
+   :label "Run Shutdown Scripts",
+   :params
+   "{} → closes the project, then runs the scripts in Scripts/Shutdown in alphabetical order (frontends call it as the app quits; their modal dialogs close as if canceled) → {ran: [name], waiting: [name], failed: [{name, error}]}",
+   :source "crates/engine/src/cmd/scripts.rs"}
+  {:id "file.runStartupScripts",
+   :label "Run Startup Scripts",
+   :params
+   "{} → runs the scripts in Scripts/Startup in alphabetical order (frontends call it at launch) → {ran: [name], waiting: [name] (in a modal dialog), failed: [{name, error}]}",
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "file.save",
    :label "Save",
    :params "{path?}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.saveAs",
    :label "Save As...",
    :params "{path}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "file.saveCopy",
    :label "Save a Copy...",
    :params "{path}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "file.saveCopyAsXml",
    :label "Save a Copy As XML...",
    :params "{path: .ecprojx}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "file.setProxy",
    :label "File...",
    :params "{path, items?|item?}",
-   :source "crates/engine/src/commands/proxy.rs"}
+   :source "crates/engine/src/cmd/proxy.rs"}
   {:id "file.setProxyNone",
    :label "None",
    :params "{items?|item?}",
-   :source "crates/engine/src/commands/proxy.rs"}
+   :source "crates/engine/src/cmd/proxy.rs"}
   {:id "file.timelineFormats",
    :label "Timeline Interchange Formats",
    :params "{}",
-   :source "crates/engine/src/commands/timeline.rs"}
+   :source "crates/engine/src/cmd/timeline.rs"}
   {:id "file.uninstallScript",
    :label "Uninstall Script",
-   :params "{name}",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :params
+   "{name (a script at the top of a Scripts folder, not `Folder/File.jsx`)}",
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "file.useProxy",
    :label "Use Proxy",
    :params "{items?|item?, on?}",
-   :source "crates/engine/src/commands/proxy.rs"}
+   :source "crates/engine/src/cmd/proxy.rs"}
   {:id "file.watchFolder",
    :label "Watch Folder...",
    :params
    "{folder, stop?: bool} → watches the folder for .ecproj files with queued renders, renders them and writes `<project>.status.json`",
-   :source "crates/engine/src/commands/watch_folder.rs"}
+   :source "crates/engine/src/cmd/watch_folder.rs"}
   {:id "file.watchFolder.poll",
    :label "Poll Watch Folder",
    :params
    "{folder? (default: the watched one)} → renders new projects now: {watching, rendered: [{project, state: done|failed, items: [{comp, status, output}]}]}",
-   :source "crates/engine/src/commands/watch_folder.rs"}
+   :source "crates/engine/src/cmd/watch_folder.rs"}
   {:id "footage.check",
    :label "Check Footage",
    :params
    "{items?: [id], wait?} — look for every footage file (in the background unless `wait`) and flag missing items",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "footage.clearInOut",
    :label "Clear In and Out",
    :params "{}",
-   :source "crates/engine/src/commands/footage_panel.rs"}
+   :source "crates/engine/src/cmd/footage_panel.rs"}
   {:id "footage.open",
    :label "Open in Footage Panel",
    :params "{item: id|name}",
-   :source "crates/engine/src/commands/footage_panel.rs"}
+   :source "crates/engine/src/cmd/footage_panel.rs"}
   {:id "footage.overlayEdit",
    :label "Overlay Edit",
    :params
    "{item?, comp?, in? (s), out? (s), at? (comp s; default the current time)}",
-   :source "crates/engine/src/commands/footage_panel.rs"}
+   :source "crates/engine/src/cmd/footage_panel.rs"}
   {:id "footage.relink",
    :label "Relink Footage",
    :params
    "{item, path} — point a footage item at its file's new location (keeps the interpretation) and relink the other missing files found in the same place",
-   :source "crates/engine/src/commands/relink_moved.rs"}
+   :source "crates/engine/src/cmd/relink_moved.rs"}
   {:id "footage.reloadChanged",
    :label "Reload Changed Footage",
    :params
    "{} — reload the footage whose file changed on disk since it was last seen (size or modification time; Settings ▸ Import ▸ Automatically Reload Footage runs this in the background; image sequences only with All Footage); files seen for the first time are only remembered. Returns {files, reloaded}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "footage.rippleInsertEdit",
    :label "Ripple Insert Edit",
    :params
    "{item?, comp?, in? (s), out? (s), at? (comp s; default the current time)}",
-   :source "crates/engine/src/commands/footage_panel.rs"}
+   :source "crates/engine/src/cmd/footage_panel.rs"}
   {:id "footage.setIn",
    :label "Set In Point",
    :params "{time? | frame? (default: the panel's time)}",
-   :source "crates/engine/src/commands/footage_panel.rs"}
+   :source "crates/engine/src/cmd/footage_panel.rs"}
   {:id "footage.setOut",
    :label "Set Out Point",
    :params "{time? | frame? (default: the panel's time)}",
-   :source "crates/engine/src/commands/footage_panel.rs"}
+   :source "crates/engine/src/cmd/footage_panel.rs"}
   {:id "footage.setTime",
    :label "Footage Panel Time",
    :params "{time? (s, source) | frame?}",
-   :source "crates/engine/src/commands/footage_panel.rs"}
+   :source "crates/engine/src/cmd/footage_panel.rs"}
   {:id "help.appPage",
    :label "EffectCraft Home Page",
    :params "{}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.discord",
    :label "Join the ArtCraft Discord...",
    :params "{}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.docs",
    :label "EffectCraft Help...",
    :params "{page?: help|scripting|expressions|effects|agents}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.enableLogging",
    :label "Enable Logging",
    :params "{on?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "help.github",
    :label "EffectCraft on GitHub",
    :params "{}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.inAppTutorials",
    :label "In-App Tutorials...",
    :params "{} → the Home screen's Learn tab",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.onlineTutorials",
    :label "Online Tutorials...",
    :params "{}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.reportIssue",
    :label "Provide Feedback...",
    :params "{}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.revealLogFile",
    :label "Reveal Logging File",
    :params "{}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "help.sibling",
    :label "Other ArtCraft Apps",
    :params
    "{app: photocraft|vectorcraft|filmcraft|lightcraft|pdfcraft|designcraft, kind?: page|github}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "help.systemInfo",
    :label "System Information",
    :params "{}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "help.systemReport",
    :label "System Compatibility Report...",
    :params "{quiet?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "help.website",
    :label "ArtCraft Website",
    :params "{}",
-   :source "crates/engine/src/commands/help.rs"}
+   :source "crates/engine/src/cmd/help.rs"}
   {:id "item.metadata",
    :label "Metadata",
    :params "{item?: id|name}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "jobs.cancel",
    :label "Cancel Job",
    :params
    "{job?: render|track|maskTrack|warp|camera|roto|task:<n>|all}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "jobs.list",
    :label "Background Jobs",
    :params "{}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "jobs.wait",
    :label "Wait for Background Jobs",
    :params "{}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "keys.audioToKeyframes",
    :label "Convert Audio to Keyframes",
    :params "{comp?}",
-   :source "crates/engine/src/commands/keys_more.rs"}
+   :source "crates/engine/src/cmd/keys_more.rs"}
   {:id "keys.copy",
    :label "Copy Keyframes",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.delete",
    :label "Delete Keyframes",
    :params "{}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.deselectAll",
    :label "Deselect All Keyframes and Properties",
    :params "{}",
-   :source "crates/engine/src/commands/nav_more.rs"}
+   :source "crates/engine/src/cmd/nav_more.rs"}
   {:id "keys.easyEase",
    :label "Easy Ease",
    :params "{which?: both|in|out}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.easyEaseIn",
    :label "Easy Ease In",
    :params "{}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.easyEaseOut",
    :label "Easy Ease Out",
    :params "{}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.exponentialScale",
    :label "Exponential Scale",
    :params "{} — two selected Scale keys",
-   :source "crates/engine/src/commands/animation.rs"}
+   :source "crates/engine/src/cmd/animation.rs"}
   {:id "keys.info",
    :label "Keyframe Info",
    :params "{keys?: [{layer, prop, time}]}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.interpolation",
    :label "Keyframe Interpolation...",
    :params
    "{interpolation?: linear|bezier|continuousBezier|autoBezier|hold, in?|out?: linear|bezier|hold, autoBezier?, continuous?, spatial?: linear|bezier|continuousBezier|autoBezier, roving?}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.move",
    :label "Move Keyframes",
    :params "{delta (s), merge?}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.nudge",
    :label "Nudge Keyframes",
    :params "{frames, merge?}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.nudgeBackward",
    :label "Move Keyframes 1 Frame Earlier",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.nudgeBackward10",
    :label "Move Keyframes 10 Frames Earlier",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.nudgeForward",
    :label "Move Keyframes 1 Frame Later",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.nudgeForward10",
    :label "Move Keyframes 10 Frames Later",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.paste",
    :label "Paste Keyframes",
    :params "{layers?, prop?|path?, time?}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.quickOffset",
    :label "Quick Offset Keyframes",
    :params
    "{delta (comp s: the last layer's keys' move), merge?, fromStart?: bool (with merge: delta is the whole drag)}",
-   :source "crates/engine/src/commands/quick_offset.rs"}
+   :source "crates/engine/src/cmd/quick_offset.rs"}
   {:id "keys.rpfCameraImport",
    :label "RPF Camera Import",
    :params "{path: .json|.csv camera data, comp?}",
-   :source "crates/engine/src/commands/keys_more.rs"}
+   :source "crates/engine/src/cmd/keys_more.rs"}
   {:id "keys.select",
    :label "Select Keyframes",
    :params
    "{keys: [{layer, prop: uid | path (or `path`), time (layer s by default)}], timeBase?: layer|comp, add?, toggle?: bool (Shift+click: in or out of the selection), selectProperties?: bool (their properties and layers too, as a Timeline click does)}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.selectAll",
    :label "Select All Keyframes",
    :params
    "{layers?, visible?: [{layer, prop}] (every key of these properties)}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.selectEqual",
    :label "Select Equal Keyframes",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.selectFollowing",
    :label "Select Following Keyframes",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.selectLabelGroup",
    :label "Select Keyframe Label Group",
    :params
    "{scope: selected|all|visibleSelected|visibleAll, visible?: [prop uid]}",
-   :source "crates/engine/src/commands/key_labels.rs"}
+   :source "crates/engine/src/cmd/key_labels.rs"}
   {:id "keys.selectPrevious",
    :label "Select Previous Keyframes",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.set",
    :label "Edit Keyframe",
    :params
    "{layer?, path|prop, time (layer s by default), newTime? (same base), timeBase?: layer|comp, value?, merge?}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.setEase",
    :label "Set Keyframe Ease",
    :params
    "{layer?, path|prop, time (layer s), side: in|out, dim?, speed?, influence? %, merge?}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.setLabel",
    :label "Keyframe Label",
    :params "{label: name|none|0–16}",
-   :source "crates/engine/src/commands/key_labels.rs"}
+   :source "crates/engine/src/cmd/key_labels.rs"}
+  {:id "keys.setMuted",
+   :label "Mute Keyframes",
+   :params "{muted?: bool (default true)}",
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.setSpatialTangents",
    :label "Edit Spatial Tangents",
    :params
    "{layer?, path|prop, time (layer s), in?: [dx,dy,dz?], out?, break?, merge?}",
-   :source "crates/engine/src/commands/key_transform.rs"}
+   :source "crates/engine/src/cmd/key_transform.rs"}
   {:id "keys.smooth",
    :label "Smoother",
    :params "{tolerance? (property units, 1)}",
-   :source "crates/engine/src/commands/anim_tools.rs"}
+   :source "crates/engine/src/cmd/anim_tools.rs"}
   {:id "keys.timeReverse",
    :label "Time-Reverse Keyframes",
    :params "{}",
-   :source "crates/engine/src/commands/anim.rs"}
+   :source "crates/engine/src/cmd/anim.rs"}
   {:id "keys.toggleHold",
    :label "Toggle Hold Keyframe",
    :params "{}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.toggleTransform",
    :label "Add or Remove Transform Keyframe",
    :params
    "{layers?, prop: anchor|position|scale|rotation|opacity} (Alt+Shift+A/P/S/R/T)",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.transform",
    :label "Transform Keyframes",
    :params
    "{timeScale?, timeAnchor? (comp s), timeOffset? (s), valueScale?, valueAnchor?, valueOffset?, dim? | dims?: [d…], merge?, fromStart?: bool (with merge: values are the whole transform since the drag started)}",
-   :source "crates/engine/src/commands/key_transform.rs"}
+   :source "crates/engine/src/cmd/key_transform.rs"}
   {:id "keys.velocity",
    :label "Keyframe Velocity...",
    :params
    "{inSpeed?, inInfluence? %, outSpeed?, outInfluence? % (numbers or per-dimension arrays), continuous?}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "keys.wiggle",
    :label "Wiggler",
    :params
    "{apply?: spatial|temporal, noise?: smooth|jagged, dimensions?: one|same|independent, dimension? (index for `one`), frequency? (keys/s, 5), magnitude?, seed?}",
-   :source "crates/engine/src/commands/anim_tools.rs"}
+   :source "crates/engine/src/cmd/anim_tools.rs"}
   {:id "layer.addItem",
    :label "Add Footage to Comp",
    :params
-   "{item: id|name, time? (s, the In point), index? (1-based stack position; default above the selected layer), position? ([x, y] comp px; default the centre), duration? (s, for a still)}",
-   :source "crates/engine/src/commands/layer.rs"}
+   "{item: id|name, time? (s, where the layer starts), index? (1-based stack position; default above the selected layer), position? ([x, y] comp px; default the centre), duration? (s, for a still), in? (s, the In point in comp time; default the start), out? (s, the Out point; default the end of the footage or the comp; in must be before out), anchor? ([x, y] layer px; default the centre)}",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.addMarker",
    :label "Add Marker",
    :params "{layers?, time?, comment?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.addMask",
    :label "New Mask",
    :params
-   "{layer?, shape?: rect|ellipse|rounded|polygon|star, rect? [x,y,w,h] (layer space; a polygon or star fits its width), mode?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   "{layer?, shape?: rect|ellipse|rounded|polygon|star, rect? [x,y,w,h] (layer space; a polygon or star fits its width), roundness? (a rounded rectangle's corner radius in px; default 20), mode?}",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.addShapeItem",
    :label "Add (Shape)",
    :params
-   "{layer?, kind: group|rect|ellipse|star|polygon|path|fill|stroke|gfill|gstroke|trim|repeater|round|offset|pucker|twist|zigzag|wiggle|merge|frontColor|bevelColor|sideColor|backColor, group?: uid|path} → {uid, path} (frontColor…backColor: the group's Front / Bevel / Side / Back item, which colours that surface of every extruded paint in the group in Advanced 3D)",
-   :source "crates/engine/src/commands/layer.rs"}
+   "{layer?, kind: group|rect|ellipse|star|polygon|path|fill|stroke|gfill|gstroke|trim|repeater|round|offset|pucker|twist|zigzag|wiggle|wiggler|merge|frontColor|bevelColor|sideColor|backColor, group?: uid|path} → {uid, path} (frontColor…backColor: the group's Front / Bevel / Side / Back item, which colours that surface of every extruded paint in the group in Advanced 3D)",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.addTextAnimator",
    :label "Animate Text",
    :params
    "{layer?, properties: [anchor|position|scale|skew|rotation|opacity|transformAll|lineAnchor|lineSpacing|characterOffset|characterValue|blur|fillColor|fillHue|fillSaturation|fillBrightness|fillOpacity|strokeColor|strokeHue|strokeSaturation|strokeBrightness|strokeOpacity|strokeWidth|tracking|frontColor|bevelColor|sideColor|backColor|perChar3d], name?}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "layer.addTextAnimatorProperty",
    :label "Add Property",
    :params
-   "{layer?, animator?: uid|index, property: (see layer.addTextAnimator)}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   "{layer?, animator?: uid|index (1-based; a uid match wins over an index), property: (see layer.addTextAnimator)}",
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "layer.addTextSelector",
    :label "Add Text Selector",
    :params
-   "{layer?, animator?: uid|index, kind: range|wiggly|expression}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   "{layer?, animator?: uid|index (1-based; a uid match wins over an index), kind: range|wiggly|expression}",
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "layer.align",
    :label "Align Layers",
    :params
    "{edge: left|hcenter|right|top|vcenter|bottom, to?: composition|selection (default composition), layers?}",
-   :source "crates/engine/src/commands/align.rs"}
+   :source "crates/engine/src/cmd/align.rs"}
   {:id "layer.alignVideoToData",
    :label "Align Video to Data",
    :params
    "{layer?, data?: data footage id|name, key?: time field, videoStart?: ISO date-time | hh:mm:ss | timecode | seconds (default: file creation time), dataStart? (comp s of the first sample, 0)}",
-   :source "crates/engine/src/commands/align_data.rs"}
+   :source "crates/engine/src/cmd/align_data.rs"}
   {:id "layer.applyTextPreset",
    :label "Apply Text Animation Preset",
    :params
    "{layer?, preset: typewriter|fadeUpCharacters|bounceInWords|trackingIn|scramble|blurIn|jitter|dropInLines}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "layer.arrange",
    :label "Arrange",
    :params
    "{layers?, to: front|forward|backward|back, index?, above?: layer}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.autoOrient",
    :label "Auto-Orient...",
    :params
    "{mode: off|alongPath|towardsCamera|towardsPointOfInterest, layers?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "layer.autoTrace",
    :label "Auto-trace...",
    :params
    "{layer?, timeSpan?: currentFrame|workArea, channel?: alpha|red|green|blue|luminance, invert?, blur? (px, 1), tolerance? (px, 1), threshold? (%, 50), minimumArea? (px, 10), cornerRoundness? (%, 50), applyToNewLayer?}",
-   :source "crates/engine/src/commands/autotrace.rs"}
+   :source "crates/engine/src/cmd/autotrace.rs"}
   {:id "layer.cameraSettings",
    :label "Camera Settings...",
    :params
    "{layer?, name?, type?, preset?, zoom?, focalLength?, angleOfView?, dof?, focusDistance?, aperture?, fStop?, blurLevel?, position?, poi?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "layer.castsShadows",
    :label "Casts Shadows",
    :params "{layers?, value?}",
-   :source "crates/engine/src/commands/nav_more.rs"}
+   :source "crates/engine/src/cmd/nav_more.rs"}
   {:id "layer.centerAnchor",
    :label "Center Anchor Point in Layer Content",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.create",
    :label "Create",
    :params
-   "{op: editableText|shapesFromText|masksFromText|shapesFromVector, layers?}",
-   :source "crates/engine/src/commands/create.rs"}
+   "{op: editableText|shapesFromText|masksFromText|shapesFromVector|instance3d, layers?}",
+   :source "crates/engine/src/cmd/create.rs"}
   {:id "layer.deleteAllMarkers",
    :label "Delete All Markers",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.distribute",
    :label "Distribute Layers",
    :params
    "{mode: left|hcenter|right|top|vcenter|bottom (edges or centres), layers?}",
-   :source "crates/engine/src/commands/align.rs"}
+   :source "crates/engine/src/cmd/align.rs"}
   {:id "layer.enablePerChar3D",
    :label "Enable Per-character 3D",
    :params "{layer?, enabled?: bool, toggle?: bool}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "layer.enableTimeRemap",
    :label "Enable Time Remapping",
    :params "{layers?, value?}",
-   :source "crates/engine/src/commands/layer_time.rs"}
+   :source "crates/engine/src/cmd/layer_time.rs"}
   {:id "layer.environment",
    :label "Environment Layer",
    :params "{layers?, on?}",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "layer.expressions",
    :label "Enable/Disable Expressions",
    :params "{layers?, enabled: bool}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.extendSelectionNext",
    :label "Extend Selection to Next Layer",
    :params "{}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.extendSelectionPrevious",
    :label "Extend Selection to Previous Layer",
    :params "{}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.frameBlending",
    :label "Frame Blending",
    :params "{layers?, mode: off|frameMix|pixelMotion}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.freezeFrame",
    :label "Freeze Frame",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_time.rs"}
+   :source "crates/engine/src/cmd/layer_time.rs"}
   {:id "layer.freezeOnLastFrame",
    :label "Freeze On Last Frame",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_time.rs"}
+   :source "crates/engine/src/cmd/layer_time.rs"}
   {:id "layer.hideOtherVideo",
    :label "Hide Other Video",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.lightSettings",
    :label "Light Settings...",
    :params
-   "{layer?, name?, kind?: Parallel|Spot|Point|Ambient|Environment, color?, intensity?, coneAngle?, coneFeather?, falloff?, radius?, falloffDistance?, castsShadows?, shadowDarkness?, shadowDiffusion?, position?, poi?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   "{layer?, name?, kind?: Parallel|Spot|Point|Ambient|Environment (changing to Environment switches a Classic 3D comp to Advanced 3D), color?, intensity?, coneAngle?, coneFeather?, falloff?, radius?, falloffDistance?, castsShadows?, shadowDarkness?, shadowDiffusion?, position?, poi?}",
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "layer.markersLock",
    :label "Lock Markers",
    :params "{layers?, value?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.featherFalloff",
    :label "Feather Falloff",
    :params "{layer?, mask?, mode: smooth|linear}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "layer.mask.hideLocked",
    :label "Hide Locked Masks",
    :params "{value?}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "layer.mask.invert",
    :label "Inverted",
    :params "{layer?, mask?, value?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.lock",
    :label "Locked",
    :params "{layer?, mask?, value?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.lockOthers",
    :label "Lock Other Masks",
    :params "{layer?, mask?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.mode",
    :label "Mask Mode",
    :params
    "{layer?, mask?, mode: None|Add|Subtract|Intersect|Lighten|Darken|Difference}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.motionBlur",
    :label "Motion Blur",
    :params "{layer?, mask?, mode: sameAsLayer|on|off}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "layer.mask.remove",
    :label "Remove Mask",
    :params "{layer?, mask?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.removeAll",
    :label "Remove All Masks",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.reset",
    :label "Reset Mask",
    :params "{layer?, mask?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.selectNext",
    :label "Select Next Mask",
    :params "{layer?}",
-   :source "crates/engine/src/commands/nav_more.rs"}
+   :source "crates/engine/src/cmd/nav_more.rs"}
   {:id "layer.mask.selectPrevious",
    :label "Select Previous Mask",
    :params "{layer?}",
-   :source "crates/engine/src/commands/nav_more.rs"}
+   :source "crates/engine/src/cmd/nav_more.rs"}
   {:id "layer.mask.set",
    :label "Mask Settings",
    :params "{layer?, mask?, field: feather|opacity|expansion, value}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.shape",
    :label "Mask Shape...",
    :params "{layer?, mask?, rect: [x, y, w, h], shape?: rect|ellipse}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.mask.unlockAll",
    :label "Unlock All Masks",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.moveEarlier",
    :label "Move Layers 1 Frame Earlier",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.moveEarlier10",
    :label "Move Layers 10 Frames Earlier",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.moveInToStart",
    :label "Move Layer In Point to Beginning of Comp",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.moveLater",
    :label "Move Layers 1 Frame Later",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.moveLater10",
    :label "Move Layers 10 Frames Later",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.moveOutToEnd",
    :label "Move Layer Out Point to End of Comp",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.new3dPrimitive",
    :label "3D Primitive",
    :params
    "{kind: cube|sphere|plane|torus|cone|cylinder, name?, width?, height?, depth?, radius?, tubeRadius?, segments?, rings?, position? [x,y,z], baseColor?, metallic?, roughness?, emissive?, castsShadows?, acceptsShadows?, acceptsLights?}; switches a Classic 3D comp to Advanced 3D",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "layer.newAdjustment",
    :label "Adjustment Layer",
    :params "{name?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.newCamera",
    :label "Camera...",
    :params
    "{name?, type?: oneNode|twoNode (default twoNode), preset?: 15mm|20mm|24mm|28mm|35mm|50mm|80mm|135mm|200mm, zoom?, focalLength? mm, angleOfView? deg, dof?, focusDistance?, aperture?, fStop?, blurLevel?, lockToZoom?, position? [x,y,z], poi? [x,y,z]}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "layer.newLight",
    :label "Light...",
    :params
-   "{kind?: Parallel|Spot|Point|Ambient|Environment (default Spot; Environment lights and reflects from an equirectangular image layer: prop.set its lightOptions/source to that layer's id, or leave it empty for the comp's Environment Layer, see layer.environment), name?, color?, intensity?, coneAngle?, coneFeather?, falloff?: None|Smooth|Inverse Square Clamped, radius?, falloffDistance?, castsShadows?, shadowDarkness?, shadowDiffusion?, position? [x,y,z], poi? [x,y,z]}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   "{kind?: Parallel|Spot|Point|Ambient|Environment (default Spot; Environment lights and reflects from an equirectangular image layer: prop.set its lightOptions/source to that layer's id, or leave it empty for the comp's Environment Layer or a flat default environment of its colour and intensity, see layer.environment; an Environment light switches a Classic 3D comp to Advanced 3D), name?, color?, intensity?, coneAngle?, coneFeather?, falloff?: None|Smooth|Inverse Square Clamped, radius?, falloffDistance?, castsShadows?, shadowDarkness?, shadowDiffusion?, position? [x,y,z], poi? [x,y,z]}",
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "layer.newModel",
    :label "3D Model Layer",
    :params
    "{item?: id or name of a 3D model footage item, path?: a .gltf, .glb, .obj, .stl or .fbx file to import, name?, time? (s), index? (1-based stack position), position? ([x, y] comp px)}; switches a Classic 3D comp to Advanced 3D",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "layer.newNull",
    :label "Null Object",
    :params "{name?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.newPrimitive",
    :label "New 3D Primitive",
    :params
    "{kind: cube|sphere|plane|torus|cone|cylinder, name?, width?, height?, depth?, radius?, tubeRadius?, segments?, rings?, position? [x,y,z], baseColor?, metallic?, roughness?, emissive?, castsShadows?, acceptsShadows?, acceptsLights?}; switches a Classic 3D comp to Advanced 3D",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "layer.newShape",
    :label "Shape Layer",
    :params
    "{kind?: rect|rounded|ellipse|star|polygon|none, name?, size?, fill?, fillType?, fillBlend?, fillOpacity?, stroke?, strokeType?, strokeBlend?, strokeOpacity?, strokeWidth?, position?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.newSolid",
    :label "Solid...",
    :params
    "{name?, color? #hex|[r,g,b], width?, height?, pixelAspect?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.newText",
    :label "Text",
    :params
-   "{text?, name? (layer name; default the text), position? [x,y], box? [x,y,w,h] (paragraph text, comp space), vertical?, edit? (start editing), font?, style?, size?, fill?, stroke?, applyFill?, applyStroke?, strokeWidth?, tracking?, leading?, baselineShift?, hScale?, vScale?, tsume?, fauxBold?, fauxItalic?, allCaps?, smallCaps?, baseline?, superscript?, subscript?, kerning?, ligatures?, justify?, indentLeft?, indentRight?, indentFirst?, spaceBefore?, spaceAfter?, direction?, composer?, hangingPunctuation?, strokeOverFill?} (attributes as layer.setText)",
-   :source "crates/engine/src/commands/layer.rs"}
+   "{text?, name? (layer name; default the text, which the name then follows; a given name stays), position? [x,y], box? [x,y,w,h] (paragraph text, comp space), vertical?, edit? (start editing), font?, style?, size?, fill?, stroke?, applyFill?, applyStroke?, strokeWidth?, tracking?, leading?, baselineShift?, hScale?, vScale?, tsume?, fauxBold?, fauxItalic?, allCaps?, smallCaps?, baseline?, superscript?, subscript?, kerning?, ligatures?, justify?, indentLeft?, indentRight?, indentFirst?, spaceBefore?, spaceAfter?, direction?, composer?, hangingPunctuation?, strokeOverFill?, lineJoin?} (attributes as layer.setText)",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.nudge",
    :label "Nudge Layers",
    :params "{x?, y? (comp pixels), layers?, merge?}",
-   :source "crates/engine/src/commands/align.rs"}
+   :source "crates/engine/src/cmd/align.rs"}
   {:id "layer.openSource",
    :label "Open Layer Source",
    :params "{layer?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.precompose",
    :label "Pre-compose...",
    :params
    "{layers?, name?, mode?: move|leave, adjustDuration?, open?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.quality",
    :label "Quality",
    :params "{layers?, quality: best|draft|wireframe}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.quickOffset",
    :label "Quick Offset",
    :params
    "{delta (comp s: the last layer's move), layers? (in order; default the selection), merge?, fromStart?: bool (with merge: delta is the whole drag)}",
-   :source "crates/engine/src/commands/quick_offset.rs"}
+   :source "crates/engine/src/cmd/quick_offset.rs"}
+  {:id "layer.quickSetAnchor",
+   :label "Quick Set Anchor",
+   :params
+   "{point: topLeft|top|topRight|left|center|right|bottomLeft|bottom|bottomRight, layers?} → {layers}: moves the Anchor Point of 2D layers to that point of their content and compensates Position (and its keys); skips 3D and locked layers and those with an animated Anchor Point, Scale or Rotation",
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.rename",
    :label "Rename",
-   :params "{layer?, name}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :params
+   "{layer?, name} — a text layer's name follows its text until renamed; an empty name follows it again",
+   :source "crates/engine/src/cmd/layer.rs"}
+  {:id "layer.replaceSource",
+   :label "Replace Layer Source",
+   :params
+   "{comp?, layers?, layer?, item?: id|name (default the Project panel selection), fixExpressions?: bool (accepted for After Effects compatibility)} → {layers, item}",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.revealExpressionErrors",
    :label "Reveal Expression Errors",
    :params "{comp?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.revealInFinder",
    :label "Reveal in Finder",
    :params "{layer?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.revealSource",
    :label "Reveal Layer Source in Project",
-   :params "{layer?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :params "{layers?}",
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.sampling",
    :label "Sampling",
    :params "{layers?, sampling: bilinear|bicubic, toggle?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.sceneEditDetection",
    :label "Scene Edit Detection...",
    :params
    "{layer?, mode?: markers|split|splitPrecompose, threshold? (0…1, 0.25), wait?: bool}",
-   :source "crates/engine/src/commands/scene_detect.rs"}
+   :source "crates/engine/src/cmd/scene_detect.rs"}
   {:id "layer.select",
    :label "Select Layers",
    :params "{layers: [id|name|#n], add?, toggle?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.selectNext",
    :label "Select Next Layer",
    :params "{add?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.selectPrevious",
    :label "Select Previous Layer",
    :params "{add?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.sequence",
    :label "Sequence Layers...",
    :params
    "{layers? (in order), overlap?: bool, duration? (s), transition?: off|dissolveFront|crossDissolve}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.setBlendMode",
    :label "Blending Mode",
    :params "{layers?, mode?: Normal|Multiply|Screen|…, step?: ±1}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.setComment",
    :label "Layer Comment",
    :params "{layers?, comment}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.setMask",
    :label "Mask Mode",
    :params "{layer?, mask: index|uid|name, mode?, inverted?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.setParent",
    :label "Parent",
    :params "{layers?, parent: layer|null, compensate?: bool}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.setSwitch",
    :label "Layer Switch",
    :params
    "{layers?, switch: video|audio|solo|lock|shy|collapse|quality|fx|frameBlend|motionBlur|adjustment|threeD|guide|preserveTransparency, value?, merge?, others? (the named layers alone: the other layers get the opposite state, or come back)}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.setText",
    :label "Edit Text",
    :params
-   "{layer?, range?: [start, end] (characters; default all), text?, font?, style?, size?, fill?, stroke?, applyFill?, applyStroke?, strokeWidth?, tracking?, leading?: px|\"auto\", baselineShift? px, hScale? %, vScale? %, tsume? %, fauxBold?, fauxItalic?, allCaps?, smallCaps?, baseline?: normal|superscript|subscript, superscript?, subscript?, kerning?: metrics|optical|number, ligatures?, discretionaryLigatures? (OpenType), contextualAlternates?, stylisticAlternates?, stylisticSets?: [1–20], ss01?, ss02?, ss03?, ss04?, ss05?, ss06?, ss07?, ss08?, ss09?, ss10?, ss11?, ss12?, ss13?, ss14?, ss15?, ss16?, ss17?, ss18?, ss19?, ss20?, swash?, titling?, ordinals?, fractions?, allSmallCaps?, figureStyle?: default|lining|oldStyle, figureWidth?: default|proportional|tabular, figures?, variations?: {tag: value} (variable font axes; null resets), justify?: left|center|right|justifyLeft|justifyCenter|justifyRight|justifyAll, indentLeft?, indentRight?, indentFirst?, spaceBefore?, spaceAfter?, direction?: ltr|rtl, composer?: everyLine|singleLine, hangingPunctuation?, strokeOverFill?, box?: [x,y,w,h]|null (layer space), vertical?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   "{layer?, range?: [start, end] (characters; default all), text? (also renames a text layer whose name still follows its text), font?, style?, size?, fill?, stroke?, applyFill?, applyStroke?, strokeWidth?, tracking?, leading?: px|\"auto\", baselineShift? px, hScale? %, vScale? %, tsume? %, fauxBold?, fauxItalic?, allCaps?, smallCaps?, baseline?: normal|superscript|subscript, superscript?, subscript?, kerning?: metrics|optical|number, ligatures?, discretionaryLigatures? (OpenType), contextualAlternates?, stylisticAlternates?, stylisticSets?: [1–20], ss01?, ss02?, ss03?, ss04?, ss05?, ss06?, ss07?, ss08?, ss09?, ss10?, ss11?, ss12?, ss13?, ss14?, ss15?, ss16?, ss17?, ss18?, ss19?, ss20?, swash?, titling?, ordinals?, fractions?, allSmallCaps?, figureStyle?: default|lining|oldStyle, figureWidth?: default|proportional|tabular, figures?, variations?: {tag: value} (variable font axes; null resets), justify?: left|center|right|justifyLeft|justifyCenter|justifyRight|justifyAll, indentLeft?, indentRight?, indentFirst?, spaceBefore?, spaceAfter?, direction?: ltr|rtl, composer?: everyLine|singleLine, hangingPunctuation?, strokeOverFill?, lineJoin?: miter|round|bevel, box?: [x,y,w,h]|null (layer space), vertical?}",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.setTrackMatte",
    :label "Track Matte",
    :params
-   "{layer?, matte: layer|null, kind?: alpha|alphaInverted|luma|lumaInverted}",
-   :source "crates/engine/src/commands/layer.rs"}
+   "{layers? | layer?, matte: layer|null, kind?: alpha|alphaInverted|luma|lumaInverted|preserve}",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.setTransform",
    :label "Transform Value",
    :params
    "{layers?, prop: anchor|position|scale|orientation|rotation|opacity, value}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.settings",
    :label "Layer Settings...",
    :params
-   "{layer?, name?, color?, width?, height?, pixelAspect?, affectAll?: bool (default true; false gives this layer its own copy of a solid other layers use)} → {layer, solid?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   "{layer?, name? (an empty name makes a text layer's name follow its text again), color?, width?, height?, pixelAspect?, affectAll?: bool (default true; false gives this layer its own copy of a solid other layers use)} → {layer, solid?}",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.showAllVideo",
    :label "Show All Video",
    :params "{comp?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.slip",
    :label "Slip Edit",
-   :params "{layers?, delta? (seconds) | frames?, merge?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :params
+   "{layers?, delta? (seconds) | frames?, merge?} → {requested, slipped: [{layer, delta, clamped}]}",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.slipBack",
    :label "Slip Edit 1 Frame Earlier",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.slipForward",
    :label "Slip Edit 1 Frame Later",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.stretchInToTime",
    :label "Stretch Layer In Point to Current Time",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_time.rs"}
+   :source "crates/engine/src/cmd/layer_time.rs"}
   {:id "layer.stretchOutToTime",
    :label "Stretch Layer Out Point to Current Time",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_time.rs"}
+   :source "crates/engine/src/cmd/layer_time.rs"}
   {:id "layer.style.add",
    :label "Add Layer Style",
    :params
-   "{style: dropShadow|innerShadow|outerGlow|innerGlow|bevelEmboss|satin|colorOverlay|gradientOverlay|stroke (or display name), layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   "{style: dropShadow|innerShadow|outerGlow|innerGlow|bevelEmboss|satin|colorOverlay|gradientOverlay|stroke (or display name), or blendingOptions (the Layer Styles group with Blending Options only), layers?, merge?}",
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.bevelEmboss",
    :label "Bevel and Emboss",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.colorOverlay",
    :label "Color Overlay",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.convertToEditable",
    :label "Convert to Editable Styles",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.dropShadow",
    :label "Drop Shadow",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.globalLight",
    :label "Global Light",
    :params
    "{comp?, angle? (deg), altitude? (deg, 0..90), time? (s)} — no values returns the current setting",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.gradientOverlay",
    :label "Gradient Overlay",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.innerGlow",
    :label "Inner Glow",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.innerShadow",
    :label "Inner Shadow",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.outerGlow",
    :label "Outer Glow",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.remove",
    :label "Remove Layer Style",
    :params "{layer?, style: id|name|uid|layerStyles}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.removeAll",
    :label "Remove All",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.satin",
    :label "Satin",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.showAll",
    :label "Show All",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.stroke",
    :label "Stroke",
    :params "{layers?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.style.toggle",
    :label "Toggle Layer Style",
    :params "{layer?, style: id|name|uid|layerStyles, value?}",
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:id "layer.timeReverse",
    :label "Time-Reverse Layer",
    :params "{layers?}",
-   :source "crates/engine/src/commands/layer_time.rs"}
+   :source "crates/engine/src/cmd/layer_time.rs"}
   {:id "layer.timeStretch",
    :label "Time Stretch...",
    :params
    "{layers?, percent?|duration? (s), hold?: in|current|out, op?: reverse}",
-   :source "crates/engine/src/commands/layer_time.rs"}
+   :source "crates/engine/src/cmd/layer_time.rs"}
   {:id "layer.timing",
    :label "Layer Timing",
    :params
    "{layers?, op?: moveInToTime|moveOutToTime|moveInToStart|moveOutToEnd|trimInToTime|trimOutToTime, delta?, start?, in?, out?, inDelta?, outDelta? (seconds, per layer), merge?}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.trackMatte",
    :label "Track Matte",
    :params
    "{layers?, op: none|alpha|alphaInverted|luma|lumaInverted|above|below}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
   {:id "layer.transform",
    :label "Transform",
    :params
    "{layers?, op: reset|center|fit|fitWidth|fitHeight|flipH|flipV}",
-   :source "crates/engine/src/commands/layer.rs"}
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.tree",
    :label "Layer Property Tree",
    :params
    "{layer?, comp?, depth?, time? (comp s)} → nodes with `path`",
-   :source "crates/engine/src/commands/query.rs"}
+   :source "crates/engine/src/cmd/query.rs"}
   {:id "layer.unlockAll",
    :label "Unlock All Layers",
    :params "{comp?}",
-   :source "crates/engine/src/commands/layer_menu.rs"}
+   :source "crates/engine/src/cmd/layer_menu.rs"}
+  {:id "layer.unprecompose",
+   :label "Un-precompose",
+   :params
+   "{layer?, force?, dryRun?} → {layers, warnings}: expands the selected pre-comp layer into its composition's layers (copies, in order, with timing and position carried over). A locked pre-comp layer is refused, changing nothing. What would change the picture (the pre-comp layer has a parent, matte, effects, masks, layer styles, a non-default Scale/Rotation/Opacity, an animated transform, time remap/stretch, a blending mode, Video/Audio off, Solo/Guide on, is 3D/collapsing/adjustment, is used by another layer or named in another layer's expression; or the nested comp has cameras, lights, adjustment, 3D, collapsing, soloed or blend-mode / Preserve Transparency layers, preserves another frame rate, has another motion-blur shutter, or has Position expressions the move can't reach) is an error listing the reasons, changing nothing, unless `force`: then it unpacks anyway in one undo step, drops what the pre-comp layer carried, removes other layers' parent/matte/property links to it and lists the reasons as `warnings`. `dryRun` returns {dryRun, warnings} and changes nothing",
+   :source "crates/engine/src/cmd/layer.rs"}
   {:id "layer.updateMarkersFromSource",
    :label "Update Markers From Source",
    :params "{layers?}",
-   :source "crates/engine/src/commands/markers.rs"}
+   :source "crates/engine/src/cmd/markers.rs"}
   {:id "learn.list",
    :label "Learn Tutorials",
    :params "{} → [{id, title, summary, minutes, steps}]",
-   :source "crates/engine/src/learn.rs"}
+   :source "crates/engine/src/home/learn.rs"}
   {:id "learn.start",
    :label "Start Tutorial",
    :params "{id}",
-   :source "crates/engine/src/learn.rs"}
+   :source "crates/engine/src/home/learn.rs"}
   {:id "learn.state",
    :label "Tutorial State",
    :params
    "{} → {tutorial, step, steps, done, current: {title, text, target, accepts}} | null",
-   :source "crates/engine/src/learn.rs"}
+   :source "crates/engine/src/home/learn.rs"}
   {:id "learn.step",
    :label "Tutorial Step",
    :params "{action?: next|back|showMe|goto, index?}",
-   :source "crates/engine/src/learn.rs"}
+   :source "crates/engine/src/home/learn.rs"}
   {:id "learn.stop",
    :label "Close Tutorial",
    :params "{}",
-   :source "crates/engine/src/learn.rs"}
+   :source "crates/engine/src/home/learn.rs"}
+  {:id "library.install",
+   :label "Install Plug-in",
+   :params
+   "{id, version?, wait?} — downloads the release (a GitHub release asset, in the package's repo when it names one), checks its SHA-256 against the catalog, loads it",
+   :source "crates/engine/src/system/library.rs"}
+  {:id "library.list",
+   :label "Plug-in Library",
+   :params
+   "{query?, tag?, installed?: bool} → {catalog, fetched, packages: [{id, name, author, description, license, repo, tags, latest, effects, installed, updateAvailable, needsNewerApp, loaded, restartNeeded, video, previewed, unlisted?}], tags, busy, error, folder, available}",
+   :source "crates/engine/src/system/library.rs"}
+  {:id "library.loadInstalled",
+   :label "Load Installed Plug-ins",
+   :params "{} → {loaded, errors} (the app runs it at start-up)",
+   :source "crates/engine/src/system/library.rs"}
+  {:id "library.missing",
+   :label "Missing Effects in the Plug-in Library",
+   :params
+   "{} → {effects: [{effect, packages: [package id]}]} — effects the project uses that aren't installed, and the catalog packages that provide them",
+   :source "crates/engine/src/system/library.rs"}
+  {:id "library.preview",
+   :label "Preview Plug-in",
+   :params
+   "{id, version?, wait?} → {id, version, width, height, fps, frames, changes, animated, effect: manifest} — downloads the release (checked like an install) and renders its effect on a sample frame at default settings, without installing it",
+   :source "crates/engine/src/system/library.rs"}
+  {:id "library.refresh",
+   :label "Refresh Plug-in Catalog",
+   :params
+   "{catalog?: https:// or file:// URL of an index.json (default: the community catalog; file:// takes a local path, not a network path such as //server/share), wait?}",
+   :source "crates/engine/src/system/library.rs"}
+  {:id "library.uninstall",
+   :label "Remove Plug-in",
+   :params "{id} — its effects stay registered until the next start",
+   :source "crates/engine/src/system/library.rs"}
+  {:id "library.update",
+   :label "Update Plug-ins",
+   :params "{id? (default: every package with an update), wait?}",
+   :source "crates/engine/src/system/library.rs"}
   {:id "light.controlWithCamera",
    :label "Control Light with Camera",
    :params
    "{comp?, layers?: lights (default selected), camera? (default active), on?: bool (default toggle)}",
-   :source "crates/engine/src/commands/rig3d.rs"}
+   :source "crates/engine/src/cmd/rig3d.rs"}
   {:id "light.environmentBackground",
    :label "Create Environment Light Background Layer",
    :params
    "{comp?, layer?: environment light (default selected / first)}",
-   :source "crates/engine/src/commands/rig3d.rs"}
+   :source "crates/engine/src/cmd/rig3d.rs"}
   {:id "light.fromModel",
    :label "Create Lights from 3D Model",
    :params "{comp?, layers?: 3D model layers (default selected)}",
-   :source "crates/engine/src/commands/rig3d.rs"}
+   :source "crates/engine/src/cmd/rig3d.rs"}
   {:id "liquify.clear",
    :label "Clear Liquify Mesh",
    :params "{layer?, effect?: uid}",
-   :source "crates/engine/src/commands/liquify.rs"}
+   :source "crates/engine/src/cmd/liquify.rs"}
   {:id "liquify.stroke",
    :label "Liquify Stroke",
    :params
    "{layer?, effect?: uid, tool?: warp|turbulence|twirlClockwise|twirlCounterclockwise|pucker|bloat|shiftPixels|reflection|clone|reconstruction|freeze|thaw, points: [[x,y],…] (effect space), size?, pressure? (1-100), jitter? (1-100), cloneOffset?: [dx,dy], time? (s) | frame?}",
-   :source "crates/engine/src/commands/liquify.rs"}
+   :source "crates/engine/src/cmd/liquify.rs"}
   {:id "markers.convert",
    :label "Convert Marker",
    :params
    "{layer? (layer marker → comp marker), index? | at?, toLayer? (comp marker → layer marker)}",
-   :source "crates/engine/src/commands/markers.rs"}
+   :source "crates/engine/src/cmd/markers.rs"}
   {:id "markers.delete",
    :label "Delete Marker",
    :params "{layer?, index? | at? (comp s)}",
-   :source "crates/engine/src/commands/markers.rs"}
+   :source "crates/engine/src/cmd/markers.rs"}
   {:id "markers.list",
    :label "List Markers",
    :params "{layer? (omit for composition markers)}",
-   :source "crates/engine/src/commands/markers.rs"}
+   :source "crates/engine/src/cmd/markers.rs"}
   {:id "markers.nested",
    :label "Nested Comp Markers",
    :params
    "{layer: a precomp layer, comp?} — its comp's markers at their times in this comp (as on the layer bar)",
-   :source "crates/engine/src/commands/markers.rs"}
+   :source "crates/engine/src/cmd/markers.rs"}
   {:id "markers.set",
    :label "Marker Settings",
    :params
    "{layer? (omit: comp marker), index? (0-based) | at? (comp s) | new?: true, time? (comp s), duration? (s), comment?, chapter?, url?, frameTarget?, cuePoint?: {name, navigation?, params?: [[name, value]…]} | null, protected?, label?}",
-   :source "crates/engine/src/commands/markers.rs"}
+   :source "crates/engine/src/cmd/markers.rs"}
   {:id "mask.addVertex",
    :label "Add Mask Vertex",
    :params "{layer?, mask, point: [x,y], in?, out?, index?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.convertVertex",
    :label "Convert Vertex",
    :params
    "{layer?, mask: uid (mask or shape Path item), index, smooth?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.deleteVertices",
    :label "Delete Mask Vertices",
    :params "{vertices?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.featherPoint.add",
    :label "Add Mask Feather Point",
    :params
    "{layer?, mask, segment?, t?: 0..1, point?: [x,y] (layer space), radius? (px, negative = inner), tension? (%)} → {index}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.featherPoint.remove",
    :label "Delete Mask Feather Point",
    :params "{layer?, mask, index? | all?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.featherPoint.set",
    :label "Move Mask Feather Point",
    :params
    "{layer?, mask, index, segment?, t?, point? (slide along the path), radius?, toward?: [x,y] (radius from the drag point, layer space), tension? (%), merge?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.insertVertex",
    :label "Add Vertex",
    :params
    "{layer?, mask: uid (mask or shape Path item), segment, t?: 0..1}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.interpolate",
    :label "Apply Mask Interpolation",
    :params
    "{layer?, mask?, times?: [from, to] (s; default the selected Mask Path keys), keyframeRate?: n|auto, keyframeFields?, linearVertexPaths?, bendingResistance? (0-100), quality? (0-100), addVertices?: n|false, addVerticesUnit?: pixels|total|percent, matchingMethod?: auto|curve|polyline, oneToOne?, firstVerticesMatch?}",
-   :source "crates/engine/src/commands/mask_interp.rs"}
+   :source "crates/engine/src/cmd/mask_interp.rs"}
   {:id "mask.interpolationOptions",
    :label "Mask Interpolation Options",
    :params
    "{keyframeRate?: n|auto, keyframeFields?, linearVertexPaths?, bendingResistance?, quality?, addVertices?: n|false, addVerticesUnit?: pixels|total|percent, matchingMethod?: auto|curve|polyline, oneToOne?, firstVerticesMatch?}",
-   :source "crates/engine/src/commands/mask_interp.rs"}
+   :source "crates/engine/src/cmd/mask_interp.rs"}
   {:id "mask.moveVertices",
    :label "Move Mask Vertices",
    :params
    "{vertices?: [{layer, mask, index}], delta: [dx,dy], merge?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.new",
    :label "New Mask from Points",
    :params
    "{layer?, vertices: [[x,y]…], inTangents?, outTangents?, closed?, mode?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.remove",
    :label "Remove Mask",
    :params "{layer?, mask}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.removeAll",
    :label "Remove All Masks",
    :params "{layer?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.selectVertices",
    :label "Select Mask Vertices",
    :params "{vertices: [{layer, mask, index}], add?, toggle?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.setClosed",
    :label "Closed",
    :params "{layer?, mask, closed?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
+  {:id "mask.setRoundness",
+   :label "Set Mask Roundness",
+   :params
+   "{layer?, mask, roundness (corner radius in px; 0 = square)}",
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "mask.setVertex",
    :label "Set Mask Vertex",
    :params "{layer?, mask, index, point?, in?, out?, merge?}",
-   :source "crates/engine/src/commands/mask.rs"}
+   :source "crates/engine/src/cmd/mask.rs"}
   {:id "material.duplicateAssign",
    :label "Duplicate and Assign Material",
    :params "{layers? (first = source)}",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "material.reset",
    :label "Reset Material",
    :params "{layers?}",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "material.revealSource",
    :label "Reveal Material Source in Project",
    :params "{layer?}",
-   :source "crates/engine/src/commands/model3d.rs"}
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "material.set",
    :label "Material Options",
    :params
-   "{layers?, castsShadows?: off|on|only, acceptsShadows?: off|on|only, acceptsLights?, appearsInReflections?, lightTransmission?, ambient?, diffuse?, specularIntensity?, specularShininess?, metal?, baseColor?, metallic?, roughness?, emissive?, time?}",
-   :source "crates/engine/src/commands/model3d.rs"}
+   "{layers?, time?, castsShadows?: off|on|only, acceptsShadows?: off|on|only, acceptsLights?, appearsInReflections? (model and primitive layers), baseColor?, metallic?, roughness?, emissive? (primitive layers; a model layer keeps its file's materials), lightTransmission?, ambient?, diffuse?, specularIntensity?, specularShininess?, metal? (footage, solid, text, shape and precomp layers)}; a parameter none of the layers has is an error",
+   :source "crates/engine/src/cmd/model3d.rs"}
   {:id "mediaBrowser.action",
    :label "Media Browser Action",
    :params
    "{action}: an action from mediaBrowser.list's `actions` (web: openFolder, addFiles, uploadFolder)",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "mediaBrowser.addFavorite",
    :label "Add to Favorites",
    :params "{path?}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "mediaBrowser.fileInfo",
    :label "File Info",
    :params "{path}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "mediaBrowser.go",
    :label "Go to Folder",
    :params "{path?: folder | \"..\", importableOnly?}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "mediaBrowser.import",
    :label "Import",
    :params
    "{paths, sequence? (default true: a numbered still brings its image sequence), addToComp?, time?, index?, position? (where the layers go, as in layer.addItem)}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "mediaBrowser.list",
    :label "List Folder",
    :params "{path?, importableOnly?}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "mediaBrowser.removeFavorite",
    :label "Remove from Favorites",
    :params "{path?}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "motion.sketch",
    :label "Motion Sketch",
    :params
    "{layer?, points: [[t, x, y]…] (t = capture seconds) | [[x, y]…] (one per frame), start? (s, default current time), captureSpeed? (%, 100), smoothing? (px, 1)}",
-   :source "crates/engine/src/commands/anim_tools.rs"}
+   :source "crates/engine/src/cmd/anim_tools.rs"}
   {:id "objectMatte.apply",
    :label "Object Matte",
    :params
    "{layer?, effect? (uid: re-prompt this Object Matte instead of adding one), point: [x, y] (layer pixels: the object), box?: [x0, y0, x1, y1] (layer pixels, around the object), frame? (reference layer frame; default current), track?: follow the object from that frame (default true), before?, after? (frames to follow it; default 30, up to 600)}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "objectMatte.freeze",
    :label "Freeze Object Matte",
    :params "{layer?, effect?, wait?}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "objectMatte.propagate",
    :label "Track Object Matte",
    :params
    "{layer?, effect?, direction?: forward|backward|both, wait?: block until done} (a background job like Roto Brush propagation; roto.cancel stops it)",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "objectMatte.status",
    :label "Object Matte Status",
    :params
    "{layer?, effect?}: the job's progress, whether the instance is frozen, its frames and which are computed",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "objectMatte.unfreeze",
    :label "Unfreeze Object Matte",
    :params "{layer?, effect?}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "paint.brushPreset",
    :label "Brush Preset",
    :params "{preset?: index | name}",
-   :source "crates/engine/src/commands/paint.rs"}
+   :source "crates/engine/src/cmd/paint.rs"}
   {:id "paint.options",
    :label "Paint Options",
    :params
    "{color?, background?, opacity?, flow?, mode?, channels?, durationMode?, customFrames?, eraseMode?, diameter?, angle?, roundness?, hardness?, spacing?, preset?, sizePressure?, minSize?, opacityPressure?, flowPressure?, clonePreset?, cloneSource?, clonePoint?, cloneOffset?, aligned?, lockSourceTime?, cloneTimeShift?, cloneTime?, showOverlay?, overlayOpacity?, overlayDifference?, reset?}",
-   :source "crates/engine/src/commands/paint.rs"}
+   :source "crates/engine/src/cmd/paint.rs"}
   {:id "paint.removeStroke",
    :label "Delete Paint Stroke",
    :params "{layer?, stroke: uid | name}",
-   :source "crates/engine/src/commands/paint.rs"}
+   :source "crates/engine/src/cmd/paint.rs"}
   {:id "paint.setCloneSource",
    :label "Set Clone Source",
    :params "{layer?, point: [x,y]}",
-   :source "crates/engine/src/commands/paint.rs"}
+   :source "crates/engine/src/cmd/paint.rs"}
   {:id "paint.stroke",
    :label "Paint Stroke",
    :params
    "{layer?, kind?: brush|clone|eraser, points: [[x,y,pressure?],…] (effect space), time? (s) | frame?, duration? (s, drawing time for Write On), color?: [r,g,b,a], diameter?, angle?, hardness?, roundness?, spacing?, opacity?, flow?, mode?, channels?: RGBA|RGB|Alpha, durationMode?: constant|writeOn|singleFrame|custom, customFrames?, eraseMode?: layerSourceAndPaint|paintOnly|lastStrokeOnly, cloneSource?: layer id, clonePosition?: [x,y], cloneTimeShift? (s), lockSourceTime?, cloneTime? (s), sizePressure?, minSize?, opacityPressure?, flowPressure?}",
-   :source "crates/engine/src/commands/paint.rs"}
+   :source "crates/engine/src/cmd/paint.rs"}
   {:id "path.convertToBezier",
    :label "Convert To Bezier Path",
    :params "{layer?, mask?}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "path.freeTransform",
    :label "Free Transform Points",
    :params
-   "{layer?, mask?, scale?: % | [x%, y%], rotation?: deg, offset?: [dx, dy], anchor?: [x, y]}",
-   :source "crates/engine/src/commands/paths.rs"}
+   "{layer?, mask?, scale?: % | [x%, y%], rotation?: deg, offset?: [dx, dy], anchor?: [x, y], merge?: string}",
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "path.groupShapes",
    :label "Group Shapes",
    :params "{layer?, items?: [uid]}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "path.rotoBezier",
    :label "RotoBezier",
    :params "{layer?, mask?, value?}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "path.setFirstVertex",
    :label "Set First Vertex",
    :params "{layer?, mask?: uid, index?}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
+  {:id "path.toggleClosed",
+   :label "Closed",
+   :params "{}",
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "path.ungroupShapes",
    :label "Ungroup Shapes",
    :params "{layer?, items?: [group uid]}",
-   :source "crates/engine/src/commands/paths.rs"}
+   :source "crates/engine/src/cmd/paths.rs"}
   {:id "paths.nullsFollowPoints",
    :label "Nulls Follow Points",
    :params
    "{layer?, path?|prop?, pins?: [uid | name…]} → a null per vertex (or puppet pin) following it (Position expressions)",
-   :source "crates/engine/src/commands/path_nulls.rs"}
+   :source "crates/engine/src/cmd/path_nulls.rs"}
   {:id "paths.pointsFollowNulls",
    :label "Points Follow Nulls",
    :params
    "{layer?, path?|prop?, pins?: [uid | name…]} → a null per vertex (or Position / Advanced puppet pin); the path (pins) follow them (expressions)",
-   :source "crates/engine/src/commands/path_nulls.rs"}
+   :source "crates/engine/src/cmd/path_nulls.rs"}
   {:id "paths.tracePath",
    :label "Trace Path",
    :params
    "{layer?, path?|prop?, loop?: bool} → a null moving along the path (Progress slider)",
-   :source "crates/engine/src/commands/path_nulls.rs"}
+   :source "crates/engine/src/cmd/path_nulls.rs"}
   {:id "playback.settings.get",
    :label "Preview Settings",
    :params
@@ -1886,994 +2015,1009 @@
   {:id "prefs.get",
    :label "Get Setting",
    :params "{key?: e.g. general.undoLevels (omit for all settings)}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "prefs.open",
    :label "Open Settings",
    :params
    "{page?: general|startup|project|composition|previews|appearance|grids|labels|type|import|export|audio|disk|memory|video|3d|scripting}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "prefs.pages",
    :label "Settings Pages",
    :params "{}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "prefs.reset",
    :label "Reset Settings",
    :params "{page?: general|labels|project|…}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "prefs.set",
    :label "Change Setting",
    :params "{key, value, values?: {key: value}}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "project.delete",
    :label "Delete Project Items",
    :params
    "{items?: [id|name] (default: selected)} (folders with their contents; layers using the items go too)",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.duplicate",
    :label "Duplicate Project Items",
    :params "{items?: [id|name] (default: selected)} → {items}",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.move",
    :label "Move to Folder",
    :params
    "{items?: [id|name] (default: selected), folder: id|name|null (root)}",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.newFolder",
    :label "New Folder",
-   :params "{name?, parent?}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :params "{name?, parent?, items?: [id|name] (moved into it)}",
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "project.rename",
    :label "Rename Item",
    :params "{item?: id|name (default: selected), name}",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.select",
    :label "Select Project Items",
    :params "{items: [id|name], add?}",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.setComment",
    :label "Item Comment",
    :params "{items?, comment}",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.setLabel",
    :label "Item Label",
    :params "{items?, label: name|index}",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.setProjectComment",
    :label "Project Comment",
    :params "{comment}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "project.summary",
    :label "Project Summary",
    :params "{}",
-   :source "crates/engine/src/commands/query.rs"}
+   :source "crates/engine/src/cmd/query.rs"}
   {:id "project.usage",
    :label "Project Item Usage",
    :params
    "{items?: [id|name] (default: selected)} → {items, layers, comps} that deleting them removes",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "project.usedIn",
    :label "Project Item Used In",
    :params
    "{item?: id|name (default: selected)} → {item, count, comps: [{id, name, layers}]}",
-   :source "crates/engine/src/commands/project_items.rs"}
+   :source "crates/engine/src/cmd/project_items.rs"}
   {:id "prop.addKey",
    :label "Add Keyframe",
    :params
    "{layer?, path|prop, time? (layer s by default), timeBase?: layer|comp, value?}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.convertExpressionToKeyframes",
    :label "Convert Expression to Keyframes",
    :params "{layer?, path|prop}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.deselect",
    :label "Deselect Property",
    :params "{layer?, path|prop}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.duplicateGroup",
    :label "Duplicate Property Group",
    :params "{layer?, prop: uid} → {prop: new uid}",
-   :source "crates/engine/src/commands/prop_groups.rs"}
+   :source "crates/engine/src/cmd/prop_groups.rs"}
   {:id "prop.editGradient",
    :label "Edit Gradient...",
    :params
    "{layer?, path|prop, comp?} — a gradient property; opens the Gradient Editor at the current time",
-   :source "crates/engine/src/commands/frontend.rs"}
+   :source "crates/engine/src/cmd/frontend.rs"}
   {:id "prop.get",
    :label "Get Property",
    :params "{layer?, path|prop, time? (comp s)}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.moveGroup",
    :label "Reorder Property Group",
    :params "{layer?, prop: uid, index (1-based among its siblings)}",
-   :source "crates/engine/src/commands/prop_groups.rs"}
+   :source "crates/engine/src/cmd/prop_groups.rs"}
   {:id "prop.pickWhip",
    :label "Pick Whip (Link Property)",
    :params
-   "{layer?, path|prop, target: {layer, path|prop, dimension?}, expression?, range?: [start, end]} → sets an AE reference expression (`dimension`: one of the target's values, `position[0]`; with `expression`: inserts it there, replacing the characters in `range`, default the end)",
-   :source "crates/engine/src/commands/link.rs"}
+   "{layer?, path|prop, target: {layer, path|prop, dimension?}, expression?, range?: [start, end], byIndex?: bool} → sets an AE reference expression (`dimension`: one of the target's values, `position[0]`; with `expression`: inserts it there, replacing the characters in `range`, default the end; `byIndex`: an effect's properties by their index, `effect(\"Color Control\")(1)`, as an Alt pick whip does)",
+   :source "crates/engine/src/cmd/link.rs"}
   {:id "prop.removeGroup",
    :label "Delete Property Group",
    :params "{layer?, prop: uid}",
-   :source "crates/engine/src/commands/prop_groups.rs"}
+   :source "crates/engine/src/cmd/prop_groups.rs"}
   {:id "prop.renameGroup",
    :label "Rename Property Group",
    :params "{layer?, prop: uid, name}",
-   :source "crates/engine/src/commands/prop_groups.rs"}
+   :source "crates/engine/src/cmd/prop_groups.rs"}
   {:id "prop.reset",
    :label "Reset Property",
    :params
    "{layer?, path|prop, default?} → removes the expression; the value becomes `default`, else the property's own (an effect parameter's, a Transform property's), as a keyframe at the current time when the property is animated",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.select",
    :label "Select Property",
    :params "{layer?, path|prop, add?, selectKeys?}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.separateDimensions",
    :label "Separate Dimensions",
    :params "{layer?, value?}",
-   :source "crates/engine/src/commands/link.rs"}
+   :source "crates/engine/src/cmd/link.rs"}
   {:id "prop.set",
    :label "Set Property Value",
    :params
-   "{layer?, path|prop, value, time? (layer s by default), timeBase?: layer|comp, merge?, selected? (also the other selected layers), offset? (them by the same change), proportional? (with offset: Proportional Scrubbing, each layer by its share in selection order, the first none, the last all), dims? (with selected, a typed value: the components edited, e.g. [2] for Z; the other layers keep the rest of their own value)}",
-   :source "crates/engine/src/commands/prop.rs"}
+   "{layer?, path|prop, value, time? (layer s by default), timeBase?: layer|comp, merge?, selected? (also the other selected layers), offset? (them by the same change), proportional? (with offset: Proportional Scrubbing, each layer by its share in selection order, the first none, the last all), dims? (with selected, a typed value: the components edited, e.g. [2] for Z; the other layers keep the rest of their own value), follow? (with dims: components that move on each other layer by the change its first typed component takes), factor? (with selected, a typed `*` or `/`: the other layers take their own value times it, in the dims components of a vector), addend? (the same for a typed `+`: their own value plus it)}",
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.setExpression",
    :label "Add Expression",
    :params
    "{layer?, path|prop?, expression?, enabled?} (no path/prop: the selected properties)",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.setGroupEnabled",
    :label "Enable Property Group",
    :params "{layer?, prop: uid, value?}",
-   :source "crates/engine/src/commands/prop_groups.rs"}
+   :source "crates/engine/src/cmd/prop_groups.rs"}
   {:id "prop.toggleAnimation",
    :label "Toggle Stopwatch",
    :params "{layer?, path|prop, value?, merge?, selected?}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "prop.toggleKey",
    :label "Add or Remove Keyframe at Current Time",
    :params "{layer?, path|prop, selected?}",
-   :source "crates/engine/src/commands/prop.rs"}
+   :source "crates/engine/src/cmd/prop.rs"}
   {:id "puppet.addPin",
    :label "Add Puppet Pin",
    :params
    "{layer?, kind?: position|advanced|bend|starch|overlap, position: [x,y] (effect space), time? (s) | frame?, mesh?: uid, newMesh?, density?, expansion?, triangles?}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.follow",
    :label "Follow-Through...",
    :params
    "{layer?, leader?: uid | name (default: the first selected pin), pins?: [uid | name…] (default: the other selected pins), delay? (s, 0.1), amount? (%, 100), cascade? (true: the k-th nearest pin trails k × delay)}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.mesh",
    :label "Puppet Mesh Options",
    :params
    "{layer?, mesh?: uid, density?, expansion?, triangles?, showMesh?, time?, merge?}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.movePin",
    :label "Move Puppet Pin",
    :params
    "{layer?, pin: uid | name, position: [x,y], time? | frame?, merge?}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.recordOptions",
    :label "Record Options...",
    :params
    "{speed? (%, 100), smoothing? (0-100), useDraftDeformation?, showMesh?}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.recordPin",
    :label "Record Puppet Pin",
    :params
    "{layer?, pin: uid | name, samples: [[t, x, y]…] (t = seconds since the drag began, effect space), pins?: [uid | name…] (more pins that move by the same displacement), start? (s, default current time), speed? (%, Record Options), smoothing? (Record Options)}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.removePin",
    :label "Delete Puppet Pin",
    :params
    "{layer?, pin?: uid | name, pins?: [uid | name…]} (default: the selected pins)",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.selectPins",
    :label "Select Puppet Pins",
    :params
    "{layer?, pins: [uid | name…] ([] deselects), add?, toggle?}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "puppet.setPin",
    :label "Edit Puppet Pin",
    :params
    "{layer?, pin: uid | name, position?, scale? (%), rotation? (°), amount? (%), extent? (px), inFront?, time? | frame?, merge?}",
-   :source "crates/engine/src/commands/puppet.rs"}
+   :source "crates/engine/src/cmd/puppet.rs"}
   {:id "render.addOutputModule",
    :label "Add Output Module",
    :params
-   "{item?|index? (default: the last item), format?, output?, channels?, quality?, bitrate?, proresProfile?, audio?}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   "{item?|index? (default: the last item), format?, output?, channels?, quality?, bitrate?, proresProfile?, exrCompression?, exrBitDepth?, audio?}",
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "render.backend",
    :label "Video Rendering and Effects",
    :params "{backend?: gpu|cpu}",
-   :source "crates/engine/src/commands/file.rs"}
+   :source "crates/engine/src/cmd/file.rs"}
   {:id "render.preRender",
    :label "Pre-render...",
    :params "{comp?, output?: path|template, format?}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "render.saveCurrentPreview",
    :label "Save Current Preview...",
    :params "{comp?, path}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.add",
    :label "Add to Render Queue",
    :params
-   "{comp?: id|name, template?: Render Settings template, format?: h264|hevc|av1|prores|uncompressed|webm|png|jpeg|tiff|exr|gif|wav|aiff, output?: path|template, log?: errorsOnly|plusSettings|plusPerFrameInfo, quality?: best|draft|1-100 (jpeg, webm), resolution?: full|half|third|quarter|scale, proxyUse?, effects?, solo?, guideLayers?, colorDepth?, frameBlending?, fieldRender?, pulldown?, motionBlur?, timeSpan?: workArea|comp|custom, start?: s, end?: s, duration?: s, frameRate?: fps|null, skipExisting?: bool, storageOverflow?: bool, channels?: rgb|rgba|alpha, color?, bitrate?: kbps, webmBitrate?, keyframeInterval?, proresProfile?, profile?, level?, rateControl?, webmCodec?, audioBitrate?, opusApplication?, crop?, resize?, includeProjectLink?, audio?: auto|on|off, sampleRate?, audioChannels?, audioFormat?, loop?: bool (values as in setRenderSettings / setOutputModule)}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   "{comp?: id|name, template?: Render Settings template, format?: h264|hevc|av1|prores|uncompressed|webm|png|jpeg|tiff|exr|tga|gif|wav|aiff, output?: path|template, log?: errorsOnly|plusSettings|plusPerFrameInfo, quality?: best|draft|1-100 (jpeg, webm), resolution?: full|half|third|quarter|scale, proxyUse?, effects?, solo?, guideLayers?, colorDepth?, frameBlending?, fieldRender?, pulldown?, motionBlur?, timeSpan?: workArea|comp|custom, start?: s, end?: s, duration?: s, frameRate?: fps|null, skipExisting?: bool, storageOverflow?: bool, channels?: rgb|rgba|alpha, color?, bitrate?: kbps, webmBitrate?, keyframeInterval?, proresProfile?, exrCompression?, exrBitDepth?, profile?, level?, rateControl?, webmCodec?, audioBitrate?, opusApplication?, crop?, resize?, includeProjectLink?, audio?: auto|on|off, sampleRate?, audioChannels?, audioFormat?, loop?: bool (values as in setRenderSettings / setOutputModule)}",
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.applyTemplate",
    :label "Apply Template",
    :params
    "{item?|index?, renderSettings?: template name, outputModule?: template name, module?: n}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.deleteTemplate",
    :label "Delete Template",
    :params "{kind: renderSettings|outputModule, name}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.duplicate",
    :label "Duplicate Render Item",
    :params "{item?|index?}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.formats",
    :label "Output Formats",
    :params "{}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.list",
    :label "Render Queue Items",
    :params "{}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.move",
    :label "Move in Render Queue",
    :params "{item?|index?, to: n (1-based)}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.remove",
    :label "Remove from Render Queue",
    :params "{item?: id, index?: n}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.render",
    :label "Render",
    :params
    "{wait?: bool (default true; the UI renders in the background)}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.saveTemplate",
    :label "Save Template...",
    :params
    "{kind: renderSettings|outputModule, name, item?|index? (save from this item), from?: template to copy, module?, params?: {setRenderSettings / setOutputModule keys}}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setLog",
    :label "Render Queue: Log",
    :params
    "{item?|index?, log: errorsOnly|plusSettings|plusPerFrameInfo}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setNotify",
    :label "Notify When Done",
    :params "{notify?: bool (toggles)}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setOutput",
    :label "Output To...",
    :params
    "{item?|index?, module?: n, path: file path or template like [compName].[fileExtension]}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setOutputModule",
    :label "Output Module Settings...",
    :params
-   "{item?|index?, module?: n (1 = first), template?: name, format?: h264|hevc|av1|prores|uncompressed|webm|png|jpeg|tiff|exr|gif|wav|aiff, channels?: rgb|rgba|alpha, color?: straight|premultiplied, quality?: 1-100, bitrate?: kbps, webmBitrate?: bool, keyframeInterval?: frames (0 = auto), proresProfile?: proxy|lt|standard|hq|4444|4444xq, profile?: main|main10 (HEVC/AV1), level?: auto|4.1, rateControl?: bitrate|quality, webmCodec?: vp9|av1, audioBitrate?: Opus kbps, opusApplication?: audio|voice, crop?: bool|{useRoi?, roi?, top?, left?, bottom?, right?}, cropTop?, cropLeft?, cropBottom?, cropRight?, resize?: bool|{preset?, width?, height?, lockAspect?, quality?: low|high}, resizeWidth?, resizeHeight?, postRenderAction?: none|import|importAndReplace|setProxy, includeProjectLink?: bool, audio?: auto|on|off, sampleRate?, audioChannels?: mono|stereo, audioFormat?: 16|24|32, loop?: bool, output?}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   "{item?|index?, module?: n (1 = first), template?: name, format?: h264|hevc|av1|prores|uncompressed|webm|png|jpeg|tiff|exr|tga|gif|wav|aiff, channels?: rgb|rgba|alpha, color?: straight|premultiplied, quality?: 1-100, bitrate?: kbps, webmBitrate?: bool, keyframeInterval?: frames (0 = auto), proresProfile?: proxy|lt|standard|hq|4444|4444xq, exrCompression?: none|rle|zips|zip|piz|pxr24|b44|b44a|dwaa|dwab (OpenEXR, scan lines; default zip; lossy: pxr24 on float, b44/b44a on half, dwaa/dwab), exrBitDepth?: half|float (OpenEXR; default float), profile?: main|main10 (HEVC/AV1), level?: auto|4.1, rateControl?: bitrate|quality, webmCodec?: vp9|av1, audioBitrate?: Opus kbps, opusApplication?: audio|voice, crop?: bool|{useRoi?, roi?, top?, left?, bottom?, right?}, cropTop?, cropLeft?, cropBottom?, cropRight?, resize?: bool|{preset?, width?, height?, lockAspect?, quality?: low|high}, resizeWidth?, resizeHeight?, postRenderAction?: none|import|importAndReplace|setProxy, includeProjectLink?: bool, audio?: auto|on|off, sampleRate?, audioChannels?: mono|stereo, audioFormat?: 16|24|32, loop?: bool, output?}",
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setOverflowFolders",
    :label "Storage Overflow Folders",
    :params
    "{folders: [path, …] (used in order when the output volume is full)}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setRender",
    :label "Render Queue: Render Checkbox",
    :params "{item?|index?, render?: bool (toggles)}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setRenderSettings",
    :label "Render Settings...",
    :params
    "{item?|index?, template?: name, quality?: best|draft, resolution?: full|half|third|quarter|scale, proxyUse?: current|all|comp|none, effects?: current|allOn|allOff, solo?: current|allOff, guideLayers?: current|allOff, colorDepth?: current|8|16|32, frameBlending?: current|onForChecked|offForAll, fieldRender?: off|upper|lower, pulldown?: off|WSSWW|SSWWW|SWWWS|WWWSS|WWSSW, motionBlur?: bool|current|onForChecked|offForAll, timeSpan?: workArea|comp|custom, start?: s, end?: s, duration?: s, frameRate?: fps|null, skipExisting?: bool, storageOverflow?: bool}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.setTemplateDefault",
    :label "Set Template Default",
    :params
    "{kind: renderSettings|outputModule, slot: movie|still|preRender|movieProxy|stillProxy, name}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.stop",
    :label "Stop Rendering",
    :params "{}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "renderQueue.templates",
    :label "Render Templates",
    :params "{}",
-   :source "crates/engine/src/commands/render_queue.rs"}
+   :source "crates/engine/src/cmd/render_queue.rs"}
   {:id "roto.cancel",
    :label "Stop Roto Brush",
    :params "{}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.clearStrokes",
    :label "Remove Roto Brush Strokes",
-   :params "{layer?, effect?, frame? (only this layer frame), kind?}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :params
+   "{layer?, effect?, frame? (only this layer frame), kind?, object? (only this object's strokes)}",
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.freeze",
    :label "Freeze",
    :params "{layer?, effect?, wait?}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.model.download",
    :label "Download Roto Brush Model",
    :params
    "{id, wait?} — the official weights, verified (desktop; uses the system curl)",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "roto.model.install",
    :label "Install Roto Brush Model",
    :params
    "{path: weights file, id?, wait?} — verified against the registry's SHA-256",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "roto.model.remove",
    :label "Remove Roto Brush Model",
    :params "{id}",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "roto.model.select",
    :label "Use Roto Brush Model",
    :params
-   "{id: classical|mobilesam, wait?} (Roto Brush 2.0 / 3.0 use it; wait: loaded before returning)",
-   :source "crates/engine/src/models.rs"}
+   "{id: classical|mobilesam|sam2.1-hiera-tiny|sam2.1-hiera-small|sam2.1-hiera-base-plus|sam2.1-hiera-large, wait?} (Roto Brush 2.0 / 3.0 use it; wait: loaded before returning)",
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "roto.models",
    :label "Roto Brush Models",
    :params "{}",
-   :source "crates/engine/src/models.rs"}
+   :source "crates/engine/src/analysis/models.rs"}
   {:id "roto.options",
    :label "Roto Brush Options",
    :params
-   "{diameter?, refineDiameter?, view?: alphaBoundary|alpha|alphaOverlay|none, overlayColor?: [r,g,b], overlayOpacity?, boundaryColor?: [r,g,b], autoPropagate?}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   "{diameter?, refineDiameter?, view?: alphaBoundary|alpha|alphaOverlay|none, overlayColor?: [r,g,b], overlayOpacity?, boundaryColor?: [r,g,b], autoPropagate?, object? (the object new strokes belong to, 0–31)}",
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.propagate",
    :label "Propagate Roto Brush",
    :params
    "{layer?, effect?, direction?: forward|backward|both, to? (layer frame: extend the span), wait?: block until done}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.span",
    :label "Set Segmentation Span",
    :params "{layer?, effect?, start?, end? (layer frames)}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.status",
    :label "Roto Brush Status",
    :params
    "{layer?, effect?, frame? (layer frame: also report its matte), matte?: include the matte (RLE, base64), compute?: compute the frame if needed, compareTo?: RLE matte to report the IoU against}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.stroke",
    :label "Roto Brush Stroke",
    :params
-   "{layer?, kind?: fg|bg|refine|refineErase, points: [[x, y], …] (layer pixels), frame? (layer frame; default current), radius? (layer px; default the tool's diameter / 2), effect?}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   "{layer?, kind?: fg|bg|refine|refineErase, points: [[x, y], …] (layer pixels), frame? (layer frame; default current), radius? (layer px; default the tool's diameter / 2), effect?, object? (0–31; default the current object: with a tracker each object is followed on its own and the mattes are united)}",
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "roto.unfreeze",
    :label "Unfreeze",
    :params "{layer?, effect?}",
-   :source "crates/engine/src/commands/roto_cmds.rs"}
+   :source "crates/engine/src/cmd/roto_cmds.rs"}
   {:id "scopes.analyze",
-   :label "Lumetri Scopes",
+   :label "Video Scopes",
    :params
    "{comp?, time?|frame?, scope?: waveformRgb|waveformLuma|waveformYc|vectorscopeYuv|vectorscopeHls|histogram|paradeRgb|paradeYuv, standard?: rec601|rec709|rec2020, float?, clamp?, size?}",
-   :source "crates/engine/src/commands/panels_cmds.rs"}
+   :source "crates/engine/src/cmd/panels_cmds.rs"}
   {:id "script.run",
    :label "Run Script",
    :params
    "{code (JavaScript: app, app.project, CompItem, Layer, Property… like After Effects scripting), name?, console? (Script Console context)} → {ok, result, output, error: {message, line, column} | null}",
-   :source "crates/engine/src/commands/file_more.rs"}
+   :source "crates/engine/src/cmd/file_more.rs"}
   {:id "script.runTasks",
    :label "Run Scheduled Script Tasks",
    :params
    "{} → runs the app.scheduleTask tasks that are due (frontends do it every frame) → {ran, output, errors, next (ms until the next task, or null)}",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "script.settings.save",
    :label "Save Script Setting",
    :params
    "{section, key, value (text)} → kept in the settings store (app.settings.saveSetting)",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "scriptui.click",
    :label "Click Script Window Control",
    :params
    "{window?: id | title, widget: id | \"#id\" | properties.name | text} (buttons, checkboxes, radio buttons, tabs)",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "scriptui.close",
    :label "Close Script Window",
    :params
    "{window?, result? (a dialog's show() returns it; default 2 = Cancel)}",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "scriptui.mouse",
    :label "Mouse Event on Script Window Control",
    :params
-   "{window?, widget, type: mousedown | mouseup | mousemove | mouseover | mouseout | click (default), x?, y? (relative to the control; default its centre), button? (0 left, 1 middle, 2 right), detail? (click count), screenX?, screenY?, altKey?, ctrlKey?, metaKey?, shiftKey?} → the script's addEventListener listeners on the control and its containers receive a MouseEvent",
-   :source "crates/engine/src/commands/scripts.rs"}
+   "{window?, widget, type: mousedown | mouseup | mousemove | mouseover | mouseout | click (default), x?, y? (relative to the control; default its centre), button? (0 left, 1 middle, 2 right), buttons? (held: 1 left, 2 right, 4 middle), detail? (click count), screenX?, screenY?, altKey?, ctrlKey?, metaKey?, shiftKey?} → the script's addEventListener listeners on the control and its containers receive a MouseEvent",
+   :source "crates/engine/src/cmd/scripts.rs"}
+  {:id "scriptui.resize",
+   :label "Resize Script Window",
+   :params
+   "{window?, size: [width, height] (pixels)} → the window takes the size, lays itself out again and its onResizing / onResize run (a docked ScriptUI panel gets its dock's size)",
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "scriptui.set",
    :label "Set Script Window Control",
    :params
    "{window?, widget, value: text | number | bool | item index | item text, changing?: bool (a live update: each keystroke / slider step; fires onChanging only)} (edit text, sliders, checkboxes, lists) → fires onChanging / onChange",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "shape.dashes.add",
    :label "Add Dash or Gap",
    :params "{layer?, prop?: stroke uid}",
-   :source "crates/engine/src/commands/shape_stroke.rs"}
+   :source "crates/engine/src/cmd/shape_stroke.rs"}
   {:id "shape.dashes.remove",
    :label "Remove Dash or Gap",
    :params "{layer?, prop?: stroke uid}",
-   :source "crates/engine/src/commands/shape_stroke.rs"}
+   :source "crates/engine/src/cmd/shape_stroke.rs"}
   {:id "shape.fillStroke",
    :label "Fill and Stroke",
    :params
    "{layers?, fillType?: none|solid|linear|radial, strokeType?, fill?: color, stroke?: color, strokeWidth?, merge?} → {fill, stroke, strokeWidth, fillType, strokeType} (first layer)",
-   :source "crates/engine/src/commands/shape_stroke.rs"}
+   :source "crates/engine/src/cmd/shape_stroke.rs"}
   {:id "shape.newPath",
    :label "Pen Tool (Shape Path)",
    :params
    "{layer?, vertices: [[x,y]…], inTangents?, outTangents?, closed?, space?: comp|layer, fill?: [r,g,b]|#hex|false, fillType?, fillBlend?, fillOpacity?, stroke?, strokeType?, strokeBlend?, strokeOpacity?, strokeWidth? (default the Tools bar's, shape.toolOptions), name?}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "shape.newShape",
    :label "Shape Tool",
    :params
    "{layer?, kind?: rect|rounded|ellipse|polygon|star, size? [w,h], position? [x,y] (the centre), space?: comp|layer, name? (a new layer's), fill?, fillType?, fillBlend?, fillOpacity?, stroke?, strokeType?, strokeBlend?, strokeOpacity?, strokeWidth? (default the Tools bar's, shape.toolOptions)} → {layer, group}",
-   :source "crates/engine/src/commands/shape_tool.rs"}
+   :source "crates/engine/src/cmd/shape_tool.rs"}
   {:id "shape.stroke.taper",
    :label "Stroke Taper",
    :params
    "{layer?, prop?: stroke uid, units?: pixels|percent, startLength?, endLength?, startWidth? (%), endWidth? (%), startEase? (%), endEase? (%)}",
-   :source "crates/engine/src/commands/shape_stroke.rs"}
+   :source "crates/engine/src/cmd/shape_stroke.rs"}
   {:id "shape.stroke.wave",
    :label "Stroke Wave",
    :params
    "{layer?, prop?: stroke uid, amount? (%), units?: pixels|cycles, wavelength?, cycles?, phase? (°)}",
-   :source "crates/engine/src/commands/shape_stroke.rs"}
+   :source "crates/engine/src/cmd/shape_stroke.rs"}
   {:id "shape.toolOptions",
    :label "Shape Tool Options",
    :params
    "{createsMask?: bool (Tool Creates Mask with a shape layer selected), fill?: [r,g,b]|#hex|false, fillType?: none|solid|linear|radial, fillBlend?: blend mode, fillOpacity? %, stroke?, strokeType?, strokeBlend?, strokeOpacity?, strokeWidth? px, reset?} → the options",
-   :source "crates/engine/src/commands/shape_tool.rs"}
+   :source "crates/engine/src/cmd/shape_tool.rs"}
   {:id "shortcuts.conflicts",
    :label "Keyboard Shortcut Conflicts",
    :params "{}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "shortcuts.export",
    :label "Export Keyboard Shortcuts",
    :params "{preset?, path?}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "shortcuts.import",
    :label "Import Keyboard Shortcuts",
    :params "{path? | preset?: exported document, name?}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "shortcuts.list",
    :label "List Keyboard Shortcuts",
    :params "{query?, keys?, assigned?: bool}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "shortcuts.preset",
    :label "Keyboard Shortcut Preset",
    :params
    "{op: select|new|duplicate|delete|rename, name?, from?, newName?}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "shortcuts.reset",
    :label "Reset Keyboard Shortcuts",
    :params "{command?, params?}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "shortcuts.set",
    :label "Set Keyboard Shortcut",
    :params "{command, params?, keys: \"Cmd+Shift+K\" | [keys] | null}",
-   :source "crates/engine/src/commands/settings.rs"}
+   :source "crates/engine/src/cmd/settings.rs"}
   {:id "storage.clear",
    :label "Clear Browser Storage",
    :params
    "{what: diskCache|media|projects|autoSaves|all} → {cleared, entries, bytes}",
-   :source "crates/engine/src/storage.rs"}
+   :source "crates/engine/src/system/storage.rs"}
   {:id "storage.persist",
    :label "Request Persistent Storage",
    :params "{} → {requested, persisted}",
-   :source "crates/engine/src/storage.rs"}
+   :source "crates/engine/src/system/storage.rs"}
   {:id "templates.create",
    :label "New Project from Template",
    :params
    "{id (templates.list) | path (.ectemplate), projectPath? (save the new project there; embedded footage goes to `<stem> Footage/` next to it), footageDir?} → an untitled copy (embedded footage extracted: `footage` lists the files)",
-   :source "crates/engine/src/templates.rs"}
+   :source "crates/engine/src/home/templates.rs"}
   {:id "templates.delete",
    :label "Delete Template",
    :params "{id: user/<file>}",
-   :source "crates/engine/src/templates.rs"}
+   :source "crates/engine/src/home/templates.rs"}
   {:id "templates.list",
    :label "Project Templates",
    :params
    "{thumbnails?: bool} → [{id, name, description, category, builtin, width, height, frameRate, duration, controls, thumbnail? (hex RGB 256×144)}]",
-   :source "crates/engine/src/templates.rs"}
+   :source "crates/engine/src/home/templates.rs"}
   {:id "templates.saveAs",
    :label "Save as Template...",
    :params
    "{name, description?, category?, overwrite?: bool (default true), embedFootage?: bool (default true: the footage files go into the template), embedLimitMB? (default 256: footage beyond it stays linked, with a warning)} → {id, path, embedded, embeddedBytes, linked: [{item, name, reason}], warning?}",
-   :source "crates/engine/src/templates.rs"}
+   :source "crates/engine/src/home/templates.rs"}
   {:id "templates.thumbnail",
    :label "Template Thumbnail",
    :params "{id} → {id, width, height, rgb (hex)}",
-   :source "crates/engine/src/templates.rs"}
+   :source "crates/engine/src/home/templates.rs"}
   {:id "text.addSelector",
    :label "Add Text Selector",
    :params
-   "{layer?, animator?: uid|index, kind: range|wiggly|expression}",
-   :source "crates/engine/src/commands/animation.rs"}
+   "{layer?, animator?: uid|index (1-based; a uid match wins over an index), kind: range|wiggly|expression}",
+   :source "crates/engine/src/cmd/animation.rs"}
   {:id "text.animatorFontAxes",
    :label "Variable Font Axes",
    :params
-   "{layer?, axis?: tag|name (omit to list the font's axes), animator?: uid|index}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   "{layer?, axis?: tag|name (omit to list the font's axes), animator?: uid|index (1-based; a uid match wins over an index)}",
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "text.animatorProperties",
    :label "Text Animator Properties",
    :params "{}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "text.delete",
    :label "Delete Text",
    :params
    "{layer?, direction?: backward|forward, word?, range?: [start, end], merge?}",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
+  {:id "text.deleteSurrounding",
+   :label "Delete Text Around Selection",
+   :params
+   "{layer?, before?, after?, bytes?, merge?} (input-method replacement: the characters before and after the selection are deleted, the selection stays; bytes counts UTF-8 bytes)",
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "text.edit",
    :label "Edit Text",
    :params
    "{layer?, select?: [anchor, caret]|\"none\", caret?, created?} → {layer, anchor, caret}",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "text.endEdit",
    :label "Exit Text Editing",
    :params "{}",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "text.fontFeatures",
    :label "OpenType Features",
    :params
    "{layer?, font?, style?} → {family, style, features: [tags], options: {smallCaps, superscript, stylisticSets: [n], fractions, …}} (what the font sets with its own glyphs)",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "text.fonts",
    :label "List Fonts",
    :params
    "{query?, variable?, rescan?} → {count, families: [{family, styles, origin: bundled|system|user, variable, nativeName?}], added} (variable: only variable fonts; rescan picks up fonts installed since launch)",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "text.insert",
    :label "Type Text",
    :params
    "{layer?, text, range?: [start, end], merge?} (replaces the selection)",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "text.moveCaret",
    :label "Move Text Caret",
    :params
    "{to: left|right|wordLeft|wordRight|lineStart|lineEnd|up|down|paraStart|paraEnd|start|end, extend?}",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "text.presets",
    :label "Text Animation Presets",
    :params "{}",
-   :source "crates/engine/src/commands/text_anim.rs"}
+   :source "crates/engine/src/cmd/text_anim.rs"}
   {:id "text.removeAllAnimators",
    :label "Remove All Text Animators",
    :params "{layers?}",
-   :source "crates/engine/src/commands/animation.rs"}
+   :source "crates/engine/src/cmd/animation.rs"}
   {:id "text.setSelection",
    :label "Set Text Selection",
    :params
    "{layer?, start, end?} | {anchor, caret} | {select: \"all\"} (character indices)",
-   :source "crates/engine/src/commands/text_edit.rs"}
+   :source "crates/engine/src/cmd/text_edit.rs"}
   {:id "time.back10",
    :label "Back 10 Frames",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.end",
    :label "Go to End",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.forward10",
    :label "Forward 10 Frames",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.go",
    :label "Go To",
    :params
    "{to: start|end|workStart|workEnd|layerIn|layerOut|nextInOut|prevInOut|nextKey|prevKey, prop?: uid, visible?: [{layer, prop}]}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.layerIn",
    :label "Go to Layer In Point",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.layerOut",
    :label "Go to Layer Out Point",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.nextFrame",
    :label "Next Frame",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.nextInOut",
    :label "Go to Next In or Out Point",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.nextKey",
    :label "Go to Next Keyframe or Marker",
    :params
    "{visible?: [{layer, prop}] (only these properties' keys, as the Timeline shows them)}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.previousFrame",
    :label "Previous Frame",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.previousInOut",
    :label "Go to Previous In or Out Point",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.previousKey",
    :label "Go to Previous Keyframe or Marker",
    :params "{visible?: [{layer, prop}]}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.set",
    :label "Go to Time...",
    :params "{time? (s) | frame? | timecode?}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.start",
    :label "Go to Start",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.step",
    :label "Step Frames",
    :params "{frames}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.workAreaEnd",
    :label "Go to Work Area End",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "time.workAreaStart",
    :label "Go to Work Area Start",
    :params "{}",
-   :source "crates/engine/src/commands/time.rs"}
+   :source "crates/engine/src/cmd/time.rs"}
   {:id "track.analyze",
    :label "Analyze",
    :params
    "{layer?, tracker?, direction?: forward|backward|frameForward|frameBackward, start? (s), end? (s), wait?: block until done}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.apply",
    :label "Apply",
    :params "{layer?, tracker?, dimensions?: xy|x|y}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.camera",
    :label "Track Camera",
    :params
    "{layer?, shotType?: fixed|variable|specify, aov?: degrees, solveMethod?: auto|typical|flat|tripod, detailed?, lensDistortion?: solve k1/k2, undistort?: render undistorted, wait?}",
-   :source "crates/engine/src/commands/camera_cmds.rs"}
+   :source "crates/engine/src/cmd/camera_cmds.rs"}
   {:id "track.delete",
    :label "Delete Tracker",
    :params "{layer?, tracker?}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.editTargetDialog",
    :label "Edit Target...",
    :params "{}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.extractFaceMeasurements",
    :label "Extract & Copy Face Measurements",
    :params
    "{layer?} → keys a Face Measurements effect from the layer's Face Track Points (one key per tracked frame) and copies those keys",
-   :source "crates/engine/src/commands/mask_interp.rs"}
+   :source "crates/engine/src/cmd/mask_interp.rs"}
   {:id "track.mask",
    :label "Track Mask",
    :params
    "{layer?, mask?: uid|index|name, method?: position|positionScale|positionScaleRotation|positionScaleRotationSkew|perspective|faceOutline|faceDetailed, direction?: forward|backward|frameForward|frameBackward, start? (s), end? (s), wait?: block until done}",
-   :source "crates/engine/src/commands/mask_interp.rs"}
+   :source "crates/engine/src/cmd/mask_interp.rs"}
   {:id "track.maskMethod",
    :label "Mask Tracking Method",
    :params
    "{method: position|positionScale|positionScaleRotation|positionScaleRotationSkew|perspective|faceOutline|faceDetailed}",
-   :source "crates/engine/src/commands/mask_interp.rs"}
+   :source "crates/engine/src/cmd/mask_interp.rs"}
   {:id "track.motion",
    :label "Track Motion",
    :params "{layer?}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.new",
    :label "New Tracker",
    :params
    "{layer?, kind?: transform|stabilize|affine|perspective|raw, position?, rotation?, scale?, target?: layer}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.options",
    :label "Motion Tracker Options",
    :params
    "{layer?, tracker?, name?, channel?: rgb|luminance|saturation, blur? (px, 0 = off), enhance?, subpixel?, adaptEveryFrame?, threshold? (%), action?: continue|stop|extrapolate|adapt, trackShape?}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.optionsDialog",
    :label "Options...",
    :params "{}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.property",
    :label "Track this Property",
    :params "{layer?, source?: layer}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.reset",
    :label "Reset",
    :params "{layer?, tracker?}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.select",
    :label "Current Track",
    :params "{layer?, tracker?: uid|name|#n}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.setPoint",
    :label "Move Track Point",
    :params
    "{layer?, tracker?, point: n (1-based), center?: [x,y], featureSize?: [w,h], searchOffset?: [x,y], searchSize?: [w,h], attachOffset?: [x,y], move?: [dx,dy], time? (s)}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.setTarget",
    :label "Edit Target",
    :params "{layer?, tracker?, target: layer|null}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.setType",
    :label "Track Type",
    :params
    "{layer?, tracker?, kind?: transform|stabilize|affine|perspective|raw, position?, rotation?, scale?}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.stabilize",
    :label "Stabilize Motion",
    :params "{layer?}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.status",
    :label "Tracker Status",
    :params "{layer?, tracker?}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.stop",
    :label "Stop Analysis",
    :params "{}",
-   :source "crates/engine/src/commands/track.rs"}
+   :source "crates/engine/src/cmd/track.rs"}
   {:id "track.warpStabilizer",
    :label "Warp Stabilizer VFX",
    :params "{layer?, wait?}",
-   :source "crates/engine/src/commands/warp_cmds.rs"}
+   :source "crates/engine/src/cmd/warp_cmds.rs"}
   {:id "view.3d.activeCamera",
    :label "Active Camera",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.back",
    :label "Back",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.bottom",
    :label "Bottom",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.custom1",
    :label "Custom View 1",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.custom2",
    :label "Custom View 2",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.custom3",
    :label "Custom View 3",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.default",
    :label "Default",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.front",
    :label "Front",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.last",
    :label "Switch to Last 3D View",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.left",
    :label "Left",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.right",
    :label "Right",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.3d.top",
    :label "Top",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.addGuide",
    :label "Add Guide...",
    :params
    "{orientation?: vertical|horizontal, position? (comp px, or percent with percent: true), percent?: bool}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.addPercentGuide",
    :label "Add Percentage Guide...",
    :params
    "{orientation?: vertical|horizontal, position? (percent of the comp)}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.assign3dShortcut",
    :label "Assign Shortcut to 3D View",
    :params "{slot: F10|F11|F12, comp?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "view.channel",
    :label "Show Channel",
    :params
    "{channel: rgb|red|green|blue|alpha|rgbStraight, colorized?, toggle?}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.channel.rgbStraight",
    :label "Show Channel: RGB Straight",
    :params "{}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.clearGuides",
    :label "Clear Guides",
    :params "{comp?}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.closeLockedViewer",
    :label "Close Locked Viewer",
    :params "{}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.convertGuides",
    :label "Convert Guides to Percentage",
    :params "{comp?, to?: percent|pixels, index?}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.customRgb",
    :label "My Custom RGB...",
    :params
    "{name?, red?/green?/blue?/white?: [x, y] (CIE xy), gamma?, srgbCurve?: bool, icc?: path (RGB ICC profile, matrix/TRC or LUT-based A2B0: read when it changes, \"\" clears; a LUT profile simulates through its tables, `lutProfile` in the reply; typed-in numbers replace it), reload?, from?: a Simulate Output profile to start from, reset?, preserveRgb?, apply?: bool (default true: simulate it)} → the definition (kept in Settings)",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.displayColor",
    :label "Viewer Color State",
    :params
    "{} → display colour management, output simulation, display profile, locked viewer",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.displayColorManagement",
    :label "Use Display Color Management",
    :params "{value?}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.exportGuides",
    :label "Export Guides...",
    :params "{path}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.exposure",
    :label "Adjust Exposure",
    :params "{stops? | delta?}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.extendedViewer",
    :label "Extended Viewer",
    :params "{value?}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.fastPreviewMode",
    :label "Fast Previews",
    :params "{mode: off|adaptive|draft|fastDraft|wireframe}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.get3D",
    :label "3D View State",
    :params
    "{comp?} → current 3D view, view camera, active camera layer, lights",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.importGuides",
    :label "Import Guides...",
    :params "{path}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.layout",
    :label "Switch View Layout",
    :params "{views: 1|2|4}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.lookAtAll",
    :label "Look at All Layers",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.lookAtSelected",
    :label "Look at Selected Layers",
    :params "{comp?, layers?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.moveGuide",
    :label "Move Guide",
    :params "{comp?, index, position (comp px), merge?}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.removeGuide",
    :label "Remove Guide",
    :params "{comp?, index}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.res.custom",
    :label "Custom...",
    :params "{factor?: 1..40 (render every n-th pixel), comp?}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.reset3DView",
    :label "Reset 3D View",
    :params "{comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.resetExposure",
    :label "Reset Exposure",
    :params "{}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.set3DView",
    :label "Switch 3D View",
    :params
    "{view: activeCamera|default|front|left|top|back|right|bottom|custom1|custom2|custom3, comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.set3DViewCamera",
    :label "Set 3D View Camera",
    :params "{view, eye? [x,y,z], poi? [x,y,z], zoom?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.setPaneView",
    :label "Set View of Pane",
    :params
    "{pane: 0 (main) | 1 | 2 | 3, view: activeCamera|default|front|left|top|back|right|bottom|custom1|custom2|custom3, comp?}",
-   :source "crates/engine/src/commands/three_d.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
   {:id "view.setRegionOfInterest",
    :label "Region of Interest",
    :params "{rect?: [x, y, w, h] | null}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.shareViewOptions",
    :label "Share View Options",
    :params "{value?}",
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/view.rs"}
   {:id "view.showSnapshot",
    :label "Show Snapshot",
    :params "{value?}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.simulateOutput",
    :label "Simulate Output",
    :params
    "{profile: none|rec709|ntsc|pal|mac18|srgb|rec2020|p3|linear|myCustom|custom, preserveRgb?, space? (custom)}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.snapping",
    :label "Snapping",
    :params "{value?}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.snappingOptions",
    :label "Snapping Options",
    :params
    "{edgesExtended? (Snap Edges Extended), collapsedFeatures? (Snap to Features in Collapsed Compositions and Text Layers): bool, toggle?: one of those keys} → the options",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.splitLockedViewer",
    :label "Split with New Locked Viewer",
    :params "{comp?, view?: 3D view id}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "view.takeSnapshot",
    :label "Take Snapshot",
    :params "{comp?, scale?: 0.05..1}",
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:id "warp.analyze",
    :label "Analyze",
    :params
    "{layer?, effect?: uid|name|index, wait?: block until done}",
-   :source "crates/engine/src/commands/warp_cmds.rs"}
+   :source "crates/engine/src/cmd/warp_cmds.rs"}
   {:id "warp.cancel",
    :label "Cancel",
    :params "{}",
-   :source "crates/engine/src/commands/warp_cmds.rs"}
+   :source "crates/engine/src/cmd/warp_cmds.rs"}
   {:id "warp.status",
    :label "Warp Stabilizer Status",
    :params "{layer?, effect?}",
-   :source "crates/engine/src/commands/warp_cmds.rs"}
+   :source "crates/engine/src/cmd/warp_cmds.rs"}
   {:id "window.assignWorkspaceShortcut",
    :label "Assign Shortcut to Workspace",
    :params "{slot: Shift+F10|Shift+F11|Shift+F12, workspace?}",
-   :source "crates/engine/src/commands/app_more.rs"}
+   :source "crates/engine/src/cmd/app_more.rs"}
   {:id "window.restoreScriptPanels",
    :label "Restore ScriptUI Panels",
    :params
    "{} → reopens the ScriptUI panels open when EffectCraft last quit (frontends call it at launch) → {opened: [name], failed: [{name, error}]}",
-   :source "crates/engine/src/commands/scripts.rs"}
+   :source "crates/engine/src/cmd/scripts.rs"}
   {:id "window.scriptPanel",
    :label "ScriptUI Panel",
    :params
-   "{name (a script in the ScriptUI Panels folder, e.g. `Layer Tools.jsx`)} → opens it as a dockable panel",
-   :source "crates/engine/src/commands/scripts.rs"}],
+   "{name (a script in the ScriptUI Panels folder, e.g. `Layer Tools.jsx`, or `Folder/Panel.jsx` in a subfolder)} → opens it as a dockable panel",
+   :source "crates/engine/src/cmd/scripts.rs"}],
  :unexpanded
  [{:macro "CommandSpec {}",
    :count 1,
-   :source "crates/engine/src/commands/batch.rs"}
+   :source "crates/engine/src/cmd/batch.rs"}
   {:macro "CommandSpec {}",
    :count 2,
-   :source "crates/engine/src/commands/content_fill.rs"}
+   :source "crates/engine/src/cmd/content_fill.rs"}
   {:macro "fe!",
-   :count 42,
-   :source "crates/engine/src/commands/frontend.rs"}
+   :count 43,
+   :source "crates/engine/src/cmd/frontend.rs"}
+  {:macro "spec()",
+   :count 3,
+   :source "crates/engine/src/cmd/journal.rs"}
   {:macro "style_cmd!",
    :count 9,
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:macro "view_cmd!",
    :count 11,
-   :source "crates/engine/src/commands/three_d.rs"}
-  {:macro "res!",
-   :count 5,
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
+  {:macro "res!", :count 5, :source "crates/engine/src/cmd/view.rs"}
   {:macro "chan!",
    :count 7,
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:macro "fast!",
    :count 5,
-   :source "crates/engine/src/commands/viewer_cmds.rs"}],
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
+  {:macro "never_replaces!",
+   :count 12,
+   :source "crates/engine/src/tests/export_overwrite.rs"}],
  :mcp
  [{:name "list_commands",
    :description
-   "List engine commands: id, label, menu path, shortcut, `params` doc (e.g. `{name?, width?, height?, frameRate?, duration? (s)}`) and whether it can run now (`why` if not). Every menu item, shortcut and panel gesture maps to one of these ids; run them with execute_command. Narrow with `filter` (e.g. `layer.new`, `keys`, `effect`).",
+   "List engine commands: id, label, menu path, shortcut, `params` doc (e.g. `{name?, width?, height?, frameRate?, duration? (s)}`) and whether it can run now (`why` if not). Every menu item, shortcut and panel gesture maps to one of these ids; run them with execute_command. Narrow with `filter` (e.g. `layer.new`, `keys`, `effect`); `compact: true` lists only ids and labels.",
    :bridge-only false,
    :source "crates/automation/src/tools.rs"}
   {:name "describe_command",
@@ -2903,12 +3047,12 @@
    :source "crates/automation/src/tools.rs"}
   {:name "get_layer",
    :description
-   "A layer's property tree (transform, masks, effects, text, shape contents, ...): leaf properties have a `path` usable with get_property/set_property/add_keyframe, plus uid, match id, name, type, value at `time`, keyframes and expression. Groups contain children; inspect them here, then select a leaf path. `flat: true` returns just a list of {path, type, value, keys, expression} (compact).",
+   "A layer's property tree (transform, masks, effects, text, shape contents, ...): leaf properties have a `path` usable with get_property/set_property/add_keyframe, plus uid, match id, name, type, value at `time`, keyframes and expression; popup (enum) properties add `options` ([{value, label}]). Groups contain children; inspect them here, then select a leaf path. `flat: true` returns just a list of {path, type, value, keys, expression, options} (compact).",
    :bridge-only false,
    :source "crates/automation/src/tools.rs"}
   {:name "get_property",
    :description
-   "Read one property: type, value at `time` (comp seconds; default the current time), whether it is animated, its keyframes (time, value, in/out interpolation) and expression.",
+   "Read one property: type, value at `time` (comp seconds; default the current time), whether it is animated, its keyframes (time, value, in/out interpolation) and expression. Popup (enum) properties add `options`: [{value, label}], the values set_property takes.",
    :bridge-only false,
    :source "crates/automation/src/tools.rs"}
   {:name "set_property",
@@ -2928,7 +3072,7 @@
    :source "crates/automation/src/tools.rs"}
   {:name "list_effects",
    :description
-   "The effect registry: id, After Effects name, category, GPU and 32-bpc support. Narrow with `filter` (id, name or category text). Apply with add_effect.",
+   "The effect registry: id, After Effects name, category, GPU and 32-bpc support. Narrow with `filter` (id, name or category text); `compact: true` lists only ids, names and categories. Apply with add_effect.",
    :bridge-only false,
    :source "crates/automation/src/tools.rs"}
   {:name "list_fonts",
@@ -2943,7 +3087,7 @@
    :source "crates/automation/src/tools.rs"}
   {:name "render_frame",
    :description
-   "Render a composition frame (default: the active comp at the current time) and return it as a PNG image, longest side `max_side` (default 960, 0 = full size). `path` also writes the PNG to disk; `inline: false` returns only the metadata. Use it to check your work.",
+   "Render a composition frame (default: the active comp at the current time) and return it as a PNG image, longest side `max_side` (default 960, 0 = full size). With `times` (up to 64 comp times) it renders each and returns ONE contact-sheet PNG tiling them in that order: `columns` (default near-square), `max_side` per cell (default 320), `labels` (default true) draws each cell's time; the metadata gives comp, times, columns, rows, cellWidth, cellHeight, width and height. `path` also writes the PNG (or sheet) to disk; `inline: false` returns only the metadata. Use it to check your work, and `times` to check motion in one call.",
    :bridge-only false,
    :source "crates/automation/src/tools.rs"}
   {:name "open_project",
@@ -3027,7 +3171,7 @@
    :source "crates/automation/src/tools.rs"}
   {:name "command_list",
    :description
-   "List engine commands: id, label, menu path, shortcut, `params` doc (e.g. `{name?, width?, height?, frameRate?, duration? (s)}`) and whether it can run now (`why` if not). Every menu item, shortcut and panel gesture maps to one of these ids; run them with execute_command. Narrow with `filter` (e.g. `layer.new`, `keys`, `effect`).",
+   "List engine commands: id, label, menu path, shortcut, `params` doc (e.g. `{name?, width?, height?, frameRate?, duration? (s)}`) and whether it can run now (`why` if not). Every menu item, shortcut and panel gesture maps to one of these ids; run them with execute_command. Narrow with `filter` (e.g. `layer.new`, `keys`, `effect`); `compact: true` lists only ids and labels.",
    :bridge-only false,
    :source "crates/automation/src/tools.rs"}
   {:name "command_run",
@@ -3037,7 +3181,7 @@
    :source "crates/automation/src/tools.rs"}
   {:name "render_preview",
    :description
-   "Render a composition frame (default: the active comp at the current time) and return it as a PNG image, longest side `max_side` (default 960, 0 = full size). Use it to check your work.",
+   "Render a composition frame (default: the active comp at the current time) and return it as a PNG image, longest side `max_side` (default 960, 0 = full size). With `times` (up to 64 comp times) it renders each and returns ONE contact-sheet PNG tiling them in that order: `columns` (default near-square), `max_side` per cell (default 320), `labels` (default true) draws each cell's time; the metadata gives comp, times, columns, rows, cellWidth, cellHeight, width and height. Use it to check your work, and `times` to check motion in one call.",
    :bridge-only false,
    :source "crates/automation/src/tools.rs"}
   {:name "command_batch",

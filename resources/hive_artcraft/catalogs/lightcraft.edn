@@ -1,9 +1,9 @@
-{:reference-revision "fb7ac08b9ae43956f99436437ea5f549a07e3ce1",
+{:reference-revision "7bb9165c6bc46652db41ef5e19054a2bb017435f",
  :engine
  [{:id "activity.cancel",
    :label "Cancel Background Task",
    :params
-   "{id} | {all: true} → {cancelled: n} — ask a task (or every cancellable task) to stop; it stops at its next file or photo. An unknown id (it may have just finished) or a task that can't be cancelled is an error",
+   "{id} | {all: true} → {cancelled: n} — ask a task (or every cancellable task) to stop; it stops at its next file or photo (a preview build also stops between a photo's own previews). An unknown id (it may have just finished) or a task that can't be cancelled is an error",
    :source "crates/engine/src/cmd/activity.rs"}
   {:id "activity.list",
    :label "Background Tasks",
@@ -13,73 +13,73 @@
   {:id "album.addPhotos",
    :label "Add to Album",
    :params
-   "{id: albumId, ids?: [photoIds]} (default: selection) → {added, skipped}; Local photos are skipped (albums hold library photos), only Local ones is an error",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{id: albumId, ids?: [photoIds]} (default: selection) → {added, skipped}; Local photos are skipped (albums hold library photos), only Local ones is an error; ids the library doesn't have are dropped; nothing new to add changes nothing (no undo step)",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.clearQuick",
    :label "Clear Quick Collection",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.create",
    :label "New Album",
    :params
    "{name, parent?: folderId, folder?: bool, addSelected?: bool} → {id, skipped} (skipped: Local photos of the selection, which albums can't hold)",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.createSmart",
    :label "New Smart Album…",
    :params
-   "{name, rules?: partial Filter (rating, ratingOp, flag, label, kind, edited, keyword, camera, lens, dateFrom, dateTo, date, text, album, ruleSet: {match: all|any|none, rules: [{field, op, value} | {group: ruleSet}]} — see album.ruleFields), parent?: folderId} — without `rules`, saves the current view (source + filter)",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{name, rules?: partial Filter (rating, ratingOp, flag, flags, label, labels, kind, edited, keyword, camera, lens, dateFrom, dateTo, date, text, album, ruleSet: {match: all|any|none, rules: [{field, op, value} | {group: ruleSet}]} — see album.ruleFields), parent?: folderId} — without `rules`, saves the current view (source + filter)",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.delete",
    :label "Delete Album",
    :params
    "{id} — deletes the album or folder and its descendants, keeping photos in the library; one undo step",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.move",
    :label "Move Album",
    :params "{id, parent?: folderId|null}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.removePhotos",
    :label "Remove from Album",
    :params
    "{id?: albumId (default: the album on screen), ids?} — takes the photos out of the album only: they stay in the library and in their folders (issue #1805; photo.delete removes them from the library) → {removed, album: name}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.rename",
    :label "Rename Album",
    :params "{id, name}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.reorder",
    :label "Reorder Album",
    :params
    "{id, parent?: folderId|null, before?: albumId|null} — places the album (or folder) in `parent` (default: where it is; null: the top level) before the sibling `before` of the same kind, or last of its kind; the folder is then ordered by hand. One undo step. → {changed}: how many edits it took (0: already there)",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.ruleFields",
    :label "Smart Album Rule Fields",
    :params
    "{} → [{field, label, kind (text|keywords|number|date|choice|bool|album: an album id), group (field-menu submenu, null at the top level), ops: [{op, label}], choices? (ids), choiceLabels? ({id: label})}] for ruleSet rules, in menu order",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.setCover",
    :label "Set as Album Cover",
    :params "{id: albumId, photo?: photoId}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.setRules",
    :label "Edit Smart Album",
    :params
    "{id, rules?: partial Filter merged onto the current rules (null clears a field), replace?: bool, fromView?: bool (use the current view), name?: also rename it (blank keeps the name) — one undo step, both or neither}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.setTarget",
    :label "Set as Target Album",
    :params "{id: albumId | null} (null = the Quick Collection)",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.sort",
    :label "Sort Albums by Name",
    :params
    "{parent?: folderId|null} — drops the hand order of the albums inside the folder (default: the top level), so they are listed by name → {changed}: how many albums lost their place",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "album.toggleTarget",
    :label "Add to Target Album",
    :params
-   "{ids?} — B: adds the photos to the target album (the Quick Collection unless one is set), or removes them when they're all in it → {album, added, skipped}; Local photos are skipped",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{ids?} — B: adds the photos to the target album (the Quick Collection unless one is set), or removes them when they're all in it → {album, added, toggled, skipped}; Local photos are skipped, ids the library doesn't have are dropped (none left: nothing changes and `added` is null)",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "albums.list",
    :label "List Albums",
    :params "{}",
@@ -87,7 +87,12 @@
   {:id "app.gpu",
    :label "GPU Rendering",
    :params
-   "{enabled?: bool} — allow/forbid GPU rendering (CPU fallback; LIGHTCRAFT_GPU=0 forbids it for the process); returns {enabled, available, adapter, reason (why the GPU is off), lastFallback (latest render redone on the CPU, and why)}",
+   "{enabled?: bool, wait?: bool} — allow/forbid GPU rendering (CPU fallback; LIGHTCRAFT_GPU=0 forbids it for the process); returns {enabled, available, adapter, reason (why the GPU is off), lastFallback (latest render redone on the CPU, and why)}. wait: false never waits for a device still being created (available, adapter and reason are then null and the device is created in the background; with GPU rendering off they say so at once)",
+   :source "crates/engine/src/cmd/query.rs"}
+  {:id "app.hotPixelLimit",
+   :label "Hot Pixel Limit",
+   :params
+   "{percent?: number} — Remove Hot Pixels leaves a raw alone when more than this share of its photosites would be replaced (0.001..100 %, default 0.2 %; real light it keeps doesn't count); returns {percent, default}",
    :source "crates/engine/src/cmd/query.rs"}
   {:id "app.memoryBudget",
    :label "Memory Budget",
@@ -127,7 +132,7 @@
   {:id "crop.aspect",
    :label "Crop Aspect",
    :params
-   "{aspect: \"original\"|\"free\"|\"current\" (lock the crop's present shape)|\"toggle\" (lock ↔ free)|\"1x1\"|\"4x5\"|\"8.5x11\"|\"5x7\"|\"2x3\"|\"4x3\"|\"16x9\"|\"16x10\"|[w,h]}",
+   "{aspect: \"original\"|\"free\"|\"current\" (lock the crop's present shape)|\"toggle\" (lock ↔ free)|\"1x1\"|\"4x5\"|\"8.5x11\"|\"5x7\"|\"2x3\"|\"4x3\"|\"16x9\"|\"16x10\"|[w,h], orientation?: \"crop\"|\"given\"} — a named ratio takes the crop's present orientation (landscape, or portrait after X); [w,h] is used as given (taller than wide → portrait); `orientation` overrides either",
    :source "crates/engine/src/cmd/develop.rs"}
   {:id "crop.autoStraighten",
    :label "Auto Straighten",
@@ -239,7 +244,7 @@
   {:id "denoise.models.select",
    :label "Choose Denoise Model",
    :params
-   "{id: installed model | null} → {model} — null switches denoise off",
+   "{id: installed model | null} → {model} — null uses the built-in denoiser",
    :source "crates/engine/src/cmd/denoise.rs"}
   {:id "denoise.models.test",
    :label "Test Denoise Model",
@@ -264,12 +269,12 @@
   {:id "denoise.status",
    :label "Denoise Status",
    :params
-   "{id?} → {enabled, model, runtime, productsDir, queued, running: {photo, done, total, seconds} | null, ready, made, auto, runOn, device: {kind: gpu | cpu | pending | none, adapter?, reason?, cardMs?, cpuMs?, fellBack?, remote?: {address, state: pending | unavailable | used | idle | slower | given up, device?, remoteMs?, localMs?, reason?, failures?, lastError?}}, cache: {files, bytes, limitBytes}, generation, photo?: {state: notApplicable | noModel | ready | queued | running | failed | idle, …}}",
+   "{id?} → {enabled, model, runtime, productsDir, queued, running: {photo, done, total, seconds} | null, ready, made, auto, runOn, device: {kind: gpu | cpu | pending | none, adapter?, reason?, cardMs?, cpuMs?, fellBack?, remote?: {address, state: pending | unavailable | used | idle | slower | given up, device?, remoteMs?, localMs?, reason?, failures?, lastError?}}, cache: {files, bytes, limitBytes}, generation, photo?: {state: notApplicable | ready | queued | running | failed | idle, …}}",
    :source "crates/engine/src/cmd/denoise.rs"}
   {:id "denoise.toggle",
    :label "AI Denoise",
    :params
-   "{id?: photoId, enabled?: bool} → {id, enabled, amount} — turn AI Denoise on (50% initially) or off for one raw photo, independent of selection and Auto Sync; needs an installed model to turn on",
+   "{id?: photoId, enabled?: bool} → {id, enabled, amount} — turn AI Denoise on (50% initially) or off for one raw photo, independent of selection and Auto Sync; uses the built-in denoiser when no model is chosen",
    :source "crates/engine/src/cmd/denoise.rs"}
   {:id "develop.adjust",
    :label "Nudge Develop Value",
@@ -365,7 +370,7 @@
   {:id "develop.resetSection",
    :label "Reset Section",
    :params
-   "{section: light|curve|color|mixer|grading|effects|vignette|grain|detail|optics|geometry}",
+   "{section: profile|light|curve|color|mixer|grading|effects|vignette|grain|detail|optics|geometry}",
    :source "crates/engine/src/cmd/develop.rs"}
   {:id "develop.sectionEnabled",
    :label "Toggle Section",
@@ -579,16 +584,16 @@
    :label "Set Folder Color Label",
    :params
    "{path, label: red|yellow|green|blue|purple|none} — give a folder of the library (one its photos were imported from, see library.folders) a colour label, or take it off (also once its photos are gone); one undo step. The label follows the folder when it is renamed or moved with folder.rename / folder.move → {path, label}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "folder.move",
    :label "Move Folder",
    :params
-   "{path, into: destination folder} — move a folder on disk into another and relink the photos in it; one undo step (undo moves it back, refused if the old place is taken) → {path, relinked}",
+   "{path, into: destination folder} — move a folder on disk into another and relink the photos in it; one undo step (undo moves it back, refused if the old place is taken); refused for the home folder and its Pictures, Desktop and Downloads → {path, relinked}",
    :source "crates/engine/src/cmd/browse.rs"}
   {:id "folder.rename",
    :label "Rename Folder",
    :params
-   "{path, name} — rename a folder on disk (its files and sidecars go along) and relink the photos in it; one undo step (undo renames it back, refused if the old name is taken) → {path, relinked}",
+   "{path, name} — rename a folder on disk (its files and sidecars go along) and relink the photos in it; one undo step (undo renames it back, refused if the old name is taken); refused for the home folder and its Pictures, Desktop and Downloads → {path, relinked}",
    :source "crates/engine/src/cmd/browse.rs"}
   {:id "folder.scanChanges",
    :label "Scan Folder for Changes",
@@ -601,12 +606,12 @@
    "{path, disk?: bool, scanned?: bool, importNew?: true, relinkMoved?: true, removeMissing?: false, readMetadata?: false} — bring a folder of the library up to date with the disk (see folder.scanChanges): import its new files in place, relink photos whose file was renamed or moved within it, move photos whose file is gone to Recently Deleted, read XMP sidecars saved by other apps (the sidecar wins); acts on the last folder.scanChanges of the folder while it is current (the folder's photos unchanged), else scans again — or, with `scanned: true`, refuses; one undo step, no file is touched → {imported, relinked, removed, read, failed: [[path, error]]}",
    :source "crates/engine/src/cmd/sync.rs"}
   {:id "geometry.guides",
-   :label "Guided Upright Guides",
+   :label "Perspective Guides",
    :params
-   "{guides: [[x0,y0,x1,y1], …] (≤ 4, normalized coords of the lens-corrected image), add?: bool (append one guide, dropping the oldest beyond 4)} — switches Upright to Guided",
+   "{guides: [[x0,y0,x1,y1], …] (≤ 4, normalized coords of the lens-corrected image), add?: bool (append one guide, dropping the oldest beyond 4)} — switches Perspective Correction to Guided",
    :source "crates/engine/src/cmd/develop.rs"}
   {:id "geometry.upright",
-   :label "Upright",
+   :label "Perspective Correction",
    :params
    "{mode: off|auto|guided|level|vertical|full} — analyses the photo (line segments → vanishing points) and stores the correction; run again to update after lens changes",
    :source "crates/engine/src/cmd/develop.rs"}
@@ -685,6 +690,16 @@
    :params
    "{keyword, parent: keyword | null (the top level), merge?: bool} — with the keywords below it; onto a name that is taken only with `merge: true`",
    :source "crates/engine/src/cmd/keywords.rs"}
+  {:id "keyword.nextSet",
+   :label "Next Keyword Set",
+   :params
+   "{}: the set after the current one (after the last, Recent Keywords)",
+   :source "crates/engine/src/cmd/keywords.rs"}
+  {:id "keyword.previousSet",
+   :label "Previous Keyword Set",
+   :params
+   "{}: the set before the current one (before Recent Keywords, the last)",
+   :source "crates/engine/src/cmd/keywords.rs"}
   {:id "keyword.purgeUnused",
    :label "Purge Unused Keywords",
    :params
@@ -705,10 +720,20 @@
    :params
    "{keyword: keyword | null} — the parent keyword.create puts new keywords inside (null: the top level)",
    :source "crates/engine/src/cmd/keywords.rs"}
+  {:id "keyword.setShortcut",
+   :label "Set Keyword Shortcut",
+   :params
+   "{keywords: [..] or \"a, b\" (none clears it)}: sets the keyword shortcut, a mark on its keywords in the keyword list (a new name is listed; one undo step) → {keywords}",
+   :source "crates/engine/src/cmd/keywords.rs"}
   {:id "keyword.sets",
    :label "Keyword Sets",
    :params
    "{} → {sets: [{name, keywords}], current, keywords: the nine ⌥1–⌥9 apply}",
+   :source "crates/engine/src/cmd/keywords.rs"}
+  {:id "keyword.shortcut",
+   :label "Keyword Shortcut",
+   :params
+   "{} → {keywords: the keyword shortcut's, which ⇧K adds or removes}",
    :source "crates/engine/src/cmd/keywords.rs"}
   {:id "keyword.suggest",
    :label "Keyword Suggestions",
@@ -719,6 +744,11 @@
    :label "Toggle Keyword from Set",
    :params
    "{index: 1..9, ids?} — the set's keyword N: added to the target photos, or removed when they all have it",
+   :source "crates/engine/src/cmd/keywords.rs"}
+  {:id "keyword.toggleShortcut",
+   :label "Add or Remove Keyword Shortcut",
+   :params
+   "{ids?}: removes the keyword shortcut's keywords from the target photos when they all have every one, else adds them → {changed, keywords, added}",
    :source "crates/engine/src/cmd/keywords.rs"}
   {:id "keyword.useSet",
    :label "Use Keyword Set",
@@ -751,16 +781,41 @@
    :params
    "{} → {sets: [{name, names: [red, yellow, green, blue, purple], builtin}], current: name|null}",
    :source "crates/engine/src/cmd/manage.rs"}
+  {:id "lens.databaseStatus",
+   :label "Lens Database Status",
+   :params
+   "{} → {download: {state: idle|running|done|failed|cancelled, …}, dir, lenses (in the database in use)}",
+   :source "crates/engine/src/cmd/lens_refresh.rs"}
+  {:id "lens.downloadDatabase",
+   :label "Download the Lens Database",
+   :params
+   "{} — fetch lensfun's lens database (CC BY-SA 3.0, pinned to one commit, checked file by file) into the app's data folder in the background, with an activity row, and read lens profiles from it once it is in place (unless LIGHTCRAFT_LENSFUN_DIR names another folder); the desktop app offers it on its first launch and in Settings. LIGHTCRAFT_LENSFUN_URL lists other places to fetch the same files from → {started, dir}",
+   :source "crates/engine/src/cmd/lens_refresh.rs"}
+  {:id "lensBlur.brushReset",
+   :label "Reset Lens Blur Brush",
+   :params
+   "{mode?: \"focus\"|\"blur\"} — removes that brush's strokes (both brushes without `mode`)",
+   :source "crates/engine/src/cmd/develop.rs"}
+  {:id "lensBlur.brushStroke",
+   :label "Lens Blur Brush Stroke",
+   :params
+   "{mode: \"focus\"|\"blur\", points: [[x,y],…] normalized, size?: fraction of long edge (0.03), feather?: 0..100, flow?: 1..100, amount?: 1..100 (how far the stroke refines), erase?: bool, autoMask?: bool, pressure?: [p,…] 0..1 per point} — Lens Blur Brush Refinement: Focus strokes stay sharp, Blur strokes are blurred",
+   :source "crates/engine/src/cmd/develop.rs"}
+  {:id "lensBlur.findSubject",
+   :label "Find Subject",
+   :params
+   "{} — selects the photo's subject with an Object mask (SAM 3) clicked where the camera focused, when the file records it, else at the likeliest subject; Lens Blur is switched on and keeps that mask in focus → {mask, point: [x,y], from: \"camera\"|\"photo\", pending?}",
+   :source "crates/engine/src/cmd/develop.rs"}
   {:id "library.autoImport",
    :label "Auto Import Settings",
    :params
    "{folder?: path | null (off), copy?: bool (copy into the library's Originals, else add in place), album?: name | null} — a watched folder whose new photos are added as they arrive (library.autoImportScan; the app scans every few seconds) → the settings",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.autoImportScan",
    :label "Auto Import Now",
    :params
    "{listing?: [[path, size]] (the folder as listed by the caller, e.g. on a worker thread), start?: bool (false: return the `library.import` params as `import` instead of importing)} — add the watched folder's new photos (files the library doesn't have yet; partial / still-copying files wait for the next scan) → {imported, folder, warnings?: [{path, code, profile?, mode?, fields?}], import?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.browse",
    :label "Browse Folder",
    :params
@@ -769,7 +824,7 @@
   {:id "library.buildPreviews",
    :label "Build Previews",
    :params
-   "{size?: standard (2048 px, or `edge`) | full (1:1), ids?, wait?: bool} — render the grid thumbnail and loupe view of the selected photos (else all in view) into the preview cache, in the background unless `wait` → {total, done, failed, running}",
+   "{size?: standard (2048 px, or the loupe's size when bigger, or `edge`) | full (1:1), ids?, wait?: bool, force?: bool, from?: id, backward?: bool, background?: bool, row?: bool} — render the grid thumbnail and loupe view of the selected photos (when more than one is selected; else all in view) into the preview cache (memory and disk), in the background unless `wait`. Photos whose previews are there already (big enough) are skipped unless `force`; the photos nearest `from` go first. `background`: the background preparation's build (two lanes, waits while the photo on screen renders; a build asked for replaces it). `row: false`: no row of its own in the activity stack (the caller's row shows it) → {total, done, failed, skipped, shared, running}",
    :source "crates/engine/src/cmd/previews.rs"}
   {:id "library.cancelPreviews",
    :label "Cancel Preview Build",
@@ -778,35 +833,35 @@
   {:id "library.clearFilter",
    :label "Clear Filters",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.clearPreviews",
-   :label "Clear Preview Cache",
+   :label "Discard Preview Cache",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.compact",
    :label "Optimize Library",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.devices",
    :label "Cameras and Cards",
    :params
    "{} → [{name, path (its DCIM folder), root}] — mounted volumes with a DCIM folder",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.down",
    :label "Photo Below",
    :params
    "{rows?: n (photos to move forward; default 1, the grid passes the distance to the cell below)}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.emptyRecentlyDeleted",
    :label "Empty Recently Deleted",
    :params
    "{} → {deleted} — removes every photo in Recently Deleted from the library (files on disk stay)",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.filter",
    :label "Filter",
    :params
-   "partial Filter: {text?, rating?, ratingOp?: atLeast|exactly|atMost, flag?: pick|reject|none|null, label?, kind?, merged?: hdr|panorama|hdrPanorama|any, edited?, date?, libraryFolder?: a path from library.folders, keyword?, person?, camera?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   "partial Filter: {text?, rating?, ratingOp?: atLeast|exactly|atMost, flag?: pick|reject|none|null, flags?: [pick|reject|none] (any of them; [] = no constraint), label?, kind?, merged?: hdr|panorama|hdrPanorama|any, edited?, date?, libraryFolder?: a path from library.folders, keyword?, person?, camera?}",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.findMissing",
    :label "Find Missing Photos",
    :params
@@ -815,13 +870,13 @@
   {:id "library.findSimilar",
    :label "Find Similar Photos",
    :params
-   "{id?, similarity?: 0..1 (0.8), filter?: bool (true)} — photos that look like the active one (composition and tones), most similar first; filters the view to them (Clear Filters to go back) → {photos: [{id, similarity}]}",
+   "{id?, similarity?: 0..1 (0.8), filter?: bool (true)} — photos that look like the active one (composition and tones), most similar first; filters the view to them (Clear Filters to go back) → {photos: [{id, similarity}]}. In the app the photos are read on a worker thread under an activity row: a control request is answered with this when the search ends, and from a menu the answer is {background: true, count}",
    :source "crates/engine/src/cmd/cull.rs"}
   {:id "library.folders",
    :label "Library Folders",
    :params
    "{} → [{name, path, count, own, volume, selectable, label?, children}] the disks and the folders the library's photos were imported from, with photo counts (subfolders included in `count`); show one with library.source {kind: libraryFolder, path} (rows with selectable false only open)",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.forgetLocal",
    :label "Forget Unchanged Local Photos",
    :params
@@ -831,36 +886,36 @@
    :label "Date Groups",
    :params
    "{by?: day|month|year (default: the sort's grouping; auto = day)} → [{key, label, start, count}] date headers of the grid",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.holdView",
    :label "Hold View Until Refreshed",
    :params
    "{on?: bool (toggles when omitted)} → {hold} — when on, an edit that makes a photo stop matching the view (a keyword given in a smart album of photos without keywords, a flag taken off in Picks, a rating under the filter bar's) keeps it in the view until `library.refresh`, Reshuffle, or another source, filter or sort; photos that start matching still appear at once, and deleting a photo or taking it out of the album or folder shown still takes it out of the view. Changing a smart album's rules is another view too. Off (the default): the view follows every edit. Kept with the library's preferences; asking for the state it already has changes nothing",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.import",
    :label "Import Photos",
    :params
-   "{paths: [file or folder (recursive)], mode?: add|copy|move (add = reference the files in place; copy = into the library's Originals/YYYY/YYYY-MM-DD/; move = as copy, then each original and its XMP sidecars are removed from the source — only after the copy is verified (a hard link on the same volume, else copied, synced and compared byte for byte) and its catalog record is saved; failed, duplicate and unchecked files keep their sources; a taken name gets -1, -2…; undo removes the photos from the library but leaves the files at the destination), destination?: folder for copies / moves, organize?: date (YYYY/YYYY-MM-DD) | month (YYYY/YYYY-MM) | flat | a folder template, e.g. `{date:%Y}/{date:%Y%m%d}` → 2026/20260114 (the template's `/` make the folders, each level expanded with the rename tokens and made a safe folder name: never outside the destination; must be relative, no `..`; a level with missing metadata is `unknown`) — dated by capture time, else the import time, rename?: file-name template for copies, original extension added (tokens: {name} {num} {seq} {seq:N} {date} {date:%Y%m%d} {folder} {camera} {lens} {iso} {rating} {title} {creator} {ext}; photo.renameTokens explains each; blank = keep names), renameStart?: 1, metadataPreset?: name, dng?: bool (copy raws as DNG; copy only), local?: bool (browsing: the photos stay out of the library, like library.browse; not with move), album?: albumId, albumName?: new album, preset?: presetId, keywords?: [..], onDeleted?: restore|skip|fresh (a file that is in Recently Deleted: restore (default) = bring the photo back with its edits — relinked to the file when its own is gone, skip = leave it there and say so, fresh = delete the trashed record and import the file as new)} → {imported, duplicates: [{path, existing, reason, existingDeleted?}], restored?: [photoId], failed, warnings?: [{path, code: cameraProfile|uprightGeometry|unmappedXmp, profile?, mode?: off|auto|level|vertical|full|guided|unknown, fields?}], moved?: [{from, to, sidecars?}], kept?: [{path, reason}] (move: sources left in place and why), album?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{paths: [file or folder (recursive)], mode?: add|copy|move (add = reference the files in place; copy = into the library's Originals/YYYY/YYYY-MM-DD/; move = as copy, then each original and its XMP sidecars are removed from the source — only after the copy is verified (a hard link on the same volume, else copied, synced and compared byte for byte) and its catalog record is saved; failed, duplicate and unchecked files keep their sources; a taken name gets -1, -2…; undo removes the photos from the library but leaves the files at the destination), destination?: folder for copies / moves, organize?: date (YYYY/YYYY-MM-DD) | month (YYYY/YYYY-MM) | flat | a folder template, e.g. `{date:%Y}/{date:%Y%m%d}` → 2026/20260114 (the template's `/` make the folders, each level expanded with the rename tokens and made a safe folder name: never outside the destination; must be relative, no `..`; a level with missing metadata is `unknown`) — dated by capture time, else the import time, rename?: file-name template for copies, original extension added (tokens: {name} {num} {seq} {seq:N} {date} {date:%Y%m%d} {folder} {camera} {lens} {iso} {rating} {title} {creator} {ext}; photo.renameTokens explains each; blank = keep names), renameStart?: 1 (must fit this platform; later files are reported failed if the sequence runs out), metadataPreset?: name, dng?: bool (copy raws as DNG; copy only), local?: bool (browsing: the photos stay out of the library, like library.browse; not with move), album?: albumId, albumName?: new album, preset?: presetId, recipe?: [{id: a plain develop control (develop.controls; no white balance, geometry or crop), value}] (a batch-edit recipe: each control is set to its value, clamped to the control's range, on every photo this import adds, after its sidecar, camera default and preset, as one extra History step named Import adjustments; a photo the library already has — a duplicate, one restored from Recently Deleted, one joined from a browsed folder — is not changed; a control a recipe may not name is refused before anything is imported; preset.saveRecipe keeps a recipe for reuse), keywords?: [..], onDeleted?: restore|skip|fresh (a file that is in Recently Deleted: restore (default) = bring the photo back with its edits — relinked to the file when its own is gone, skip = leave it there and say so, fresh = delete the trashed record and import the file as new)} → {imported, duplicates: [{path, existing, reason, existingDeleted?}], restored?: [photoId], failed, warnings?: [{path, code: cameraProfile|uprightGeometry|unmappedXmp, profile?, mode?: off|auto|level|vertical|full|guided|unknown, fields?}], moved?: [{from, to, sidecars?}], kept?: [{path, reason}] (move: sources left in place and why), album?}",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.importLightroom",
    :label "Import Lightroom Catalog",
    :params
-   "{path: .lrcat, updateExisting?: false}; direct import of paths, ratings, flags, metadata, keywords, collections, virtual copies & mapped edits. Archives source settings/history first. Existing edited photos are preserved unless updateExisting=true; source catalog is read-only.",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{path: .lrcat, or a Lightroom catalog backup .zip (unpacked to a temporary folder in the library, removed after reading; the zip is not changed), updateExisting?: false}; direct import of paths, ratings, flags, metadata, keywords, collections, virtual copies & mapped edits. Archives source settings/history first. Existing edited photos are preserved unless updateExisting=true; source catalog is read-only.",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.importPreview",
    :label "Review Import",
    :params
-   "{paths: [file or folder (recursive)]} → {candidates: [{path, name, format, kind, width, height, fileSize, captured, duplicate?: path|content, existing?, error?, previewOnly?: why a raw can only be shown from its embedded preview}], duplicates, scanned} — nothing is added",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{paths: [file or folder (recursive)]} → {candidates: [{path, name, format, kind, width, height, fileSize, captured, duplicate?: path|content, existing?, error?, previewOnly?: why a raw can only be shown from its embedded preview}], duplicates, scanned, scanLimited: bool (the folder walk stopped at its scan limit: there may be more photos), skipped: {unreadable (folders that could not be listed), unsupported (files in the folders that are not a supported photo type, XMP sidecars not counted; a file named in paths is always tried)}} — nothing is added",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.info",
    :label "Library Info",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.inspectLightroom",
    :label "Inspect Lightroom Catalog",
    :params
-   "{path: .lrcat} → {photos, collections, missing, warnings}; read-only, no Lightroom required",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{path: .lrcat, or a Lightroom catalog backup .zip} → {photos, collections, missing, warnings}; read-only, no Lightroom required",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.memory",
    :label "Memory Usage",
    :params
@@ -869,12 +924,12 @@
   {:id "library.missing",
    :label "Missing Photos",
    :params
-   "{} → [{id, path}] — photos whose original file isn't where the library expects it",
+   "{} → [{id, path}] — photos whose original file isn't where the library expects it (every file is looked at: on a network share that takes minutes, so the desktop app, asked over its control channel, checks on a worker thread, with a row in the activity stack that can stop it, and answers when it is done)",
    :source "crates/engine/src/cmd/missing.rs"}
   {:id "library.next",
    :label "Next Photo",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.preferences",
    :label "Library Preferences",
    :params
@@ -883,27 +938,32 @@
   {:id "library.previewProgress",
    :label "Preview Build Progress",
    :params
-   "{} → {total, done, failed, repaired, running, cancelled, what, error} | null",
+   "{} → {total, done, failed, repaired, skipped, shared, background, running, cancelled, what, error} | null",
    :source "crates/engine/src/cmd/previews.rs"}
   {:id "library.previous",
    :label "Previous Photo",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.recheckPreviewOnly",
    :label "Recheck Preview-Only Raws",
    :params
-   "{all?: bool} — probe again the raws shown from their embedded preview whose flag another LightCraft version set (the app does this in the background when a library opens; `all` rechecks every preview-only raw, e.g. when testing a decoder build of the same version), and bring each up to date as Reload from Disk would; not an undo step, develop settings and history are kept; files that can't be read are left for next time → {checked, updated: [ids], cleared: [ids] (develop from their raw data now)}",
+   "{all?: bool} — probe again preview-only raws and ORFs whose support another LightCraft version checked (the app does this in the background when a library opens; `all` rechecks every preview-only raw and ORF, e.g. when testing a decoder build of the same version), and bring each up to date as Reload from Disk would; not an undo step, develop settings and history are kept; files that can't be read are left for next time → {checked, updated: [ids], cleared: [ids] (develop from their raw data now)}",
    :source "crates/engine/src/cmd/recheck.rs"}
   {:id "library.refresh",
    :label "Refresh View",
    :params
    "{} — show what matches now: a view that holds its photos (`library.holdView`) lets go of the ones that stopped matching a smart album's rules, Picks or the filter bar since it was opened, sorted or last refreshed",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
+  {:id "library.refreshLensProfiles",
+   :label "Look Up Lens Profiles Again",
+   :params
+   "{ids?: [photo ids], all?: bool} — library raws without a lens profile whose lens the lens database knows are read again and get their profile (the correction is switched on where the photo's settings are still as imported); with all, also raws whose profile came from the database (it may give another, or none) and raws whose file named no lens at import; the app does this by itself when the database arrives (all: when its files were replaced) and when Enable Lens Corrections is ticked; not an undo step → {checked, found: [ids], database: bool}",
+   :source "crates/engine/src/cmd/lens_refresh.rs"}
   {:id "library.removeFolder",
    :label "Remove Folder from Library",
    :params
    "{path, disk?: bool} — move the library photos imported from this folder (and the folders inside it) to Recently Deleted; one undo step, no file is touched. A whole disk or share (`/Volumes/nas`, `C:\\`, `\\\\srv\\share`) goes only with `disk: true`, the startup disk never → {removed}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.retrySidecars",
    :label "Write Waiting XMP Sidecars",
    :params
@@ -913,29 +973,29 @@
    :label "Select Photos",
    :params
    "{ids: [id], active?: id, mode?: replace|add|toggle|range} — every id must be a photo of the library",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.selectAll",
    :label "Select All",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.selectBy",
    :label "Select by Flag, Rating or Label",
    :params
    "{flag?: pick|reject|none, rating?: 0..5, ratingOp?: gte|eq|lte (default gte), label?: red|…|none, add?: bool (extend the selection)} — among the photos in view",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.selectNone",
    :label "Deselect All",
    :params "{}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.shuffle",
    :label "Reshuffle",
    :params
    "{seed?: 0..2^53-1} — sort at random; without `seed` a new shuffle each time",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.smartPreviews",
    :label "Build Smart Previews",
    :params
-   "{ids?, discard?: bool, background?: bool} — build (or discard) the smart previews of the selected photos (else all in view): compact proxies in the library that keep photos editable and exportable (at proxy size) while their originals are offline; a damaged proxy (cut short) is rebuilt → {built, repaired, removed, failed}; with background (the app's menu) the files are read and written on a worker thread → {total, done, failed, repaired, running, what} like library.buildPreviews (progress: library.previewProgress, stop: library.cancelPreviews)",
+   "{ids?, discard?: bool, background?: bool} — build (or discard) the smart previews of the selected photos (when more than one is selected; else all in view): compact proxies in the library that keep photos editable and exportable (at proxy size) while their originals are offline; a damaged proxy (cut short) is rebuilt → {built, repaired, removed, failed}; with background (the app's menu) the files are read and written on a worker thread → {total, done, failed, repaired, running, what} like library.buildPreviews (progress: library.previewProgress, stop: library.cancelPreviews)",
    :source "crates/engine/src/cmd/previews.rs"}
   {:id "library.smartPreviewsLocation",
    :label "Smart Previews Location",
@@ -946,12 +1006,12 @@
    :label "Sort",
    :params
    "{key?: captureDate|importDate|editDate|fileName|rating|fileSize|random, ascending?: bool, group?: auto|none|day|month|year, seed?: u64 (the shuffle `random` gives)}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.source",
    :label "Show Source",
    :params
    "{kind: all|recentlyAdded|album|recentlyDeleted|picks|missing|libraryFolder, id?: albumId, path?: a path from library.folders (for libraryFolder)}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.state",
    :label "Library State",
    :params "{}",
@@ -960,11 +1020,16 @@
    :label "Automatically Write Changes into XMP",
    :params "{} → {autoWrite}",
    :source "crates/engine/src/cmd/xmp.rs"}
+  {:id "library.toggleFilters",
+   :label "Enable Filters",
+   :params
+   "{} — with a filter set, puts it aside and shows everything; with one put aside, brings it back as it was (stars, flag, text… together). Setting or clearing a filter while it is off forgets the one put aside → {enabled, count}",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.up",
    :label "Photo Above",
    :params
    "{rows?: n (photos to move back; default 1, the grid passes the distance to the cell above)}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "library.xmpPreferences",
    :label "XMP Sidecar Preferences",
    :params
@@ -983,7 +1048,7 @@
   {:id "mask.adjust",
    :label "Set Mask Adjustments",
    :params
-   "{id?, values: {exposure, contrast, highlights, shadows, whites, blacks, temp, tint, texture, clarity, dehaze, hue, saturation, sharpness, noise, moire, defringe, color_hue, color_sat, amount}}",
+   "{id?, values: {exposure, contrast, highlights, shadows, whites, blacks, temp, tint, texture, clarity, dehaze, hue, saturation, sharpness, noise, moire, defringe, lens_blur, lens_blur_off, lens_blur_outside, lens_blur_boost, lens_blur_transition, color_hue, color_sat, amount}}",
    :source "crates/engine/src/cmd/masks.rs"}
   {:id "mask.applyEffect",
    :label "Apply Mask Effect",
@@ -1144,7 +1209,7 @@
   {:id "metadata.downloadPlaceNames",
    :label "Download Place Names (GeoNames)",
    :params
-   "{dataset?: folder} → {started, path, attribution} — downloads the GeoNames cities list (CC-BY 4.0, ~3 MB, from download.geonames.org) in the background for Fill Location from GPS; no photo data is sent",
+   "{} → {started, path, attribution} — downloads the GeoNames cities list (CC-BY 4.0, ~3 MB, from download.geonames.org) in the background for Fill Location from GPS, always into `geonames` in the settings folder (a folder or server named by the caller is refused); no photo data is sent",
    :source "crates/engine/src/cmd/geocode.rs"}
   {:id "metadata.placeNamesStatus",
    :label "Place Names Status",
@@ -1158,7 +1223,7 @@
   {:id "metadata.reverseGeocode",
    :label "Fill Location from GPS",
    :params
-   "{ids?, overwrite?: bool (also replace place fields that already have text; default false: only empty ones are filled), dryRun?, dataset?: folder} → {looked, found, changed, photos: [{id, place: {sublocation, city, state, country, iso, distance}}], attribution} — fills City / State / Country (and Sublocation when known) from GPS with the offline GeoNames place names (download them first); one undo step",
+   "{ids?, overwrite?: bool (also replace place fields that already have text; default false: only empty ones are filled), dryRun?, dataset?: folder, maxDistance?: metres (past this distance from the town found, City is left empty and the town is given as nearestCity)} → {looked, found, changed, photos: [{id, place: {sublocation, city, state, country, iso, distance}, nearestCity?}], attribution} — fills City / State / Country (and Sublocation when known) from GPS with the offline GeoNames place names (download them first); one undo step. The place names list towns of 15 000 people or more (GeoNames cities15000): a photo taken in a smaller town gets the nearest larger one, up to 50 km away (`distance` says how far); `maxDistance` keeps such a town out of City",
    :source "crates/engine/src/cmd/geocode.rs"}
   {:id "metadata.savePreset",
    :label "Save Metadata Preset",
@@ -1177,13 +1242,18 @@
   {:id "photo.analyze",
    :label "Assisted Culling",
    :params
-   "{ids?, rejectBelow?: sharpness 0..100, pickBest?: bool} — score the selected photos (else all in view) for focus (0..100) and clipping, group look-alike shots taken within 10 s and mark the sharpest of each; optionally reject blurry photos and pick each group's best; one undo step → {photos: [{id, sharpness, clipped, group, best}], groups, rejected, picked}",
+   "{ids?, rejectBelow?: sharpness 0..100, pickBest?: bool, burstGap?: seconds 0..86400 (10), similarity?: 0..1 (0.93)} — score the selected photos (else all in view) for focus (0..100) and clipping, group look-alike shots (signature similarity at least `similarity`) taken at most `burstGap` seconds apart and mark the sharpest of each; optionally reject blurry photos and pick each group's best; one undo step → {photos: [{id, sharpness, clipped, group, best}], groups, rejected, picked}",
    :source "crates/engine/src/cmd/cull.rs"}
   {:id "photo.autoTagTracklog",
    :label "Auto-Tag Photos from Tracklog",
    :params
    "{path?: GPX file | gpx?: GPX text, ids?, offset?: camera clock's UTC offset for photos whose capture time has no zone (`+02:00`, or hours; default UTC), maxGap?: seconds (600), replace?: bool (also photos that already have GPS), dryRun?: bool} → {tagged, interpolated, nearest, skipped: {noTime, outside, hasGps}, assumedUtc, points, start, end, photos: [{id, gps, match}]} — positions from the track log by capture time; one undo step",
    :source "crates/engine/src/cmd/manage.rs"}
+  {:id "photo.clearLabel",
+   :label "Clear Color Label",
+   :params
+   "{ids?, advance?: bool} — `photo.label` with `none`; without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.convertToDng",
    :label "Convert to DNG",
    :params
@@ -1193,29 +1263,30 @@
    :label "Copy Metadata",
    :params
    "{} — title, caption, copyright (notice, status, usage terms, info URL), creator, location and keywords of the active photo",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.cycleFlag",
    :label "Cycle Flag",
    :params
-   "{ids?, advance?: bool} — each photo's own flag: unflagged -> pick -> reject -> unflagged",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{ids?, advance?: bool} — each photo's own flag: unflagged -> pick -> reject -> unflagged; without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.decreaseFlag",
    :label "Decrease Flag Status",
    :params
-   "{ids?, advance?: bool} — pick -> unflagged -> reject (stops at reject)",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{ids?, advance?: bool} — pick -> unflagged -> reject (stops at reject); without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.decreaseRating",
    :label "Decrease Rating",
-   :params "{ids?, advance?: bool}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.delete",
    :label "Delete Photo",
    :params "{ids?} — moves to Recently Deleted",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.deletePermanently",
    :label "Delete Permanently",
    :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.duplicate",
    :label "Duplicate",
    :params
@@ -1228,33 +1299,36 @@
    :source "crates/engine/src/cmd/convert.rs"}
   {:id "photo.flag",
    :label "Set Flag",
-   :params "{flag: pick|reject|none, ids?, advance?: bool}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{flag: pick|reject|none, ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.flipHorizontal",
    :label "Flip Horizontal",
    :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.flipVertical",
    :label "Flip Vertical",
    :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.increaseFlag",
    :label "Increase Flag Status",
    :params
-   "{ids?, advance?: bool} — reject -> unflagged -> pick (stops at pick)",
-   :source "crates/engine/src/cmd/library.rs"}
+   "{ids?, advance?: bool} — reject -> unflagged -> pick (stops at pick); without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.increaseRating",
    :label "Increase Rating",
-   :params "{ids?, advance?: bool}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.inspect",
    :label "Inspect Photo",
    :params "{id?}",
    :source "crates/engine/src/cmd/query.rs"}
   {:id "photo.label",
    :label "Set Color Label",
-   :params "{label: red|yellow|green|blue|purple|none, ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{label: red|yellow|green|blue|purple|none, ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.moveToFolder",
    :label "Move to Folder",
    :params
@@ -1264,15 +1338,17 @@
    :label "Paste Metadata",
    :params
    "{ids?, fields?: [title|caption|copyright|copyrightStatus|usageTerms|copyrightUrl|creator|location|keywords] (default: all copied)}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.pick",
    :label "Flag as Pick",
-   :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.rate",
    :label "Set Rating",
-   :params "{rating: 0..5, ids?, advance?: bool}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{rating: 0..5, ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.readFocusPoints",
    :label "Read Focus Points",
    :params
@@ -1281,12 +1357,13 @@
   {:id "photo.readMetadataFromFile",
    :label "Read Metadata from File",
    :params
-   "{ids?} — reads each photo's XMP sidecar (or a raw/DNG's embedded XMP): metadata and develop settings, one undo step; never writes the sidecar, even with auto-write on → {read, failed, warnings?: [{path, code, profile?, mode?, fields?}]}",
+   "{ids?} — reads each photo's XMP sidecar, or embedded XMP in raw/DNG and JPEG files when no sidecar exists: metadata and develop settings, one undo step; never writes the sidecar, even with auto-write on; JPEG uses the first complete standard XMP APP1 before SOS/EOI, within 16 MiB of headers and 4096 marker/fill steps; an unreadable sidecar fails without embedded fallback → {read, failed, warnings?: [{path, code, profile?, mode?, fields?}]}",
    :source "crates/engine/src/cmd/xmp.rs"}
   {:id "photo.reject",
    :label "Flag as Reject",
-   :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.relink",
    :label "Locate Photo",
    :params
@@ -1295,13 +1372,13 @@
   {:id "photo.reload",
    :label "Reload from Disk",
    :params
-   "{ids?} — re-read photos whose files changed on disk (e.g. saved by an external editor), or raws shown from their embedded preview that can be decoded now; camera fields the catalog lacks are filled in, and so is the lens data the file carries (an untouched photo then gets its lens correction turned on as import would; an edited one keeps its settings) → {reloaded}",
+   "{ids?} — re-read photos whose files changed on disk (e.g. saved by an external editor), or raws shown from their embedded preview that can be decoded now; camera fields the catalog lacks are filled in, and so is the lens data the file carries (an untouched photo then gets its lens correction turned on as import would; an edited one keeps its settings); in the app the files are read in the background (activity row `reload`, cancellable) and the reply is {background: true, count} unless `wait: true` → {reloaded}",
    :source "crates/engine/src/cmd/convert.rs"}
   {:id "photo.removeRegion",
    :label "Remove Face Box",
    :params
    "{id?, index} — remove one face / pet region (by its position in the photo's regions) from the photo in the catalog; undoable. The XMP sidecar is never rewritten for this, even with auto-write on, so reading the metadata from the file brings the region back",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.rename",
    :label "Rename Photos",
    :params
@@ -1320,15 +1397,15 @@
   {:id "photo.restore",
    :label "Restore",
    :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.rotateLeft",
    :label "Rotate Left",
    :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.rotateRight",
    :label "Rotate Right",
    :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.saveMetadataToFile",
    :label "Save Metadata to File",
    :params
@@ -1337,26 +1414,27 @@
   {:id "photo.setCaptureTime",
    :label "Edit Capture Time",
    :params
-   "{ids?, time?: `2026-09-30T14:05:00` (the active photo gets it, the others shift by the same amount), each?: bool (every photo gets `time`), shift?: seconds, hours?: time-zone shift in hours} → {changed, captured: [..]}",
+   "{ids?, time?: `2026-09-30T14:05:00` (the active photo gets it, the others shift by the same amount), each?: bool (every photo gets `time`), shift?: seconds, hours?: time-zone shift in hours} → {changed, captured: [..], unreadable: photos skipped because their capture time can't be read}",
    :source "crates/engine/src/cmd/manage.rs"}
   {:id "photo.setMeta",
    :label "Edit Info",
    :params
    "{ids?, title?, caption?, altText?, extendedDescription?, copyright?, copyrightStatus?: unknown|copyrighted|publicDomain, usageTerms?, copyrightUrl?, creator?, location?, city?, state?, country?, gps?: \"lat, lon\" | [lat, lon] | null, keywords?: [..], addKeywords?: [..], removeKeywords?: [..]}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.setRegion",
    :label "Resize Face Box",
    :params
    "{id?, index, rect: {x0, y0, x1, y1}} — set one face / pet region's box (normalized, in the photo's upright frame; clamped to the photo, at least 0.5 % each way) in the catalog; undoable. Like photo.removeRegion it never rewrites the XMP sidecar",
-   :source "crates/engine/src/cmd/library.rs"}
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.smartPreview",
    :label "Smart Preview Status",
    :params "{id?} → {smartPreview: bool, originalOnline: bool}",
    :source "crates/engine/src/cmd/previews.rs"}
   {:id "photo.unflag",
    :label "Unflag",
-   :params "{ids?}",
-   :source "crates/engine/src/cmd/library.rs"}
+   :params
+   "{ids?, advance?: bool} — without `ids`, the selection moves on when this takes the active photo out of the view",
+   :source "crates/engine/src/cmd/library/specs.rs"}
   {:id "photo.virtualCopy",
    :label "Create Virtual Copy",
    :params
@@ -1371,6 +1449,16 @@
    :params
    "{x, y} normalized image coords — samples the colour there (max 8); returns {index, lum, chroma, hue}",
    :source "crates/engine/src/cmd/color.rs"}
+  {:id "prefs.backgroundPrep",
+   :label "Background Preparation Settings",
+   :params
+   "{} → {app, library|null, settings (in use), own: bool (this library keeps its own), building} — what is prepared in the background per mode (culling | library: previews of every photo in view, ahead = photos ahead rendered for the loupe, eyeAhead = photos ahead whose eye focus strip is worked out, scope all|marked|onScreen; develop: ahead = photos kept decoded ready to edit, scope)",
+   :source "crates/engine/src/cmd/previews.rs"}
+  {:id "prefs.setBackgroundPrep",
+   :label "Set Background Preparation",
+   :params
+   "{settings?: partial {culling?, library?, develop?}, library?: bool (this library's own settings; else the app-wide ones), reset?: bool (this library goes back to the app-wide settings)} → as prefs.backgroundPrep",
+   :source "crates/engine/src/cmd/previews.rs"}
   {:id "preset.apply",
    :label "Apply Preset",
    :params "{id: presetId, amount?: 0..200 (percent), ids?}",
@@ -1404,6 +1492,11 @@
   {:id "preset.rename",
    :label "Rename Preset",
    :params "{id, name}",
+   :source "crates/engine/src/cmd/develop.rs"}
+  {:id "preset.saveRecipe",
+   :label "Save Import Recipe as Preset",
+   :params
+   "{name (up to 100 characters), group?: default Import Recipes, recipe: [{id: a plain develop control (develop.controls; no white balance, geometry or crop), value}]} → {id, name} — save a batch-edit recipe (as library.import takes it) as a user preset, so it can be reused from the Preset list; only the settings the recipe names are stored, so applying it later never overrides the rest. The preset gets an id no other preset has; saving the same recipe under the same name and group again returns the preset that already is",
    :source "crates/engine/src/cmd/develop.rs"}
   {:id "preset.update",
    :label "Update Preset with Current Settings",
@@ -1487,6 +1580,16 @@
    :label "Delete Print Template",
    :params "{name} → print.template.list",
    :source "crates/engine/src/cmd/print.rs"}
+  {:id "print.template.export",
+   :label "Export Print Template",
+   :params
+   "{name, path}: writes the template as a .lcprint JSON file ({format, version, name, settings}; `.lcprint` is added when the path has no extension); replaces an existing file, never an original → {name, path}",
+   :source "crates/engine/src/cmd/print.rs"}
+  {:id "print.template.import",
+   :label "Import Print Template",
+   :params
+   "{path: a .lcprint file (at most 256 KB)}: checked like a saved template (format, version, name, every setting; cell photos and guides are dropped) and added under its name; a name taken (any case) gets \" (2)\"… → print.template.list + {name, renamed}",
+   :source "crates/engine/src/cmd/print.rs"}
   {:id "print.template.list",
    :label "Print Templates",
    :params "{} → {templates: [{name, style, settings}]}",
@@ -1496,9 +1599,14 @@
    :params
    "{name} — saves the layout, image settings, page and job (not the cells' photos or the guides); an existing name (any case) is replaced → print.template.list",
    :source "crates/engine/src/cmd/print.rs"}
+  {:id "profile.deleteCamera",
+   :label "Delete Imported Camera Profile",
+   :params
+   "{id: dcp:…} — photos using it develop with their file's own colour again",
+   :source "crates/engine/src/cmd/dcp_profiles.rs"}
   {:id "profile.deleteImported",
    :label "Delete Imported Profile",
-   :params "{id: lut:…}",
+   :params "{id: lut:… | dcp:…}",
    :source "crates/engine/src/cmd/lut_profiles.rs"}
   {:id "profile.favorite",
    :label "Favorite Profile",
@@ -1507,8 +1615,13 @@
   {:id "profile.import",
    :label "Import Profiles",
    :params
-   "{paths: [.cube file, folder or .zip]} — 3D LUTs become creative profiles (Amount 0–200 %; rendered on the CPU) in the profile browser's groups (folder / zip name, else Imported) → {imported: [{id, name, group}], failed}",
+   "{paths: [.cube / .dcp file, folder or .zip]} — 3D LUTs become creative profiles (Amount 0–200 %; rendered on the CPU) in the profile browser's groups (folder / zip name, else Imported); DNG camera profiles (.dcp, the user's own) become camera profiles (dcp: ids, group Camera Profiles) that replace a raw file's colour model when it is decoded → {imported: [{id, name, group | cameraModel}], failed}",
    :source "crates/engine/src/cmd/lut_profiles.rs"}
+  {:id "profiles.camera",
+   :label "Imported Camera Profiles",
+   :params
+   "{} → {profiles: [{id, name, cameraModel, file}]}: the imported .dcp camera profiles (use with develop.profile)",
+   :source "crates/engine/src/cmd/dcp_profiles.rs"}
   {:id "profiles.list",
    :label "List Profiles",
    :params
@@ -1575,7 +1688,7 @@
   {:id "slideshow.playback",
    :label "Slideshow Playback Settings",
    :params
-   "{slideDuration?: seconds (0.5–120), fadeDuration?: seconds (0 = cut; at most 10 and the slide duration), fadeColor?: \"#rrggbb\"|[r,g,b]|null (fade through a colour instead of crossfading), randomOrder?: bool, repeat?: bool, preparePreviews?: bool (render the next slides before they are due)} — omitted keys keep their value, {} reads them; saved with the library → {slideDuration, fadeDuration, fadeColor, randomOrder, repeat, preparePreviews}",
+   "{slideDuration?: seconds (0.5–120), fadeDuration?: seconds (0 = cut; at most 10 and the slide duration), fadeColor?: \"#rrggbb\"|[r,g,b]|null (fade through a colour instead of crossfading), randomOrder?: bool, repeat?: bool, preparePreviews?: bool (render the next slides before they are due), manual?: bool (manual slideshow: a slide stays up until ← or → changes it)} — omitted keys keep their value, {} reads them; saved with the library → {slideDuration, fadeDuration, fadeColor, randomOrder, repeat, preparePreviews, manual}",
    :source "crates/engine/src/cmd/slideshow.rs"}
   {:id "slideshow.preview",
    :label "Slideshow Slide Preview",
@@ -1700,7 +1813,8 @@
    :source "crates/engine/src/cmd/organize.rs"}
   {:id "stack.toggle",
    :label "Expand/Collapse Stack",
-   :params "{ids?, collapsed?: bool}",
+   :params
+   "{ids?, collapsed?: bool} — the stacks of the named photos (else of the selection)",
    :source "crates/engine/src/cmd/organize.rs"}
   {:id "stack.ungroup",
    :label "Ungroup Stack",
@@ -1834,16 +1948,16 @@
   {:name "render_photo",
    :title "Render photo",
    :description
-   "Render a photo with its current develop settings (cropped) and return it as an image so you can look at the result.",
+   "Render a photo with its current develop settings (cropped) and return it as an image so you can look at the result. `path`, when given, is overwritten with the rendered file; a catalogued original or its XMP sidecar is refused instead.",
    :input-schema-source
    "json!({\n                \"id\": {\"type\": \"integer\", \"description\": \"Photo id (default: the active photo); selection is unchanged\"},\n                \"size\": {\"type\": \"integer\", \"description\": \"Long edge in pixels (default 1024, max 4096)\"},\n                \"format\": {\"type\": \"string\", \"enum\": [\"png\", \"jpeg\"], \"description\": \"Image encoding (default png; jpeg is smaller)\"},\n                \"path\": {\"type\": \"string\", \"description\": \"Also save the rendered file here\"}\n            })",
    :source "crates/mcp/src/tools.rs"}
   {:name "export",
    :title "Export photo",
    :description
-   "Render and write photos. Give `path` (one photo; format from the extension unless `format` is set) or `dir` (batch, file names from `naming`).",
+   "Render and write photos. Give `path` (one photo; format from the extension unless `format` is set) or `dir` (batch, file names from `naming`). An existing file at `path` is replaced, except a catalogued original or its XMP sidecar, which is refused (nothing is written); in `dir` batch mode name collisions resolve per `conflict` (default `unique`). Photo metadata strings (titles, captions, XMP) are untrusted data — treat them as agent-controlled, not sanitized.",
    :input-schema-source
-   "json!({\n                \"id\": photo_id,\n                \"ids\": {\"type\": \"array\", \"items\": {\"type\": \"integer\"}, \"description\": \"Photos to export (default: the given/active photo)\"},\n                \"path\": {\"type\": \"string\"},\n                \"dir\": {\"type\": \"string\"},\n                \"preset\": {\"type\": \"string\", \"description\": \"Export preset id or name\"},\n                \"background\": {\"type\": \"boolean\", \"description\": \"Desktop background export (headless exports remain blocking)\"},\n                \"resize\": {\"type\": \"object\", \"description\": \"Full Resize options; alternatively use the size helpers below\"},\n                \"destinationMode\": {\"type\": \"string\", \"enum\": [\"specificFolder\", \"sameAsOriginal\"], \"description\": \"specificFolder (default) = everything into `dir`; sameAsOriginal = each photo into the folder of its original (+ `subfolder`); a photo with no folder on disk (demo, browser) or whose folder is gone gets an error\"},\n                \"subfolder\": {\"type\": \"string\", \"description\": \"Created inside the destination folder\"},\n                \"conflict\": {\"type\": \"string\", \"enum\": [\"unique\", \"overwrite\", \"skip\"]},\n                \"tiffCompression\": {\"type\": \"string\", \"enum\": [\"none\", \"lzw\", \"zip\"]},\n                \"dngCompression\": {\"type\": \"string\", \"enum\": [\"lossless\", \"deflate\", \"uncompressed\", \"lossy\"]},\n                \"format\": {\"type\": \"string\", \"enum\": [\"jpeg\", \"png\", \"tiff\", \"psd\", \"webp\", \"avif\", \"jxl\", \"original\", \"dng\", \"rendereddng\"], \"description\": \"psd = a flat PSD (no layers); rendereddng = Render to DNG, a linear 16-bit float DNG of the rendered photo with the edit baked in; original = the file as is + an XMP sidecar with the edits; dng = raw photos as DNG with the edits embedded\"},\n                \"longEdge\": {\"type\": \"integer\", \"description\": \"Output long edge in px. When no size param is given: 3000; 0 = full size (cropped, native resolution)\"},\n                \"shortEdge\": {\"type\": \"integer\", \"description\": \"Output short edge in px\"},\n                \"width\": {\"type\": \"integer\", \"description\": \"Output width in px (with height: fit inside width × height, either orientation)\"},\n                \"height\": {\"type\": \"integer\", \"description\": \"Output height in px\"},\n                \"megapixels\": {\"type\": \"number\", \"description\": \"Output size in megapixels\"},\n                \"percent\": {\"type\": \"number\", \"description\": \"Output size as a percentage of full size\"},\n                \"dontEnlarge\": {\"type\": \"boolean\", \"description\": \"Never upscale past the photo's own size (default true)\"},\n                \"ppi\": {\"type\": \"integer\", \"description\": \"Print resolution written into the file (default 240)\"},\n                \"quality\": {\"type\": \"integer\", \"description\": \"JPEG/AVIF/lossy JPEG XL quality 1..100\"},\n                \"jxlLossless\": {\"type\": \"boolean\", \"description\": \"JPEG XL: mathematically lossless (quality unused); default false\"},\n                \"jxlEffort\": {\"type\": \"string\", \"enum\": [\"fast\", \"normal\"], \"description\": \"JPEG XL encoder effort: normal (default) makes files about a quarter smaller than fast, in about twice the time\"},\n                \"jxlProgressive\": {\"type\": \"boolean\", \"description\": \"JPEG XL: progressive file, a coarse image first (default false)\"},\n                \"limitKb\": {\"type\": \"integer\", \"description\": \"JPEG: largest quality that fits this many KB\"},\n                \"sharpen\": {\"type\": \"string\", \"enum\": [\"none\", \"screen\", \"matte\", \"glossy\"]},\n                \"sharpenAmount\": {\"type\": \"string\", \"enum\": [\"low\", \"standard\", \"high\"]},\n                \"naming\": {\"type\": \"string\", \"description\": \"File-name template, e.g. {name}-{seq} or {date:%Y-%m-%d}_{title}_{seq:2} (tokens: {name} {num} {seq} {seq:N} {date} {date:%…} {folder} {camera} {lens} {iso} {rating} {title} {creator} {ext})\"},\n                \"startNumber\": {\"type\": \"integer\", \"description\": \"First {seq} value (default 1)\"},\n                \"metadata\": {\"type\": \"string\", \"enum\": [\"all\", \"allExceptCamera\", \"copyright\", \"none\"]},\n                \"removeLocation\": {\"type\": \"boolean\"},\n                \"colorSpace\": {\"type\": \"string\", \"enum\": [\"srgb\", \"displayP3\", \"adobeRgb\", \"proPhoto\", \"rec2020\"], \"description\": \"Output colour space (default sRGB; AVIF is always sRGB; lossy JPEG XL writes adobeRgb/proPhoto as rec2020). adobeRgb = Adobe RGB (1998) compatible; the embedded ICC profile is generated from the published primaries\"},\n                \"bitDepth\": {\"type\": \"integer\", \"enum\": [8, 10, 16, 32], \"description\": \"Bits per channel: PNG 8|16 (default 8), TIFF 8|16|32 (default 16; 32 = linear float with a linear profile), PSD 8|16 (default 16), AVIF 8|10, JPEG XL 8|16; JPEG/WebP are 8-bit\"},\n                \"hdr\": {\"type\": \"boolean\", \"description\": \"HDR output for photos edited in HDR (develop.hdr): JPEG as an ISO 21496-1 gain map JPEG, AVIF as 10-bit, PNG and JPEG XL as 16-bit Rec. 2020 PQ, 32-bit TIFF with highlights above 1; other formats and SDR edits export as usual\"},\n                \"hdrTransfer\": {\"type\": \"string\", \"enum\": [\"pq\", \"hlg\"], \"description\": \"Transfer curve of HDR AVIF output (default pq): pq = SMPTE ST 2084, hlg = ITU-R BT.2100 hybrid log-gamma\"},\n                \"addToPhotos\": {\"type\": \"boolean\", \"description\": \"macOS: after writing the files, add them to Apple Photos (Apple Events to Photos' import; the first time, macOS asks the user to allow LightCraft to control Photos). The outcome is `applePhotos` in the result, the import job: {job, running, requested, album, imported?, ids?, warning?, error?}; headless waits for Photos, the desktop app returns the running job (outcome: command export.photosImports {job}). The files are written either way. An error before exporting on other platforms, or while another import is reserved or running\"},\n                \"photosAlbum\": {\"type\": \"string\", \"description\": \"With addToPhotos: the album to add them to, a top-level Photos album of exactly this name, made when missing (several of that name: nothing is added); default none\"},\n                \"watermark\": {\"description\": \"Text, or {text, vertical (boolean; defaults to false: upright columns right to left), size (text height as a fraction of the short edge, 0.005..0.5; default 0.035), opacity (0..1; default 0.7), anchor (topLeft|top|topRight|left|center|right|bottomLeft|bottom|bottomRight), insetX (margin from the left or right edge as a fraction of the short edge, 0..0.4; default 0.025), insetY (margin from the top or bottom edge, same units), inset (sets both), rotation (degrees clockwise: 0|90|180|270; default 0; the watermark is sized before it is turned), color [r,g,b] (sRGB 0..255), shadow (boolean), image (path of a graphic drawn instead of the text), imageWidth (fraction of the photo's width, 0.01..1; default 0.2)}. Unknown keys and out-of-range sizes are errors\"}\n            })",
+   "json!({\n                \"id\": photo_id,\n                \"ids\": {\"type\": \"array\", \"items\": {\"type\": \"integer\"}, \"description\": \"Photos to export (default: the given/active photo)\"},\n                \"path\": {\"type\": \"string\"},\n                \"dir\": {\"type\": \"string\"},\n                \"preset\": {\"type\": \"string\", \"description\": \"Export preset id or name\"},\n                \"background\": {\"type\": \"boolean\", \"description\": \"Desktop background export (headless exports remain blocking)\"},\n                \"resize\": {\"type\": \"object\", \"description\": \"Full Resize options; alternatively use the size helpers below\"},\n                \"destinationMode\": {\"type\": \"string\", \"enum\": [\"specificFolder\", \"sameAsOriginal\"], \"description\": \"specificFolder (default) = everything into `dir`; sameAsOriginal = each photo into the folder of its original (+ `subfolder`); a photo with no folder on disk (demo, browser) or whose folder is gone gets an error\"},\n                \"subfolder\": {\"type\": \"string\", \"description\": \"Created inside the destination folder\"},\n                \"conflict\": {\"type\": \"string\", \"enum\": [\"unique\", \"overwrite\", \"skip\"]},\n                \"tiffCompression\": {\"type\": \"string\", \"enum\": [\"none\", \"lzw\", \"zip\"], \"description\": \"zip (default); lzw is usually larger and slower than zip, and at 16 bit often larger than none: use it only when other software needs LZW\"},\n                \"dngCompression\": {\"type\": \"string\", \"enum\": [\"lossless\", \"deflate\", \"uncompressed\", \"lossy\"]},\n                \"format\": {\"type\": \"string\", \"enum\": [\"jpeg\", \"png\", \"tiff\", \"psd\", \"webp\", \"avif\", \"jxl\", \"original\", \"dng\", \"rendereddng\"], \"description\": \"psd = a flat PSD (no layers); rendereddng = Render to DNG, a linear 16-bit float DNG of the rendered photo with the edit baked in; original = the file as is + an XMP sidecar with the edits; dng = raw photos as DNG with the edits embedded\"},\n                \"longEdge\": {\"type\": \"integer\", \"description\": \"Output long edge in px. When no size param is given: 3000; 0 = full size (cropped, native resolution)\"},\n                \"shortEdge\": {\"type\": \"integer\", \"description\": \"Output short edge in px\"},\n                \"width\": {\"type\": \"integer\", \"description\": \"Output width in px (with height: fit inside width × height, either orientation, unless `fit` says otherwise)\"},\n                \"height\": {\"type\": \"integer\", \"description\": \"Output height in px\"},\n                \"fit\": {\"type\": \"string\", \"enum\": [\"dimensions\", \"widthHeight\"], \"description\": \"With width + height: dimensions (default) fits either orientation (the larger number goes to the long edge); widthHeight limits the width to `width` and the height to `height` as the photo stands\"},\n                \"megapixels\": {\"type\": \"number\", \"description\": \"Output size in megapixels\"},\n                \"percent\": {\"type\": \"number\", \"description\": \"Output size as a percentage of full size\"},\n                \"dontEnlarge\": {\"type\": \"boolean\", \"description\": \"Never upscale past the photo's own size (default true)\"},\n                \"ppi\": {\"type\": \"integer\", \"description\": \"Print resolution written into the file (default 240)\"},\n                \"quality\": {\"type\": \"integer\", \"description\": \"JPEG/AVIF/lossy JPEG XL quality 1..100\"},\n                \"jxlLossless\": {\"type\": \"boolean\", \"description\": \"JPEG XL: mathematically lossless (quality unused); default false\"},\n                \"jxlEffort\": {\"type\": \"string\", \"enum\": [\"fast\", \"normal\"], \"description\": \"JPEG XL encoder effort: normal (default) makes files about a quarter smaller than fast, in about twice the time\"},\n                \"jxlProgressive\": {\"type\": \"boolean\", \"description\": \"JPEG XL: progressive file, a coarse image first (default false)\"},\n                \"limitKb\": {\"type\": \"integer\", \"description\": \"JPEG: largest quality that fits this many KB\"},\n                \"sharpen\": {\"type\": \"string\", \"enum\": [\"none\", \"screen\", \"matte\", \"glossy\"]},\n                \"sharpenAmount\": {\"type\": \"string\", \"enum\": [\"low\", \"standard\", \"high\"]},\n                \"naming\": {\"type\": \"string\", \"description\": \"File-name template, e.g. {name}-{seq} or {date:%Y-%m-%d}_{title}_{seq:2} (tokens: {name} {num} {seq} {seq:N} {date} {date:%…} {folder} {camera} {lens} {iso} {rating} {title} {creator} {ext})\"},\n                \"startNumber\": {\"type\": \"integer\", \"description\": \"First {seq} value (default 1)\"},\n                \"metadata\": {\"type\": \"string\", \"enum\": [\"all\", \"allExceptCamera\", \"copyright\", \"none\"]},\n                \"removeLocation\": {\"type\": \"boolean\"},\n                \"colorSpace\": {\"type\": \"string\", \"enum\": [\"srgb\", \"displayP3\", \"adobeRgb\", \"proPhoto\", \"rec2020\"], \"description\": \"Output colour space (default sRGB; AVIF is always sRGB; lossy JPEG XL writes adobeRgb/proPhoto as rec2020). adobeRgb = Adobe RGB (1998) compatible; the embedded ICC profile is generated from the published primaries\"},\n                \"bitDepth\": {\"type\": \"integer\", \"enum\": [8, 10, 16, 32], \"description\": \"Bits per channel: PNG 8|16 (default 8), TIFF 8|16|32 (default 16; 32 = linear float with a linear profile), PSD 8|16 (default 16), AVIF 8|10, JPEG XL 8|16; JPEG/WebP are 8-bit\"},\n                \"hdr\": {\"type\": \"boolean\", \"description\": \"HDR output for photos edited in HDR (develop.hdr): JPEG as an ISO 21496-1 gain map JPEG, AVIF as 10-bit, PNG and JPEG XL as 16-bit Rec. 2020 PQ, 32-bit TIFF with highlights above 1; other formats and SDR edits export as usual\"},\n                \"hdrTransfer\": {\"type\": \"string\", \"enum\": [\"pq\", \"hlg\"], \"description\": \"Transfer curve of HDR AVIF output (default pq): pq = SMPTE ST 2084, hlg = ITU-R BT.2100 hybrid log-gamma\"},\n                \"addToPhotos\": {\"type\": \"boolean\", \"description\": \"macOS: after writing the files, add them to Apple Photos (Apple Events to Photos' import; the first time, macOS asks the user to allow LightCraft to control Photos). The outcome is `applePhotos` in the result, the import job: {job, running, requested, album, imported?, ids?, warning?, error?}; headless waits for Photos, the desktop app returns the running job (outcome: command export.photosImports {job}). The files are written either way. An error before exporting on other platforms, or while another import is reserved or running\"},\n                \"photosAlbum\": {\"type\": \"string\", \"description\": \"With addToPhotos: the album to add them to, a top-level Photos album of exactly this name, made when missing (several of that name: nothing is added); default none\"},\n                \"watermark\": {\"description\": \"Text, or {text, vertical (boolean; defaults to false: upright columns right to left), size (text height as a fraction of the short edge, 0.005..0.5; default 0.035), opacity (0..1; default 0.7), anchor (topLeft|top|topRight|left|center|right|bottomLeft|bottom|bottomRight), insetX (margin from the left or right edge as a fraction of the short edge, 0..0.4; default 0.025), insetY (margin from the top or bottom edge, same units), inset (sets both), rotation (degrees clockwise: 0|90|180|270; default 0; the watermark is sized before it is turned), color [r,g,b] (sRGB 0..255), shadow (boolean), image (path of a graphic drawn instead of the text), imageWidth (fraction of the photo's width, 0.01..1; default 0.2)}. Unknown keys and out-of-range sizes are errors\"}\n            })",
    :source "crates/mcp/src/tools.rs"}
   {:name "ui_inspect",
    :title "Inspect UI",
@@ -1859,7 +1973,7 @@
   {:name "screenshot",
    :title "Screenshot",
    :description
-   "Capture the LightCraft window (after pending renders finish) and return it as an image.",
+   "Capture the LightCraft window (after pending renders finish) and return it as an image. `path`, when given, is overwritten with the screenshot file; a catalogued original or its XMP sidecar is refused instead.",
    :input-schema-source
    "json!({\"maxSize\": {\"type\": \"integer\", \"description\": \"Downscale so the long edge is at most this (default 1600)\"}, \"format\": {\"type\": \"string\", \"enum\": [\"png\", \"jpeg\"]}, \"path\": {\"type\": \"string\", \"description\": \"Also save the screenshot here\"}})",
    :source "crates/mcp/src/tools.rs"}
@@ -1926,6 +2040,7 @@
   "ui.dialog.confirm"
   "ui.drag"
   "ui.dragWidget"
+  "ui.dropFiles"
   "ui.hoverWidget"
   "ui.inspect"
   "ui.key"

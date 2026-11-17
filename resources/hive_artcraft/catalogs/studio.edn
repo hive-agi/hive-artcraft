@@ -1,6 +1,10 @@
-{:reference-revision "7a2935cf9e3922e90e4ed5f3556b1cb107013148",
+{:reference-revision "69f53c2f0358a91a5e35e5a7b3a91677320c3112",
  :engine
- [{:id "check_sora_session_command",
+ [{:id "check_for_updates_command",
+   :label "Check for updates",
+   :source
+   "crates/desktop/artcraft/src/core/commands/updates/check_for_updates_command.rs"}
+  {:id "check_sora_session_command",
    :label "Check sora session",
    :source
    "crates/desktop/artcraft/src/services/sora/commands/check_sora_session_command.rs"}
@@ -115,6 +119,10 @@
    :label "Grok open login",
    :source
    "crates/desktop/artcraft/src/services/grok/commands/grok_open_login_command.rs"}
+  {:id "install_update_command",
+   :label "Install update",
+   :source
+   "crates/desktop/artcraft/src/core/commands/updates/install_update_command.rs"}
   {:id "list_image_models_command",
    :label "List image models",
    :source

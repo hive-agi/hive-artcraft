@@ -88,8 +88,21 @@
                 cmd (assoc :command cmd))))
           rows (concat (map :start (rest rows)) [(count text)]))))
 
+(defn- control-files
+  "crates/ui-egui/src/control.rs plus, since upstream split it into a module, every
+   non-test file under crates/ui-egui/src/control/."
+  [root]
+  (let [single (io/file root "crates/ui-egui/src/control.rs")
+        dir (io/file root "crates/ui-egui/src/control")]
+    (concat (when (.isFile single) [single])
+            (when (.isDirectory dir)
+              (->> (file-seq dir)
+                   (filter #(and (.isFile %) (str/ends-with? (.getName %) ".rs")
+                                 (not (str/includes? (.getName %) "test"))))
+                   (sort-by #(.getPath %)))))))
+
 (defn control [root]
-  (let [text (slurp (io/file root "crates/ui-egui/src/control.rs"))]
+  (let [text (str/join "\n" (map slurp (control-files root)))]
     (->> (re-seq #"\"(ui\.[a-z][a-z.]*)\"\s*(?:=>|\||if\b)" text)
          (map second) distinct sort vec)))
 
