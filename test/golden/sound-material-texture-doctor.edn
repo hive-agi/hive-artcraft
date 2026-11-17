@@ -1,0 +1,26 @@
+{"materialcraft"
+ {:app "materialcraft",
+  :shape :port,
+  :catalog {:engine 121, :control 12},
+  :port {:port 7988, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."},
+ "soundcraft"
+ {:app "soundcraft",
+  :shape :port,
+  :catalog
+  {:engine 388,
+   :control 17,
+   :unexpanded 95,
+   :unexpanded-hint
+   "The static catalog does not expand 5 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
+  :port {:port 7987, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."},
+ "texturecraft"
+ {:app "texturecraft",
+  :shape :port,
+  :catalog {:engine 178, :control 15},
+  :port {:port 7989, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."}}
