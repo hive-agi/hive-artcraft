@@ -1,7 +1,7 @@
 {"pdfcraft"
  {:app "pdfcraft",
   :shape :control-file,
-  :catalog {:engine 201, :control 17},
+  :catalog {:engine 220, :control 17},
   :port nil,
   :transport :absent,
   :hint
@@ -9,7 +9,7 @@
  "studio"
  {:app "studio",
   :shape :none,
-  :catalog {:engine 67, :control 0},
+  :catalog {:engine 69, :control 0},
   :port nil,
   :transport :absent,
   :hint

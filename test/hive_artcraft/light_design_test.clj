@@ -15,12 +15,12 @@
 
 (def apps
   {"lightcraft" {:port 7980 :env "LIGHTCRAFT_CONTROL_PORT"
-                 :revision "fb7ac08b9ae43956f99436437ea5f549a07e3ce1"
-                 :counts {:engine 370 :mcp 28 :control 27}
+                 :revision "7bb9165c6bc46652db41ef5e19054a2bb017435f"
+                 :counts {:engine 391 :mcp 28 :control 28}
                  :clone "../clones-ref/lightcraft"}
    "designcraft" {:port 7981 :env "DESIGNCRAFT_CONTROL_PORT"
-                  :revision "ecd7e5d063eb12fa5e61fe61c9b8a77bb3c9110a"
-                  :counts {:engine 519 :mcp 26 :control 29}
+                  :revision "47ef1ec411d53e98a31c576d80a1d0e20ef5eb04"
+                  :counts {:engine 567 :mcp 26 :control 30}
                   :clone "../clones-ref/designcraft"}})
 
 (defn module [id] (get-in (registry/load-registry) [:ok :by-id id]))
@@ -59,7 +59,7 @@
 
 (deftest designcraft-noundo-arm-is-extracted
   (let [engine (:engine (:ok (service/load-catalog (module "designcraft"))))]
-    (is (= 519 (count engine)))
+    (is (= 567 (count engine)))
     ;; rulers.rs declares its commands only through the multi-line `cmd!(noundo` arm.
     (is (seq (filter #(= "crates/engine/src/cmd/rulers.rs" (:source %)) engine)))
     (is (= "\"a.b\"" (x/strip-arm "query \"a.b\"") (x/strip-arm "noundo \"a.b\"")

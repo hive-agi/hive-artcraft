@@ -29,6 +29,7 @@
   "engine.execute"
   "perf.stats"
   "ui.click"
+  "ui.docking"
   "ui.drag"
   "ui.elements"
   "ui.focus"

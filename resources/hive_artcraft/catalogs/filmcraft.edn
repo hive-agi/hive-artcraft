@@ -1,4 +1,4 @@
-{:reference-revision "6c3948a36c80e4996d924766ba7157eec4fca85e",
+{:reference-revision "93a88a839aae370740b09434fdec410abb8c24ca",
  :engine
  [{:id "clip.audioGain",
    :label "Audio Gain…",
@@ -27,11 +27,11 @@
    :source "crates/engine/src/commands.rs"}
   {:id "clip.nest",
    :label "Nest…",
-   :params "{\"name\":str}",
+   :params "{\"name\":str?}",
    :source "crates/engine/src/commands.rs"}
   {:id "clip.rename",
    :label "Rename…",
-   :params "{\"clip\":id?,\"item\":id?,\"name\":str}",
+   :params "{\"clip\":id?,\"clips\":[id]?,\"item\":id?,\"name\":str?}",
    :source "crates/engine/src/commands.rs"}
   {:id "clip.revealInProject",
    :label "Reveal in Project",
@@ -44,11 +44,23 @@
   {:id "clip.speedDuration",
    :label "Speed/Duration…",
    :params
-   "{\"clips\":[id]?,\"speed\":percent=100,\"reverse\":bool,\"ripple\":bool,\"interpolation\":\"frameSampling|frameBlending|opticalFlow\"?}",
+   "{\"clips\":[id]?,\"speed\":percent=100,\"reverse\":bool,\"ripple\":bool,\"maintainPitch\":bool? (Maintain Audio Pitch; unchanged when left out),\"interpolation\":\"frameSampling|frameBlending|opticalFlow\"?}",
    :source "crates/engine/src/commands.rs"}
   {:id "clip.ungroup",
    :label "Ungroup",
    :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "colors.addCustom",
+   :label "Add Custom Color",
+   :params "{\"color\":hex,\"name\":str?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "colors.removeCustom",
+   :label "Remove Custom Color",
+   :params "{\"color\":hex}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "colors.updateCustom",
+   :label "Edit Custom Color",
+   :params "{\"color\":hex,\"replacement\":hex?,\"name\":str?}",
    :source "crates/engine/src/commands.rs"}
   {:id "command.list",
    :label "List Commands",
@@ -56,7 +68,8 @@
    :source "crates/engine/src/commands.rs"}
   {:id "edit.clear",
    :label "Clear",
-   :params "{\"clips\":[id]?}",
+   :params
+   "{\"clips\":[id]?,\"clip\":id?} (explicit clips work without a selection)",
    :source "crates/engine/src/commands.rs"}
   {:id "edit.copy",
    :label "Copy",
@@ -76,7 +89,8 @@
    :source "crates/engine/src/commands.rs"}
   {:id "edit.label",
    :label "Label",
-   :params "{\"label\":\"Violet|Iris|…\"}",
+   :params
+   "{\"label\":\"preset|#RRGGBB\",\"clips\":[id]?,\"items\":[id]?,\"sequence\":id?,\"saveColor\":bool?}",
    :source "crates/engine/src/commands.rs"}
   {:id "edit.paste",
    :label "Paste",
@@ -92,7 +106,8 @@
    :source "crates/engine/src/commands.rs"}
   {:id "edit.rippleDelete",
    :label "Ripple Delete",
-   :params "{\"clips\":[id]?}",
+   :params
+   "{\"clips\":[id]?,\"clip\":id?} (explicit clips work without a selection)",
    :source "crates/engine/src/commands.rs"}
   {:id "edit.rippleDeleteHead",
    :label "Ripple Delete Head Frame",
@@ -151,7 +166,7 @@
   {:id "effects.setInterpolation",
    :label "Keyframe Interpolation",
    :params
-   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mediaTime\":ticks,\"interpolation\":\"linear|bezier|autoBezier|continuousBezier|hold|easeIn|easeOut\"}",
+   "{\"clip\":id,\"effect\":str|index,\"param\":str,\"mediaTime\":ticks,\"interpolation\":\"linear|bezier|autoBezier|continuousBezier|hold|easeIn|easeOut\"}|{\"keyframes\":[{\"clip\":id,\"effect\":index,\"param\":str,\"mask\":n?,\"time\":mediaTicks}],\"interpolation\":str}",
    :source "crates/engine/src/commands.rs"}
   {:id "effects.setKeyframe",
    :label "Edit Keyframe",
@@ -209,7 +224,7 @@
   {:id "file.exportMedia",
    :label "Media…",
    :params
-   "{\"path\":str,\"preset\":str?,\"settings\":ExportSettings?,\"format\":\"h264|hevc|prores|dnxhr|apv|mjpeg|mxf-op1a|mxf-opatom|png|tiff|bmp|jpg|tga|dpx|exr|gif|wav|aiff|aac|flac\"?,\"audioCodec\":\"auto|aac|pcm|flac\"?,\"flacLevel\":0..8=5,\"width\":u32?,\"height\":u32?,\"fps\":f64?,\"bitrateKbps\":u32?,\"bitrateMode\":\"cbr|vbr1Pass|vbr2Pass|crf\"?,\"crf\":0..51=23,\"hardwareEncoding\":\"off|auto\"?,\"scale\":f32=1,\"audio\":bool=true,\"quality\":0..100,\"burnCaptions\":bool=false,\"alpha\":bool=false,\"exrCompression\":\"none|rle|zips|zip\"?,\"captionSidecar\":\"srt|vtt\"?,\"loudnessLufs\":f64?,\"proresProfile\":\"proxy|lt|standard|hq|4444|4444xq\"?,\"dnxProfile\":\"lb|sq|hq|hqx\"?,\"apvProfile\":\"422-10|422-12|444-10|444-12\"?,\"mxfVideoCodec\":\"dnxhr|proRes|h264\"?,\"sequence\":id?,\"range\":\"entire|inOut|workArea|custom\"?,\"startSeconds\":f64?,\"endSeconds\":f64?,\"wait\":bool=false}",
+   "{\"path\":str,\"preset\":str?,\"settings\":ExportSettings?,\"format\":\"h264|hevc|prores|dnxhr|apv|mjpeg|mxf-op1a|mxf-opatom|png|tiff|bmp|jpg|tga|dpx|exr|gif|wav|aiff|aac|mp3|flac\"?,\"audioCodec\":\"auto|aac|pcm|flac\"?,\"flacLevel\":0..8=5,\"width\":u32?,\"height\":u32?,\"fps\":f64?,\"bitrateKbps\":u32?,\"bitrateMode\":\"cbr|vbr1Pass|vbr2Pass|crf\"?,\"crf\":0..51=23,\"hardwareEncoding\":\"off|auto\"?,\"scale\":f32=1,\"audio\":bool=true,\"quality\":0..100,\"burnCaptions\":bool=false,\"alpha\":bool=false,\"exrCompression\":\"none|rle|zips|zip\"?,\"captionSidecar\":\"srt|vtt\"?,\"loudnessLufs\":f64?,\"proresProfile\":\"proxy|lt|standard|hq|4444|4444xq\"?,\"dnxProfile\":\"lb|sq|hq|hqx\"?,\"apvProfile\":\"422-10|422-12|444-10|444-12|4444-10|4444-12|400-10\"?,\"h264Profile\":\"baseline|main|high|high10\"?,\"h264IntraOnly\":bool=false,\"mxfVideoCodec\":\"dnxhr|proRes|h264\"?,\"sequence\":id?,\"range\":\"entire|inOut|workArea|custom\"?,\"startSeconds\":f64?,\"endSeconds\":f64?,\"wait\":bool=false}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.exportOmf",
    :label "OMF…",
@@ -227,7 +242,7 @@
    :source "crates/engine/src/commands.rs"}
   {:id "file.importAaf",
    :label "Import AAF…",
-   :params "{\"path\":str}",
+   :params "{\"path\":str,\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.importDemoFootage",
    :label "Demo Footage",
@@ -240,11 +255,11 @@
    :source "crates/engine/src/commands.rs"}
   {:id "file.newAdjustmentLayer",
    :label "Adjustment Layer…",
-   :params "{\"seconds\":f64=5}",
+   :params "{\"seconds\":f64=5,\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.newBarsAndTone",
    :label "Bars and Tone…",
-   :params "{\"seconds\":f64=10}",
+   :params "{\"seconds\":f64=10,\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.newBin",
    :label "Bin",
@@ -252,15 +267,15 @@
    :source "crates/engine/src/commands.rs"}
   {:id "file.newBlackVideo",
    :label "Black Video…",
-   :params "{\"seconds\":f64}",
+   :params "{\"seconds\":f64,\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.newColorMatte",
    :label "Color Matte…",
-   :params "{\"color\":\"#rrggbb\",\"seconds\":f64}",
+   :params "{\"color\":\"#rrggbb\"?,\"seconds\":f64=5,\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.newCountingLeader",
    :label "Universal Counting Leader…",
-   :params "{}",
+   :params "{\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.newProject",
    :label "Project…",
@@ -269,11 +284,11 @@
   {:id "file.newSequence",
    :label "Sequence…",
    :params
-   "{\"name\":str,\"width\":u32=1920,\"height\":u32=1080,\"fps\":f64=23.976,\"sampleRate\":u32=48000,\"video\":n=3,\"audio\":n=3,\"mix\":\"Stereo|Mono|5.1|Adaptive\"?,\"trackType\":\"Standard|Mono|5.1|Adaptive\"?,\"fromItem\":itemId?,\"fromItems\":[itemId]?}",
+   "{\"name\":str,\"width\":u32=1920,\"height\":u32=1080,\"fps\":f64=23.976,\"sampleRate\":u32=48000,\"video\":n=3,\"audio\":n=3,\"mix\":\"Stereo|Mono|5.1|Adaptive\"?,\"trackType\":\"Standard|Mono|5.1|Adaptive\"?,\"fromItem\":itemId?,\"fromItems\":[itemId]?,\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.newTransparentVideo",
    :label "Transparent Video…",
-   :params "{}",
+   :params "{\"bin\":binId?}",
    :source "crates/engine/src/commands.rs"}
   {:id "file.open",
    :label "Open Project…",
@@ -307,6 +322,14 @@
    :label "Save a Copy…",
    :params "{\"path\":str}",
    :source "crates/engine/src/commands.rs"}
+  {:id "history.clear",
+   :label "Clear History",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "history.deleteRedoable",
+   :label "Delete Redoable Actions",
+   :params "{}",
+   :source "crates/engine/src/commands.rs"}
   {:id "history.list",
    :label "List History",
    :params "{}",
@@ -322,7 +345,7 @@
   {:id "markers.add",
    :label "Add Marker",
    :params
-   "{\"target\":\"program|source\",\"time\":ticks?,\"name\":str?,\"comment\":str?,\"color\":label?,\"durationFrames\":i64?}",
+   "{\"target\":\"program|source\",\"time\":ticks?,\"name\":str?,\"comment\":str?,\"color\":label_or_hex?,\"author\":str?,\"durationFrames\":i64?}",
    :source "crates/engine/src/commands.rs"}
   {:id "markers.clearAll",
    :label "Clear Markers",
@@ -344,10 +367,15 @@
    :label "Clear Out",
    :params "{\"target\":\"program|source\"}",
    :source "crates/engine/src/commands.rs"}
+  {:id "markers.delete",
+   :label "Delete Markers",
+   :params
+   "{\"target\":\"program|source\",\"sequence\":id?,\"item\":id?,\"marker\":id|\"markers\":[id]}",
+   :source "crates/engine/src/commands.rs"}
   {:id "markers.edit",
    :label "Edit Marker…",
    :params
-   "{\"target\":\"program|source\",\"marker\":id,\"name\":str?,\"comment\":str?,\"color\":label?,\"durationFrames\":i64?}",
+   "{\"target\":\"program|source\",\"sequence\":id?,\"item\":id?,\"marker\":id|\"markers\":[id],\"time\":ticks?,\"frame\":i64?,\"durationFrames\":i64?,\"name\":str?,\"comment\":str?,\"author\":str?,\"url\":str?,\"color\":label_or_hex?,\"kind\":\"comment|chapter|segmentation|webLink|flashCue\"?}",
    :source "crates/engine/src/commands.rs"}
   {:id "markers.exportCsv",
    :label "Export Markers as CSV…",
@@ -484,12 +512,12 @@
   {:id "sequence.applyAudioTransition",
    :label "Apply Audio Transition",
    :params
-   "{\"clip\":id?,\"effect\":\"constant_power|Constant Power|…\"?,\"frames\":i64?,\"edge\":\"in\"|\"out\"?,\"params\":{param:value}?,\"reverse\":bool?}",
+   "{\"clip\":id?,\"effect\":\"constant_power|Constant Power|…\"?,\"frames\":i64?,\"edge\":\"in\"|\"out\"?,\"align\":\"center\"|\"start\"|\"end\"?,\"params\":{param:value}?,\"reverse\":bool?}",
    :source "crates/engine/src/commands.rs"}
   {:id "sequence.applyVideoTransition",
    :label "Apply Video Transition",
    :params
-   "{\"clip\":id?,\"effect\":\"cross_dissolve|Cross Dissolve|…\"?,\"frames\":i64?,\"edge\":\"in\"|\"out\"?,\"params\":{param:value}?,\"reverse\":bool?}",
+   "{\"clip\":id?,\"effect\":\"cross_dissolve|Cross Dissolve|…\"?,\"frames\":i64?,\"edge\":\"in\"|\"out\"?,\"align\":\"center\"|\"start\"|\"end\"?,\"params\":{param:value}?,\"reverse\":bool?}",
    :source "crates/engine/src/commands.rs"}
   {:id "sequence.close",
    :label "Close Sequence",
@@ -581,14 +609,32 @@
    :params
    "{\"transition\":id,\"params\":{param:value}?,\"reverse\":bool?,\"reset\":bool?,\"duration\":ticks?|\"frames\":n?,\"align\":\"center\"|\"start\"|\"end\"?|\"start\":ticks?,\"merge\":bool?,\"begin\":bool?}",
    :source "crates/engine/src/commands.rs"}
+  {:id "sequence.setWorkArea",
+   :label "Set Work Area",
+   :params "{\"start\":ticks,\"end\":ticks}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.setWorkAreaIn",
+   :label "Set Work Area Bar In Point",
+   :params
+   "{\"time\":ticks?,\"frame\":i64?,\"seconds\":f64?,\"timecode\":str?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.setWorkAreaOut",
+   :label "Set Work Area Bar Out Point",
+   :params
+   "{\"time\":ticks?,\"frame\":i64?,\"seconds\":f64?,\"timecode\":str?}",
+   :source "crates/engine/src/commands.rs"}
   {:id "sequence.settings",
    :label "Sequence Settings…",
    :params
-   "{\"width\":u32?,\"height\":u32?,\"fps\":f64?,\"name\":str?,\"sampleRate\":u32?,\"mix\":\"Stereo|Mono|5.1|Adaptive\"?,\"dropFrame\":bool?,\"maxRenderQuality\":bool?,\"workingSpace\":\"rec709\"|\"rec2100-pq\"|\"rec2100-hlg\"?,\"wideGamut\":bool?,\"autoToneMap\":bool?,\"scaleMotion\":bool=false}",
+   "{\"width\":u32?,\"height\":u32?,\"fps\":f64?,\"name\":str?,\"sampleRate\":u32?,\"mix\":\"Stereo|Mono|5.1|Adaptive\"?,\"dropFrame\":bool?,\"videoDisplay\":\"timecode|feet35|feet16|frames\"?,\"maxRenderQuality\":bool?,\"workingSpace\":\"rec709\"|\"rec2100-pq\"|\"rec2100-hlg\"?,\"wideGamut\":bool?,\"autoToneMap\":bool?,\"scaleMotion\":bool=false}",
    :source "crates/engine/src/commands.rs"}
   {:id "sequence.snap",
    :label "Snap in Timeline",
    :params "{\"on\":bool?}",
+   :source "crates/engine/src/commands.rs"}
+  {:id "sequence.workAreaBar",
+   :label "Work Area Bar",
+   :params "{\"show\":bool?}",
    :source "crates/engine/src/commands.rs"}
   {:id "source.close",
    :label "Close",
@@ -600,7 +646,7 @@
    :source "crates/engine/src/commands.rs"}
   {:id "source.insert",
    :label "Insert",
-   :params "{}",
+   :params "{\"matchSequence\":bool=false}",
    :source "crates/engine/src/commands.rs"}
   {:id "source.inspect",
    :label "Inspect Source Monitor",
@@ -612,7 +658,7 @@
    :source "crates/engine/src/commands.rs"}
   {:id "source.overwrite",
    :label "Overwrite",
-   :params "{}",
+   :params "{\"matchSequence\":bool=false}",
    :source "crates/engine/src/commands.rs"}
   {:id "source.setPlayhead",
    :label "Set Source Playhead",
@@ -622,19 +668,25 @@
    :label "Inspect Editor State",
    :params "{}",
    :source "crates/engine/src/commands.rs"}
+  {:id "timeline.delete",
+   :label "Delete Clips",
+   :params
+   "{\"clips\":[id]?,\"clip\":id?,\"ripple\":bool?} (deletes the named clips, else the selection; ripple closes the gap)",
+   :source "crates/engine/src/commands.rs"}
   {:id "timeline.move",
    :label "Move Clips",
    :params
-   "{\"moves\":[{\"clip\":id,\"track\":id|\"V2\"|\"new\" (after the last of its kind),\"time\":ticks}],\"insert\":bool,\"linked\":bool?,\"copy\":bool?}",
+   "{\"moves\":[{\"clip\":id,\"track\":id|\"V2\"|\"new\" (after the last of its kind),\"time\":ticks|{\"seconds\":f}|{\"frame\":n}|{\"timecode\":str}}],\"insert\":bool,\"linked\":bool?,\"copy\":bool?,\"captions\":[id]?}",
    :source "crates/engine/src/commands.rs"}
   {:id "timeline.place",
    :label "Place Clip",
    :params
-   "{\"item\":id|\"items\":[id] (back to back, one undo step),\"track\":\"V1\"|id|\"A1\" (sound only)|\"new\" (a video track after the last)?,\"audioTrack\":\"A1\"|id|\"new\"?,\"time\":ticks|\"frame\":i64|\"seconds\":f64,\"insert\":bool,\"sourceIn\":ticks?,\"duration\":ticks?,\"video\":bool=true,\"audio\":bool=true}",
+   "{\"item\":id|\"items\":[id] (back to back, one undo step),\"track\":\"V1\"|id|\"A1\" (sound only)|\"new\" (a video track after the last)?,\"audioTrack\":\"A1\"|id|\"new\"?,\"time\":ticks|\"frame\":i64|\"seconds\":f64,\"insert\":bool,\"sourceIn\":ticks|{\"frame\"|\"seconds\"|\"timecode\"}?,\"duration\":ticks|{\"frame\"|\"seconds\"|\"timecode\"}?,\"video\":bool=true,\"audio\":bool=true,\"matchSequence\":bool=false (an empty sequence first takes the clip's frame size and rate)}",
    :source "crates/engine/src/commands.rs"}
   {:id "timeline.rateStretch",
    :label "Rate Stretch",
-   :params "{\"clip\":id,\"edge\":\"in|out\",\"delta\":ticks}",
+   :params
+   "{\"clip\":id,\"edge\":\"in|out\",\"delta\":ticks,\"linked\":bool?}",
    :source "crates/engine/src/commands.rs"}
   {:id "timeline.razor",
    :label "Razor",
@@ -663,7 +715,7 @@
   {:id "timeline.setTrack",
    :label "Track Settings",
    :params
-   "{\"track\":\"V1\"|id,\"locked\":bool?,\"syncLock\":bool?,\"enabled\":bool?,\"muted\":bool?,\"solo\":bool?,\"name\":str?,\"volumeDb\":f64?,\"pan\":f64?}",
+   "{\"track\":\"V1\"|id,\"locked\":bool?,\"syncLock\":bool?,\"enabled\":bool?,\"muted\":bool?,\"solo\":bool?,\"name\":str?,\"volumeDb\":f64?,\"pan\":f64?,\"label\":\"Violet|Iris|…\"|\"\"|null?}",
    :source "crates/engine/src/commands.rs"}
   {:id "timeline.slide",
    :label "Slide",
@@ -676,7 +728,7 @@
   {:id "timeline.trim",
    :label "Trim Edit",
    :params
-   "{\"clip\":id,\"edge\":\"in|out\",\"mode\":\"regular|ripple\",\"delta\":ticks|\"deltaFrames\":i64}",
+   "{\"clip\":id,\"edge\":\"in|out\",\"mode\":\"regular|ripple\",\"delta\":ticks|\"deltaFrames\":i64,\"linked\":bool?}",
    :source "crates/engine/src/commands.rs"}
   {:id "trim.applyDefaultTransition",
    :label "Apply Default Transitions to Selection",
@@ -765,7 +817,7 @@
    :params "{}",
    :source "crates/engine/src/commands.rs"}],
  :unexpanded
- [{:macro "spec()", :count 20, :source "crates/engine/src/captions.rs"}
+ [{:macro "spec()", :count 21, :source "crates/engine/src/captions.rs"}
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/captions.rs"}
@@ -774,7 +826,7 @@
    :source "crates/engine/src/clip_ops.rs"}
   {:macro "spec()", :count 29, :source "crates/engine/src/clip_ops.rs"}
   {:macro "spec()", :count 9, :source "crates/engine/src/color.rs"}
-  {:macro "query()", :count 6, :source "crates/engine/src/color.rs"}
+  {:macro "query()", :count 7, :source "crates/engine/src/color.rs"}
   {:macro "CommandSpec {}",
    :count 2,
    :source "crates/engine/src/commands.rs"}
@@ -796,7 +848,7 @@
   {:macro "arrange_cmd!",
    :count 4,
    :source "crates/engine/src/graphics.rs"}
-  {:macro "spec()", :count 25, :source "crates/engine/src/graphics.rs"}
+  {:macro "spec()", :count 26, :source "crates/engine/src/graphics.rs"}
   {:macro "query()", :count 2, :source "crates/engine/src/graphics.rs"}
   {:macro "tt!", :count 16, :source "crates/engine/src/keyboard.rs"}
   {:macro "spec()", :count 66, :source "crates/engine/src/keyboard.rs"}
@@ -807,7 +859,6 @@
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/media_browser.rs"}
-  {:macro "spec()", :count 25, :source "crates/engine/src/mixer.rs"}
   {:macro "camera_keys!",
    :count 1,
    :source "crates/engine/src/multicam.rs"}
@@ -822,7 +873,7 @@
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/paste_media.rs"}
-  {:macro "spec()", :count 7, :source "crates/engine/src/presets.rs"}
+  {:macro "spec()", :count 8, :source "crates/engine/src/presets.rs"}
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/project_manager.rs"}
@@ -851,12 +902,14 @@
    :count 6,
    :source "crates/engine/src/sequence_extras.rs"}
   {:macro "spec()",
-   :count 25,
+   :count 26,
    :source "crates/engine/src/sequence_tools.rs"}
   {:macro "query()",
-   :count 1,
+   :count 2,
    :source "crates/engine/src/sequence_tools.rs"}
-  {:macro "spec()", :count 7, :source "crates/engine/src/settings.rs"}
+  {:macro "spec()",
+   :count 7,
+   :source "crates/engine/src/settings/commands.rs"}
   {:macro "sc!", :count 16, :source "crates/engine/src/shortcuts.rs"}
   {:macro "spec()",
    :count 14,
@@ -955,6 +1008,7 @@
   "engine.execute"
   "perf.stats"
   "ui.click"
+  "ui.docking"
   "ui.drag"
   "ui.elements"
   "ui.focus"

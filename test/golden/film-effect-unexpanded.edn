@@ -1,30 +1,34 @@
 {"effectcraft"
  [{:macro "CommandSpec {}",
    :count 1,
-   :source "crates/engine/src/commands/batch.rs"}
+   :source "crates/engine/src/cmd/batch.rs"}
   {:macro "CommandSpec {}",
    :count 2,
-   :source "crates/engine/src/commands/content_fill.rs"}
+   :source "crates/engine/src/cmd/content_fill.rs"}
   {:macro "fe!",
-   :count 42,
-   :source "crates/engine/src/commands/frontend.rs"}
+   :count 43,
+   :source "crates/engine/src/cmd/frontend.rs"}
+  {:macro "spec()",
+   :count 3,
+   :source "crates/engine/src/cmd/journal.rs"}
   {:macro "style_cmd!",
    :count 9,
-   :source "crates/engine/src/commands/styles.rs"}
+   :source "crates/engine/src/cmd/styles.rs"}
   {:macro "view_cmd!",
    :count 11,
-   :source "crates/engine/src/commands/three_d.rs"}
-  {:macro "res!",
-   :count 5,
-   :source "crates/engine/src/commands/view.rs"}
+   :source "crates/engine/src/cmd/three_d.rs"}
+  {:macro "res!", :count 5, :source "crates/engine/src/cmd/view.rs"}
   {:macro "chan!",
    :count 7,
-   :source "crates/engine/src/commands/viewer_cmds.rs"}
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
   {:macro "fast!",
    :count 5,
-   :source "crates/engine/src/commands/viewer_cmds.rs"}],
+   :source "crates/engine/src/cmd/viewer_cmds.rs"}
+  {:macro "never_replaces!",
+   :count 12,
+   :source "crates/engine/src/tests/export_overwrite.rs"}],
  "filmcraft"
- [{:macro "spec()", :count 20, :source "crates/engine/src/captions.rs"}
+ [{:macro "spec()", :count 21, :source "crates/engine/src/captions.rs"}
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/captions.rs"}
@@ -33,7 +37,7 @@
    :source "crates/engine/src/clip_ops.rs"}
   {:macro "spec()", :count 29, :source "crates/engine/src/clip_ops.rs"}
   {:macro "spec()", :count 9, :source "crates/engine/src/color.rs"}
-  {:macro "query()", :count 6, :source "crates/engine/src/color.rs"}
+  {:macro "query()", :count 7, :source "crates/engine/src/color.rs"}
   {:macro "CommandSpec {}",
    :count 2,
    :source "crates/engine/src/commands.rs"}
@@ -55,7 +59,7 @@
   {:macro "arrange_cmd!",
    :count 4,
    :source "crates/engine/src/graphics.rs"}
-  {:macro "spec()", :count 25, :source "crates/engine/src/graphics.rs"}
+  {:macro "spec()", :count 26, :source "crates/engine/src/graphics.rs"}
   {:macro "query()", :count 2, :source "crates/engine/src/graphics.rs"}
   {:macro "tt!", :count 16, :source "crates/engine/src/keyboard.rs"}
   {:macro "spec()", :count 66, :source "crates/engine/src/keyboard.rs"}
@@ -66,7 +70,6 @@
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/media_browser.rs"}
-  {:macro "spec()", :count 25, :source "crates/engine/src/mixer.rs"}
   {:macro "camera_keys!",
    :count 1,
    :source "crates/engine/src/multicam.rs"}
@@ -81,7 +84,7 @@
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/paste_media.rs"}
-  {:macro "spec()", :count 7, :source "crates/engine/src/presets.rs"}
+  {:macro "spec()", :count 8, :source "crates/engine/src/presets.rs"}
   {:macro "CommandSpec {}",
    :count 1,
    :source "crates/engine/src/project_manager.rs"}
@@ -110,12 +113,14 @@
    :count 6,
    :source "crates/engine/src/sequence_extras.rs"}
   {:macro "spec()",
-   :count 25,
+   :count 26,
    :source "crates/engine/src/sequence_tools.rs"}
   {:macro "query()",
-   :count 1,
+   :count 2,
    :source "crates/engine/src/sequence_tools.rs"}
-  {:macro "spec()", :count 7, :source "crates/engine/src/settings.rs"}
+  {:macro "spec()",
+   :count 7,
+   :source "crates/engine/src/settings/commands.rs"}
   {:macro "sc!", :count 16, :source "crates/engine/src/shortcuts.rs"}
   {:macro "spec()",
    :count 14,
