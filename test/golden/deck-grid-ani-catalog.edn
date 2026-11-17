@@ -1,0 +1,18 @@
+{"anicraft"
+ {:app "anicraft",
+  :revision "20a45a47f62c2458c0f424db5507e10445365d51",
+  :engine 360,
+  :mcp 5,
+  :control 0},
+ "deckcraft"
+ {:app "deckcraft",
+  :revision "497582406d51498c5da4cf7e96d89e45e5bf968b",
+  :engine 329,
+  :mcp 25,
+  :control 26},
+ "gridcraft"
+ {:app "gridcraft",
+  :revision "d60709a1738d4f02c7f507848441306c0aacf692",
+  :engine 386,
+  :mcp 22,
+  :control 34}}

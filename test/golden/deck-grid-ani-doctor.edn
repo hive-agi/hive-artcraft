@@ -1,0 +1,23 @@
+{"anicraft"
+ {:app "anicraft",
+  :shape :none,
+  :catalog {:engine 360, :control 0},
+  :port nil,
+  :transport :absent,
+  :hint
+  "AniCraft has no external control surface (its commands are in-process IPC); it is catalog-only. Drive it through its own UI, or ask upstream for an automation surface.",
+  :status :no-control-surface},
+ "deckcraft"
+ {:app "deckcraft",
+  :shape :port,
+  :catalog {:engine 329, :control 26},
+  :port {:port 7983, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."},
+ "gridcraft"
+ {:app "gridcraft",
+  :shape :port,
+  :catalog {:engine 386, :control 34},
+  :port {:port 7985, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."}}
