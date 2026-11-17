@@ -137,4 +137,52 @@
   ;; pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/anicraft.edn"
   :app/upstream "https://github.com/storytold/anicraft"}
+
+ {:app/id "cadcraft"
+  :app/label "CADCraft"
+  :app/summary "2D drafting (AutoCAD-style). Native: `cadcraft --control PORT`. The static catalog lists CommandSpec::new builder chains; the gc!/dc! constraint macros are counted under :unexpanded."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7982
+  :app/port-env "CADCRAFT_CONTROL_PORT"
+  ;; CADCraft refuses (`unauthorized`) any request without the session token as a top-level
+  ;; "token" (docs/control-protocol.md L12-18). The app issues it (64 hex) at startup into the
+  ;; owner-only file $XDG_RUNTIME_DIR/cadcraft-control-<port>.token (else ~/.cache/...). Default
+  ;; reference: export CADCRAFT_CONTROL_TOKEN from that file before starting hive, or point
+  ;; :apps {"cadcraft" {:token-ref {:scheme :file :path "<that file>"}}} at it. Read per request,
+  ;; never logged or returned.
+  :app/token-ref {:scheme :env :name "CADCRAFT_CONTROL_TOKEN"}
+  ;; Derived by dev/extract_cadcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/cadcraft.edn"
+  :app/upstream "https://github.com/storytold/cadcraft"}
+
+ {:app/id "figcraft"
+  :app/label "FigCraft"
+  :app/summary "Interface design and prototyping (Figma-style). Native: `figcraft --control PORT`; upstream docs use 7979, which collides with VectorCraft. The static catalog lists spec! commands."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7984
+  :app/port-env "FIGCRAFT_CONTROL_PORT"
+  ;; FigCraft's control port is loopback-only and unauthenticated (docs/control-protocol.md L10-16:
+  ;; no token or key field); --automation-read-root/--automation-write-root confine its file access.
+  ;; Derived by dev/extract_figcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/figcraft.edn"
+  :app/upstream "https://github.com/storytold/figcraft"}
+
+ {:app/id "wordcraft"
+  :app/label "WordCraft"
+  :app/summary "Word processor (Word-style). Native: `wordcraft --control PORT`; upstream docs use 7981, which collides with DesignCraft. The static catalog lists CommandSpec::new builder chains."
+  :app/kind :native
+  :app/transport :port
+  :app/default-port 7986
+  :app/port-env "WORDCRAFT_CONTROL_PORT"
+  ;; WordCraft authenticates with a per-window KEY, not a token (docs/control-protocol.md L19-53):
+  ;; 256-bit hex written to <settings>/control-key.local-<port> (Linux ~/.config/wordcraft), sent as
+  ;; top-level "key" or once per connection via {"method": "auth", "key": ...}. Neither the socket
+  ;; transport (top-level "token") nor the control-file transport (JSON file, auth {token}) speaks
+  ;; that, so no :app/token-ref is declared and live calls are refused `unauthorized` by the app
+  ;; until a key-carrying transport exists. The catalog is complete regardless.
+  ;; Derived by dev/extract_wordcraft.clj; :reference-revision pins the clone HEAD.
+  :app/catalog-resource "hive_artcraft/catalogs/wordcraft.edn"
+  :app/upstream "https://github.com/storytold/wordcraft"}
 ]

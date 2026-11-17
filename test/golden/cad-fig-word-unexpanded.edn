@@ -1,0 +1,9 @@
+{"cadcraft"
+ [{:macro "dc!",
+   :count 6,
+   :source "crates/engine/src/cmd/constraints.rs"}
+  {:macro "gc!",
+   :count 12,
+   :source "crates/engine/src/cmd/constraints.rs"}],
+ "figcraft" [],
+ "wordcraft" []}

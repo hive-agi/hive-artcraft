@@ -1,0 +1,42 @@
+{"cadcraft"
+ {:app "cadcraft",
+  :shape :port,
+  :catalog
+  {:engine 439,
+   :control 26,
+   :unexpanded 18,
+   :unexpanded-hint
+   "The static catalog does not expand 2 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
+  :port {:port 7982, :source :default},
+  :transport :ready,
+  :hint
+  "CADCRAFT_CONTROL_TOKEN is not set in the hive JVM's environment; export the token the app was started with before starting hive, or use :token-ref {:scheme :file :path ...}. Start the app with a token and give hive the same one: `export CADCRAFT_CONTROL_TOKEN=\"$(python3 -c 'import secrets;print(secrets.token_hex(32))')\"` then `cadcraft --control 7982` from a shell whose environment the hive JVM inherits, or keep the token in a file only you can read and set :apps {\"cadcraft\" {:token-ref {:scheme :file :path \"~/.private/cadcraft-control.token\"}}}.",
+  :token
+  {:ref {:scheme :env, :name "CADCRAFT_CONTROL_TOKEN"},
+   :status :artcraft/token-missing,
+   :fix
+   "Start the app with a token and give hive the same one: `export CADCRAFT_CONTROL_TOKEN=\"$(python3 -c 'import secrets;print(secrets.token_hex(32))')\"` then `cadcraft --control 7982` from a shell whose environment the hive JVM inherits, or keep the token in a file only you can read and set :apps {\"cadcraft\" {:token-ref {:scheme :file :path \"~/.private/cadcraft-control.token\"}}}."}},
+ "figcraft"
+ {:app "figcraft",
+  :shape :port,
+  :catalog
+  {:engine 649,
+   :control 18,
+   :unexpanded 0,
+   :unexpanded-hint
+   "The static catalog does not expand 0 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
+  :port {:port 7984, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."},
+ "wordcraft"
+ {:app "wordcraft",
+  :shape :port,
+  :catalog
+  {:engine 674,
+   :control 19,
+   :unexpanded 0,
+   :unexpanded-hint
+   "The static catalog does not expand 0 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
+  :port {:port 7986, :source :default},
+  :transport :ready,
+  :hint "Transport ready; calls go to the running app."}}
