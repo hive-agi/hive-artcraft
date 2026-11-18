@@ -1,0 +1,17 @@
+[Unit]
+Description=Craft catalog drift probe: every hive-artcraft extractor against storytold HEAD
+Documentation=file://%h/PP/hive/hive-artcraft/ops/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# The main checkout: the sibling hive-photocraft / hive-vectorcraft checkouts are resolved
+# from its parent. Reports land in target/drift/<UTC date>/ (gitignored).
+WorkingDirectory=%h/PP/hive/hive-artcraft
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+# Exit 1 = an extractor failed (threw, or lost a whole kind at HEAD); drift alone exits 0.
+ExecStart=%h/.local/bin/clojure -M:drift --clones %h/PP/artcraft
+TimeoutStartSec=45min
+Nice=15
+IOSchedulingClass=idle
