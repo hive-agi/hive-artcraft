@@ -63,10 +63,12 @@
 
 (deftest no-module-claims-a-token-ref
   ;; deckcraft's control port has no auth; gridcraft's wants a first-line auth handshake, which
-  ;; is not what :app/token-ref puts on the wire (a top-level "token" per request).
+  ;; is not what :app/token-ref puts on the wire (a top-level "token" per request): it declares
+  ;; :app/auth {:mode :handshake} instead (socket_auth_test covers the wire).
   (doseq [id (keys apps)]
-    (is (not (contains? (module id) :app/token-ref)) id)
-    (is (nil? (service/token-ref (module id) {})) id)))
+    (is (not (contains? (module id) :app/token-ref)) id))
+  (is (nil? (service/auth-spec (module "deckcraft") {})))
+  (is (= :handshake (:mode (service/auth-spec (module "gridcraft") {})))))
 
 (deftest catalogs-are-valid-and-pinned
   (doseq [[id {:keys [revision counts]}] apps]

@@ -1,0 +1,6 @@
+{:handshake
+ [{:id 0, :method "auth", :params {:token "S3CR3T-0123456789"}}
+  {:id 1, :method "ping", :params {}}],
+ :none [{:id 3, :method "ping", :params {}}],
+ :per-key
+ [{:id 2, :method "ui.inspect", :params {}, :key "S3CR3T-0123456789"}]}

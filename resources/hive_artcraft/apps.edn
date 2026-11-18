@@ -113,17 +113,20 @@
 
  {:app/id "gridcraft"
   :app/label "GridCraft"
-  :app/summary "Spreadsheets (Excel-style). Native: `gridcraft --control PORT`. Its port requires a first-line auth {token} handshake on every connection, which no hive-artcraft transport sends yet: live calls are refused by the app until one does."
+  :app/summary "Spreadsheets (Excel-style). Native: `gridcraft --control PORT`. Every connection opens with an auth {token} handshake, which the socket transport sends from GRIDCRAFT_CONTROL_TOKEN or the token file the app writes."
   :app/kind :native
   :app/transport :port
   :app/default-port 7985
   :app/port-env "GRIDCRAFT_CONTROL_PORT"
-  ;; docs/control-protocol.md:9-30: the FIRST line of every connection must be
-  ;; {"id":0,"method":"auth","params":{"token":...}}; the token is GRIDCRAFT_CONTROL_TOKEN (>= 16
-  ;; chars) or a 0600 file $XDG_RUNTIME_DIR/gridcraft/control-<port>.token. That is neither
-  ;; filmcraft's top-level "token" (what :app/token-ref makes the socket transport send) nor
-  ;; pdfcraft's {port, token} control file, so no :app/token-ref here: it would put the wrong
-  ;; wire shape on the port. Needs a handshake transport.
+  ;; docs/control-protocol.md:9-30 (crates/mcp/src/control_auth.rs token_path): the FIRST line of
+  ;; every connection must be {"id":0,"method":"auth","params":{"token":...}}; the token is
+  ;; GRIDCRAFT_CONTROL_TOKEN (>= 16 chars) or the 0600 file the app writes,
+  ;; $XDG_RUNTIME_DIR/gridcraft/control-<port>.token (else ~/.cache/gridcraft/...). Read per
+  ;; connection, never logged or returned.
+  :app/auth {:mode :handshake :field "token"
+             :ref {:scheme :env :name "GRIDCRAFT_CONTROL_TOKEN"}
+             :file-pattern ["${XDG_RUNTIME_DIR}/gridcraft/control-{port}.token"
+                            "${HOME}/.cache/gridcraft/control-{port}.token"]}
   ;; Derived by dev/extract_gridcraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/gridcraft.edn"
   :app/upstream "https://github.com/storytold/gridcraft"}
@@ -176,12 +179,16 @@
   :app/transport :port
   :app/default-port 7986
   :app/port-env "WORDCRAFT_CONTROL_PORT"
-  ;; WordCraft authenticates with a per-window KEY, not a token (docs/control-protocol.md L19-53):
-  ;; 256-bit hex written to <settings>/control-key.local-<port> (Linux ~/.config/wordcraft), sent as
-  ;; top-level "key" or once per connection via {"method": "auth", "key": ...}. Neither the socket
-  ;; transport (top-level "token") nor the control-file transport (JSON file, auth {token}) speaks
-  ;; that, so no :app/token-ref is declared and live calls are refused `unauthorized` by the app
-  ;; until a key-carrying transport exists. The catalog is complete regardless.
+  ;; WordCraft authenticates with a per-window KEY, not a token (docs/control-protocol.md L19-53,
+  ;; crates/control-key/src/lib.rs): 256-bit hex written to <settings>/control-key.local-<port>,
+  ;; <settings> = $WORDCRAFT_PROFILE_DIR, else $XDG_CONFIG_HOME/wordcraft, else ~/.config/wordcraft.
+  ;; A new start writes a new key, so it is re-read per connection and sent as top-level "key" on
+  ;; every request; WORDCRAFT_CONTROL_KEY overrides (as for wordcraft-cli mcp --connect).
+  :app/auth {:mode :per-request :field "key"
+             :ref {:scheme :env :name "WORDCRAFT_CONTROL_KEY"}
+             :file-pattern ["${WORDCRAFT_PROFILE_DIR}/control-key.local-{port}"
+                            "${XDG_CONFIG_HOME}/wordcraft/control-key.local-{port}"
+                            "${HOME}/.config/wordcraft/control-key.local-{port}"]}
   ;; Derived by dev/extract_wordcraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/wordcraft.edn"
   :app/upstream "https://github.com/storytold/wordcraft"}
@@ -200,23 +207,27 @@
 
  {:app/id "materialcraft"
   :app/label "MaterialCraft"
-  :app/summary "Node-based material authoring (Designer-style). Native: `materialcraft --control PORT`. Its port requires a first-line auth {token} handshake on every connection, which no hive-artcraft transport sends yet: live calls are refused by the app until one does."
+  :app/summary "Node-based material authoring (Designer-style). Native: `materialcraft --control PORT`. Every connection opens with an auth {token} handshake (MATERIALCRAFT_CONTROL_TOKEN or the token file the app writes); engine commands go as command.run {id, params}."
   :app/kind :native
   :app/transport :port
   :app/default-port 7988
   :app/port-env "MATERIALCRAFT_CONTROL_PORT"
   ;; docs/control-protocol.md:12-24: the FIRST request must be {"method":"auth","params":{"token":...}};
   ;; the token is MATERIALCRAFT_CONTROL_TOKEN (16-1024 printable ASCII) or the 0600 file
-  ;; <temp>/materialcraft-control-<port>.token (std::env::temp_dir, crates/automation/src/security.rs:28),
-  ;; one attempt within 10 s. Same handshake as gridcraft (different token path), so no :app/token-ref.
+  ;; <temp>/materialcraft-control-<port>.token (std::env::temp_dir = $TMPDIR or /tmp,
+  ;; crates/automation/src/security.rs:28), one attempt within 10 s.
+  :app/auth {:mode :handshake :field "token"
+             :ref {:scheme :env :name "MATERIALCRAFT_CONTROL_TOKEN"}
+             :file-pattern ["${TMPDIR:-/tmp}/materialcraft-control-{port}.token"]}
   ;; Engine commands go as command.run {id, params} on this port, not engine.execute.
+  :app/call-method "command.run"
   ;; Derived by dev/extract_materialcraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/materialcraft.edn"
   :app/upstream "https://github.com/storytold/materialcraft"}
 
  {:app/id "texturecraft"
   :app/label "TextureCraft"
-  :app/summary "3D texture painting (Painter-style). Native: `texturecraft --control PORT`. Its port requires a first-line auth {token} handshake on every connection, which no hive-artcraft transport sends yet: live calls are refused by the app until one does."
+  :app/summary "3D texture painting (Painter-style). Native: `texturecraft --control PORT`. Every connection opens with an auth {token} handshake (TEXTURECRAFT_CONTROL_TOKEN or the token file the app writes); engine commands go as command.run {id, params}."
   :app/kind :native
   :app/transport :port
   :app/default-port 7989
@@ -224,10 +235,13 @@
   ;; docs/control-protocol.md:69-95: the first request on every connection must be
   ;; {"id":0,"method":"auth","params":{"token":...}}; the token is TEXTURECRAFT_CONTROL_TOKEN
   ;; (16-1024 printable ASCII) or a random 256-bit token the app writes to
-  ;; <temp>/texturecraft-control-<port>.token ($TMPDIR or /tmp), owner-only. That file holds the
-  ;; bare token, not pdfcraft's {port, token} JSON, and the port is the one given to --control, so
-  ;; :transport :control-file does not fit; no :app/token-ref either (wrong wire shape).
+  ;; <temp>/texturecraft-control-<port>.token ($TMPDIR or /tmp), owner-only (the bare token, not
+  ;; pdfcraft's {port, token} JSON, so :transport :control-file does not fit).
+  :app/auth {:mode :handshake :field "token"
+             :ref {:scheme :env :name "TEXTURECRAFT_CONTROL_TOKEN"}
+             :file-pattern ["${TMPDIR:-/tmp}/texturecraft-control-{port}.token"]}
   ;; Engine commands go as command.run {id, params} on this port, not engine.execute.
+  :app/call-method "command.run"
   ;; Derived by dev/extract_texturecraft.clj; :reference-revision pins the clone HEAD.
   :app/catalog-resource "hive_artcraft/catalogs/texturecraft.edn"
   :app/upstream "https://github.com/storytold/texturecraft"}

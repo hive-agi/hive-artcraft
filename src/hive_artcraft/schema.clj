@@ -11,21 +11,51 @@
   [:enum :port :control-file :none])
 
 (def TokenRef
-  "Where a control token lives, never the token itself: an environment variable of the hive JVM
-   named <APP>_CONTROL_TOKEN (so a config cannot point the channel at an unrelated secret), or a
-   file only the user can access. The value is read at send time, per request."
+  "Where a control secret lives, never the secret itself: an environment variable of the hive JVM
+   named <APP>_CONTROL_TOKEN or <APP>_CONTROL_KEY (so a config cannot point the channel at an
+   unrelated secret), or a file only the user can access. The value is read at send time."
   [:or
-   [:map [:scheme [:= :env]] [:name [:re #"^[A-Z][A-Z0-9_]*_CONTROL_TOKEN$"]]]
+   [:map [:scheme [:= :env]] [:name [:re #"^[A-Z][A-Z0-9_]*_CONTROL_(TOKEN|KEY)$"]]]
    [:map [:scheme [:= :file]] [:path [:re #"\S"]]]])
+
+(def AuthSpec
+  "How a :port app's control channel authenticates, as data.
+   :mode :per-request - the secret rides on EVERY request as a top-level <field> (FilmCraft and
+                        CADCraft \"token\", WordCraft \"key\").
+   :mode :handshake   - the FIRST line of every connection is {\"id\":0,\"method\":\"auth\",
+                        \"params\":{<field>: secret}} and must be answered ok before the request
+                        (GridCraft, MaterialCraft, TextureCraft).
+   :ref           - the environment variable (or file) tried first.
+   :file-pattern  - files the app itself writes, tried in order when :ref yields nothing:
+                    {port} is the control port, ${VAR} an environment variable (a pattern naming
+                    an unset or empty one is skipped).
+   :secret        - :printable (16 to 1024 printable ASCII, the default) or :hex64.
+   The secret is read per connection, never logged, returned or put in an error."
+  [:and
+   [:map
+    [:mode [:enum :handshake :per-request]]
+    [:field [:enum "token" "key"]]
+    [:ref {:optional true} TokenRef]
+    [:file-pattern {:optional true} [:vector [:re #"\{port\}"]]]
+    [:secret {:optional true} [:enum :printable :hex64]]]
+   [:fn {:error/message ":app/auth names a :ref or a :file-pattern"}
+    #(or (contains? % :ref) (seq (:file-pattern %)))]])
+
+(def CallMethod
+  "How an engine command goes on the wire: engine.execute {command, params} (default) or
+   command.run {id, params?} (MaterialCraft, TextureCraft)."
+  [:enum "engine.execute" "command.run"])
 
 (def AppModule
   "One Crafting App, as data. :mount delegates every command to an existing hive addon's tool
    handler; :native is served by hive-artcraft from its catalog resource and transport shape.
    :port-requires names AppConfig keys a delegate needs before a port may be handed to it
-   (PhotoCraft's control channel needs :token-ref). :app/token-ref marks a :native :port app
-   whose control port authenticates every request (FilmCraft): it is the default reference,
-   :apps {\"<id>\" {:token-ref ...}} overrides it, and the socket transport adds the resolved
-   value to each request as a top-level \"token\" field."
+   (PhotoCraft's control channel needs :token-ref). A :native :port app whose control port
+   authenticates declares either :app/token-ref (shorthand for :app/auth {:mode :per-request
+   :field \"token\" :ref <it> :secret :hex64}: FilmCraft, CADCraft) or :app/auth (an AuthSpec:
+   GridCraft, MaterialCraft and TextureCraft handshake, WordCraft sends a per-window key).
+   :apps {\"<id>\" {:token-ref ...}} overrides the reference. :app/call-method names the method an
+   engine command goes out as (default engine.execute)."
   [:and
    [:map
     [:app/id [:re #"^[a-z][a-z0-9-]*$"]]
@@ -39,6 +69,8 @@
     [:app/mount {:optional true} [:map [:ctor qualified-symbol?] [:addon-id :string]
                                   [:port-requires {:optional true} [:vector :keyword]]]]
     [:app/token-ref {:optional true} TokenRef]
+    [:app/auth {:optional true} AuthSpec]
+    [:app/call-method {:optional true} CallMethod]
     [:app/upstream {:optional true} :string]]
    [:fn {:error/message ":port apps declare :app/default-port and :app/port-env"}
     #(or (not= :port (:app/transport %)) (boolean (and (:app/default-port %) (:app/port-env %))))]
@@ -46,11 +78,15 @@
     #(or (not= :mount (:app/kind %)) (contains? % :app/mount))]
    [:fn {:error/message ":native apps declare :app/catalog-resource"}
     #(or (not= :native (:app/kind %)) (contains? % :app/catalog-resource))]
-   [:fn {:error/message ":app/token-ref is for :native :port apps; a :mount delegate takes :token-ref in its :apps config"}
-    #(or (not (contains? % :app/token-ref)) (and (= :native (:app/kind %)) (= :port (:app/transport %))))]])
+   [:fn {:error/message ":app/token-ref, :app/auth and :app/call-method are for :native :port apps; a :mount delegate takes :token-ref in its :apps config"}
+    #(or (not (some (partial contains? %) [:app/token-ref :app/auth :app/call-method]))
+         (and (= :native (:app/kind %)) (= :port (:app/transport %))))]
+   [:fn {:error/message "declare :app/token-ref or :app/auth, not both"}
+    #(not (and (contains? % :app/token-ref) (contains? % :app/auth)))]])
 
 (def AppConfig
-  "Per-app override under the addon config's :apps {\"<app-id>\" {...}}."
+  "Per-app override under the addon config's :apps {\"<app-id>\" {...}}. :token-ref replaces the
+   reference of the app's auth (its :app/token-ref or its :app/auth :ref)."
   [:map
    [:control-port {:optional true} [:int {:min 1 :max 65535}]]
    [:control-host {:optional true} :string]

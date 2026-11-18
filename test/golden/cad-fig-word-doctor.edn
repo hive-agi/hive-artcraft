@@ -39,4 +39,12 @@
    "The static catalog does not expand 0 macro/helper sites; query=unexpanded lists them, and the running app's engine.commands control method returns the full registry."},
   :port {:port 7986, :source :default},
   :transport :ready,
-  :hint "Transport ready; calls go to the running app."}}
+  :hint
+  "environment variable WORDCRAFT_CONTROL_KEY is not set and no key file the app writes for port 7986 was found (no pattern applies on this machine). Start `wordcraft --control 7986` as the user hive runs as: the app writes its key to ${WORDCRAFT_PROFILE_DIR}/control-key.local-{port} or ${XDG_CONFIG_HOME}/wordcraft/control-key.local-{port} or ${HOME}/.config/wordcraft/control-key.local-{port} ({port} = the control port) and hive reads it there per connection. Or start both with the same `WORDCRAFT_CONTROL_KEY` (16+ printable characters), or point :apps {\"wordcraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read.",
+  :token
+  {:ref {:scheme :env, :name "WORDCRAFT_CONTROL_KEY"},
+   :status :artcraft/token-missing,
+   :mode :per-request,
+   :field "key",
+   :fix
+   "Start `wordcraft --control 7986` as the user hive runs as: the app writes its key to ${WORDCRAFT_PROFILE_DIR}/control-key.local-{port} or ${XDG_CONFIG_HOME}/wordcraft/control-key.local-{port} or ${HOME}/.config/wordcraft/control-key.local-{port} ({port} = the control port) and hive reads it there per connection. Or start both with the same `WORDCRAFT_CONTROL_KEY` (16+ printable characters), or point :apps {\"wordcraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read."}}}

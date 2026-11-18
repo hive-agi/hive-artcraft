@@ -20,4 +20,12 @@
   :catalog {:engine 386, :control 34},
   :port {:port 7985, :source :default},
   :transport :ready,
-  :hint "Transport ready; calls go to the running app."}}
+  :hint
+  "environment variable GRIDCRAFT_CONTROL_TOKEN is not set and no token file the app writes for port 7985 was found (no pattern applies on this machine). Start `gridcraft --control 7985` as the user hive runs as: the app writes its token to ${XDG_RUNTIME_DIR}/gridcraft/control-{port}.token or ${HOME}/.cache/gridcraft/control-{port}.token ({port} = the control port) and hive reads it there per connection. Or start both with the same `GRIDCRAFT_CONTROL_TOKEN` (16+ printable characters), or point :apps {\"gridcraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read.",
+  :token
+  {:ref {:scheme :env, :name "GRIDCRAFT_CONTROL_TOKEN"},
+   :status :artcraft/token-missing,
+   :mode :handshake,
+   :field "token",
+   :fix
+   "Start `gridcraft --control 7985` as the user hive runs as: the app writes its token to ${XDG_RUNTIME_DIR}/gridcraft/control-{port}.token or ${HOME}/.cache/gridcraft/control-{port}.token ({port} = the control port) and hive reads it there per connection. Or start both with the same `GRIDCRAFT_CONTROL_TOKEN` (16+ printable characters), or point :apps {\"gridcraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read."}}}
