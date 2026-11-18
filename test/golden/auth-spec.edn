@@ -1,0 +1,21 @@
+{:figcraft nil,
+ :filmcraft
+ {:mode :per-request,
+  :field "token",
+  :ref {:scheme :env, :name "FILMCRAFT_CONTROL_TOKEN"},
+  :secret :hex64},
+ :gridcraft
+ {:mode :handshake,
+  :field "token",
+  :ref {:scheme :env, :name "GRIDCRAFT_CONTROL_TOKEN"},
+  :file-pattern
+  ["${XDG_RUNTIME_DIR}/gridcraft/control-{port}.token"
+   "${HOME}/.cache/gridcraft/control-{port}.token"]},
+ :wordcraft-override
+ {:mode :per-request,
+  :field "key",
+  :ref {:scheme :file, :path "/k"},
+  :file-pattern
+  ["${WORDCRAFT_PROFILE_DIR}/control-key.local-{port}"
+   "${XDG_CONFIG_HOME}/wordcraft/control-key.local-{port}"
+   "${HOME}/.config/wordcraft/control-key.local-{port}"]}}

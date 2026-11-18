@@ -1,0 +1,3 @@
+{:bare {:ok {:id nil, :method "command.run", :params {:id nil}}},
+ :error {:ok {:id nil, :method "command.run", :params {:id nil}}},
+ :params {:ok {:id nil, :method "command.run", :params {:id nil}}}}

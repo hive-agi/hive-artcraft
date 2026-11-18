@@ -4,7 +4,16 @@
   :catalog {:engine 121, :control 12},
   :port {:port 7988, :source :default},
   :transport :ready,
-  :hint "Transport ready; calls go to the running app."},
+  :hint
+  "environment variable MATERIALCRAFT_CONTROL_TOKEN is not set and no token file the app writes for port 7988 was found (looked for /tmp/materialcraft-control-7988.token). Start `materialcraft --control 7988` as the user hive runs as: the app writes its token to ${TMPDIR:-/tmp}/materialcraft-control-{port}.token ({port} = the control port) and hive reads it there per connection. Or start both with the same `MATERIALCRAFT_CONTROL_TOKEN` (16+ printable characters), or point :apps {\"materialcraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read.",
+  :token
+  {:ref {:scheme :env, :name "MATERIALCRAFT_CONTROL_TOKEN"},
+   :status :artcraft/token-missing,
+   :mode :handshake,
+   :field "token",
+   :fix
+   "Start `materialcraft --control 7988` as the user hive runs as: the app writes its token to ${TMPDIR:-/tmp}/materialcraft-control-{port}.token ({port} = the control port) and hive reads it there per connection. Or start both with the same `MATERIALCRAFT_CONTROL_TOKEN` (16+ printable characters), or point :apps {\"materialcraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read."},
+  :call-method "command.run"},
  "soundcraft"
  {:app "soundcraft",
   :shape :port,
@@ -23,4 +32,13 @@
   :catalog {:engine 178, :control 15},
   :port {:port 7989, :source :default},
   :transport :ready,
-  :hint "Transport ready; calls go to the running app."}}
+  :hint
+  "environment variable TEXTURECRAFT_CONTROL_TOKEN is not set and no token file the app writes for port 7989 was found (looked for /tmp/texturecraft-control-7989.token). Start `texturecraft --control 7989` as the user hive runs as: the app writes its token to ${TMPDIR:-/tmp}/texturecraft-control-{port}.token ({port} = the control port) and hive reads it there per connection. Or start both with the same `TEXTURECRAFT_CONTROL_TOKEN` (16+ printable characters), or point :apps {\"texturecraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read.",
+  :token
+  {:ref {:scheme :env, :name "TEXTURECRAFT_CONTROL_TOKEN"},
+   :status :artcraft/token-missing,
+   :mode :handshake,
+   :field "token",
+   :fix
+   "Start `texturecraft --control 7989` as the user hive runs as: the app writes its token to ${TMPDIR:-/tmp}/texturecraft-control-{port}.token ({port} = the control port) and hive reads it there per connection. Or start both with the same `TEXTURECRAFT_CONTROL_TOKEN` (16+ printable characters), or point :apps {\"texturecraft\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read."},
+  :call-method "command.run"}}

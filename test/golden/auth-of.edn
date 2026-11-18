@@ -1,0 +1,11 @@
+{:auth
+ {:mode :handshake,
+  :field "token",
+  :ref {:scheme :env, :name "GRIDCRAFT_CONTROL_TOKEN"},
+  :file-pattern ["${XDG_RUNTIME_DIR}/gridcraft/control-{port}.token"]},
+ :none nil,
+ :token-ref
+ {:mode :per-request,
+  :field "token",
+  :ref {:scheme :env, :name "FILMCRAFT_CONTROL_TOKEN"},
+  :secret :hex64}}

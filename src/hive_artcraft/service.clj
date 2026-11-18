@@ -43,37 +43,58 @@
 
 (defn token-ref
   "The TokenRef a :port app's requests must carry: :apps {\"<id>\" {:token-ref ...}} wins over the
-   module's :app/token-ref default; nil for an app whose port does not authenticate."
+   module's :app/token-ref default (or its :app/auth :ref); nil for an app whose port does not
+   authenticate."
   [module app-cfg]
   (when (= :port (:app/transport module))
-    (or (:token-ref app-cfg) (:app/token-ref module))))
+    (or (:token-ref app-cfg) (:app/token-ref module) (get-in module [:app/auth :ref]))))
+
+(defn auth-spec
+  "The AuthSpec a :port app's transport speaks: the module's :app/auth (its :ref replaced by an
+   :apps {\"<id>\" {:token-ref ...}} override), or the :app/token-ref shorthand as per-request
+   \"token\" of 64 hex; nil when the port does not authenticate."
+  [module app-cfg]
+  (when (= :port (:app/transport module))
+    (let [override (:token-ref app-cfg)]
+      (cond
+        (:app/auth module) (cond-> (:app/auth module) override (assoc :ref override))
+        (token-ref module app-cfg) {:mode :per-request :field "token" :ref (token-ref module app-cfg) :secret :hex64}))))
 
 (defn token-remedy
-  "How to give an authenticating :port app and the hive JVM the same control token."
+  "How to give an authenticating :port app and the hive JVM the same control secret. An app that
+   writes its own token/key file (:app/auth :file-pattern) needs nothing when hive runs as the
+   same user on the same machine."
   [module]
   (let [id (:app/id module)
-        ref (:app/token-ref module)
-        env (if (= :env (:scheme ref)) (:name ref) (str (str/upper-case id) "_CONTROL_TOKEN"))]
-    (str "Start the app with a token and give hive the same one: `export " env
-         "=\"$(python3 -c 'import secrets;print(secrets.token_hex(32))')\"` then `" id " --control "
-         (:app/default-port module) "` from a shell whose environment the hive JVM inherits, or keep the token"
-         " in a file only you can read and set :apps {\"" id "\" {:token-ref {:scheme :file :path \"~/.private/"
-         id "-control.token\"}}}.")))
+        auth (:app/auth module)
+        field (or (:field auth) "token")
+        ref (or (:app/token-ref module) (:ref auth))
+        env (if (= :env (:scheme ref)) (:name ref) (str (str/upper-case id) "_CONTROL_" (str/upper-case field)))]
+    (if (seq (:file-pattern auth))
+      (str "Start `" id " --control " (:app/default-port module) "` as the user hive runs as: the app writes its "
+           field " to " (str/join " or " (:file-pattern auth)) " ({port} = the control port) and hive reads it there"
+           " per connection. Or start both with the same `" env "` (16+ printable characters), or point"
+           " :apps {\"" id "\" {:token-ref {:scheme :file :path \"...\"}}} at a file only you can read.")
+      (str "Start the app with a token and give hive the same one: `export " env
+           "=\"$(python3 -c 'import secrets;print(secrets.token_hex(32))')\"` then `" id " --control "
+           (:app/default-port module) "` from a shell whose environment the hive JVM inherits, or keep the token"
+           " in a file only you can read and set :apps {\"" id "\" {:token-ref {:scheme :file :path \"~/.private/"
+           id "-control.token\"}}}."))))
 
 (defn resolve-transport
   "Injected :transport wins; a :port app gets a loopback socket on its resolved port (carrying its
-   token-ref and `getenv` when its port authenticates); a :control-file app with a configured
+   AuthSpec and `getenv` when its port authenticates); a :control-file app with a configured
    :control-file gets the control-file transport; anything else gets nil."
   ([module app-cfg port-res] (resolve-transport module app-cfg port-res nil))
   ([module app-cfg port-res getenv]
    (or (:transport app-cfg)
        (case (:app/transport module)
          :port (when port-res
-                 (let [ref (token-ref module app-cfg)]
+                 (let [auth (auth-spec module app-cfg)]
                    (socket/socket-transport (cond-> {:port (:port port-res)}
                                               (:control-host app-cfg) (assoc :host (:control-host app-cfg))
-                                              ref (assoc :token-ref ref)
-                                              (and ref getenv) (assoc :getenv getenv)))))
+                                              auth (assoc :auth auth)
+                                              (and auth getenv) (assoc :getenv getenv)))))
          :control-file (when (:control-file app-cfg)
                          (control-file/control-file-transport
                           (cond-> {:control-file (:control-file app-cfg)}
@@ -99,15 +120,18 @@
 (defn doctor
   "Report catalog size (and any unexpanded static-extraction gap), transport shape, whether a
    transport is live, and the remedy. A :control-file transport also reports whether its file is
-   readable and trusted, and an authenticating :port transport whether its token resolves (never
-   the token): with none configured it says so and how to fix it."
+   readable and trusted, and an authenticating :port transport whether its secret resolves and
+   from where (never the secret): with none found it says so and how to fix it. An :app/auth app
+   also reports its auth :mode and :field."
   [module entries transport port-res]
   (let [file (when (= :control-file (:app/transport module)) (get-in transport [:config :control-file]))
         probe (when file (control-file/read-control-file file))
-        tref (when (= :port (:app/transport module))
-               (or (get-in transport [:config :token-ref]) (:app/token-ref module)))
-        tprobe (when (and tref (get-in transport [:config :token-ref]))
-                 (socket/read-token tref (or (get-in transport [:config :getenv]) #(System/getenv ^String %))))
+        live-auth (when (= :port (:app/transport module)) (socket/auth-of (or (:config transport) {})))
+        auth (or live-auth (auth-spec module {}))
+        tref (:ref auth)
+        tprobe (when (and live-auth (:port port-res))
+                 (socket/resolve-secret live-auth (:port port-res)
+                                        (or (get-in transport [:config :getenv]) #(System/getenv ^String %))))
         token-hint (when (:error tprobe) (str (get-in tprobe [:error :hint]) " " (token-remedy module)))]
     {:ok (cond-> {:app (:app/id module)
                   :shape (:app/transport module)
@@ -128,11 +152,14 @@
            file (assoc :control-file {:path file
                                       :status (if (:error probe) (get-in probe [:error :kind]) :trusted)
                                       :port (get-in probe [:ok :port])})
-           tref (assoc :token (cond-> {:ref tref
+           auth (assoc :token (cond-> {:ref tref
                                        :status (cond (nil? tprobe) :unchecked
                                                      (:error tprobe) (get-in tprobe [:error :kind])
                                                      :else :configured)}
-                                token-hint (assoc :fix (token-remedy module)))))}))
+                                (:app/auth module) (assoc :mode (:mode auth) :field (:field auth))
+                                (and (:app/auth module) (:source tprobe)) (assoc :source (:source tprobe))
+                                token-hint (assoc :fix (token-remedy module))))
+           (:app/call-method module) (assoc :call-method (:app/call-method module)))}))
 
 (defn- send!
   [module transport built port-res]
@@ -160,19 +187,37 @@
       {:ok {:id id :method "ui.command"
             :params (cond-> {:id command} (seq extra) (assoc :params extra))}})))
 
+(defn command-run-request
+  "An app whose engine commands go as command.run (MaterialCraft, TextureCraft): an engine
+   command becomes command.run {id, params} (params left out when empty)."
+  [built]
+  (if (:error built)
+    built
+    (let [{:keys [id params]} (:ok built)]
+      {:ok {:id id :method "command.run"
+            :params (cond-> {:id (:command params)} (seq (:params params)) (assoc :params (:params params)))}})))
+
 (defn call
   "Validate an engine command against the catalog, then send it through the app's transport.
-   :control-file apps receive it as ui.command {id}."
+   :control-file apps receive it as ui.command {id}; an :app/call-method \"command.run\" app as
+   command.run {id, params}; every other app as engine.execute {command, params}."
   [module entries transport port-res command params request-id]
   (let [built (core/request entries (:app/id module) command params request-id)]
     (send! module transport
-           (if (= :control-file (:app/transport module)) (ui-command-request built) built)
+           (cond
+             (= :control-file (:app/transport module)) (ui-command-request built)
+             (= "command.run" (:app/call-method module)) (command-run-request built)
+             :else built)
            port-res)))
 
 (defn control
   "Validate a catalogued control method, then send it through the app's transport."
   [module entries transport port-res method params request-id]
   (send! module transport (core/control-request entries (:app/id module) method params request-id) port-res))
+
+(m/=> auth-spec [:=> [:cat schema/AppModule :map] [:maybe schema/AuthSpec]])
+(m/=> command-run-request [:=> [:cat (schema/envelope schema/Request)] (schema/envelope schema/Request)])
+(m/=> auth-spec [:=> [:cat schema/AppModule :map] [:maybe schema/AuthSpec]])
 
 (m/=> load-catalog [:=> [:cat schema/AppModule] (schema/envelope schema/Catalog)])
 (m/=> shape-remedy [:=> [:cat schema/AppModule [:maybe schema/PortResolution]] :string])
